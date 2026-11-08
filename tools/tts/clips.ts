@@ -6,14 +6,8 @@ export type ClipManifest = Record<string, { file: string; durationMs: number; te
 export const clipKey = (voice: string, text: string): string =>
   crypto.createHash("sha1").update(`${voice}|${text}`).digest("hex").slice(0, 16);
 
-const ONES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
-const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
-
-export function numberWords(n: number): string {
-  if (n < 20) return ONES[n];
-  const t = TENS[Math.floor(n / 10)];
-  return n % 10 ? `${t}-${ONES[n % 10]}` : t;
-}
+import { numberWords } from "../../src/engine/lines";
+export { numberWords };
 
 const LINE_TYPES = ["intro", "ask", "countdown", "revealCorrect", "transition", "difficultyUp", "outro"];
 
