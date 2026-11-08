@@ -1,0 +1,36 @@
+{
+  "name": "shorts-qa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "build:data": "tsx tools/build-data/index.ts",
+    "copy:flags": "tsx tools/flags/copy-flags.ts",
+    "copy:fonts": "tsx tools/fonts/copy-fonts.ts",
+    "tts": "tsx tools/tts/generate.ts",
+    "check:assets": "tsx tools/tts/check.ts"
+  },
+  "dependencies": {
+    "flag-icons": "^7.6.0",
+    "mp4-muxer": "^5.2.2",
+    "next": "16.4.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.1.0"
+  }
+}
