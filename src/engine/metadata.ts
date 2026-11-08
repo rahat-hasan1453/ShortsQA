@@ -35,7 +35,9 @@ export function fillTemplate(template: string, spec: QuizSpec): string {
   });
 }
 
-const usable = (t: string) => !t.includes("{theme}");
+// Skip templates that need a theme or promise something the video does not do (timer is 3 s, not 5).
+export const usableTemplate = (t: string) => !t.includes("{theme}") && !/\b5 seconds\b/i.test(t);
+const usable = usableTemplate;
 
 export function buildMetadata(spec: QuizSpec, bank: TitleBank): Metadata {
   const rng = createRng(`${spec.seed}|meta`);
