@@ -5,7 +5,10 @@ import { makeClipIndex, type Manifest } from "@/engine/clipIndex";
 import { buildQuiz } from "@/engine/quizBuilder";
 import { buildTimeline } from "@/engine/timeline";
 import { loadAssets, type Assets } from "@/engine/render/assets";
-import { drawFrame, layoutReveal } from "@/engine/render";
+import { drawFrame, layoutReveal, renderStats } from "@/engine/render";
+import { exportVideo } from "@/engine/export/encoder";
+import { AssetError, ExportBusyError } from "@/engine/errors";
+import { DurationError } from "@/engine/timeline";
 import { H, SAFE, W } from "@/engine/render/layout";
 import type { Timeline } from "@/engine/types";
 import { loadClips, mixAudio, timelineTexts, voiceWindows } from "@/engine/audio/mixer";
@@ -51,6 +54,21 @@ export default function DebugFrame() {
       drawFrame(ctx, { ...p, ...opts }, resolveAt(p.timeline, at));
       return p;
     };
+    const errName = (e: unknown) =>
+      e instanceof DurationError ? "DurationError" : e instanceof AssetError ? "AssetError" : e instanceof ExportBusyError ? "ExportBusyError" : e instanceof Error ? e.name : "unknown";
+    const b64 = async (blob: Blob) => {
+      const u = new Uint8Array(await blob.arrayBuffer());
+      let s = "";
+      for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000));
+      return btoa(s);
+    };
+    const exportOpts = async (themeId: string, seed: string) => {
+      const p = await prepare(themeId, seed);
+      const clips = makeClipIndex(await manifestP!);
+      const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
+      const audio = await mixAudio(p.timeline, buffers, p.theme);
+      return { timeline: p.timeline, theme: p.theme, assets: p.assets, audio };
+    };
     (window as any).__debug = {
       themes: themes.map((t) => t.id),
       names: countries.map((c) => c.name),
@@ -75,6 +93,33 @@ export default function DebugFrame() {
         return layoutReveal(ctx, theme, name);
       },
       dataUrl: () => ref.current!.toDataURL(),
+      exportConcurrent: async (themeId: string, seed: string) => {
+        const o = await exportOpts(themeId, seed);
+        const first = exportVideo(o);
+        let secondError = "none";
+        try { await exportVideo(o); } catch (e) { secondError = errName(e); }
+        return { secondError, firstBase64: await b64(await first) };
+      },
+      exportAbortThenRetry: async (themeId: string, seed: string) => {
+        const o = await exportOpts(themeId, seed);
+        const ac = new AbortController();
+        const pending = exportVideo({ ...o, signal: ac.signal });
+        setTimeout(() => ac.abort(), 700);
+        let abortError = "none";
+        try { await pending; } catch (e) { abortError = errName(e); }
+        const blob = await exportVideo(o);
+        return { abortError, retryBytes: blob.size };
+      },
+      exportBad: async (themeId: string, seed: string, kind: string) => {
+        const o = await exportOpts(themeId, seed);
+        renderStats.frames = 0;
+        const bad = kind === "duration"
+          ? { ...o, timeline: { ...o.timeline, duration: 61 } }
+          : { ...o, assets: { ...o.assets, flags: new Map([...o.assets.flags].slice(1)) } };
+        let error = "none";
+        try { await exportVideo(bad); } catch (e) { error = errName(e); }
+        return { error, framesDrawn: renderStats.frames };
+      },
       audioStats: async (themeId: string, seed: string) => {
         const p = await prepare(themeId, seed);
         const clips = makeClipIndex(await manifestP!);

@@ -99,7 +99,10 @@ function drawHook(ctx: Ctx, f: FrameInput, alpha: number) {
   ctx.restore();
 }
 
+export const renderStats = { frames: 0 };
+
 export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
+  renderStats.frames++;
   const { timeline, theme } = f;
   ctx.save();
   ctx.clearRect(0, 0, W, H);
