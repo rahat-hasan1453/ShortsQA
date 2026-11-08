@@ -1,0 +1,2 @@
+Flag SVGs are from the flag-icons package (https://github.com/lipis/flag-icons), MIT License.
+Copyright (c) 2013 Panayiotis Lipiridis.

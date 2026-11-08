@@ -1,0 +1,1 @@
+Fonts are from the @fontsource packages (https://fontsource.org), each licensed under the SIL Open Font License 1.1 or Apache 2.0 as stated by the upstream Google Fonts project.
