@@ -6,3 +6,4 @@ out/
 tmp/
 test-results/
 playwright-report/
+tools/tts/.venv/

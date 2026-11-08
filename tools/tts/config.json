@@ -1,0 +1,5 @@
+{
+  "voice": "",
+  "candidates": ["en-US-AriaNeural", "en-US-JennyNeural", "en-GB-SoniaNeural"],
+  "edgeTtsBin": "tools/tts/.venv/bin/edge-tts"
+}
