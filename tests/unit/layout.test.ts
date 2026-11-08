@@ -28,3 +28,9 @@ describe("withFont", () => {
     expect(withFont(base, "theme")).toBe(base);
   });
 });
+
+describe("horizontal centering", () => {
+  test("every rect is centered on the canvas (x = 540)", () => {
+    for (const [name, r] of Object.entries(LAYOUT)) expect(r.x + r.w / 2, name).toBe(540);
+  });
+});

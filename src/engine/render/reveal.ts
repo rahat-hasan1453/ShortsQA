@@ -23,7 +23,7 @@ export function applyReveal(ctx: Ctx, style: string, r: number, cx: number, cy: 
 export function drawConfetti(ctx: Ctx, theme: Theme, q: number, r: number): void {
   if (theme.reveal.style !== "confetti" || r > 1.4) return;
   const rng = createRng(`confetti-${q}`);
-  const box = { x0: 60, x1: 900, y0: 480, y1: 1260 };
+  const box = { x0: 170, x1: 900, y0: 480, y1: 1260 };
   const colors = [theme.palette.accent, theme.palette.accent2, theme.palette.correct];
   ctx.save();
   for (let i = 0; i < 42; i++) {

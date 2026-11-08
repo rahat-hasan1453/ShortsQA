@@ -5,7 +5,7 @@ import type { Assets } from "./assets";
 import { drawBackground, type Ctx } from "./background";
 import { H, LAYOUT, SAFE, W, type Rect } from "./layout";
 import { applyReveal, drawConfetti } from "./reveal";
-import { layoutText, type TextLayout } from "./text";
+import { fitText, layoutText, type TextLayout } from "./text";
 import { drawTimer } from "./timer";
 
 export interface FrameInput {
@@ -51,11 +51,15 @@ export function layoutReveal(ctx: Ctx, theme: Theme, name: string): TextLayout {
 function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion) {
   const h = LAYOUT.header, p = theme.palette;
   ctx.textBaseline = "middle"; ctx.textAlign = "left";
-  ctx.fillStyle = p.text; ctx.font = themeFont(theme, "title", 72);
-  ctx.fillText(`FLAG ${q.index + 1}/10`, h.x, h.y + h.h / 2);
   const label = BAND_LABEL[q.band];
   ctx.font = themeFont(theme, "body", 40);
   const bw = ctx.measureText(label).width + 56;
+  const title = `FLAG ${q.index + 1}/10`;
+  // Shrink the title so wide fonts never run into the difficulty badge.
+  const px = fitText((x) => { ctx.font = themeFont(theme, "title", x); return ctx.measureText(title).width; }, h.w - bw - 30, 72, 34);
+  ctx.fillStyle = p.text; ctx.font = themeFont(theme, "title", px);
+  ctx.fillText(title, h.x, h.y + h.h / 2);
+  ctx.font = themeFont(theme, "body", 40);
   const badge: Rect = { x: h.x + h.w - bw, y: h.y + 35, w: bw, h: 60 };
   roundRect(ctx, badge, 30); ctx.fillStyle = q.band === "impossible" ? p.wrong : p.accent2; ctx.fill();
   ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText(label, badge.x + bw / 2, badge.y + 32);
@@ -74,7 +78,10 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
 function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string) {
   const c = LAYOUT.flagCard;
   roundRect(ctx, c, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
-  if (borderColor) { ctx.lineWidth = 10; ctx.strokeStyle = borderColor; ctx.stroke(); }
+  if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
+    roundRect(ctx, { x: c.x + 6, y: c.y + 6, w: c.w - 12, h: c.h - 12 }, 30);
+    ctx.lineWidth = 10; ctx.strokeStyle = borderColor; ctx.stroke();
+  }
   if (!showFlag) return;
   const img = f.assets.flags.get(q.iso2);
   if (!img) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
