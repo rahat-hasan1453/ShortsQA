@@ -11,8 +11,8 @@ function download(name: string, blob: Blob) {
   setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
 }
 
-export default function ExportPanel({ prepared, settings, supported, busy, setBusy }: {
-  prepared: Prepared | null; settings: Settings; supported: boolean; busy: boolean; setBusy: (b: boolean) => void;
+export default function ExportPanel({ prepared, settings, supported, busy, setBusy, background }: {
+  prepared: Prepared | null; settings: Settings; supported: boolean; busy: boolean; setBusy: (b: boolean) => void; background?: ImageBitmap;
 }) {
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
@@ -46,7 +46,8 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
         <label>Batch count <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
         <button type="button" disabled={!supported || busy} onClick={() => run(async (signal) => {
           for (let i = 0; i < batch; i++) {
-            const p = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
+            const fresh = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
+            const p = { ...fresh, assets: { ...fresh.assets, background } };
             await exportOne(p, signal, `Video ${i + 1}/${batch}`);
           }
         })}>Export batch</button>

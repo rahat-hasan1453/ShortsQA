@@ -10,8 +10,14 @@ const SPOTS = (() => {
 })();
 
 /** Background is a pure function of (theme, t). */
-export function drawBackground(ctx: Ctx, theme: Theme, t: number): void {
+export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageBitmap): void {
   const p = theme.palette;
+  if (image) {
+    // User image (already cover-fitted to 1080x1920) with a light scrim so text stays readable.
+    ctx.drawImage(image, 0, 0, W, H);
+    ctx.save(); ctx.globalAlpha = 0.35; ctx.fillStyle = p.bgFrom; ctx.fillRect(0, 0, W, H); ctx.restore();
+    return;
+  }
   const type = theme.background.type;
   const angle = type === "animated-gradient" ? t * 0.25 : 0.9;
   const dx = Math.cos(angle) * W, dy = Math.sin(angle) * H;

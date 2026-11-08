@@ -53,3 +53,47 @@ test("the seed fixes the first flag: same seed same flag across reloads, other s
   expect(a1).toBe(a2);
   expect(b).not.toBe(a1);
 });
+
+function solidPng(r: number, g: number, b: number): Buffer {
+  const zlib = require("node:zlib");
+  const crcTable = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+  const crc = (buf: Buffer) => { let c = 0xffffffff; for (const x of buf) c = crcTable[(c ^ x) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+  const chunk = (type: string, data: Buffer) => {
+    const len = Buffer.alloc(4); len.writeUInt32BE(data.length);
+    const td = Buffer.concat([Buffer.from(type), data]);
+    const c = Buffer.alloc(4); c.writeUInt32BE(crc(td));
+    return Buffer.concat([len, td, c]);
+  };
+  const w = 4, h = 4;
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 2;
+  const row = Buffer.concat([Buffer.from([0]), Buffer.from(Array.from({ length: w }, () => [r, g, b]).flat())]);
+  const raw = Buffer.concat(Array.from({ length: h }, () => row));
+  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk("IHDR", ihdr), chunk("IDAT", zlib.deflateSync(raw)), chunk("IEND", Buffer.alloc(0))]);
+}
+
+const pixel = (page: any, x: number, y: number) => page.evaluate(([px, py]: number[]) => {
+  const c = document.querySelector("canvas") as HTMLCanvasElement;
+  return Array.from(c.getContext("2d")!.getImageData(px, py, 1, 1).data);
+}, [x, y]);
+
+test("a chosen background image fills the frame; Clear background restores the theme", async ({ page }) => {
+  await page.goto("/?seed=demo&theme=arctic-ice");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  await page.waitForTimeout(500);
+  const before = await pixel(page, 10, 10);
+  await page.getByLabel("Background image").setInputFiles({ name: "red.png", mimeType: "image/png", buffer: solidPng(255, 0, 0) });
+  await expect.poll(async () => (await pixel(page, 10, 10))[0] > 180 && (await pixel(page, 10, 10))[1] < 150, { timeout: 15000 }).toBe(true);
+  await page.getByRole("button", { name: "Clear background" }).click();
+  await expect.poll(async () => { const now = await pixel(page, 10, 10); return now.every((v: number, i: number) => Math.abs(v - before[i]) <= 3); }, { timeout: 15000 }).toBe(true);
+});
+
+test("choosing a font changes how the frame is drawn and reports no font warning", async ({ page }) => {
+  await page.goto("/?seed=demo&theme=arctic-ice");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  await page.waitForTimeout(500);
+  const url = () => page.evaluate(() => (document.querySelector("canvas") as HTMLCanvasElement).toDataURL());
+  const before = await url();
+  await page.getByLabel("Font").selectOption("Press Start 2P");
+  await expect.poll(async () => (await url()) !== before, { timeout: 20000 }).toBe(true);
+  await expect(page.getByText("failed to load")).toHaveCount(0);
+});

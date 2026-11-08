@@ -4,6 +4,8 @@ import type { Theme } from "../types";
 
 export interface Assets {
   flags: Map<string, ImageBitmap>;
+  /** Optional user background, cover-fitted to 1080x1920. */
+  background?: ImageBitmap;
   fontsOk: boolean;
   warnings: string[];
 }
@@ -45,4 +47,18 @@ export async function loadAssets(theme: Theme, iso2s: string[]): Promise<Assets>
   const flags = new Map<string, ImageBitmap>();
   await Promise.all([...new Set(iso2s)].map(async (i) => flags.set(i, await rasterFlag(i))));
   return { flags, fontsOk, warnings };
+}
+
+/** Decodes an image file and cover-fits it to the 1080x1920 frame. */
+export async function loadBackground(file: Blob): Promise<ImageBitmap> {
+  const src = await createImageBitmap(file);
+  try {
+    const c = new OffscreenCanvas(1080, 1920);
+    const k = Math.max(1080 / src.width, 1920 / src.height);
+    const w = src.width * k, h = src.height * k;
+    c.getContext("2d")!.drawImage(src, (1080 - w) / 2, (1920 - h) / 2, w, h);
+    return await createImageBitmap(c);
+  } finally {
+    src.close();
+  }
 }

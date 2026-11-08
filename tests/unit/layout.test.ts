@@ -14,3 +14,17 @@ describe("layout", () => {
     expect(LAYOUT.flagCard.w / LAYOUT.flagCard.h).toBeCloseTo(4 / 3, 2);
   });
 });
+
+import { themes } from "./helpers";
+import { withFont } from "../../src/engine/theme";
+
+describe("withFont", () => {
+  test("replaces all three font roles and leaves the theme untouched", () => {
+    const base = themes[0];
+    const out = withFont(base, "Press Start 2P");
+    expect(out.fonts).toEqual({ title: "Press Start 2P", body: "Press Start 2P", numbers: "Press Start 2P" });
+    expect(base.fonts.title).not.toBe("Press Start 2P");
+    expect(withFont(base, undefined)).toBe(base);
+    expect(withFont(base, "theme")).toBe(base);
+  });
+});

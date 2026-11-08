@@ -7,6 +7,7 @@ import { loadAssets, type Assets } from "@/engine/render/assets";
 import { buildTimeline } from "@/engine/timeline";
 import type { QuizSpec, Theme, Timeline } from "@/engine/types";
 import { createRng } from "@/engine/rng";
+import { withFont } from "@/engine/theme";
 import type { Settings } from "./components/Controls";
 
 export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; assets: Assets; metadata: Metadata; clips: ClipIndex }
@@ -21,7 +22,7 @@ export async function prepare(s: Settings): Promise<Prepared> {
     : s.themeId;
   const spec = buildQuiz({ seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
-  const theme = themes.find((t) => t.id === spec.themeId)!;
+  const theme = withFont(themes.find((t) => t.id === spec.themeId)!, s.font);
   const assets = await loadAssets(theme, spec.questions.map((q) => q.iso2));
   return { spec, timeline, theme, assets, metadata: buildMetadata(spec, flagsTitles), clips };
 }

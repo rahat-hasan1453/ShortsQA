@@ -106,7 +106,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   const { timeline, theme } = f;
   ctx.save();
   ctx.clearRect(0, 0, W, H);
-  drawBackground(ctx, theme, t);
+  drawBackground(ctx, theme, t, f.assets.background);
   if (f.backgroundOnly) { ctx.restore(); return; }
   const tt = Math.min(Math.max(t, 0), timeline.duration - 1e-6);
   const scene = timeline.scenes.find((s) => tt >= s.start && tt < s.end) ?? timeline.scenes[timeline.scenes.length - 1];

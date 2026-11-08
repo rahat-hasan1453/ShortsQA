@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Controls, { randomSeed, type Settings } from "./components/Controls";
 import ExportPanel from "./components/ExportPanel";
 import Preview from "./components/Preview";
 import { detectSupport, type Support } from "@/engine/export/support";
+import { loadBackground } from "@/engine/render/assets";
 import { mixFor, prepare, type Prepared } from "./prepare";
 
 export default function Page() {
@@ -12,11 +13,12 @@ export default function Page() {
   const [support, setSupport] = useState<Support | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [bg, setBg] = useState<ImageBitmap | null>(null);
   const audioCache = useRef<{ p: Prepared; buf: Promise<AudioBuffer> } | null>(null);
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    setSettings({ themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1" });
+    setSettings({ themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme" });
     detectSupport().then(setSupport);
   }, []);
 
@@ -27,6 +29,12 @@ export default function Page() {
     prepare(settings).then((p) => { if (!cancelled) setPrepared(p); }).catch((e) => { if (!cancelled) setError(String(e?.message ?? e)); });
     return () => { cancelled = true; };
   }, [settings]);
+
+  const chooseBackground = async (f: File | null) => {
+    try { setBg(f ? await loadBackground(f) : null); setError(""); }
+    catch { setError("That image could not be read. Try a JPG or PNG."); }
+  };
+  const view = useMemo(() => (prepared ? { ...prepared, assets: { ...prepared.assets, background: bg ?? undefined } } : null), [prepared, bg]);
 
   const getAudio = () => {
     if (!prepared) return Promise.reject(new Error("not ready"));
@@ -44,11 +52,11 @@ export default function Page() {
         {support && !support.ok && <p role="alert" style={{ color: "#b00020" }}>{support.reason}</p>}
         {error && <p role="alert" style={{ color: "#b00020" }}>{error}</p>}
         {warnings.map((w) => <p key={w} role="alert" style={{ color: "#a15c00" }}>{w}</p>)}
-        <Controls value={settings} onChange={setSettings} disabled={busy} />
+        <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} />
         {prepared && <div><strong>{prepared.metadata.title}</strong><div style={{ fontSize: 13 }}>{prepared.metadata.hashtags.join(" ")}</div></div>}
-        <ExportPanel prepared={prepared} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} />
+        <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
       </section>
-      <Preview prepared={prepared} getAudio={getAudio} />
+      <Preview prepared={view} getAudio={getAudio} />
     </main>
   );
 }
