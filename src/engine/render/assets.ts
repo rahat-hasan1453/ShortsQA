@@ -1,0 +1,48 @@
+import { flagPath, fontFile, fontFileBold, fontSlug } from "../assetPaths";
+import { AssetError } from "../errors";
+import type { Theme } from "../types";
+
+export interface Assets {
+  flags: Map<string, ImageBitmap>;
+  fontsOk: boolean;
+  warnings: string[];
+}
+
+async function rasterFlag(iso2: string): Promise<ImageBitmap> {
+  const res = await fetch(flagPath(iso2));
+  if (!res.ok) throw new AssetError(`flag ${iso2} failed to load (${res.status})`);
+  const url = URL.createObjectURL(await res.blob());
+  try {
+    const img = new Image();
+    img.src = url;
+    await img.decode();
+    const c = new OffscreenCanvas(1080, 810);
+    c.getContext("2d")!.drawImage(img, 0, 0, 1080, 810);
+    return await createImageBitmap(c);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+/** Loads the theme's fonts and only the flags this quiz needs (a full set would be ~800 MB of bitmaps). */
+export async function loadAssets(theme: Theme, iso2s: string[]): Promise<Assets> {
+  const warnings: string[] = [];
+  let fontsOk = true;
+  for (const family of new Set(Object.values(theme.fonts))) {
+    try {
+      for (const [url, weight] of [[fontFile(family), "400"], [fontFileBold(family), "700"]] as const) {
+        const res = await fetch(url);
+        if (!res.ok) { if (weight === "400") throw new Error(String(res.status)); continue; }
+        const face = new FontFace(family, await res.arrayBuffer(), { weight });
+        await face.load();
+        document.fonts.add(face);
+      }
+    } catch {
+      fontsOk = false;
+      warnings.push(`Font "${family}" (${fontSlug(family)}) failed to load; using a fallback font.`);
+    }
+  }
+  const flags = new Map<string, ImageBitmap>();
+  await Promise.all([...new Set(iso2s)].map(async (i) => flags.set(i, await rasterFlag(i))));
+  return { flags, fontsOk, warnings };
+}

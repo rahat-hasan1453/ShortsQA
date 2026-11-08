@@ -43,3 +43,22 @@ describe("buildTimeline", () => {
     expect(() => buildTimeline(spec, { clipMs: () => 5000, voice })).toThrow(DurationError);
   });
 });
+
+import fs from "node:fs";
+import path from "node:path";
+import { makeClipIndex } from "../../src/engine/clipIndex";
+
+describe("with the real voice manifest", () => {
+  const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../public/audio/manifest.json"), "utf8"));
+  const clips = makeClipIndex(manifest);
+  test("500 seeds build within 59 s and every spoken text has a clip", () => {
+    let max = 0;
+    for (let i = 0; i < 500; i++) {
+      const spec = buildQuiz({ ...base, clipMs: (t) => clips.ms(t), seed: "real" + i });
+      const tl = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
+      max = Math.max(max, tl.duration);
+      for (const c of tl.cues) if (c.kind === "voice") for (const text of c.clips) expect(clips.has(text), text).toBe(true);
+    }
+    expect(max).toBeLessThanOrEqual(59);
+  });
+});

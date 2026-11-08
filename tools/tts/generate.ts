@@ -5,6 +5,8 @@ import { promisify } from "node:util";
 import { collectClipRequests, type ClipManifest } from "./clips";
 
 const run = promisify(execFile);
+// Edge TTS clips carry leading/trailing silence and loudnorm pads short clips; trim both ends before and after.
+const TRIM = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.06,areverse";
 const root = path.resolve(__dirname, "../..");
 const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "utf8"));
 if (!cfg.voice) throw new Error("config.json voice is empty; run audition and choose one");
@@ -23,7 +25,7 @@ async function make(r: { key: string; text: string }) {
   const raw = path.join(tmpDir, `${r.key}.mp3`);
   const out = path.join(audioDir, `${r.key}.mp3`);
   await run(path.join(root, cfg.edgeTtsBin), ["--voice", cfg.voice, "--text", r.text, "--write-media", raw]);
-  await run("ffmpeg", ["-y", "-loglevel", "error", "-i", raw, "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "44100", "-ac", "1", out]);
+  await run("ffmpeg", ["-y", "-loglevel", "error", "-i", raw, "-af", TRIM + ",loudnorm=I=-16:TP=-1.5:LRA=11," + TRIM, "-ar", "44100", "-ac", "1", out]);
   const { stdout } = await run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out]);
   manifest[r.key] = { file: `${r.key}.mp3`, durationMs: Math.round(parseFloat(stdout) * 1000), text: r.text };
   fs.rmSync(raw);
