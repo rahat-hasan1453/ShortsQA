@@ -1,0 +1,322 @@
+[
+  {
+    "id": "neon-night",
+    "name": "Neon Night",
+    "mood": "energetic, techy",
+    "palette": {
+      "bgFrom": "#0B0F2A",
+      "bgTo": "#2A0B4D",
+      "card": "#FFFFFF1A",
+      "text": "#FFFFFF",
+      "accent": "#00F5D4",
+      "accent2": "#FF3CAC",
+      "correct": "#35E57A",
+      "wrong": "#FF4D6D"
+    },
+    "background": {
+      "type": "animated-gradient",
+      "description": "Diagonal purple-to-navy linear gradient with about 12 blurred glowing dots (radial gradients in cyan and magenta, 20-60px) floating upward at different speeds",
+      "motion": "slow drift, 20s loop"
+    },
+    "fonts": {
+      "title": "Poppins",
+      "body": "Inter",
+      "numbers": "Orbitron"
+    },
+    "timer": {
+      "style": "ring",
+      "tickEffect": "cyan ring drains clockwise, pulses and turns pink on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "pop",
+      "correctEffect": "green glow + scale up to 1.08, plus a tick icon",
+      "wrongOptionEffect": "fade to 30% opacity and shrink slightly"
+    },
+    "music": {
+      "mood": "upbeat synthwave, 110 bpm, no vocals",
+      "searchKeywords": ["upbeat synthwave no copyright", "quiz show background music"]
+    },
+    "bestFor": ["flags", "math", "missing-letters"],
+    "contrastNote": "text on bg ≈ 15:1 at the lighter purple stop; correct is much brighter than wrong"
+  },
+  {
+    "id": "sunny-pastel",
+    "name": "Sunny Pastel",
+    "mood": "cheerful, friendly, light",
+    "palette": {
+      "bgFrom": "#FFF6D6",
+      "bgTo": "#FFD9E8",
+      "card": "#FFFFFFD9",
+      "text": "#2B2250",
+      "accent": "#FF7A3D",
+      "accent2": "#3DA5FF",
+      "correct": "#065F46",
+      "wrong": "#FF6B57"
+    },
+    "background": {
+      "type": "bokeh",
+      "description": "Soft cream-to-pink vertical gradient with large semi-transparent pastel circles (yellow, mint, sky blue, 80-240px, 35% opacity) scattered across the frame",
+      "motion": "circles bob up and down gently, 12s loop"
+    },
+    "fonts": {
+      "title": "Baloo 2",
+      "body": "Nunito",
+      "numbers": "Fredoka"
+    },
+    "timer": {
+      "style": "pulse",
+      "tickEffect": "orange circle with the digit bounces on every second and grows on the last 3"
+    },
+    "reveal": {
+      "style": "confetti",
+      "correctEffect": "dark green answer card with white text, burst of pastel confetti",
+      "wrongOptionEffect": "fade to 35% opacity with a small sideways wobble"
+    },
+    "music": {
+      "mood": "playful ukulele and pizzicato, 120 bpm, light claps, no vocals",
+      "searchKeywords": ["happy ukulele no copyright", "kids quiz background music"]
+    },
+    "bestFor": ["flags", "capitals", "what-is-it"],
+    "contrastNote": "text on bg ≈ 10:1; correct (dark green) vs wrong (bright coral) differ strongly in brightness; add a tick or cross icon"
+  },
+  {
+    "id": "dark-minimal",
+    "name": "Dark Minimal",
+    "mood": "clean, focused, modern",
+    "palette": {
+      "bgFrom": "#0A0A0B",
+      "bgTo": "#17171C",
+      "card": "#FFFFFF12",
+      "text": "#F5F5F7",
+      "accent": "#FFD43B",
+      "accent2": "#9AA0AB",
+      "correct": "#7CFFB2",
+      "wrong": "#FF5C5C"
+    },
+    "background": {
+      "type": "gradient",
+      "description": "Near-black vertical gradient with a faint radial vignette and a very subtle 1px dot grid at 4% white opacity",
+      "motion": "static, optional 30s slow vignette breathing"
+    },
+    "fonts": {
+      "title": "Space Grotesk",
+      "body": "Inter",
+      "numbers": "JetBrains Mono"
+    },
+    "timer": {
+      "style": "numeric",
+      "tickEffect": "large yellow digit fades and slides up each second, turns red on the last 3"
+    },
+    "reveal": {
+      "style": "wipe",
+      "correctEffect": "thin mint outline wipes left to right around the correct answer and it brightens",
+      "wrongOptionEffect": "text dims to 25% and a thin line strikes through it"
+    },
+    "music": {
+      "mood": "minimal lo-fi electronic with a soft ticking pulse, 95 bpm, no vocals",
+      "searchKeywords": ["minimal tension background no copyright", "lofi quiz thinking music"]
+    },
+    "bestFor": ["math", "capitals", "missing-letters"],
+    "contrastNote": "text on bg ≈ 16:1; mint correct is far brighter than red wrong"
+  },
+  {
+    "id": "retro-arcade",
+    "name": "Retro Arcade",
+    "mood": "nostalgic, playful, high-score",
+    "palette": {
+      "bgFrom": "#1A0033",
+      "bgTo": "#0D0221",
+      "card": "#000000A6",
+      "text": "#FFFFFF",
+      "accent": "#FFE600",
+      "accent2": "#00E5FF",
+      "correct": "#39FF88",
+      "wrong": "#FF2E63"
+    },
+    "background": {
+      "type": "grid",
+      "description": "Deep purple gradient with a magenta and cyan perspective floor grid in the lower half (CSS 3D-transformed repeating lines) and a pixel-art sun at the horizon",
+      "motion": "grid lines scroll toward the viewer, 4s loop"
+    },
+    "fonts": {
+      "title": "Press Start 2P",
+      "body": "Chakra Petch",
+      "numbers": "Press Start 2P"
+    },
+    "timer": {
+      "style": "flip",
+      "tickEffect": "scoreboard-style digit flips each second, blinks yellow and red on the last 3"
+    },
+    "reveal": {
+      "style": "shake",
+      "correctEffect": "screen shake, green flash border, 'CORRECT!' pixel banner",
+      "wrongOptionEffect": "options glitch, then drop to 25% opacity"
+    },
+    "music": {
+      "mood": "8-bit chiptune, 130 bpm, bouncy arpeggios, no vocals",
+      "searchKeywords": ["8 bit chiptune no copyright", "retro arcade game music"]
+    },
+    "bestFor": ["math", "what-is-it", "flags"],
+    "contrastNote": "text on bg ≈ 17:1; use short lines because the pixel title font is wide"
+  },
+  {
+    "id": "paper-craft",
+    "name": "Paper Craft",
+    "mood": "warm, handmade, cozy",
+    "palette": {
+      "bgFrom": "#F4E9D8",
+      "bgTo": "#EFD9BE",
+      "card": "#FFFFFFEB",
+      "text": "#2F2A24",
+      "accent": "#D9480F",
+      "accent2": "#1C7ED6",
+      "correct": "#1E6B35",
+      "wrong": "#FF6B6B"
+    },
+    "background": {
+      "type": "texture",
+      "description": "Cream paper color with SVG feTurbulence grain at low opacity and 3 layered torn-edge wave shapes in terracotta, mustard and teal with soft drop shadows at the bottom",
+      "motion": "layers sway slightly, 15s loop"
+    },
+    "fonts": {
+      "title": "Lilita One",
+      "body": "DM Sans",
+      "numbers": "Lilita One"
+    },
+    "timer": {
+      "style": "hourglass",
+      "tickEffect": "paper-cut hourglass drains sand strip, wobbles on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "flip",
+      "correctEffect": "answer card flips like a paper flap to a green side with a drop shadow",
+      "wrongOptionEffect": "card folds down and fades to 30% opacity"
+    },
+    "music": {
+      "mood": "acoustic folk with light percussion and whistle, 105 bpm, no vocals",
+      "searchKeywords": ["acoustic quirky background no copyright", "cozy cheerful quiz music"]
+    },
+    "bestFor": ["landmarks", "what-is-it", "capitals"],
+    "contrastNote": "text on bg ≈ 10:1; dark green correct vs light coral wrong differ clearly in brightness"
+  },
+  {
+    "id": "ocean-breeze",
+    "name": "Ocean Breeze",
+    "mood": "fresh, calm, airy",
+    "palette": {
+      "bgFrom": "#E6FBFF",
+      "bgTo": "#A8E6F5",
+      "card": "#FFFFFFCC",
+      "text": "#06293D",
+      "accent": "#0077B6",
+      "accent2": "#FF8A3D",
+      "correct": "#006D4F",
+      "wrong": "#FF7A59"
+    },
+    "background": {
+      "type": "animated-gradient",
+      "description": "Pale aqua gradient with three layered SVG sine-wave bands in deeper blues across the bottom third and a few white bubble circles rising",
+      "motion": "waves slide horizontally in opposite directions, 10s loop"
+    },
+    "fonts": {
+      "title": "Montserrat",
+      "body": "Nunito Sans",
+      "numbers": "Righteous"
+    },
+    "timer": {
+      "style": "bar",
+      "tickEffect": "blue bar fills with a rippling wave edge and shifts to orange on the last 3"
+    },
+    "reveal": {
+      "style": "wipe",
+      "correctEffect": "wave wipes across the correct answer, leaving a deep green card",
+      "wrongOptionEffect": "options sink down slightly and fade to 30%"
+    },
+    "music": {
+      "mood": "breezy tropical pop-house with marimba, 112 bpm, no vocals",
+      "searchKeywords": ["tropical chill background no copyright", "summer vlog upbeat music"]
+    },
+    "bestFor": ["landmarks", "country-shape", "capitals"],
+    "contrastNote": "text on bg ≈ 11:1; deep green correct vs coral wrong differ strongly in brightness"
+  },
+  {
+    "id": "sunset-glow",
+    "name": "Sunset Glow",
+    "mood": "warm, dramatic, inviting",
+    "palette": {
+      "bgFrom": "#2B0A3D",
+      "bgTo": "#6B1D4A",
+      "card": "#FFFFFF1F",
+      "text": "#FFF8F0",
+      "accent": "#FFB703",
+      "accent2": "#FF6B35",
+      "correct": "#5DF2B0",
+      "wrong": "#FF4D4D"
+    },
+    "background": {
+      "type": "animated-gradient",
+      "description": "Vertical gradient from deep purple through magenta to orange glow near the lower third, with a large soft sun circle and dark layered ridge silhouettes in SVG at the bottom",
+      "motion": "sun glow slowly pulses, 14s loop"
+    },
+    "fonts": {
+      "title": "Anton",
+      "body": "Outfit",
+      "numbers": "Anton"
+    },
+    "timer": {
+      "style": "ring",
+      "tickEffect": "thin amber ring with gradient stroke shrinks, glows stronger on the last 3"
+    },
+    "reveal": {
+      "style": "pop",
+      "correctEffect": "answer card scales up with a warm yellow glow and a mint check badge",
+      "wrongOptionEffect": "fade to 30% opacity and desaturate"
+    },
+    "music": {
+      "mood": "warm chillwave with soft guitar, 100 bpm, no vocals",
+      "searchKeywords": ["sunset chill background no copyright", "warm cinematic upbeat music"]
+    },
+    "bestFor": ["landmarks", "capitals", "country-shape"],
+    "contrastNote": "text on bg ≈ 10:1 at the lightest magenta stop; mint correct is much brighter than red wrong"
+  },
+  {
+    "id": "space-odyssey",
+    "name": "Space Odyssey",
+    "mood": "epic, curious, futuristic",
+    "palette": {
+      "bgFrom": "#02030F",
+      "bgTo": "#1B1050",
+      "card": "#FFFFFF17",
+      "text": "#FFFFFF",
+      "accent": "#9D7BFF",
+      "accent2": "#FFC857",
+      "correct": "#5CFFB1",
+      "wrong": "#FF5C8A"
+    },
+    "background": {
+      "type": "pattern",
+      "description": "Dark navy to indigo gradient with a starfield made of 80 tiny white radial-gradient dots in 3 size layers and a soft purple nebula blob made from blurred radial gradients",
+      "motion": "star layers drift at different speeds, twinkle, 30s loop"
+    },
+    "fonts": {
+      "title": "Exo 2",
+      "body": "Sora",
+      "numbers": "Audiowide"
+    },
+    "timer": {
+      "style": "pulse",
+      "tickEffect": "radar-style circle pulses outward each second, yellow and faster on the last 3"
+    },
+    "reveal": {
+      "style": "pop",
+      "correctEffect": "starburst flash behind a mint-outlined answer that scales up",
+      "wrongOptionEffect": "options drift away and fade to 25% opacity"
+    },
+    "music": {
+      "mood": "ambient cinematic electronic with soft pulses, 90 bpm, no vocals",
+      "searchKeywords": ["space ambient background no copyright", "sci-fi cinematic quiz music"]
+    },
+    "bestFor": ["country-shape", "what-is-it", "math"],
+    "contrastNote": "text on bg ≈ 16:1; mint correct is clearly brighter than pink-red wrong"
+  }
+]

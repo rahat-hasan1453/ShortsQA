@@ -1,0 +1,395 @@
+[
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Thermos",
+  "with": "Vacuum Flask"
+ },
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Frisbee",
+  "with": "Flying Disc"
+ },
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Jet Ski",
+  "with": "Personal Watercraft"
+ },
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Skittles-style Candy",
+  "with": "Gumdrops"
+ },
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Velcro",
+  "with": "Hook and Loop Strip"
+ },
+ {
+  "file": "what_is_it",
+  "op": "replace",
+  "value": "Rubik's Cube",
+  "with": "Puzzle Cube"
+ },
+ {
+  "file": "what_is_it",
+  "n": 456,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Scotch Tape"
+ },
+ {
+  "file": "what_is_it",
+  "n": 399,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Popsicle"
+ },
+ {
+  "file": "what_is_it",
+  "n": 540,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Hoover"
+ },
+ {
+  "file": "what_is_it",
+  "n": 584,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Crescent Wrench"
+ },
+ {
+  "file": "what_is_it",
+  "n": 586,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Stanley Knife"
+ },
+ {
+  "file": "what_is_it",
+  "n": 602,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Stillson Wrench"
+ },
+ {
+  "file": "what_is_it",
+  "n": 603,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Skill Saw"
+ },
+ {
+  "file": "what_is_it",
+  "n": 617,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Jubilee Clip"
+ },
+ {
+  "file": "what_is_it",
+  "n": 659,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Zeppelin"
+ },
+ {
+  "file": "what_is_it",
+  "n": 51,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Kiwi"
+ },
+ {
+  "file": "what_is_it",
+  "n": 268,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Kiwi"
+ },
+ {
+  "file": "what_is_it",
+  "n": 432,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Mouse"
+ },
+ {
+  "file": "what_is_it",
+  "n": 593,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Plane"
+ },
+ {
+  "file": "what_is_it",
+  "n": 656,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Plane"
+ },
+ {
+  "file": "what_is_it",
+  "n": 758,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Palm"
+ },
+ {
+  "file": "what_is_it",
+  "n": 971,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Nail"
+ },
+ {
+  "file": "what_is_it",
+  "n": 91,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Elk"
+ },
+ {
+  "file": "what_is_it",
+  "n": 950,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Windmill"
+ },
+ {
+  "file": "what_is_it",
+  "n": 749,
+  "field": "answer",
+  "op": "set",
+  "with": "Valley Lily"
+ },
+ {
+  "file": "what_is_it",
+  "n": 749,
+  "field": "altAnswers",
+  "op": "set",
+  "with": [
+   "Lily of the Valley"
+  ]
+ },
+ {
+  "file": "landmarks",
+  "n": 122,
+  "op": "dropRow"
+ },
+ {
+  "file": "landmarks",
+  "n": 281,
+  "op": "dropRow"
+ },
+ {
+  "file": "landmarks",
+  "n": 27,
+  "field": "country",
+  "op": "set",
+  "with": "Czechia"
+ },
+ {
+  "file": "landmarks",
+  "n": 71,
+  "field": "country",
+  "op": "set",
+  "with": "Czechia"
+ },
+ {
+  "file": "landmarks",
+  "n": 224,
+  "field": "country",
+  "op": "set",
+  "with": "Czechia"
+ },
+ {
+  "file": "landmarks",
+  "op": "replace",
+  "value": "HK",
+  "with": "ID",
+  "field": "distractorIso2"
+ },
+ {
+  "file": "missing_letters",
+  "n": 29,
+  "field": "hint",
+  "op": "set",
+  "with": "Tiny flyer that hovers at flowers"
+ },
+ {
+  "file": "missing_letters",
+  "n": 53,
+  "field": "hint",
+  "op": "set",
+  "with": "Arctic mammal with a long spiral tusk"
+ },
+ {
+  "file": "missing_letters",
+  "n": 108,
+  "field": "hint",
+  "op": "set",
+  "with": "Horned farm animal that climbs rocks"
+ },
+ {
+  "file": "missing_letters",
+  "n": 118,
+  "field": "hint",
+  "op": "set",
+  "with": "Slow creature carrying a spiral shell"
+ },
+ {
+  "file": "missing_letters",
+  "n": 132,
+  "field": "hint",
+  "op": "set",
+  "with": "Large glossy black bird from a Poe poem"
+ },
+ {
+  "file": "missing_letters",
+  "n": 140,
+  "field": "hint",
+  "op": "set",
+  "with": "Slim playful pet related to weasels"
+ },
+ {
+  "file": "missing_letters",
+  "n": 141,
+  "field": "hint",
+  "op": "set",
+  "with": "Wild cat with tufted ears"
+ },
+ {
+  "file": "missing_letters",
+  "n": 149,
+  "field": "hint",
+  "op": "set",
+  "with": "Pink farm animal that oinks"
+ },
+ {
+  "file": "missing_letters",
+  "n": 155,
+  "field": "hint",
+  "op": "set",
+  "with": "Flat breakfast treat topped with syrup"
+ },
+ {
+  "file": "missing_letters",
+  "n": 157,
+  "field": "hint",
+  "op": "set",
+  "with": "Dairy food that can be melted or grated"
+ },
+ {
+  "file": "missing_letters",
+  "n": 164,
+  "field": "hint",
+  "op": "set",
+  "with": "Seasoned minced meat in a casing"
+ },
+ {
+  "file": "missing_letters",
+  "n": 174,
+  "field": "hint",
+  "op": "set",
+  "with": "Fried ring-shaped sweet with a hole"
+ },
+ {
+  "file": "missing_letters",
+  "n": 177,
+  "field": "hint",
+  "op": "set",
+  "with": "Thick blended ice cream drink with a straw"
+ },
+ {
+  "file": "missing_letters",
+  "n": 192,
+  "field": "hint",
+  "op": "set",
+  "with": "Smooth yellow dessert made with eggs and milk"
+ },
+ {
+  "file": "missing_letters",
+  "n": 201,
+  "field": "hint",
+  "op": "set",
+  "with": "Frozen dessert served in a cone"
+ },
+ {
+  "file": "missing_letters",
+  "n": 203,
+  "field": "hint",
+  "op": "set",
+  "with": "Baked dish with a pastry crust"
+ },
+ {
+  "file": "missing_letters",
+  "n": 218,
+  "field": "hint",
+  "op": "set",
+  "with": "Japanese noodle soup with a soft egg"
+ },
+ {
+  "file": "missing_letters",
+  "n": 244,
+  "field": "hint",
+  "op": "set",
+  "with": "Green Italian sauce made with basil"
+ },
+ {
+  "file": "missing_letters",
+  "n": 246,
+  "field": "hint",
+  "op": "set",
+  "with": "Creamy white spread made from egg yolks"
+ },
+ {
+  "file": "what_is_it",
+  "n": 480,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Thermos Flask"
+ },
+ {
+  "file": "what_is_it",
+  "n": 678,
+  "field": "imageSearch",
+  "op": "remove",
+  "value": "jet ski water"
+ },
+ {
+  "file": "what_is_it",
+  "n": 884,
+  "field": "imageSearch",
+  "op": "replace",
+  "value": "plastic frisbee",
+  "with": "plastic flying disc"
+ },
+ {
+  "file": "what_is_it",
+  "n": 405,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Clock"
+ },
+ {
+  "file": "what_is_it",
+  "n": 498,
+  "field": "altAnswers",
+  "op": "remove",
+  "value": "Clock"
+ },
+ {
+  "file": "what_is_it",
+  "n": 480,
+  "field": "imageSearch",
+  "op": "replace",
+  "value": "steel thermos flask",
+  "with": "steel vacuum flask"
+ }
+]

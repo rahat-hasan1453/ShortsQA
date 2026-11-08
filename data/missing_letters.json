@@ -1,0 +1,1752 @@
+[
+ {
+  "n": 1,
+  "word": "Elephant",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Largest land animal"
+ },
+ {
+  "n": 2,
+  "word": "Giraffe",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Tallest animal with a very long neck"
+ },
+ {
+  "n": 3,
+  "word": "Penguin",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Flightless bird of icy regions"
+ },
+ {
+  "n": 4,
+  "word": "Dolphin",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Playful, intelligent ocean mammal"
+ },
+ {
+  "n": 5,
+  "word": "Kangaroo",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Australian hopper with a pouch"
+ },
+ {
+  "n": 6,
+  "word": "Crocodile",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large reptile with powerful jaws"
+ },
+ {
+  "n": 7,
+  "word": "Butterfly",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Colorful insect that emerges from a chrysalis"
+ },
+ {
+  "n": 8,
+  "word": "Squirrel",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Bushy-tailed nut collector"
+ },
+ {
+  "n": 9,
+  "word": "Hedgehog",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Small spiny garden mammal"
+ },
+ {
+  "n": 10,
+  "word": "Chimpanzee",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Ape closely related to humans"
+ },
+ {
+  "n": 11,
+  "word": "Rhinoceros",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Thick-skinned horned giant"
+ },
+ {
+  "n": 12,
+  "word": "Hippo",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "River giant that loves mud"
+ },
+ {
+  "n": 13,
+  "word": "Octopus",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Ink-squirting sea creature with tentacles"
+ },
+ {
+  "n": 14,
+  "word": "Lobster",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Red-shelled seafood with big claws"
+ },
+ {
+  "n": 15,
+  "word": "Jellyfish",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Stinging, see-through drifter of the sea"
+ },
+ {
+  "n": 16,
+  "word": "Seahorse",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Tiny fish where the male carries the babies"
+ },
+ {
+  "n": 17,
+  "word": "Starfish",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Five-armed sea creature"
+ },
+ {
+  "n": 18,
+  "word": "Flamingo",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Pink bird standing on one leg"
+ },
+ {
+  "n": 19,
+  "word": "Peacock",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Bird with a spectacular fan tail"
+ },
+ {
+  "n": 20,
+  "word": "Ostrich",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Largest bird, cannot fly"
+ },
+ {
+  "n": 21,
+  "word": "Parrot",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Colorful bird that mimics speech"
+ },
+ {
+  "n": 22,
+  "word": "Pelican",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large bird with a pouched bill"
+ },
+ {
+  "n": 23,
+  "word": "Eagle",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Majestic bird of prey"
+ },
+ {
+  "n": 24,
+  "word": "Falcon",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Fast diving bird of prey"
+ },
+ {
+  "n": 25,
+  "word": "Vulture",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Scavenging bird with a bald head"
+ },
+ {
+  "n": 26,
+  "word": "Sparrow",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Small common brown songbird"
+ },
+ {
+  "n": 27,
+  "word": "Toucan",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Tropical bird with a huge colorful beak"
+ },
+ {
+  "n": 28,
+  "word": "Woodpecker",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Bird that drills into tree trunks"
+ },
+ {
+  "n": 29,
+  "word": "Hummingbird",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Tiny flyer that hovers at flowers"
+ },
+ {
+  "n": 30,
+  "word": "Seagull",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Beach bird that steals chips"
+ },
+ {
+  "n": 31,
+  "word": "Cheetah",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Fastest land animal"
+ },
+ {
+  "n": 32,
+  "word": "Leopard",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Spotted big cat that climbs trees"
+ },
+ {
+  "n": 33,
+  "word": "Panther",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Sleek black big cat"
+ },
+ {
+  "n": 34,
+  "word": "Jaguar",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Spotted cat of South American rainforests"
+ },
+ {
+  "n": 35,
+  "word": "Gorilla",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Largest primate, beats its chest"
+ },
+ {
+  "n": 36,
+  "word": "Orangutan",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Red-haired ape of Borneo"
+ },
+ {
+  "n": 37,
+  "word": "Baboon",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Large monkey with a dog-like face"
+ },
+ {
+  "n": 38,
+  "word": "Lemur",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Madagascar primate with a ringed tail"
+ },
+ {
+  "n": 39,
+  "word": "Meerkat",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Desert mongoose standing on guard"
+ },
+ {
+  "n": 40,
+  "word": "Raccoon",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Masked bandit that washes its food"
+ },
+ {
+  "n": 41,
+  "word": "Platypus",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Egg-laying mammal with a duck-like bill"
+ },
+ {
+  "n": 42,
+  "word": "Koala",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Eucalyptus-eating Australian marsupial"
+ },
+ {
+  "n": 43,
+  "word": "Wombat",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Burrowing marsupial with cube-shaped droppings"
+ },
+ {
+  "n": 44,
+  "word": "Armadillo",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Mammal with a bony shell that rolls up"
+ },
+ {
+  "n": 45,
+  "word": "Anteater",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Long-snouted, slurps termites with a sticky tongue"
+ },
+ {
+  "n": 46,
+  "word": "Porcupine",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Rodent covered in sharp quills"
+ },
+ {
+  "n": 47,
+  "word": "Chipmunk",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Striped rodent with cheek pouches"
+ },
+ {
+  "n": 48,
+  "word": "Hamster",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Small pet that runs on a wheel"
+ },
+ {
+  "n": 49,
+  "word": "Rabbit",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Long-eared hopper that loves carrots"
+ },
+ {
+  "n": 50,
+  "word": "Beaver",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Dam-building rodent with a flat tail"
+ },
+ {
+  "n": 51,
+  "word": "Otter",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Playful swimmer that floats on its back"
+ },
+ {
+  "n": 52,
+  "word": "Walrus",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Tusked Arctic marine mammal"
+ },
+ {
+  "n": 53,
+  "word": "Narwhal",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Arctic mammal with a long spiral tusk"
+ },
+ {
+  "n": 54,
+  "word": "Whale",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Biggest animal in the ocean"
+ },
+ {
+  "n": 55,
+  "word": "Shark",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Ocean predator with a dorsal fin"
+ },
+ {
+  "n": 56,
+  "word": "Stingray",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Flat sea fish with a venomous tail"
+ },
+ {
+  "n": 57,
+  "word": "Salmon",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Fish that swims upstream to spawn"
+ },
+ {
+  "n": 58,
+  "word": "Goldfish",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Common orange pet in a bowl"
+ },
+ {
+  "n": 59,
+  "word": "Piranha",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Sharp-toothed South American river fish"
+ },
+ {
+  "n": 60,
+  "word": "Turtle",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Reptile that carries its shell"
+ },
+ {
+  "n": 61,
+  "word": "Tortoise",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Slow land reptile with a domed shell"
+ },
+ {
+  "n": 62,
+  "word": "Lizard",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Small scaly reptile that basks in the sun"
+ },
+ {
+  "n": 63,
+  "word": "Chameleon",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Reptile that changes color"
+ },
+ {
+  "n": 64,
+  "word": "Iguana",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large green tropical lizard"
+ },
+ {
+  "n": 65,
+  "word": "Gecko",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Small lizard that climbs walls"
+ },
+ {
+  "n": 66,
+  "word": "Cobra",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Hooded venomous snake"
+ },
+ {
+  "n": 67,
+  "word": "Python",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large constricting snake"
+ },
+ {
+  "n": 68,
+  "word": "Alligator",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Swamp reptile of the southern US"
+ },
+ {
+  "n": 69,
+  "word": "Salamander",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Amphibian that can regrow limbs"
+ },
+ {
+  "n": 70,
+  "word": "Tadpole",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Young frog with a tail"
+ },
+ {
+  "n": 71,
+  "word": "Spider",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Eight-legged web weaver"
+ },
+ {
+  "n": 72,
+  "word": "Scorpion",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Arachnid with a stinging tail"
+ },
+ {
+  "n": 73,
+  "word": "Grasshopper",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Green insect with powerful jumping legs"
+ },
+ {
+  "n": 74,
+  "word": "Ladybug",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Red beetle with black spots"
+ },
+ {
+  "n": 75,
+  "word": "Dragonfly",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Insect with large wings that hovers over ponds"
+ },
+ {
+  "n": 76,
+  "word": "Mosquito",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Buzzing insect that bites"
+ },
+ {
+  "n": 77,
+  "word": "Caterpillar",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Leaf-munching larva that becomes a butterfly"
+ },
+ {
+  "n": 78,
+  "word": "Firefly",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Insect that glows at night"
+ },
+ {
+  "n": 79,
+  "word": "Honeybee",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Buzzing producer of sweet golden spread"
+ },
+ {
+  "n": 80,
+  "word": "Termite",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Wood-eating insect that builds mounds"
+ },
+ {
+  "n": 81,
+  "word": "Zebra",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Striped African horse relative"
+ },
+ {
+  "n": 82,
+  "word": "Buffalo",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large horned grazer of the plains"
+ },
+ {
+  "n": 83,
+  "word": "Antelope",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Swift grazer of African savannas"
+ },
+ {
+  "n": 84,
+  "word": "Gazelle",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Graceful, fast savanna leaper"
+ },
+ {
+  "n": 85,
+  "word": "Camel",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Desert animal with humps"
+ },
+ {
+  "n": 86,
+  "word": "Llama",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Andean pack animal that spits"
+ },
+ {
+  "n": 87,
+  "word": "Alpaca",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Fluffy Andean wool producer"
+ },
+ {
+  "n": 88,
+  "word": "Reindeer",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Santa's sleigh puller"
+ },
+ {
+  "n": 89,
+  "word": "Moose",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Largest deer with wide antlers"
+ },
+ {
+  "n": 90,
+  "word": "Coyote",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Howling wild dog of North America"
+ },
+ {
+  "n": 91,
+  "word": "Hyena",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Laughing African scavenger"
+ },
+ {
+  "n": 92,
+  "word": "Mongoose",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Snake-fighting small carnivore"
+ },
+ {
+  "n": 93,
+  "word": "Squid",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Fast-swimming cephalopod with ten arms"
+ },
+ {
+  "n": 94,
+  "word": "Panda",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Black and white bamboo eater"
+ },
+ {
+  "n": 95,
+  "word": "Sloth",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Super slow tree-hanging mammal"
+ },
+ {
+  "n": 96,
+  "word": "Bison",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Shaggy American plains grazer"
+ },
+ {
+  "n": 97,
+  "word": "Gibbon",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Long-armed, swinging ape"
+ },
+ {
+  "n": 98,
+  "word": "Pigeon",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "City bird that coos"
+ },
+ {
+  "n": 99,
+  "word": "Rooster",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Farm bird that crows at dawn"
+ },
+ {
+  "n": 100,
+  "word": "Monkey",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Banana-loving tree-climbing primate"
+ },
+ {
+  "n": 101,
+  "word": "Tiger",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Big striped cat of Asian jungles"
+ },
+ {
+  "n": 102,
+  "word": "Lion",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "King of the savanna with a mane"
+ },
+ {
+  "n": 103,
+  "word": "Wolf",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Howls at the moon, hunts in packs"
+ },
+ {
+  "n": 104,
+  "word": "Fox",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Clever red-furred animal with a bushy tail"
+ },
+ {
+  "n": 105,
+  "word": "Horse",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "You can ride it and it gallops"
+ },
+ {
+  "n": 106,
+  "word": "Donkey",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Long-eared farm animal that brays"
+ },
+ {
+  "n": 107,
+  "word": "Sheep",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Woolly farm animal that says baa"
+ },
+ {
+  "n": 108,
+  "word": "Goat",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Horned farm animal that climbs rocks"
+ },
+ {
+  "n": 109,
+  "word": "Chicken",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Farm bird that lays eggs"
+ },
+ {
+  "n": 110,
+  "word": "Duck",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Quacks and paddles on ponds"
+ },
+ {
+  "n": 111,
+  "word": "Goose",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Honking waterbird that flies in a V"
+ },
+ {
+  "n": 112,
+  "word": "Swan",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Elegant white bird with a long curved neck"
+ },
+ {
+  "n": 113,
+  "word": "Owl",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Night hunter that hoots"
+ },
+ {
+  "n": 114,
+  "word": "Crow",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Smart black bird that caws"
+ },
+ {
+  "n": 115,
+  "word": "Frog",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Hops, croaks and starts life as a tadpole"
+ },
+ {
+  "n": 116,
+  "word": "Snake",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Long legless reptile that slithers"
+ },
+ {
+  "n": 117,
+  "word": "Crab",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Sideways-walking shellfish with pincers"
+ },
+ {
+  "n": 118,
+  "word": "Snail",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Slow creature carrying a spiral shell"
+ },
+ {
+  "n": 119,
+  "word": "Ant",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Tiny insect that lives in a colony"
+ },
+ {
+  "n": 120,
+  "word": "Wasp",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Yellow-and-black stinging insect with a thin waist"
+ },
+ {
+  "n": 121,
+  "word": "Beetle",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Insect with hard wing covers"
+ },
+ {
+  "n": 122,
+  "word": "Cricket",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Chirping insect that jumps"
+ },
+ {
+  "n": 123,
+  "word": "Bat",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Flying mammal that hangs upside down"
+ },
+ {
+  "n": 124,
+  "word": "Mouse",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Small squeaking rodent that loves cheese in cartoons"
+ },
+ {
+  "n": 125,
+  "word": "Seal",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Whiskered marine mammal that claps its flippers"
+ },
+ {
+  "n": 126,
+  "word": "Eel",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Long slippery swimmer shaped like a snake"
+ },
+ {
+  "n": 127,
+  "word": "Trout",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Freshwater fish popular with anglers"
+ },
+ {
+  "n": 128,
+  "word": "Tuna",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Large fast ocean fish often sold in cans"
+ },
+ {
+  "n": 129,
+  "word": "Oyster",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Shellfish that can make a pearl"
+ },
+ {
+  "n": 130,
+  "word": "Swordfish",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Ocean speedster with a long pointed bill"
+ },
+ {
+  "n": 131,
+  "word": "Hawk",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Sharp-eyed daytime hunter that circles in the sky"
+ },
+ {
+  "n": 132,
+  "word": "Raven",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Large glossy black bird from a Poe poem"
+ },
+ {
+  "n": 133,
+  "word": "Robin",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Garden songbird with a red breast"
+ },
+ {
+  "n": 134,
+  "word": "Canary",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Small yellow songbird kept as a pet"
+ },
+ {
+  "n": 135,
+  "word": "Puffin",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Seabird with a colorful triangular beak"
+ },
+ {
+  "n": 136,
+  "word": "Kiwi",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Flightless night-active bird of New Zealand"
+ },
+ {
+  "n": 137,
+  "word": "Mole",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Digs tunnels underground and has tiny eyes"
+ },
+ {
+  "n": 138,
+  "word": "Skunk",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Black-and-white animal famous for its smelly spray"
+ },
+ {
+  "n": 139,
+  "word": "Badger",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Striped-faced digger that lives in a sett"
+ },
+ {
+  "n": 140,
+  "word": "Ferret",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Slim playful pet related to weasels"
+ },
+ {
+  "n": 141,
+  "word": "Lynx",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Wild cat with tufted ears"
+ },
+ {
+  "n": 142,
+  "word": "Cougar",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "American mountain predator also called a puma"
+ },
+ {
+  "n": 143,
+  "word": "Warthog",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "African wild pig with tusks and facial bumps"
+ },
+ {
+  "n": 144,
+  "word": "Manatee",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Slow, gentle marine mammal nicknamed the sea cow"
+ },
+ {
+  "n": 145,
+  "word": "Dingo",
+  "category": "animals",
+  "difficulty": 3,
+  "hint": "Wild dog of Australia"
+ },
+ {
+  "n": 146,
+  "word": "Bear",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Big furry mammal that hibernates and loves honey"
+ },
+ {
+  "n": 147,
+  "word": "Deer",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Graceful forest animal whose males grow antlers"
+ },
+ {
+  "n": 148,
+  "word": "Cow",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Farm animal that gives milk and says moo"
+ },
+ {
+  "n": 149,
+  "word": "Pig",
+  "category": "animals",
+  "difficulty": 1,
+  "hint": "Pink farm animal that oinks"
+ },
+ {
+  "n": 150,
+  "word": "Turkey",
+  "category": "animals",
+  "difficulty": 2,
+  "hint": "Big bird that gobbles, famous at Thanksgiving"
+ },
+ {
+  "n": 151,
+  "word": "Pizza",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Round Italian dish with melted toppings"
+ },
+ {
+  "n": 152,
+  "word": "Hamburger",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Grilled patty served in a round bun"
+ },
+ {
+  "n": 153,
+  "word": "Sandwich",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Fillings between two slices of bread"
+ },
+ {
+  "n": 154,
+  "word": "Spaghetti",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Long thin Italian strands served with sauce"
+ },
+ {
+  "n": 155,
+  "word": "Pancake",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Flat breakfast treat topped with syrup"
+ },
+ {
+  "n": 156,
+  "word": "Chocolate",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sweet brown treat made from cacao"
+ },
+ {
+  "n": 157,
+  "word": "Cheese",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Dairy food that can be melted or grated"
+ },
+ {
+  "n": 158,
+  "word": "Butter",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Creamy yellow spread made from churned cream"
+ },
+ {
+  "n": 159,
+  "word": "Bread",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Baked from flour and sliced for toast"
+ },
+ {
+  "n": 160,
+  "word": "Cookie",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sweet baked treat, often with chips"
+ },
+ {
+  "n": 161,
+  "word": "Pretzel",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Twisted baked snack, often sprinkled with salt"
+ },
+ {
+  "n": 162,
+  "word": "Popcorn",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Movie snack that bursts when heated"
+ },
+ {
+  "n": 163,
+  "word": "Omelette",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Folded breakfast dish made from beaten eggs"
+ },
+ {
+  "n": 164,
+  "word": "Sausage",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Seasoned minced meat in a casing"
+ },
+ {
+  "n": 165,
+  "word": "Noodles",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Long slurpable strands in soups and stir-fries"
+ },
+ {
+  "n": 166,
+  "word": "Dumpling",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Filled pocket of dough, steamed or boiled"
+ },
+ {
+  "n": 167,
+  "word": "Burrito",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Mexican tortilla wrapped around beans, rice and more"
+ },
+ {
+  "n": 168,
+  "word": "Taco",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Folded Mexican tortilla with filling"
+ },
+ {
+  "n": 169,
+  "word": "Sushi",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Japanese rice rolls often topped with raw fish"
+ },
+ {
+  "n": 170,
+  "word": "Lasagna",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Layered Italian pasta bake with sauce and cheese"
+ },
+ {
+  "n": 171,
+  "word": "Yogurt",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Creamy fermented dairy snack eaten with a spoon"
+ },
+ {
+  "n": 172,
+  "word": "Cereal",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Crunchy breakfast food poured into a bowl"
+ },
+ {
+  "n": 173,
+  "word": "Waffle",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Crisp breakfast treat with a grid pattern"
+ },
+ {
+  "n": 174,
+  "word": "Doughnut",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Fried ring-shaped sweet with a hole"
+ },
+ {
+  "n": 175,
+  "word": "Cupcake",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Small frosted sweet baked in a paper liner"
+ },
+ {
+  "n": 176,
+  "word": "Lemonade",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Sweet, sour and refreshing summer drink"
+ },
+ {
+  "n": 177,
+  "word": "Milkshake",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Thick blended ice cream drink with a straw"
+ },
+ {
+  "n": 178,
+  "word": "Smoothie",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Thick blended fruit drink"
+ },
+ {
+  "n": 179,
+  "word": "Coffee",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Dark morning drink brewed from roasted beans"
+ },
+ {
+  "n": 180,
+  "word": "Tea",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Hot drink brewed from dried leaves"
+ },
+ {
+  "n": 181,
+  "word": "Soup",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Hot liquid dish eaten with a spoon"
+ },
+ {
+  "n": 182,
+  "word": "Salad",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Mix of raw vegetables, often with dressing"
+ },
+ {
+  "n": 183,
+  "word": "Honey",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Golden syrup made by insects"
+ },
+ {
+  "n": 184,
+  "word": "Jam",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sweet fruit spread for toast"
+ },
+ {
+  "n": 185,
+  "word": "Ketchup",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Red tomato sauce for fries"
+ },
+ {
+  "n": 186,
+  "word": "Mustard",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Tangy yellow condiment for hot dogs"
+ },
+ {
+  "n": 187,
+  "word": "Vinegar",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Sour liquid used in salad dressing and pickling"
+ },
+ {
+  "n": 188,
+  "word": "Cinnamon",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Sweet brown spice from tree bark"
+ },
+ {
+  "n": 189,
+  "word": "Croissant",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Flaky crescent-shaped French pastry"
+ },
+ {
+  "n": 190,
+  "word": "Muffin",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Small domed baked treat, often with blueberries"
+ },
+ {
+  "n": 191,
+  "word": "Pudding",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Soft, creamy dessert served in a cup"
+ },
+ {
+  "n": 192,
+  "word": "Custard",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Smooth yellow dessert made with eggs and milk"
+ },
+ {
+  "n": 193,
+  "word": "Caramel",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Sticky golden-brown sweet made from melted sugar"
+ },
+ {
+  "n": 194,
+  "word": "Lollipop",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Hard candy on a stick"
+ },
+ {
+  "n": 195,
+  "word": "Marshmallow",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Soft white sweet toasted over a campfire"
+ },
+ {
+  "n": 196,
+  "word": "Porridge",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Warm oat breakfast that Goldilocks tasted"
+ },
+ {
+  "n": 197,
+  "word": "Sorbet",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Frozen fruity dessert with no dairy"
+ },
+ {
+  "n": 198,
+  "word": "Meatball",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Round minced dish often served with spaghetti"
+ },
+ {
+  "n": 199,
+  "word": "Pickle",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Cucumber preserved in brine"
+ },
+ {
+  "n": 200,
+  "word": "Bacon",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Crispy salty strips of cured pork for breakfast"
+ },
+ {
+  "n": 201,
+  "word": "Ice Cream",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Frozen dessert served in a cone"
+ },
+ {
+  "n": 202,
+  "word": "Cake",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sweet baked treat with candles on birthdays"
+ },
+ {
+  "n": 203,
+  "word": "Pie",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Baked dish with a pastry crust"
+ },
+ {
+  "n": 204,
+  "word": "Toast",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sliced loaf browned in a popping appliance"
+ },
+ {
+  "n": 205,
+  "word": "Bagel",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Chewy ring-shaped roll often topped with cream cheese"
+ },
+ {
+  "n": 206,
+  "word": "Baguette",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Long thin crusty loaf from France"
+ },
+ {
+  "n": 207,
+  "word": "Pasta",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Italian dough shapes boiled and served with sauce"
+ },
+ {
+  "n": 208,
+  "word": "Rice",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Small white grains eaten daily across Asia"
+ },
+ {
+  "n": 209,
+  "word": "Fries",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Golden potato sticks served with ketchup"
+ },
+ {
+  "n": 210,
+  "word": "Hot Dog",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sausage in a long bun, popular at ballparks"
+ },
+ {
+  "n": 211,
+  "word": "Nachos",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Tortilla chips smothered in melted cheese"
+ },
+ {
+  "n": 212,
+  "word": "Falafel",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Fried chickpea balls from the Middle East"
+ },
+ {
+  "n": 213,
+  "word": "Hummus",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Creamy chickpea dip eaten with pita"
+ },
+ {
+  "n": 214,
+  "word": "Kebab",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Grilled meat pieces cooked on a skewer"
+ },
+ {
+  "n": 215,
+  "word": "Curry",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Spicy sauce-based dish from South Asia"
+ },
+ {
+  "n": 216,
+  "word": "Risotto",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Creamy Italian dish of slowly stirred grains"
+ },
+ {
+  "n": 217,
+  "word": "Ravioli",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Square Italian pasta pillows with filling inside"
+ },
+ {
+  "n": 218,
+  "word": "Ramen",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Japanese noodle soup with a soft egg"
+ },
+ {
+  "n": 219,
+  "word": "Tofu",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Soft white block made from pressed soybeans"
+ },
+ {
+  "n": 220,
+  "word": "Milk",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "White drink that comes from cows"
+ },
+ {
+  "n": 221,
+  "word": "Juice",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Drink squeezed from oranges or apples"
+ },
+ {
+  "n": 222,
+  "word": "Soda",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Fizzy sweet drink in a can"
+ },
+ {
+  "n": 223,
+  "word": "Cocoa",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Warm chocolatey winter drink"
+ },
+ {
+  "n": 224,
+  "word": "Sugar",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sweet white crystals stirred into drinks"
+ },
+ {
+  "n": 225,
+  "word": "Salt",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "White seasoning found in a shaker"
+ },
+ {
+  "n": 226,
+  "word": "Pepper",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Black spice ground over meals"
+ },
+ {
+  "n": 227,
+  "word": "Vanilla",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Sweet flavoring from an orchid's pods"
+ },
+ {
+  "n": 228,
+  "word": "Ginger",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Spicy knobbly root used in tea and cookies"
+ },
+ {
+  "n": 229,
+  "word": "Brownie",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Fudgy square chocolate bake"
+ },
+ {
+  "n": 230,
+  "word": "Cheesecake",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Rich creamy dessert on a crumbly biscuit base"
+ },
+ {
+  "n": 231,
+  "word": "Tiramisu",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Italian layered dessert with espresso-soaked sponge fingers"
+ },
+ {
+  "n": 232,
+  "word": "Gelato",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Dense Italian frozen treat"
+ },
+ {
+  "n": 233,
+  "word": "Fudge",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Soft, rich, melt-in-the-mouth sweet squares"
+ },
+ {
+  "n": 234,
+  "word": "Toffee",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Hard, buttery, golden-brown sweet that sticks to teeth"
+ },
+ {
+  "n": 235,
+  "word": "Jelly",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Wobbly fruity dessert that sets in a mold"
+ },
+ {
+  "n": 236,
+  "word": "Candy",
+  "category": "foods-and-drinks",
+  "difficulty": 1,
+  "hint": "Sugary sweets kids get at Halloween"
+ },
+ {
+  "n": 237,
+  "word": "Granola",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Crunchy baked oat clusters with nuts and honey"
+ },
+ {
+  "n": 238,
+  "word": "Pastry",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Buttery baked dough found in a bakery window"
+ },
+ {
+  "n": 239,
+  "word": "Crackers",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Dry crisp savory bites served with cheese"
+ },
+ {
+  "n": 240,
+  "word": "Gravy",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Savory sauce poured over roast dinners"
+ },
+ {
+  "n": 241,
+  "word": "Stew",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Chunky meal slowly simmered in one pot"
+ },
+ {
+  "n": 242,
+  "word": "Steak",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Thick grilled slice of beef"
+ },
+ {
+  "n": 243,
+  "word": "Ham",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Pink cured pork often sliced for sandwiches"
+ },
+ {
+  "n": 244,
+  "word": "Pesto",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Green Italian sauce made with basil"
+ },
+ {
+  "n": 245,
+  "word": "Guacamole",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Mashed green dip served with tortilla chips"
+ },
+ {
+  "n": 246,
+  "word": "Mayonnaise",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Creamy white spread made from egg yolks"
+ },
+ {
+  "n": 247,
+  "word": "Baklava",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Sticky layered pastry with nuts and syrup"
+ },
+ {
+  "n": 248,
+  "word": "Churros",
+  "category": "foods-and-drinks",
+  "difficulty": 3,
+  "hint": "Fried ridged Spanish dough sticks dusted with sugar"
+ },
+ {
+  "n": 249,
+  "word": "Espresso",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Small, strong Italian shot of dark brew"
+ },
+ {
+  "n": 250,
+  "word": "Oatmeal",
+  "category": "foods-and-drinks",
+  "difficulty": 2,
+  "hint": "Warm breakfast bowl made from rolled grains"
+ }
+]

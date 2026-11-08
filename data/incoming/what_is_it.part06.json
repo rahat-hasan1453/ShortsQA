@@ -1,0 +1,6 @@
+[
+{"n":497,"answer":"Picture Frame","altAnswers":["Photo Frame"],"category":"everyday-objects","difficulty":2,"bestFormats":["half","silhouette"],"imageSearch":["wooden picture frame","empty photo frame"],"wrongOptions":["Mirror","Window","Chalkboard"]},
+{"n":498,"answer":"Wall Clock","altAnswers":["Clock"],"category":"everyday-objects","difficulty":1,"bestFormats":["half","zoom"],"imageSearch":["wall clock","analog wall clock face"],"wrongOptions":["Alarm Clock","Wristwatch","Compass"]},
+{"n":499,"answer":"Ceiling Fan","altAnswers":[],"category":"everyday-objects","difficulty":2,"bestFormats":["silhouette","zoom"],"imageSearch":["ceiling fan","ceiling fan blades"],"wrongOptions":["Propeller","Desk Fan","Air Vent"]},
+{"n":500,"answer":"Doorbell","altAnswers":["Door Bell"],"category":"everyday-objects","difficulty":3,"bestFormats":["zoom","half"],"imageSearch":["doorbell button","front door doorbell"],"wrongOptions":["Light Switch","Intercom","Alarm Button"]}
+]

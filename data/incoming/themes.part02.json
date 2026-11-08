@@ -1,0 +1,282 @@
+[
+  {
+    "id": "chalkboard-classroom",
+    "name": "Classroom Chalkboard",
+    "mood": "nostalgic, friendly, school-day",
+    "palette": {
+      "bgFrom": "#1F3B34",
+      "bgTo": "#14282A",
+      "card": "#FFFFFF14",
+      "text": "#F8F6EE",
+      "accent": "#FFD166",
+      "accent2": "#8ECAE6",
+      "correct": "#B9FF8A",
+      "wrong": "#FF7B7B"
+    },
+    "background": {
+      "type": "texture",
+      "description": "Dark green-black board gradient with SVG feTurbulence smudges at 6% opacity, faint horizontal eraser streaks, and a hand-drawn chalk border (dashed, slightly wobbly SVG stroke) inside the safe area",
+      "motion": "very subtle chalk-dust specks floating, 25s loop"
+    },
+    "fonts": {
+      "title": "Permanent Marker",
+      "body": "Kalam",
+      "numbers": "Permanent Marker"
+    },
+    "timer": {
+      "style": "bar",
+      "tickEffect": "chalk line is erased from right to left, shakes and turns red-chalk on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "wipe",
+      "correctEffect": "eraser wipe clears the options, then the correct answer is circled in yellow chalk with a draw-on stroke",
+      "wrongOptionEffect": "smudged out and faded to 25% opacity"
+    },
+    "music": {
+      "mood": "light jazzy classroom piano with brushed drums, 100 bpm, no vocals",
+      "searchKeywords": ["light jazz piano no copyright", "school quiz background music"]
+    },
+    "bestFor": ["math", "missing-letters", "capitals"],
+    "contrastNote": "text on bg ≈ 11:1; lime correct is much brighter than coral-red wrong"
+  },
+  {
+    "id": "glass-aurora",
+    "name": "Glass Aurora",
+    "mood": "modern, premium, dreamy",
+    "palette": {
+      "bgFrom": "#2D1B69",
+      "bgTo": "#6A2C91",
+      "card": "#FFFFFF26",
+      "text": "#FFFFFF",
+      "accent": "#6EE7F9",
+      "accent2": "#FFB86B",
+      "correct": "#6BFFB8",
+      "wrong": "#FF5C7C"
+    },
+    "background": {
+      "type": "animated-gradient",
+      "description": "Violet gradient with four large blurred blobs (cyan, pink, orange, blue, 400-600px, blur 80px) behind frosted cards using backdrop-filter blur(24px) and a 1px white 30% border",
+      "motion": "blobs drift and morph slowly, 25s loop"
+    },
+    "fonts": {
+      "title": "Plus Jakarta Sans",
+      "body": "Manrope",
+      "numbers": "Unbounded"
+    },
+    "timer": {
+      "style": "ring",
+      "tickEffect": "thick frosted ring with a cyan glow drains clockwise and brightens on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "flip",
+      "correctEffect": "glass card flips to a mint-tinted face with a soft glow and a check icon",
+      "wrongOptionEffect": "cards blur out and fade to 25% opacity"
+    },
+    "music": {
+      "mood": "smooth modern electronic with airy pads, 105 bpm, no vocals",
+      "searchKeywords": ["modern chill electronic no copyright", "tech corporate quiz music"]
+    },
+    "bestFor": ["flags", "landmarks", "what-is-it"],
+    "contrastNote": "text on bg ≈ 7:1 worst case with blobs behind the card; keep a dark tint behind long text"
+  },
+  {
+    "id": "comic-pop",
+    "name": "Comic Pop",
+    "mood": "loud, funny, high-energy",
+    "palette": {
+      "bgFrom": "#FFE45E",
+      "bgTo": "#FFC93C",
+      "card": "#FFFFFFF2",
+      "text": "#111111",
+      "accent": "#E4002B",
+      "accent2": "#0057FF",
+      "correct": "#0B6B2D",
+      "wrong": "#FF5A7A"
+    },
+    "background": {
+      "type": "pattern",
+      "description": "Yellow gradient with a red halftone dot pattern (radial-gradient dots, 24px grid, fading toward the center) and bold black 6px outlines on cards with hard offset shadows",
+      "motion": "halftone dots scroll diagonally, 8s loop"
+    },
+    "fonts": {
+      "title": "Bangers",
+      "body": "Comic Neue",
+      "numbers": "Bangers"
+    },
+    "timer": {
+      "style": "pulse",
+      "tickEffect": "number sits in a red starburst that pops bigger every second and shakes on the last 3"
+    },
+    "reveal": {
+      "style": "shake",
+      "correctEffect": "screen shake with a 'POW!' burst and the correct card turning deep green",
+      "wrongOptionEffect": "options get a 'NOPE' cross and fade to 30% opacity"
+    },
+    "music": {
+      "mood": "quirky brassy cartoon swing, 125 bpm, no vocals",
+      "searchKeywords": ["funny cartoon background no copyright", "quirky comedy quiz music"]
+    },
+    "bestFor": ["what-is-it", "flags", "missing-letters"],
+    "contrastNote": "text on bg ≈ 11:1; dark green correct vs bright pink wrong differ strongly in brightness, so keep the icons"
+  },
+  {
+    "id": "misty-forest",
+    "name": "Misty Forest",
+    "mood": "calm, natural, adventurous",
+    "palette": {
+      "bgFrom": "#0F2A1D",
+      "bgTo": "#1E4D2B",
+      "card": "#FFFFFF1A",
+      "text": "#F3FFF0",
+      "accent": "#F4D35E",
+      "accent2": "#A3E635",
+      "correct": "#C6FF7A",
+      "wrong": "#FF6B4A"
+    },
+    "background": {
+      "type": "bokeh",
+      "description": "Dark green vertical gradient with pale mist bands (blurred white gradients at 8% opacity), glowing yellow firefly dots, and layered pine-tree silhouettes as SVG polygons along the bottom",
+      "motion": "fireflies float and blink, mist drifts sideways, 22s loop"
+    },
+    "fonts": {
+      "title": "Fraunces",
+      "body": "Lato",
+      "numbers": "Alfa Slab One"
+    },
+    "timer": {
+      "style": "bar",
+      "tickEffect": "a vine-like green bar shrinks, leaves wiggle, and it turns amber on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "slide",
+      "correctEffect": "correct answer slides to center with a light-ray glow and a leaf badge",
+      "wrongOptionEffect": "options slide out sideways and fade to 25% opacity"
+    },
+    "music": {
+      "mood": "gentle acoustic nature folk with soft flute, 98 bpm, no vocals",
+      "searchKeywords": ["nature acoustic no copyright", "adventure folk background music"]
+    },
+    "bestFor": ["landmarks", "country-shape", "capitals"],
+    "contrastNote": "text on bg ≈ 10:1 at the lighter stop; lime correct is far brighter than orange-red wrong"
+  },
+  {
+    "id": "arctic-ice",
+    "name": "Arctic Ice",
+    "mood": "crisp, clean, cool",
+    "palette": {
+      "bgFrom": "#F0FAFF",
+      "bgTo": "#CFE9FF",
+      "card": "#FFFFFFB3",
+      "text": "#0B2545",
+      "accent": "#2F80ED",
+      "accent2": "#7C4DFF",
+      "correct": "#006B5B",
+      "wrong": "#FF7A8A"
+    },
+    "background": {
+      "type": "pattern",
+      "description": "Pale icy blue gradient with large translucent white crystal facets (CSS clip-path polygons at 20-40% opacity) and tiny sparkle stars that fade in and out",
+      "motion": "facets shift slightly, sparkles twinkle, 16s loop"
+    },
+    "fonts": {
+      "title": "Lexend",
+      "body": "Figtree",
+      "numbers": "Lexend"
+    },
+    "timer": {
+      "style": "bar",
+      "tickEffect": "an ice slab melts from right to left, with drips and a color shift to violet on the last 3"
+    },
+    "reveal": {
+      "style": "wipe",
+      "correctEffect": "diagonal shine sweeps across the correct card, which turns deep teal with a glint",
+      "wrongOptionEffect": "options frost over and fade to 30% opacity"
+    },
+    "music": {
+      "mood": "bright airy piano with bells and light beat, 108 bpm, no vocals",
+      "searchKeywords": ["bright piano bells no copyright", "clean upbeat corporate quiz music"]
+    },
+    "bestFor": ["capitals", "country-shape", "math"],
+    "contrastNote": "text on bg ≈ 11:1; deep teal correct vs light pink-red wrong differ clearly in brightness"
+  },
+  {
+    "id": "candy-pop",
+    "name": "Candy Pop",
+    "mood": "sweet, bouncy, playful",
+    "palette": {
+      "bgFrom": "#FFE3F1",
+      "bgTo": "#E8D5FF",
+      "card": "#FFFFFFE6",
+      "text": "#4A1942",
+      "accent": "#FF4FA3",
+      "accent2": "#00B8D9",
+      "correct": "#0B6B4A",
+      "wrong": "#FF6F61"
+    },
+    "background": {
+      "type": "pattern",
+      "description": "Pink-to-lilac gradient with soft diagonal candy stripes (repeating-linear-gradient in white at 35% opacity) and large lollipop swirl circles made from conic-gradients in the corners",
+      "motion": "stripes scroll slowly, swirls rotate, 12s loop"
+    },
+    "fonts": {
+      "title": "Chewy",
+      "body": "Quicksand",
+      "numbers": "Chewy"
+    },
+    "timer": {
+      "style": "ring",
+      "tickEffect": "candy-striped ring drains clockwise and bounces on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "confetti",
+      "correctEffect": "sprinkle confetti burst and the correct card turns deep green with a sparkle",
+      "wrongOptionEffect": "options squish slightly and fade to 30% opacity"
+    },
+    "music": {
+      "mood": "bubbly bouncy pop with xylophone and claps, 118 bpm, no vocals",
+      "searchKeywords": ["bubbly happy kids no copyright", "playful xylophone background music"]
+    },
+    "bestFor": ["flags", "what-is-it", "missing-letters"],
+    "contrastNote": "text on bg ≈ 8:1; dark green correct vs bright coral wrong differ strongly in brightness"
+  },
+  {
+    "id": "gold-luxury",
+    "name": "Gold Luxury",
+    "mood": "elegant, high-stakes, premium",
+    "palette": {
+      "bgFrom": "#0B0B0F",
+      "bgTo": "#1A1408",
+      "card": "#FFFFFF10",
+      "text": "#FFF8E1",
+      "accent": "#D4AF37",
+      "accent2": "#F5E6A8",
+      "correct": "#4ADE80",
+      "wrong": "#FF4D5E"
+    },
+    "background": {
+      "type": "pattern",
+      "description": "Black to dark bronze gradient with thin gold art-deco line patterns (SVG repeating diamonds at 8% opacity), a gold 2px frame, and a diagonal metallic shimmer sweep",
+      "motion": "shimmer passes across the frame every 6s"
+    },
+    "fonts": {
+      "title": "Playfair Display",
+      "body": "Raleway",
+      "numbers": "Cinzel"
+    },
+    "timer": {
+      "style": "hourglass",
+      "tickEffect": "gold sand falls through a thin hourglass, glow intensifies on the last 3 seconds"
+    },
+    "reveal": {
+      "style": "pop",
+      "correctEffect": "gold sparkle burst with the correct card scaling up and a green check seal",
+      "wrongOptionEffect": "options dim to 25% opacity and lose their gold border"
+    },
+    "music": {
+      "mood": "cinematic orchestral game-show suspense with strings and timpani, 100 bpm, no vocals",
+      "searchKeywords": ["cinematic suspense strings no copyright", "game show tension background music"]
+    },
+    "bestFor": ["landmarks", "capitals", "flags"],
+    "contrastNote": "text on bg ≈ 17:1; bright green correct is much lighter than ruby wrong"
+  }
+]

@@ -1,0 +1,1074 @@
+[
+ {
+  "format": "flags",
+  "titles": [
+   "Can You Name All {n} Flags? 🚩",
+   "Only 1% Can Name All {n} Flags 🏁",
+   "😱 The Last Flag Is Impossible",
+   "Score {n}/{n} and You're a Flag Genius",
+   "Name {n} Flags in 5 Seconds Each ⏱️",
+   "Every Flag Has {theme} — Can You Name Them?",
+   "🌍 Guess the {region} Flag Quiz",
+   "{level} Flag Quiz: How Many Can You Get?",
+   "Flag Quiz for Geography Lovers",
+   "Only the Sharpest Eyes Can Name These Flags",
+   "How Many {region} Flags Do You Know? 🧠",
+   "Flags That Look Alike 👀 Don't Get Tricked!",
+   "I Bet You Can't Get All {n} Flags 😏",
+   "5 Seconds Per Flag. Ready? ⏱️",
+   "Which Country Is This? {n} Flags to Test You",
+   "Geography Nerds, Try This Flag Quiz 🤓",
+   "Can't Name This Flag? You're Not Alone",
+   "{n} Flags, No Cheating, Go! 🚀",
+   "Easy Start, Brutal Finish: Flag Edition",
+   "Flags With {theme} — How Many Do You Know?",
+   "Test Your Flag Skills in Under 60 Seconds",
+   "Beat This Flag Quiz Without Peeking",
+   "Flag Challenge: Get {n} Out of {n}",
+   "Do You Know These {region} Flags? 🚩",
+   "This Flag Quiz Gets Harder Every Question",
+   "Pause If You Need Time — {n} Flags Await",
+   "Which Flags Can You Spot Fastest? ⚡",
+   "A {level} Flag Quiz Just for You 🎯",
+   "Just 1% Might Ace This Flag Quiz 🏆",
+   "Name That Flag! {n} Rounds, Zero Hints"
+  ],
+  "titlesSeries": [
+   "Guess the Flag Quiz — Part {part} 🚩",
+   "Flag Quiz Part {part}: Can You Beat It?",
+   "Part {part}: Only the Sharpest Eyes Win 👀",
+   "Can You Name Every Flag? Part {part} 🌍",
+   "{level} Flags — Part {part}",
+   "Back With Part {part}: {n} Fresh Flags! 🔥",
+   "The Flag Challenge Continues — Part {part}",
+   "Round {part}: Name the Flags With {theme} ⭐"
+  ],
+  "descriptions": [
+   "How many of these {region} flags did you know? Tell me your score in the comments.",
+   "A quick {category} challenge with {n} flags. Which one stumped you the most?",
+   "Think you know your flags? Try this {level} round and share your score below.",
+   "Some flags look almost identical. Which pair always trips you up?",
+   "Test your {category} skills in under a minute. What's your score out of {n}?",
+   "{n} flags, one chance each. Did you spot them all? Comment your result!",
+   "Flags from {region} make a fun challenge. Which one was your favorite?",
+   "Today's flag quiz is {level}. Did it feel easy or impossible?",
+   "Part {part} of our flag series is here. Which flag do you want to see next?",
+   "Flags with {theme} can be tricky. Which one fooled you?",
+   "Quiz time! Challenge a friend and compare scores. Who knows more flags?",
+   "Geography fans, this one's for you. What's the flag you always forget?"
+  ],
+  "pinnedComments": [
+   "What's your score out of {n}? Drop it below! 👇",
+   "Which flag fooled you the most? Tell us in the comments!",
+   "Comment your score and see if you're a true flag pro!",
+   "Did you get the last one? Be honest in the comments!",
+   "Which flag do you want to see in the next part? Part {part} is coming!",
+   "Drop your score below and challenge a friend to beat it!",
+   "Easy, medium or hard? Rate this {level} quiz in the comments!",
+   "Share your favorite flag from {region} below! 🚩",
+   "No cheating! Comment how many you got right without pausing.",
+   "Tell us your best guess for the hardest flag. Let's compare!"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#flags",
+    "#quiz",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#flagquiz",
+    "#geographyquiz",
+    "#countries"
+   ],
+   [
+    "#shorts",
+    "#guesstheflag",
+    "#flags",
+    "#trivia"
+   ],
+   [
+    "#shorts",
+    "#worldflags",
+    "#geography",
+    "#quizchallenge"
+   ],
+   [
+    "#shorts",
+    "#flags",
+    "#countries",
+    "#learning"
+   ],
+   [
+    "#shorts",
+    "#geographytrivia",
+    "#flagchallenge",
+    "#quiztime"
+   ],
+   [
+    "#shorts",
+    "#nationalflags",
+    "#geography",
+    "#braintest"
+   ],
+   [
+    "#shorts",
+    "#flagquiz",
+    "#generalknowledge",
+    "#trivia"
+   ],
+   [
+    "#shorts",
+    "#flags",
+    "#worldgeography",
+    "#quiz",
+    "#education"
+   ],
+   [
+    "#shorts",
+    "#guesstheflag",
+    "#countryquiz",
+    "#geographynerd"
+   ]
+  ]
+ },
+ {
+  "format": "landmarks",
+  "titles": [
+   "Can You Guess the Country From the Landmark? 🌍",
+   "Only 1% Can Name All {n} Landmarks 🗺️",
+   "The Last Landmark Is Impossible 😱",
+   "Score {n}/{n} and You're a True Globetrotter",
+   "Name {n} Landmarks in 5 Seconds Each ⏱️",
+   "Every Landmark Features {theme} — Which Country?",
+   "Guess the Country: Famous Landmarks Quiz",
+   "{level} Landmark Quiz: How Many Can You Get?",
+   "Passport Ready? Name the Country! 🛂",
+   "Only the Best Travelers Know These Landmarks",
+   "How Many {region} Landmarks Do You Know? 🧠",
+   "Where in the World Is This? {n} Landmarks",
+   "Think You've Seen the World? Prove It 🧳",
+   "Quick Trip Around the World: {n} Landmarks ✈️",
+   "Which Country Has This Landmark? Test Yourself",
+   "🌎 World Tour Quiz: Name the Country!",
+   "Can't Place This Famous Landmark? Try Again",
+   "Ready for Takeoff? {n} Landmarks to Place",
+   "Starts Easy, Ends Brutal: Landmark Edition",
+   "Landmarks With {theme} — Can You Name the Country?",
+   "How Well Do You Know the World? 60 Seconds",
+   "Beat This Landmark Quiz Without Peeking",
+   "Score Higher Than Your Friends on This Quiz",
+   "Do You Know These {region} Landmarks? 🏛️",
+   "Each Landmark Is Harder Than the Last 🔥",
+   "Pause If You Need Time — {n} Landmarks Await",
+   "Spot the Country Behind Each Landmark ⚡",
+   "A {level} Landmark Quiz Just for You 🎯",
+   "Just 1% Might Ace This Landmark Quiz 🏆",
+   "Name That Landmark's Country! {n} Rounds"
+  ],
+  "titlesSeries": [
+   "Guess the Landmark Quiz — Part {part} 🗺️",
+   "Landmark Quiz Part {part}: Can You Beat It?",
+   "Part {part}: Where in the World Are We? 🌍",
+   "Can You Name Every Country? Landmarks Part {part}",
+   "{level} Landmarks — Part {part}",
+   "Back With Part {part}: {n} New Landmarks! ✈️",
+   "The World Tour Continues — Part {part}",
+   "Round {part}: Landmarks With {theme} 📍"
+  ],
+  "descriptions": [
+   "Which of these {region} landmarks did you recognize? Tell me your score in the comments.",
+   "A quick {category} trip around the world with {n} landmarks. Which one stumped you?",
+   "Think you're a seasoned traveler? Try this {level} round and share your score.",
+   "Some landmarks look similar from afar. Which one fooled you?",
+   "Test your travel knowledge in under a minute. What's your score out of {n}?",
+   "{n} landmarks, one guess each. Did you name every country? Comment your result!",
+   "{region} has so many famous places. Which landmark is on your bucket list?",
+   "Today's landmark quiz is {level}. Did it feel easy or impossible?",
+   "Part {part} of our world tour is here. Where should we travel next?",
+   "Landmarks with {theme} can be tricky. Which country surprised you?",
+   "Quiz time! Send this to a travel buddy and compare scores. Who wins?",
+   "Geography fans, this one's for you. Which landmark have you actually visited?"
+  ],
+  "pinnedComments": [
+   "What's your score out of {n}? Drop it below! 👇",
+   "Which landmark fooled you the most? Tell us in the comments!",
+   "Comment your score and see if you're a true globetrotter!",
+   "Have you visited any of these places? Share your story below!",
+   "Which landmark should we feature in part {part}? Let us know!",
+   "Drop your score below and challenge a friend to beat it!",
+   "Easy, medium or hard? Rate this {level} quiz in the comments!",
+   "Share your dream travel spot from {region} below! 🌍",
+   "No cheating! How many did you get right without pausing?",
+   "Tell us your best guess for the trickiest landmark. Let's compare!"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#landmarks",
+    "#quiz",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#guessthecountry",
+    "#travel",
+    "#trivia"
+   ],
+   [
+    "#shorts",
+    "#worldlandmarks",
+    "#geographyquiz",
+    "#travelquiz"
+   ],
+   [
+    "#shorts",
+    "#landmarkquiz",
+    "#geography",
+    "#braintest"
+   ],
+   [
+    "#shorts",
+    "#famousplaces",
+    "#countries",
+    "#learning"
+   ],
+   [
+    "#shorts",
+    "#worldtour",
+    "#quiztime",
+    "#geographytrivia"
+   ],
+   [
+    "#shorts",
+    "#travel",
+    "#landmarks",
+    "#quizchallenge"
+   ],
+   [
+    "#shorts",
+    "#wondersoftheworld",
+    "#geography",
+    "#trivia"
+   ],
+   [
+    "#shorts",
+    "#landmarks",
+    "#worldgeography",
+    "#quiz",
+    "#education"
+   ],
+   [
+    "#shorts",
+    "#guessthelandmark",
+    "#countryquiz",
+    "#traveler"
+   ]
+  ]
+ },
+ {
+  "format": "math",
+  "titles": [
+   "Can You Solve All {n} Math Problems? 🧮",
+   "Only 1% Can Solve the Last One in 5 Seconds",
+   "The Last Question Is Impossible 🤯",
+   "Score {n}/{n} and You're a Math Genius",
+   "Quick Math Quiz: {level} Edition ⚡",
+   "Solve These {n} Problems in 5 Seconds Each",
+   "Mental Math Challenge: No Calculator!",
+   "🧠 Is Your Brain Faster Than a Calculator?",
+   "{level} Math Quiz — How Far Can You Get?",
+   "Why Does Everyone Miss Question {n}? 🤔",
+   "No Pen, No Paper: {n} Math Puzzles",
+   "Think You're Good at Math? Prove It 😏",
+   "Beat the Clock: {n} Math Questions ⏱️",
+   "Math Test Without a Calculator — Your Score?",
+   "Many People Slip on Question 5 😬",
+   "Easy or Impossible? Rate This Math Quiz 🔥",
+   "Only 5 Seconds Per Question — Ready?",
+   "Try Not to Use a Calculator: {n} Questions",
+   "Another Day, Another Math Puzzle 🧩",
+   "Genius or Guesser? {n} Math Questions",
+   "How Many Can You Solve in Your Head?",
+   "Brain Workout: {n} {level} Math Problems 💪",
+   "Pause If You Need More Time! Math Quiz ⏸️",
+   "Do the Math: {n} Questions, Zero Mercy",
+   "Just 1% Get {n}/{n} on This Math Quiz 🏆",
+   "Few Finish This {level} Math Quiz 😅",
+   "Level: {level}. Can You Survive This Quiz?",
+   "Your Math Teacher Would Be Proud If You Pass",
+   "Fast Math Puzzle: Spot the Right Answer 🔍",
+   "Guess the Answer Before the Timer Ends ⏰"
+  ],
+  "titlesSeries": [
+   "Math Quiz Challenge — Part {part} 🧮",
+   "Part {part}: {level} Math Puzzles You Can't Skip",
+   "Mental Math Shorts #{part} — Solve in 5 Seconds",
+   "Can You Beat Part {part}? Math Quiz ⏱️",
+   "No Calculator Math Quiz, Part {part} 🧠",
+   "Brain Teasers Series: Math Edition Part {part}",
+   "Daily Math Workout #{part} — {level} Mode",
+   "Back for Part {part}: Harder Math Questions 🔥"
+  ],
+  "descriptions": [
+   "Solve {n} {level} {category} questions without a calculator. What was your score? Tell us in the comments!",
+   "Quick {category} challenge: {n} questions, a few seconds each. Which one tripped you up?",
+   "Can you do all of these {category} problems in your head? Drop your score below and challenge a friend!",
+   "A {level} round of {category} puzzles to wake up your brain. Did you beat the timer?",
+   "Pause the video if you need more time. Which question was your favourite?",
+   "Today's {category} quiz has {n} questions, from warm-up to tricky. How far did you get?",
+   "No calculator, no paper, just your brain. What's your best {category} score so far?",
+   "Think you're fast at {category}? Try this {level} set and tell us your result!",
+   "{n} questions, one chance each. Which answer surprised you the most?",
+   "Part of our ongoing {category} series. Want a harder round next time? Let us know below!",
+   "Test your mental maths with {n} {level} questions. Did you spot any shortcuts?",
+   "Warm up your brain with this {category} quiz. Comment your score and see how you compare!"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which question got you? Tell us the number!",
+   "Did you solve the last one? Drop your answer below ⬇️",
+   "Comment your score and I'll tell you if you're a math genius 🧠",
+   "Be honest: did you use a calculator? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "What's your favourite math trick? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which question took you the longest? Let us know!",
+   "Wrong answer? Tell us what you got and we'll explain! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#math",
+    "#mathquiz",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#mentalmath",
+    "#brainteaser",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#maths",
+    "#mathchallenge",
+    "#brainchallenge"
+   ],
+   [
+    "#shorts",
+    "#quiz",
+    "#mathpuzzle",
+    "#iqtest"
+   ],
+   [
+    "#shorts",
+    "#mathtrivia",
+    "#triviaquiz",
+    "#braingames"
+   ],
+   [
+    "#shorts",
+    "#numbers",
+    "#mathquiz",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#mathtest",
+    "#nocalculator",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#braintraining",
+    "#math",
+    "#puzzle",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#arithmetic",
+    "#mathgame",
+    "#learn"
+   ],
+   [
+    "#shorts",
+    "#mathproblems",
+    "#testyourself",
+    "#quiztime"
+   ]
+  ]
+ },
+ {
+  "format": "missing-letters",
+  "titles": [
+   "Can You Fill in the Missing Letters? 🔤",
+   "Only 1% Can Complete All {n} Words",
+   "Guess the Word With Missing Letters ✏️",
+   "Score {n}/{n} and You're a Word Wizard 🧙",
+   "Missing Letters Quiz: {region} Edition",
+   "Complete the {category} Names in 5 Seconds",
+   "Fill the Blanks: {n} {level} Words",
+   "Think You Know {region}? Fill the Gaps 🌍",
+   "🔤 What's Missing? {n} Words, 5 Seconds Each",
+   "The Last Word Is Impossible 😈",
+   "Which Letters Are Missing? {level} Quiz",
+   "Just 1% Finish This Word Puzzle",
+   "Word Puzzle: Find the Missing Letters 🧩",
+   "Crack the Gaps: {category} Edition",
+   "Is Your Vocabulary Strong Enough? 📚",
+   "Beat the Timer: Complete {n} Words ⏱️",
+   "No Hints Allowed! Missing Letters Quiz",
+   "Many Miss Word #{n} — Do You? 👀",
+   "Every Word Is Missing {theme}!",
+   "Hardly Anyone Gets {n}/{n} Here 😅",
+   "Quick Spelling Test: Fill the Gaps ⚡",
+   "Missing Vowels or Missing Consonants? Guess!",
+   "Try This {level} Word Quiz Without Hints",
+   "How Fast Can You Solve {n} Words?",
+   "Brain Check: Complete the Word 🧠",
+   "Spell It Right: {category} Missing Letters",
+   "Fill In: {n} {category} Words, Zero Clues",
+   "Letters Gone! Can You Rebuild the Word? 🔧",
+   "Geography Nerds Only: Missing Letters 🗺️",
+   "Pause and Solve: {n} Hidden {category} Words"
+  ],
+  "titlesSeries": [
+   "Missing Letters Quiz — Part {part} 🔤",
+   "Part {part}: Fill the {category} Gaps",
+   "Word Gaps Challenge #{part} — {level} Mode",
+   "Can You Beat Part {part}? Missing Letters ✏️",
+   "Complete the Words, Part {part} 🧩",
+   "Letter Hunt Series #{part}: {region} Edition",
+   "Back With Part {part}: Harder Missing Letters 🔥",
+   "Daily Word Puzzle #{part} — Fill the Blanks"
+  ],
+  "descriptions": [
+   "Can you fill in the missing letters in these {n} {category} words? Comment your score below!",
+   "Some letters have vanished from these {region} names. Which one was the hardest to figure out?",
+   "{n} words, a few letters missing from each. How many can you complete without hints?",
+   "A {level} round of missing-letter puzzles. Did you beat the timer?",
+   "Pause the video if you need more time. Which word fooled you the most?",
+   "Test your spelling and your {category} knowledge in one quiz. What's your score out of {n}?",
+   "Today's missing-letters quiz is {level} difficulty. Do you think you can get them all?",
+   "Fill in the gaps and guess the {category} word. Which answer surprised you?",
+   "Think you know {region} well enough to spot every missing letter? Tell us your score!",
+   "Part of our ongoing word puzzle series. Want more {category} rounds? Let us know below!",
+   "{n} questions, one chance each, no hints. Which word would you like to see next?",
+   "Warm up your brain with this word puzzle. Comment your result and challenge a friend!"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which word got you? Tell us the number!",
+   "Did you get the last one? Drop your answer below ⬇️",
+   "Comment your score and I'll rate your vocabulary 📚",
+   "Be honest: did you pause the video? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "Which word was your favourite? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which word took you the longest? Let us know!",
+   "Missed one? Tell us which and we'll explain the answer! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#missingletters",
+    "#wordgame",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#wordpuzzle",
+    "#spelling",
+    "#brainteaser"
+   ],
+   [
+    "#shorts",
+    "#guesstheword",
+    "#fillintheblanks",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#vocabulary",
+    "#wordquiz",
+    "#languagelearning"
+   ],
+   [
+    "#shorts",
+    "#geography",
+    "#wordgame",
+    "#quiztime"
+   ],
+   [
+    "#shorts",
+    "#spellingbee",
+    "#wordchallenge",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#braingames",
+    "#wordpuzzle",
+    "#testyourself"
+   ],
+   [
+    "#shorts",
+    "#triviaquiz",
+    "#missingletters",
+    "#english",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#completetheword",
+    "#wordgames",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#hangman",
+    "#wordquiz",
+    "#brainchallenge"
+   ]
+  ]
+ },
+ {
+  "format": "what-is-it",
+  "titles": [
+   "What Is It? Guess in 5 Seconds 🔍",
+   "Can You Guess All {n} Mystery Objects?",
+   "Only 1% Can Name the Last One 🤯",
+   "Zoomed In: Can You Identify the Object?",
+   "Score {n}/{n} and You Have Eagle Eyes 🦅",
+   "Guess the {category} From a Tiny Clue",
+   "The Last One Is Impossible 😈",
+   "Mystery Close-Up Quiz: {level} Edition",
+   "🧐 Think You Know Everyday Objects?",
+   "Look Closely: {n} Things, 5 Seconds Each ⏱️",
+   "Every Object Is Something {theme}!",
+   "Name That Thing: {n} {level} Puzzles",
+   "Pause If You Need To! Mystery Object Quiz",
+   "Just 1% Get {n}/{n} on This One 🏆",
+   "Eagle Eye Test: What Are You Looking At?",
+   "Is It Easy or Impossible? 🔥 Rate This Quiz",
+   "Some People Miss Number 5 😬",
+   "No Hints: Identify {n} Hidden {category}",
+   "How Many Can You Identify in 5 Seconds?",
+   "🧠 Brain vs Eyes: {n} Mystery Objects",
+   "Guessing Game: {category} Close-Ups 👀",
+   "Beat the Timer: What Is This Object?",
+   "Hardly Anyone Gets {n}/{n} Here 😅",
+   "Which One Stumps You? {level} Object Quiz",
+   "Spot the Object Before the Timer Ends ⏰",
+   "Test Your Eyes With {n} Blurry Mysteries",
+   "Only 5 Seconds to Name Each {category}",
+   "Can't Guess It? Wait for the Reveal!",
+   "Do You Recognize This {category}? 🤔",
+   "Up for a Challenge? {n} Hidden Objects"
+  ],
+  "titlesSeries": [
+   "What Is It? Quiz — Part {part} 🔍",
+   "Part {part}: Mystery Object Challenge",
+   "Guess the Object #{part} — {level} Mode",
+   "Can You Beat Part {part}? Close-Up Quiz 👀",
+   "Zoom & Guess Series, Part {part} 🧐",
+   "Hidden Objects Shorts #{part}: {category} Edition",
+   "Back for Part {part}: Trickier Mystery Objects 🔥",
+   "Daily Eagle Eye Test #{part} — Name It"
+  ],
+  "descriptions": [
+   "Can you identify these {n} mystery {category} from just a close-up? Comment your score below!",
+   "A {level} round of zoomed-in puzzles. Which object fooled you the most?",
+   "{n} hidden {category}, a few seconds each. How many can you name without hints?",
+   "Pause the video if you need more time. Which one was your favourite to guess?",
+   "Think you have sharp eyes? Try this {category} quiz and tell us your result!",
+   "Today's mystery quiz is {level} difficulty. Did you beat the timer?",
+   "Look closely and name the object before the reveal. What's your score out of {n}?",
+   "Some of these look obvious once you know the answer. Which one surprised you?",
+   "A quick {category} guessing game to wake up your brain. Challenge a friend and compare scores!",
+   "Part of our ongoing what-is-it series. Want more {category} rounds? Let us know below!",
+   "{n} questions, one chance each, no hints. Which object would you like to see next?",
+   "Test your observation skills with this {level} quiz. Which answer did you get wrong?"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which object got you? Tell us the number!",
+   "Did you guess the last one? Drop your answer below ⬇️",
+   "Comment your score and I'll rate your eagle eyes 🦅",
+   "Be honest: did you pause the video? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "Which object was your favourite? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which one took you the longest to guess? Let us know!",
+   "Missed one? Tell us which and we'll explain! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#guessthe",
+    "#quiz",
+    "#mysteryobject"
+   ],
+   [
+    "#shorts",
+    "#whatisit",
+    "#guessingame",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#eagleeye",
+    "#visualpuzzle",
+    "#quiztime"
+   ],
+   [
+    "#shorts",
+    "#brainteaser",
+    "#guesstheobject",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#triviaquiz",
+    "#testyourself",
+    "#braingames"
+   ],
+   [
+    "#shorts",
+    "#closeup",
+    "#guessgame",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#observation",
+    "#whatisthis",
+    "#puzzle",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#nameit",
+    "#everydayobjects",
+    "#guesschallenge"
+   ],
+   [
+    "#shorts",
+    "#brainchallenge",
+    "#visualquiz",
+    "#guess"
+   ],
+   [
+    "#shorts",
+    "#quizchallenge",
+    "#hiddenobjects",
+    "#trivia"
+   ]
+  ]
+ },
+ {
+  "format": "country-shape",
+  "titles": [
+   "Can You Guess the Country by Its Shape? 🗺️",
+   "Only 1% Can Name All {n} Countries",
+   "Country Shape Quiz: {region} Edition",
+   "The Last Shape Is Impossible 😈",
+   "Score {n}/{n} and You're a Geography Pro 🌍",
+   "Name the Country From Its Outline in 5 Seconds",
+   "Geography Nerds: Identify {n} Silhouettes",
+   "🧭 Think You Know {region}'s Borders?",
+   "Guess the Country: {level} Shape Challenge",
+   "Blank Map Test: Which Country Is This?",
+   "Just 1% Get {n}/{n} on This Map Quiz 🏆",
+   "Every Country Has {theme}! Can You Spot It?",
+   "Which Country Is This? {n} Outlines, No Clues",
+   "Shape Shifters: Recognize the Country 👀",
+   "No Labels, No Hints: Name the Country",
+   "How Many Countries Can You Name by Shape?",
+   "Beat the Timer: {n} Country Outlines ⏱️",
+   "Is It Easy or Impossible? Map Quiz 🔥",
+   "Pause If You Must! Country Shape Quiz",
+   "Hardly Anyone Gets {n}/{n} on {region} Shapes 😅",
+   "Look at the Outline — What's the Country?",
+   "Test Your Geography: {n} Mystery Shapes 🧠",
+   "Some Shapes Fool Everyone 😬 Do They Fool You?",
+   "Spot the Country Before Time Runs Out ⏰",
+   "Mapmaker Test: {level} Country Outlines",
+   "Do You Recognize This Shape? 🤔",
+   "Silhouette Showdown: Name {n} Countries",
+   "Only 5 Seconds Per Country — Ready?",
+   "Up for a Challenge? {region} Map Quiz 🌐",
+   "Quick Geography Test: Name That Country ⚡"
+  ],
+  "titlesSeries": [
+   "Country Shape Quiz — Part {part} 🗺️",
+   "Part {part}: Name the Country From Its Outline",
+   "Map Outline Challenge #{part} — {level} Mode",
+   "Can You Beat Part {part}? Shape Quiz 🌍",
+   "Geography Shorts #{part}: {region} Silhouettes",
+   "Blank Map Series, Part {part} 🧭",
+   "Back for Part {part}: Trickier Country Shapes 🔥",
+   "Daily Shape Test #{part} — Guess the Country"
+  ],
+  "descriptions": [
+   "Can you name these {n} countries from their outline alone? Comment your score below!",
+   "A {level} round of {region} map shapes. Which country fooled you the most?",
+   "{n} silhouettes, a few seconds each. How many can you name without hints?",
+   "Pause the video if you need more time. Which shape was your favourite?",
+   "Think you know your {region} geography? Try this {category} quiz and tell us your result!",
+   "Today's country-shape quiz is {level} difficulty. Did you beat the timer?",
+   "No labels, no borders, no clues. What's your score out of {n}?",
+   "Some countries look unmistakable once you know them. Which one surprised you?",
+   "A quick geography game to wake up your brain. Challenge a friend and compare scores!",
+   "Part of our ongoing map quiz series. Want more {region} rounds? Let us know below!",
+   "{n} questions, one chance each. Which country would you like to see next?",
+   "Test your map skills with this {level} quiz. Which answer did you get wrong?"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which country got you? Tell us the number!",
+   "Did you guess the last shape? Drop your answer below ⬇️",
+   "Comment your score and I'll rate your geography skills 🌍",
+   "Be honest: did you pause the video? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "Which shape was your favourite? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which country took you the longest to spot? Let us know!",
+   "Missed one? Tell us which and we'll explain! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#geography",
+    "#countries",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#mapquiz",
+    "#worldmap",
+    "#guessthecountry"
+   ],
+   [
+    "#shorts",
+    "#countryshapes",
+    "#geographyquiz",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#maps",
+    "#geonerd",
+    "#quiztime"
+   ],
+   [
+    "#shorts",
+    "#worldgeography",
+    "#triviaquiz",
+    "#testyourself"
+   ],
+   [
+    "#shorts",
+    "#countryquiz",
+    "#bordersquiz",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#geographytrivia",
+    "#silhouette",
+    "#braingames",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#guessthecountry",
+    "#blankmap",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#worldmap",
+    "#brainchallenge",
+    "#quizchallenge"
+   ],
+   [
+    "#shorts",
+    "#geoguessr",
+    "#countries",
+    "#trivia"
+   ]
+  ]
+ },
+ {
+  "format": "capitals",
+  "titles": [
+   "Can You Name All {n} Capitals? 🏛️",
+   "Only 1% Can Name These {region} Capitals",
+   "The Last Capital Is Impossible 😈",
+   "Score {n}/{n} and You're a Geography Genius",
+   "Capital Cities Quiz: {level} Edition",
+   "Name the Capital in 5 Seconds ⏱️",
+   "Think You Know {region}? Name the Capitals 🌍",
+   "Everyone Mixes Up These Capitals 😬",
+   "Geography Nerds: {n} Capital Cities Test",
+   "Guess the Capital: {level} Challenge",
+   "🧠 What's the Capital? {n} Questions, No Hints",
+   "Beat the Timer: {n} Capital Cities",
+   "Which City Is the Capital? Tricky Quiz 🤔",
+   "No Googling! Capital Quiz for {region}",
+   "How Many Capitals Do You Know? ⚡",
+   "Just 1% Get {n}/{n} on This Capitals Quiz",
+   "Is It Easy or Impossible? Capitals Quiz 🔥",
+   "Pause If You Need To! Capital City Quiz",
+   "Hardly Anyone Gets {n}/{n} on {region} Capitals 😅",
+   "Capital or Not? Spot the Right City 🏙️",
+   "Quick Geography Test: Name That Capital",
+   "Test Your Brain With {n} {level} Capitals",
+   "Spot the Capital Before Time Runs Out ⏰",
+   "Many Slip on Question 5 — Do You?",
+   "Every Capital Here Is in {region} 📍",
+   "Up for a Challenge? World Capitals Quiz 🌐",
+   "Fill In the Capital: {n} Countries, 5 Seconds",
+   "Quiz Time: {category} Capitals Edition",
+   "Prove You're a Geography Pro 😏",
+   "Try These {n} Capitals Without Hints"
+  ],
+  "titlesSeries": [
+   "Capital Cities Quiz — Part {part} 🏛️",
+   "Part {part}: Name the Capital of Each Country",
+   "World Capitals Challenge #{part} — {level} Mode",
+   "Can You Beat Part {part}? Capitals Quiz 🌍",
+   "Geography Shorts #{part}: {region} Capitals",
+   "Capital Hunt Series, Part {part} 🧭",
+   "Back for Part {part}: Trickier Capital Cities 🔥",
+   "Daily Capitals Test #{part} — Name the City"
+  ],
+  "descriptions": [
+   "Can you name the capital city of each of these {n} countries? Comment your score below!",
+   "A {level} round of {region} capitals. Which one fooled you the most?",
+   "{n} countries, a few seconds each. How many capitals can you name without hints?",
+   "Pause the video if you need more time. Which capital was your favourite to guess?",
+   "Think you know your {region} geography? Try this {category} quiz and tell us your result!",
+   "Today's capitals quiz is {level} difficulty. Did you beat the timer?",
+   "No maps, no clues, just your memory. What's your score out of {n}?",
+   "Some capitals are surprising once you know the answer. Which one caught you out?",
+   "A quick geography game to wake up your brain. Challenge a friend and compare scores!",
+   "Part of our ongoing capitals series. Want more {region} rounds? Let us know below!",
+   "{n} questions, one chance each. Which country's capital should we ask about next?",
+   "Test your world knowledge with this {level} quiz. Which answer did you get wrong?"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which capital got you? Tell us the number!",
+   "Did you know the last one? Drop your answer below ⬇️",
+   "Comment your score and I'll rate your geography skills 🌍",
+   "Be honest: did you pause the video? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "Which capital was your favourite? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which capital took you the longest to remember? Let us know!",
+   "Missed one? Tell us which and we'll explain! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#capitals",
+    "#geography",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#capitalcities",
+    "#worldcapitals",
+    "#geographyquiz"
+   ],
+   [
+    "#shorts",
+    "#countries",
+    "#guessthecapital",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#geonerd",
+    "#quiztime",
+    "#worldgeography"
+   ],
+   [
+    "#shorts",
+    "#triviaquiz",
+    "#testyourself",
+    "#braingames"
+   ],
+   [
+    "#shorts",
+    "#countryquiz",
+    "#capitalquiz",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#geographytrivia",
+    "#capitals",
+    "#learn",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#worldmap",
+    "#capitalcities",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#brainchallenge",
+    "#quizchallenge",
+    "#countries"
+   ],
+   [
+    "#shorts",
+    "#generalknowledge",
+    "#capitals",
+    "#trivia"
+   ]
+  ]
+ },
+ {
+  "format": "real-vs-fake-flag",
+  "titles": [
+   "Real or Fake Flag? Can You Tell? 🚩",
+   "Only 1% Can Spot Every Fake Flag",
+   "One of These Flags Is Fake 🤔",
+   "Score {n}/{n} and You're a Flag Expert",
+   "Real vs Fake Flags: {level} Edition",
+   "Spot the Fake Flag in 5 Seconds ⏱️",
+   "Is This a Real Country's Flag? {n} Tests",
+   "The Last Flag Is a Trick 😈",
+   "Flag Detectives: Find the Fakes 🕵️",
+   "Think You Know Flags? Spot the Impostor",
+   "Beat the Timer: Real or Fake? ⚡",
+   "Which Flag Is Real? {n} Tough Rounds",
+   "Just 1% Get {n}/{n} on This Flag Test 🏆",
+   "Fake Flags Everywhere! Can You Spot Them?",
+   "Pause If You Need To! Flag Quiz",
+   "Hardly Anyone Gets {n}/{n} Here 😅",
+   "Geography Nerds: Real or Fake Flag?",
+   "Is It Easy or Impossible? Flag Quiz 🔥",
+   "No Hints: Which {region} Flag Is Fake?",
+   "Many Slip on Flag #5 — Do You? 😬",
+   "Test Your Eyes: Real Flag or Made Up?",
+   "Flags With {theme}: Which One Is Fake?",
+   "Quick Flag Test: Real or Not? 👀",
+   "Which {region} Flag Is Real? Beat the Clock ⏰",
+   "Up for a Challenge? {level} Flag Quiz",
+   "Can't Decide? Real vs Fake Flag Showdown ⚔️",
+   "Brain Check: {n} Flags, Some Are Fake 🧠",
+   "Look Closely: Is This Flag Real?",
+   "Prove You're a Vexillology Pro 😏",
+   "Trust Your Eyes? Fake Flag Quiz 🔍"
+  ],
+  "titlesSeries": [
+   "Real or Fake Flag Quiz — Part {part} 🚩",
+   "Part {part}: Spot the Fake Flag",
+   "Fake Flag Challenge #{part} — {level} Mode",
+   "Can You Beat Part {part}? Real vs Fake 🕵️",
+   "Flag Shorts #{part}: {region} Edition",
+   "Impostor Flags Series, Part {part} 🔍",
+   "Back for Part {part}: Trickier Fake Flags 🔥",
+   "Daily Flag Test #{part} — Real or Fake?"
+  ],
+  "descriptions": [
+   "Can you tell which of these {n} flags are real and which are made up? Comment your score below!",
+   "A {level} round of real and fake flags. Which one fooled you the most?",
+   "{n} flags, a few seconds each. How many fakes can you spot without hints?",
+   "Pause the video if you need more time. Which flag was your favourite?",
+   "Think you know your {region} flags? Try this {category} quiz and tell us your result!",
+   "Today's real-or-fake quiz is {level} difficulty. Did you beat the timer?",
+   "Some fake flags look surprisingly convincing. What's your score out of {n}?",
+   "Real flags can look stranger than the fake ones. Which answer surprised you?",
+   "A quick flag game to wake up your brain. Challenge a friend and compare scores!",
+   "Part of our ongoing flag quiz series. Want more {region} rounds? Let us know below!",
+   "{n} questions, one chance each. Which flag would you like us to test next?",
+   "Test your eyes with this {level} quiz. Which answer did you get wrong?"
+  ],
+  "pinnedComments": [
+   "What was your score out of {n}? Comment below! 👇",
+   "Which flag fooled you? Tell us the number!",
+   "Did you spot the last fake? Drop your answer below ⬇️",
+   "Comment your score and I'll rate your flag skills 🚩",
+   "Be honest: did you pause the video? 😄",
+   "Want a harder {level} round? Comment 'harder' below!",
+   "Which real flag surprised you most? Share it here!",
+   "Challenge a friend and compare scores in the comments 🏆",
+   "Which flag took you the longest to judge? Let us know!",
+   "Missed one? Tell us which and we'll explain! 🤓"
+  ],
+  "hashtagSets": [
+   [
+    "#shorts",
+    "#flags",
+    "#realorfake",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#flagquiz",
+    "#fakeflag",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#vexillology",
+    "#flags",
+    "#puzzle"
+   ],
+   [
+    "#shorts",
+    "#geographyquiz",
+    "#quiztime",
+    "#worldflags"
+   ],
+   [
+    "#shorts",
+    "#triviaquiz",
+    "#testyourself",
+    "#braingames"
+   ],
+   [
+    "#shorts",
+    "#countryflags",
+    "#guesstheflag",
+    "#challenge"
+   ],
+   [
+    "#shorts",
+    "#realorfakequiz",
+    "#flags",
+    "#brainteaser",
+    "#quiz"
+   ],
+   [
+    "#shorts",
+    "#worldflags",
+    "#geonerd",
+    "#geography"
+   ],
+   [
+    "#shorts",
+    "#brainchallenge",
+    "#quizchallenge",
+    "#flagquiz"
+   ],
+   [
+    "#shorts",
+    "#generalknowledge",
+    "#flags",
+    "#trivia"
+   ]
+  ]
+ }
+]

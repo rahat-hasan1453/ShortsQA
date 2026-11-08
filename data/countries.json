@@ -1,0 +1,3393 @@
+[
+ {
+  "n": 1,
+  "iso2": "AF",
+  "name": "Afghanistan",
+  "altNames": [
+   "Islamic Emirate of Afghanistan"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Kabul",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Black, red and green vertical stripes with a white emblem",
+  "funFact": "A landlocked country crossed by the Hindu Kush mountain range."
+ },
+ {
+  "n": 2,
+  "iso2": "AL",
+  "name": "Albania",
+  "altNames": [
+   "Republic of Albania"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Tirana",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "ME"
+  ],
+  "flagHint": "Black double-headed eagle on a red field",
+  "funFact": "Communist-era Albania built hundreds of thousands of small concrete bunkers across the country."
+ },
+ {
+  "n": 3,
+  "iso2": "DZ",
+  "name": "Algeria",
+  "altNames": [
+   "People's Democratic Republic of Algeria"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Algiers",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green and white vertical halves with a red crescent and star",
+  "funFact": "Algeria is the largest country in Africa by area."
+ },
+ {
+  "n": 4,
+  "iso2": "AD",
+  "name": "Andorra",
+  "altNames": [
+   "Principality of Andorra"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Andorra la Vella",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "RO",
+   "TD"
+  ],
+  "flagHint": "Blue, yellow and red vertical stripes with a coat of arms in the center",
+  "funFact": "Andorra la Vella is often cited as the highest capital city in Europe."
+ },
+ {
+  "n": 5,
+  "iso2": "AO",
+  "name": "Angola",
+  "altNames": [
+   "Republic of Angola"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Luanda",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red over black halves with a yellow machete, gear and star",
+  "funFact": "Angola gained independence from Portugal in 1975."
+ },
+ {
+  "n": 6,
+  "iso2": "AG",
+  "name": "Antigua and Barbuda",
+  "altNames": [
+   "Antigua"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Saint John's",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red field with an inverted triangle showing a rising yellow sun",
+  "funFact": "This Caribbean nation is made up of two main islands, Antigua and Barbuda."
+ },
+ {
+  "n": 7,
+  "iso2": "AR",
+  "name": "Argentina",
+  "altNames": [
+   "Argentine Republic"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Buenos Aires",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "UY"
+  ],
+  "flagHint": "Light blue and white horizontal stripes with a golden sun",
+  "funFact": "Argentina is the eighth-largest country in the world by area."
+ },
+ {
+  "n": 8,
+  "iso2": "AM",
+  "name": "Armenia",
+  "altNames": [
+   "Republic of Armenia"
+  ],
+  "continent": "Asia",
+  "subregion": "Caucasus",
+  "capital": "Yerevan",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red, blue and orange horizontal stripes",
+  "funFact": "Armenia was the first country to adopt Christianity as its state religion, in 301 AD."
+ },
+ {
+  "n": 9,
+  "iso2": "AU",
+  "name": "Australia",
+  "altNames": [
+   "Commonwealth of Australia"
+  ],
+  "continent": "Oceania",
+  "subregion": "Australia and New Zealand",
+  "capital": "Canberra",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "NZ"
+  ],
+  "flagHint": "Dark blue with Union Jack, one large white star and smaller stars",
+  "funFact": "Canberra, not Sydney or Melbourne, is the capital of Australia."
+ },
+ {
+  "n": 10,
+  "iso2": "AT",
+  "name": "Austria",
+  "altNames": [
+   "Republic of Austria"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Vienna",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "LV"
+  ],
+  "flagHint": "Three horizontal stripes: red, white, red",
+  "funFact": "The Alps cover most of Austria's landlocked territory."
+ },
+ {
+  "n": 11,
+  "iso2": "AZ",
+  "name": "Azerbaijan",
+  "altNames": [
+   "Republic of Azerbaijan"
+  ],
+  "continent": "Asia",
+  "subregion": "Caucasus",
+  "capital": "Baku",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Blue, red and green stripes with a white crescent and eight-pointed star",
+  "funFact": "Baku is below sea level, one of the lowest-lying national capitals in the world."
+ },
+ {
+  "n": 12,
+  "iso2": "BS",
+  "name": "Bahamas",
+  "altNames": [
+   "The Bahamas",
+   "Commonwealth of the Bahamas"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Nassau",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Aquamarine and gold stripes with a black triangle at the hoist",
+  "funFact": "The Bahamas is an archipelago of roughly 700 islands."
+ },
+ {
+  "n": 13,
+  "iso2": "BH",
+  "name": "Bahrain",
+  "altNames": [
+   "Kingdom of Bahrain"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Manama",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "QA"
+  ],
+  "flagHint": "Red field with a white band separated by a zigzag edge",
+  "funFact": "Bahrain is an island nation in the Persian Gulf."
+ },
+ {
+  "n": 14,
+  "iso2": "BD",
+  "name": "Bangladesh",
+  "altNames": [
+   "People's Republic of Bangladesh"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Dhaka",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "JP"
+  ],
+  "flagHint": "Red circle on a dark green field",
+  "funFact": "Bangladesh is one of the most densely populated large countries in the world."
+ },
+ {
+  "n": 15,
+  "iso2": "BB",
+  "name": "Barbados",
+  "altNames": [],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Bridgetown",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue, gold, blue vertical stripes with a black trident",
+  "funFact": "Barbados became a republic in 2021, removing the British monarch as head of state."
+ },
+ {
+  "n": 16,
+  "iso2": "BY",
+  "name": "Belarus",
+  "altNames": [
+   "Republic of Belarus"
+  ],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Minsk",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red over green with a white-and-red ornament at the hoist",
+  "funFact": "Belarus is landlocked and borders five countries."
+ },
+ {
+  "n": 17,
+  "iso2": "BE",
+  "name": "Belgium",
+  "altNames": [
+   "Kingdom of Belgium"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Brussels",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "DE"
+  ],
+  "flagHint": "Black, yellow and red vertical stripes",
+  "funFact": "Belgium has three official languages: Dutch, French and German."
+ },
+ {
+  "n": 18,
+  "iso2": "BZ",
+  "name": "Belize",
+  "altNames": [],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Belmopan",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Blue with red stripes top and bottom and a coat of arms in a white circle",
+  "funFact": "Belize is the only Central American country with English as its official language."
+ },
+ {
+  "n": 19,
+  "iso2": "BJ",
+  "name": "Benin",
+  "altNames": [
+   "Republic of Benin",
+   "Dahomey"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Porto-Novo",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green vertical band at hoist, then yellow over red",
+  "funFact": "Benin is widely regarded as the birthplace of the Vodun religion."
+ },
+ {
+  "n": 20,
+  "iso2": "BT",
+  "name": "Bhutan",
+  "altNames": [
+   "Kingdom of Bhutan"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Thimphu",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Yellow and orange diagonal halves with a white dragon",
+  "funFact": "Bhutan is known for measuring progress with Gross National Happiness."
+ },
+ {
+  "n": 21,
+  "iso2": "BO",
+  "name": "Bolivia",
+  "altNames": [
+   "Plurinational State of Bolivia"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "La Paz",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "GH"
+  ],
+  "flagHint": "Red, yellow and green horizontal stripes with a small central emblem",
+  "funFact": "Bolivia has two capitals: Sucre is constitutional and La Paz is the seat of government."
+ },
+ {
+  "n": 22,
+  "iso2": "BA",
+  "name": "Bosnia and Herzegovina",
+  "altNames": [
+   "Bosnia"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Sarajevo",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Blue with a yellow triangle and a diagonal line of white stars",
+  "funFact": "Sarajevo hosted the 1984 Winter Olympics."
+ },
+ {
+  "n": 23,
+  "iso2": "BW",
+  "name": "Botswana",
+  "altNames": [
+   "Republic of Botswana"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Gaborone",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Light blue with a black stripe edged in white across the middle",
+  "funFact": "Botswana is one of the world's leading producers of diamonds."
+ },
+ {
+  "n": 24,
+  "iso2": "BR",
+  "name": "Brazil",
+  "altNames": [
+   "Federative Republic of Brazil"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Brasília",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "Green field with a yellow diamond and a blue globe",
+  "funFact": "Brazil is the only Portuguese-speaking country in South America."
+ },
+ {
+  "n": 25,
+  "iso2": "BN",
+  "name": "Brunei",
+  "altNames": [
+   "Brunei Darussalam"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Bandar Seri Begawan",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Yellow with diagonal black and white stripes and a red crest",
+  "funFact": "Brunei is on the island of Borneo and is split into two separate parts by Malaysia."
+ },
+ {
+  "n": 26,
+  "iso2": "BG",
+  "name": "Bulgaria",
+  "altNames": [
+   "Republic of Bulgaria"
+  ],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Sofia",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "HU"
+  ],
+  "flagHint": "White, green and red horizontal stripes",
+  "funFact": "The Cyrillic alphabet originated in medieval Bulgaria."
+ },
+ {
+  "n": 27,
+  "iso2": "BF",
+  "name": "Burkina Faso",
+  "altNames": [
+   "Upper Volta"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Ouagadougou",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red over green halves with a yellow star in the center",
+  "funFact": "Its name is commonly translated as \"land of upright people.\""
+ },
+ {
+  "n": 28,
+  "iso2": "BI",
+  "name": "Burundi",
+  "altNames": [
+   "Republic of Burundi"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Gitega",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "White diagonal cross, red and green panels, three red stars in a circle",
+  "funFact": "Burundi's political capital moved from Bujumbura to Gitega in 2019."
+ },
+ {
+  "n": 29,
+  "iso2": "CV",
+  "name": "Cape Verde",
+  "altNames": [
+   "Cabo Verde"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Praia",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue with a ring of ten yellow stars above white and red stripes",
+  "funFact": "Cape Verde is an island nation in the Atlantic Ocean off West Africa."
+ },
+ {
+  "n": 30,
+  "iso2": "KH",
+  "name": "Cambodia",
+  "altNames": [
+   "Kingdom of Cambodia"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Phnom Penh",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red band between two blue bands with a white temple",
+  "funFact": "The Angkor Wat temple appears on Cambodia's national flag."
+ },
+ {
+  "n": 31,
+  "iso2": "CM",
+  "name": "Cameroon",
+  "altNames": [
+   "Republic of Cameroon"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Yaoundé",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "SN"
+  ],
+  "flagHint": "Green, red and yellow vertical stripes with a yellow star",
+  "funFact": "Cameroon is nicknamed \"Africa in miniature\" for its wide variety of landscapes and cultures."
+ },
+ {
+  "n": 32,
+  "iso2": "CA",
+  "name": "Canada",
+  "altNames": [],
+  "continent": "North America",
+  "subregion": "Northern America",
+  "capital": "Ottawa",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "Red borders around a white square holding a red maple leaf",
+  "funFact": "Canada has the longest coastline of any country in the world."
+ },
+ {
+  "n": 33,
+  "iso2": "CF",
+  "name": "Central African Republic",
+  "altNames": [
+   "CAR"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Bangui",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Four horizontal stripes crossed by a red vertical stripe and yellow star",
+  "funFact": "This landlocked country has French and Sango as its official languages."
+ },
+ {
+  "n": 34,
+  "iso2": "TD",
+  "name": "Chad",
+  "altNames": [
+   "Republic of Chad"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "N'Djamena",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "RO",
+   "AD"
+  ],
+  "flagHint": "Blue, yellow and red vertical stripes",
+  "funFact": "Lake Chad, which gave the country its name, has shrunk dramatically since the 1960s."
+ },
+ {
+  "n": 35,
+  "iso2": "CL",
+  "name": "Chile",
+  "altNames": [
+   "Republic of Chile"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Santiago",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "White over red halves with a blue square holding a white star",
+  "funFact": "Chile is extremely long and narrow, stretching over 4,000 kilometres from north to south."
+ },
+ {
+  "n": 36,
+  "iso2": "CN",
+  "name": "China",
+  "altNames": [
+   "People's Republic of China",
+   "PRC"
+  ],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Beijing",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "VN"
+  ],
+  "flagHint": "Red field with one large yellow star and four small ones",
+  "funFact": "China shares land borders with 14 other countries."
+ },
+ {
+  "n": 37,
+  "iso2": "CO",
+  "name": "Colombia",
+  "altNames": [
+   "Republic of Colombia"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Bogotá",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "EC",
+   "VE"
+  ],
+  "flagHint": "Wide yellow band over narrower blue and red bands",
+  "funFact": "Colombia has coastlines on both the Pacific Ocean and the Caribbean Sea."
+ },
+ {
+  "n": 38,
+  "iso2": "KM",
+  "name": "Comoros",
+  "altNames": [
+   "Union of the Comoros"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Moroni",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Four horizontal stripes, green triangle holding a white crescent and stars",
+  "funFact": "Comoros is an island nation in the Indian Ocean between Mozambique and Madagascar."
+ },
+ {
+  "n": 39,
+  "iso2": "CG",
+  "name": "Congo",
+  "altNames": [
+   "Republic of the Congo",
+   "Congo-Brazzaville"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Brazzaville",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green, yellow and red separated by diagonal stripes",
+  "funFact": "Brazzaville and Kinshasa face each other across the Congo River, the closest pair of national capitals."
+ },
+ {
+  "n": 40,
+  "iso2": "CR",
+  "name": "Costa Rica",
+  "altNames": [
+   "Republic of Costa Rica"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "San José",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "TH"
+  ],
+  "flagHint": "Five stripes: blue, white, wide red, white, blue, with emblem",
+  "funFact": "Costa Rica abolished its standing army in 1948."
+ },
+ {
+  "n": 41,
+  "iso2": "HR",
+  "name": "Croatia",
+  "altNames": [
+   "Republic of Croatia",
+   "Hrvatska"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Zagreb",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "RS",
+   "SI"
+  ],
+  "flagHint": "Red, white and blue stripes with a checkered shield under crowns",
+  "funFact": "Croatia has over 1,000 islands along its Adriatic coast."
+ },
+ {
+  "n": 42,
+  "iso2": "CU",
+  "name": "Cuba",
+  "altNames": [
+   "Republic of Cuba"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Havana",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Five blue and white stripes with a red triangle and white star",
+  "funFact": "Cuba is the largest island in the Caribbean."
+ },
+ {
+  "n": 43,
+  "iso2": "CY",
+  "name": "Cyprus",
+  "altNames": [
+   "Republic of Cyprus"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Nicosia",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "White field with a copper-orange island map above two olive branches",
+  "funFact": "Cyprus is the third-largest island in the Mediterranean Sea."
+ },
+ {
+  "n": 44,
+  "iso2": "CZ",
+  "name": "Czechia",
+  "altNames": [
+   "Czech Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Prague",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "PH"
+  ],
+  "flagHint": "White over red halves with a blue triangle at the hoist",
+  "funFact": "Czechia is famous for its beer and consistently ranks among the top for beer drinking per person."
+ },
+ {
+  "n": 45,
+  "iso2": "DK",
+  "name": "Denmark",
+  "altNames": [
+   "Kingdom of Denmark"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Copenhagen",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "NO"
+  ],
+  "flagHint": "Red field with a white Nordic cross",
+  "funFact": "Its flag, the Dannebrog, is among the oldest continuously used national flags in the world."
+ },
+ {
+  "n": 46,
+  "iso2": "DJ",
+  "name": "Djibouti",
+  "altNames": [
+   "Republic of Djibouti"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Djibouti",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Light blue over green with a white triangle and red star",
+  "funFact": "Djibouti is home to Lake Assal, one of the lowest points on land in Africa."
+ },
+ {
+  "n": 47,
+  "iso2": "DM",
+  "name": "Dominica",
+  "altNames": [
+   "Commonwealth of Dominica"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Roseau",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Green field, three-colour cross, red disc with a purple parrot",
+  "funFact": "Dominica's flag is one of the very few national flags to feature the colour purple."
+ },
+ {
+  "n": 48,
+  "iso2": "DO",
+  "name": "Dominican Republic",
+  "altNames": [
+   "DR"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Santo Domingo",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "HT"
+  ],
+  "flagHint": "Blue and red quarters split by a white cross with a central emblem",
+  "funFact": "It shares the island of Hispaniola with Haiti."
+ },
+ {
+  "n": 49,
+  "iso2": "CD",
+  "name": "DR Congo",
+  "altNames": [
+   "Democratic Republic of the Congo",
+   "Congo-Kinshasa",
+   "DRC"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Kinshasa",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Sky blue with a yellow star and a red diagonal stripe",
+  "funFact": "It is the largest country in Sub-Saharan Africa by area."
+ },
+ {
+  "n": 50,
+  "iso2": "EC",
+  "name": "Ecuador",
+  "altNames": [
+   "Republic of Ecuador"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Quito",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "CO",
+   "VE"
+  ],
+  "flagHint": "Wide yellow band over blue and red bands with a central crest",
+  "funFact": "Ecuador is named after the equator, which runs through the country."
+ },
+ {
+  "n": 51,
+  "iso2": "EG",
+  "name": "Egypt",
+  "altNames": [
+   "Arab Republic of Egypt"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Cairo",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "SY",
+   "YE",
+   "IQ"
+  ],
+  "flagHint": "Red, white and black horizontal stripes with a golden eagle",
+  "funFact": "The vast majority of Egyptians live along the banks of the Nile River."
+ },
+ {
+  "n": 52,
+  "iso2": "SV",
+  "name": "El Salvador",
+  "altNames": [
+   "Republic of El Salvador"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "San Salvador",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "NI",
+   "HN"
+  ],
+  "flagHint": "Blue, white, blue horizontal stripes with a round emblem",
+  "funFact": "It is the smallest country in Central America and the only one without a Caribbean coast."
+ },
+ {
+  "n": 53,
+  "iso2": "GQ",
+  "name": "Equatorial Guinea",
+  "altNames": [
+   "Republic of Equatorial Guinea"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Malabo",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Green, white and red stripes with a blue triangle and crest",
+  "funFact": "It is the only country in Africa where Spanish is an official language."
+ },
+ {
+  "n": 54,
+  "iso2": "ER",
+  "name": "Eritrea",
+  "altNames": [
+   "State of Eritrea"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Asmara",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green and blue triangles with a red triangle holding a gold wreath",
+  "funFact": "Its capital Asmara was named a UNESCO World Heritage Site in 2017 for its modernist architecture."
+ },
+ {
+  "n": 55,
+  "iso2": "EE",
+  "name": "Estonia",
+  "altNames": [
+   "Republic of Estonia"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Tallinn",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Blue, black and white horizontal stripes",
+  "funFact": "Estonia was one of the first countries to offer nationwide internet voting, in 2005."
+ },
+ {
+  "n": 56,
+  "iso2": "SZ",
+  "name": "Eswatini",
+  "altNames": [
+   "Swaziland",
+   "Kingdom of Eswatini"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Mbabane",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue, yellow and red bands with a black-and-white shield and spears",
+  "funFact": "Eswatini was officially renamed from Swaziland in 2018."
+ },
+ {
+  "n": 57,
+  "iso2": "ET",
+  "name": "Ethiopia",
+  "altNames": [
+   "Federal Democratic Republic of Ethiopia"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Addis Ababa",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "GH"
+  ],
+  "flagHint": "Green, yellow and red stripes with a blue disc and yellow star",
+  "funFact": "Ethiopia uses its own calendar, which runs roughly seven to eight years behind the Gregorian one."
+ },
+ {
+  "n": 58,
+  "iso2": "FJ",
+  "name": "Fiji",
+  "altNames": [
+   "Republic of Fiji"
+  ],
+  "continent": "Oceania",
+  "subregion": "Melanesia",
+  "capital": "Suva",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "NZ"
+  ],
+  "flagHint": "Light blue field with Union Jack and a heraldic shield",
+  "funFact": "Fiji is made up of more than 300 islands."
+ },
+ {
+  "n": 59,
+  "iso2": "FI",
+  "name": "Finland",
+  "altNames": [
+   "Republic of Finland",
+   "Suomi"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Helsinki",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "GR"
+  ],
+  "flagHint": "White field with a blue Nordic cross",
+  "funFact": "Finland is known as the land of a thousand lakes, with roughly 188,000 of them."
+ },
+ {
+  "n": 60,
+  "iso2": "FR",
+  "name": "France",
+  "altNames": [
+   "French Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Paris",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "NL",
+   "RU"
+  ],
+  "flagHint": "Blue, white and red vertical stripes",
+  "funFact": "France is consistently one of the most visited countries in the world."
+ },
+ {
+  "n": 61,
+  "iso2": "GA",
+  "name": "Gabon",
+  "altNames": [
+   "Gabonese Republic"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "Libreville",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green, yellow and blue horizontal stripes",
+  "funFact": "The equator crosses Gabon, and rainforest covers most of the country."
+ },
+ {
+  "n": 62,
+  "iso2": "GM",
+  "name": "Gambia",
+  "altNames": [
+   "The Gambia"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Banjul",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red, blue and green stripes separated by thin white lines",
+  "funFact": "The Gambia is the smallest country on mainland Africa."
+ },
+ {
+  "n": 63,
+  "iso2": "GE",
+  "name": "Georgia",
+  "altNames": [
+   "Sakartvelo"
+  ],
+  "continent": "Asia",
+  "subregion": "Caucasus",
+  "capital": "Tbilisi",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "White field with a large red cross and four small red crosses",
+  "funFact": "Georgia is widely regarded as one of the oldest wine-producing regions in the world."
+ },
+ {
+  "n": 64,
+  "iso2": "DE",
+  "name": "Germany",
+  "altNames": [
+   "Federal Republic of Germany",
+   "Deutschland"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Berlin",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "BE"
+  ],
+  "flagHint": "Black, red and gold horizontal stripes",
+  "funFact": "Germany has the largest population of any country in the European Union."
+ },
+ {
+  "n": 65,
+  "iso2": "GH",
+  "name": "Ghana",
+  "altNames": [
+   "Republic of Ghana"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Accra",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "BO",
+   "ET",
+   "GW"
+  ],
+  "flagHint": "Red, gold and green horizontal stripes with a black star",
+  "funFact": "Ghana was the first Sub-Saharan African country to gain independence, in 1957."
+ },
+ {
+  "n": 66,
+  "iso2": "GR",
+  "name": "Greece",
+  "altNames": [
+   "Hellenic Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Athens",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "FI"
+  ],
+  "flagHint": "Nine blue and white stripes with a white cross on blue",
+  "funFact": "Greece has thousands of islands, but only a small fraction are inhabited."
+ },
+ {
+  "n": 67,
+  "iso2": "GD",
+  "name": "Grenada",
+  "altNames": [],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Saint George's",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red border, yellow and green triangles, central red disc with star",
+  "funFact": "Grenada is nicknamed the Spice Isle because of its nutmeg and mace production."
+ },
+ {
+  "n": 68,
+  "iso2": "GT",
+  "name": "Guatemala",
+  "altNames": [
+   "Republic of Guatemala"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Guatemala City",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Light blue, white, light blue vertical stripes with central emblem",
+  "funFact": "Guatemala is home to Tikal, a major ancient Maya city."
+ },
+ {
+  "n": 69,
+  "iso2": "GN",
+  "name": "Guinea",
+  "altNames": [
+   "Guinea-Conakry",
+   "Republic of Guinea"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Conakry",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "ML"
+  ],
+  "flagHint": "Red, yellow and green vertical stripes",
+  "funFact": "The Niger River begins in the highlands of Guinea."
+ },
+ {
+  "n": 70,
+  "iso2": "GW",
+  "name": "Guinea-Bissau",
+  "altNames": [
+   "Guinea Bissau"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Bissau",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "GH"
+  ],
+  "flagHint": "Red band with black star, yellow and green horizontal stripes",
+  "funFact": "Guinea-Bissau includes the Bijagós Archipelago, a UNESCO biosphere reserve."
+ },
+ {
+  "n": 71,
+  "iso2": "GY",
+  "name": "Guyana",
+  "altNames": [
+   "Co-operative Republic of Guyana"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Georgetown",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green with a yellow arrowhead, white, black and red borders",
+  "funFact": "Guyana is the only English-speaking country in South America."
+ },
+ {
+  "n": 72,
+  "iso2": "HT",
+  "name": "Haiti",
+  "altNames": [
+   "Republic of Haiti"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Port-au-Prince",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "DO",
+   "LI"
+  ],
+  "flagHint": "Blue over red halves with a white central panel and palm",
+  "funFact": "Haiti became the first Black-led republic after a successful slave revolt in 1804."
+ },
+ {
+  "n": 73,
+  "iso2": "HN",
+  "name": "Honduras",
+  "altNames": [
+   "Republic of Honduras"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Tegucigalpa",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "SV",
+   "NI"
+  ],
+  "flagHint": "Blue, white, blue horizontal stripes with five blue stars",
+  "funFact": "Honduras is home to Copán, a UNESCO-listed ancient Maya site."
+ },
+ {
+  "n": 74,
+  "iso2": "HU",
+  "name": "Hungary",
+  "altNames": [
+   "Magyarország"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Budapest",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "BG",
+   "IR"
+  ],
+  "flagHint": "Red, white and green horizontal stripes",
+  "funFact": "Budapest was formed in 1873 by merging Buda, Óbuda and Pest."
+ },
+ {
+  "n": 75,
+  "iso2": "IS",
+  "name": "Iceland",
+  "altNames": [
+   "Republic of Iceland"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Reykjavik",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "NO"
+  ],
+  "flagHint": "Blue field with a red cross outlined in white",
+  "funFact": "Iceland's parliament, the Althing, was founded in 930 and is among the oldest in the world."
+ },
+ {
+  "n": 76,
+  "iso2": "IN",
+  "name": "India",
+  "altNames": [
+   "Republic of India",
+   "Bharat"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "New Delhi",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "NE"
+  ],
+  "flagHint": "Saffron, white and green stripes with a blue wheel",
+  "funFact": "India is the most populous country in the world."
+ },
+ {
+  "n": 77,
+  "iso2": "ID",
+  "name": "Indonesia",
+  "altNames": [
+   "Republic of Indonesia"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Jakarta",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "MC",
+   "PL"
+  ],
+  "flagHint": "Red over white horizontal halves",
+  "funFact": "Indonesia is the world's largest archipelagic country, with over 17,000 islands."
+ },
+ {
+  "n": 78,
+  "iso2": "IR",
+  "name": "Iran",
+  "altNames": [
+   "Islamic Republic of Iran",
+   "Persia"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Tehran",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "HU",
+   "TJ"
+  ],
+  "flagHint": "Green, white and red stripes with a red emblem and script",
+  "funFact": "Iran was known internationally as Persia until 1935."
+ },
+ {
+  "n": 79,
+  "iso2": "IQ",
+  "name": "Iraq",
+  "altNames": [
+   "Republic of Iraq"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Baghdad",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "EG",
+   "SY",
+   "YE"
+  ],
+  "flagHint": "Red, white and black stripes with green Arabic script",
+  "funFact": "Iraq covers much of ancient Mesopotamia, often called the cradle of civilization."
+ },
+ {
+  "n": 80,
+  "iso2": "IE",
+  "name": "Ireland",
+  "altNames": [
+   "Republic of Ireland",
+   "Éire"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Dublin",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "IT",
+   "CI"
+  ],
+  "flagHint": "Green, white and orange vertical stripes",
+  "funFact": "The harp is Ireland's national emblem, making it the only country with an instrument as its symbol."
+ },
+ {
+  "n": 81,
+  "iso2": "IL",
+  "name": "Israel",
+  "altNames": [
+   "State of Israel"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Jerusalem",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "White field with two blue stripes and a blue six-pointed star",
+  "funFact": "The shore of the Dead Sea, on Israel's border, is the lowest land point on Earth."
+ },
+ {
+  "n": 82,
+  "iso2": "IT",
+  "name": "Italy",
+  "altNames": [
+   "Italian Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Rome",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "IE",
+   "CI",
+   "MX"
+  ],
+  "flagHint": "Green, white and red vertical stripes",
+  "funFact": "Italy has one of the highest numbers of UNESCO World Heritage Sites in the world."
+ },
+ {
+  "n": 83,
+  "iso2": "CI",
+  "name": "Ivory Coast",
+  "altNames": [
+   "Côte d'Ivoire",
+   "Cote d'Ivoire"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Yamoussoukro",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "IE",
+   "IT"
+  ],
+  "flagHint": "Orange, white and green vertical stripes",
+  "funFact": "Ivory Coast is the world's largest producer of cocoa."
+ },
+ {
+  "n": 84,
+  "iso2": "JM",
+  "name": "Jamaica",
+  "altNames": [],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Kingston",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Gold diagonal cross dividing green and black triangles",
+  "funFact": "Jamaica is the birthplace of reggae music."
+ },
+ {
+  "n": 85,
+  "iso2": "JP",
+  "name": "Japan",
+  "altNames": [
+   "Nippon"
+  ],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Tokyo",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "BD",
+   "PW"
+  ],
+  "flagHint": "White field with a large red circle",
+  "funFact": "Japan consists of more than 6,800 islands."
+ },
+ {
+  "n": 86,
+  "iso2": "JO",
+  "name": "Jordan",
+  "altNames": [
+   "Hashemite Kingdom of Jordan"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Amman",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "PS",
+   "SD"
+  ],
+  "flagHint": "Black, white, green stripes with a red triangle and white star",
+  "funFact": "Jordan is home to Petra, the ancient rock-cut city."
+ },
+ {
+  "n": 87,
+  "iso2": "KZ",
+  "name": "Kazakhstan",
+  "altNames": [
+   "Republic of Kazakhstan"
+  ],
+  "continent": "Asia",
+  "subregion": "Central Asia",
+  "capital": "Astana",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Sky blue field with a golden sun, eagle and ornament",
+  "funFact": "Kazakhstan is the largest landlocked country in the world."
+ },
+ {
+  "n": 88,
+  "iso2": "KE",
+  "name": "Kenya",
+  "altNames": [
+   "Republic of Kenya"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Nairobi",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Black, red and green stripes with a Maasai shield and spears",
+  "funFact": "Mount Kenya is the second-highest mountain in Africa."
+ },
+ {
+  "n": 89,
+  "iso2": "KI",
+  "name": "Kiribati",
+  "altNames": [
+   "Republic of Kiribati"
+  ],
+  "continent": "Oceania",
+  "subregion": "Micronesia",
+  "capital": "South Tarawa",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red top with golden bird over sun, blue and white waves below",
+  "funFact": "Kiribati is the only country that lies in all four hemispheres."
+ },
+ {
+  "n": 90,
+  "iso2": "XK",
+  "name": "Kosovo",
+  "altNames": [
+   "Republic of Kosovo"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Pristina",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Blue field with a gold country map and six white stars",
+  "funFact": "Kosovo declared independence from Serbia in 2008."
+ },
+ {
+  "n": 91,
+  "iso2": "KW",
+  "name": "Kuwait",
+  "altNames": [
+   "State of Kuwait"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Kuwait City",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green, white and red stripes with a black trapezoid at the hoist",
+  "funFact": "The Kuwaiti dinar is among the highest-valued currencies in the world."
+ },
+ {
+  "n": 92,
+  "iso2": "KG",
+  "name": "Kyrgyzstan",
+  "altNames": [
+   "Kyrgyz Republic"
+  ],
+  "continent": "Asia",
+  "subregion": "Central Asia",
+  "capital": "Bishkek",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a yellow sun containing a circular crown pattern",
+  "funFact": "Mountains, including parts of the Tian Shan range, cover most of Kyrgyzstan."
+ },
+ {
+  "n": 93,
+  "iso2": "LA",
+  "name": "Laos",
+  "altNames": [
+   "Lao People's Democratic Republic",
+   "Lao PDR"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Vientiane",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red, blue, red horizontal bands with a white central disc",
+  "funFact": "Laos is the only landlocked country in Southeast Asia."
+ },
+ {
+  "n": 94,
+  "iso2": "LV",
+  "name": "Latvia",
+  "altNames": [
+   "Republic of Latvia"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Riga",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "AT"
+  ],
+  "flagHint": "Dark red bands above and below a thin white stripe",
+  "funFact": "The historic center of Riga is a UNESCO World Heritage Site known for Art Nouveau buildings."
+ },
+ {
+  "n": 95,
+  "iso2": "LB",
+  "name": "Lebanon",
+  "altNames": [
+   "Lebanese Republic"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Beirut",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red, white, red horizontal stripes with a green cedar tree",
+  "funFact": "The cedar tree on Lebanon's flag is the country's national symbol."
+ },
+ {
+  "n": 96,
+  "iso2": "LS",
+  "name": "Lesotho",
+  "altNames": [
+   "Kingdom of Lesotho"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Maseru",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Blue, white and green horizontal stripes with a black hat",
+  "funFact": "Lesotho is completely surrounded by South Africa."
+ },
+ {
+  "n": 97,
+  "iso2": "LR",
+  "name": "Liberia",
+  "altNames": [
+   "Republic of Liberia"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Monrovia",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "US",
+   "MY"
+  ],
+  "flagHint": "Eleven red and white stripes with a white star on blue",
+  "funFact": "Liberia's capital, Monrovia, is named after US President James Monroe."
+ },
+ {
+  "n": 98,
+  "iso2": "LY",
+  "name": "Libya",
+  "altNames": [
+   "State of Libya"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Tripoli",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Red, black and green stripes with a white crescent and star",
+  "funFact": "Most of Libya is covered by the Sahara Desert."
+ },
+ {
+  "n": 99,
+  "iso2": "LI",
+  "name": "Liechtenstein",
+  "altNames": [
+   "Principality of Liechtenstein"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Vaduz",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "HT"
+  ],
+  "flagHint": "Blue over red halves with a small gold crown",
+  "funFact": "Liechtenstein is one of only two doubly landlocked countries in the world."
+ },
+ {
+  "n": 100,
+  "iso2": "LT",
+  "name": "Lithuania",
+  "altNames": [
+   "Republic of Lithuania"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Vilnius",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "MM"
+  ],
+  "flagHint": "Yellow, green and red horizontal stripes",
+  "funFact": "Lithuania was the first Soviet republic to declare independence, in 1990."
+ },
+ {
+  "n": 101,
+  "iso2": "LU",
+  "name": "Luxembourg",
+  "altNames": [
+   "Grand Duchy of Luxembourg"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Luxembourg City",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "NL"
+  ],
+  "flagHint": "Red, white and light blue horizontal stripes",
+  "funFact": "Luxembourg is the world's only remaining sovereign grand duchy."
+ },
+ {
+  "n": 102,
+  "iso2": "MG",
+  "name": "Madagascar",
+  "altNames": [
+   "Republic of Madagascar"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Antananarivo",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "White vertical band beside red over green horizontal bands",
+  "funFact": "Madagascar is the fourth-largest island in the world."
+ },
+ {
+  "n": 103,
+  "iso2": "MW",
+  "name": "Malawi",
+  "altNames": [
+   "Republic of Malawi"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Lilongwe",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Black, red and green stripes with a red rising sun",
+  "funFact": "Malawi is home to Lake Malawi, one of Africa's largest and deepest lakes."
+ },
+ {
+  "n": 104,
+  "iso2": "MY",
+  "name": "Malaysia",
+  "altNames": [],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Kuala Lumpur",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "US",
+   "LR"
+  ],
+  "flagHint": "Red and white stripes with a yellow crescent and star on blue",
+  "funFact": "Malaysia is split into two regions separated by the South China Sea."
+ },
+ {
+  "n": 105,
+  "iso2": "MV",
+  "name": "Maldives",
+  "altNames": [
+   "Republic of Maldives"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Malé",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a green rectangle holding a white crescent",
+  "funFact": "The Maldives is the lowest-lying country in the world, averaging about 1.5 meters above sea level."
+ },
+ {
+  "n": 106,
+  "iso2": "ML",
+  "name": "Mali",
+  "altNames": [
+   "Republic of Mali"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Bamako",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "GN",
+   "SN"
+  ],
+  "flagHint": "Green, yellow and red vertical stripes",
+  "funFact": "Timbuktu, a historic center of Islamic learning, is located in Mali."
+ },
+ {
+  "n": 107,
+  "iso2": "MT",
+  "name": "Malta",
+  "altNames": [
+   "Republic of Malta"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Valletta",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "White and red vertical halves with a small cross in the corner",
+  "funFact": "Malta is one of the most densely populated countries in the world."
+ },
+ {
+  "n": 108,
+  "iso2": "MH",
+  "name": "Marshall Islands",
+  "altNames": [
+   "Republic of the Marshall Islands"
+  ],
+  "continent": "Oceania",
+  "subregion": "Micronesia",
+  "capital": "Majuro",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue field with diagonal orange and white rays and a white star",
+  "funFact": "The Marshall Islands consists of 29 atolls and five isolated islands."
+ },
+ {
+  "n": 109,
+  "iso2": "MR",
+  "name": "Mauritania",
+  "altNames": [
+   "Islamic Republic of Mauritania"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Nouakchott",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green field, yellow crescent and star, red stripes top and bottom",
+  "funFact": "Much of Mauritania lies within the Sahara Desert."
+ },
+ {
+  "n": 110,
+  "iso2": "MU",
+  "name": "Mauritius",
+  "altNames": [
+   "Republic of Mauritius"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Port Louis",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Four horizontal stripes: red, blue, yellow and green",
+  "funFact": "Mauritius was the home of the dodo, a flightless bird driven extinct in the 1600s."
+ },
+ {
+  "n": 111,
+  "iso2": "MX",
+  "name": "Mexico",
+  "altNames": [
+   "United Mexican States"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Mexico City",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "IT"
+  ],
+  "flagHint": "Green, white and red vertical stripes with an eagle on a cactus",
+  "funFact": "Mexico City was built on the ruins of the Aztec capital Tenochtitlan."
+ },
+ {
+  "n": 112,
+  "iso2": "FM",
+  "name": "Micronesia",
+  "altNames": [
+   "Federated States of Micronesia",
+   "FSM"
+  ],
+  "continent": "Oceania",
+  "subregion": "Micronesia",
+  "capital": "Palikir",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Light blue field with four white stars arranged in a diamond",
+  "funFact": "Micronesia is made up of over 600 islands spread across four states."
+ },
+ {
+  "n": 113,
+  "iso2": "MD",
+  "name": "Moldova",
+  "altNames": [
+   "Republic of Moldova"
+  ],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Chișinău",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "RO"
+  ],
+  "flagHint": "Blue, yellow and red vertical stripes with an eagle crest",
+  "funFact": "Moldova has one of the world's largest underground wine cellars, at Mileștii Mici."
+ },
+ {
+  "n": 114,
+  "iso2": "MC",
+  "name": "Monaco",
+  "altNames": [
+   "Principality of Monaco"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Monaco",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "ID",
+   "PL"
+  ],
+  "flagHint": "Red over white horizontal halves",
+  "funFact": "Monaco is the second-smallest country in the world, after Vatican City."
+ },
+ {
+  "n": 115,
+  "iso2": "MN",
+  "name": "Mongolia",
+  "altNames": [],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Ulaanbaatar",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Red, blue, red vertical stripes with a yellow symbol at the hoist",
+  "funFact": "Mongolia is one of the least densely populated countries in the world."
+ },
+ {
+  "n": 116,
+  "iso2": "ME",
+  "name": "Montenegro",
+  "altNames": [
+   "Crna Gora"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Podgorica",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "AL"
+  ],
+  "flagHint": "Red field with a gold border and a golden double-headed eagle",
+  "funFact": "Montenegro declared independence from Serbia and Montenegro in 2006."
+ },
+ {
+  "n": 117,
+  "iso2": "MA",
+  "name": "Morocco",
+  "altNames": [
+   "Kingdom of Morocco"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Rabat",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a green five-pointed star outline",
+  "funFact": "Morocco is home to the University of al-Qarawiyyin, often cited as the oldest operating university."
+ },
+ {
+  "n": 118,
+  "iso2": "MZ",
+  "name": "Mozambique",
+  "altNames": [
+   "Republic of Mozambique"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Maputo",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Green, black, yellow stripes with a red triangle, rifle and book",
+  "funFact": "Mozambique's flag features an AK-47 rifle, one of very few national flags with a firearm."
+ },
+ {
+  "n": 119,
+  "iso2": "MM",
+  "name": "Myanmar",
+  "altNames": [
+   "Burma",
+   "Republic of the Union of Myanmar"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Naypyidaw",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "LT"
+  ],
+  "flagHint": "Yellow, green and red stripes with a large white star",
+  "funFact": "Myanmar moved its capital from Yangon to Naypyidaw in 2006."
+ },
+ {
+  "n": 120,
+  "iso2": "NA",
+  "name": "Namibia",
+  "altNames": [
+   "Republic of Namibia"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Windhoek",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red diagonal band between blue and green triangles with a sun",
+  "funFact": "The Namib is often described as the oldest desert in the world."
+ },
+ {
+  "n": 121,
+  "iso2": "NR",
+  "name": "Nauru",
+  "altNames": [
+   "Republic of Nauru"
+  ],
+  "continent": "Oceania",
+  "subregion": "Micronesia",
+  "capital": "Yaren",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Dark blue with a thin yellow stripe and a white twelve-pointed star",
+  "funFact": "Nauru is the smallest island nation in the world."
+ },
+ {
+  "n": 122,
+  "iso2": "NP",
+  "name": "Nepal",
+  "altNames": [
+   "Federal Democratic Republic of Nepal"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Kathmandu",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Two stacked red triangles with white moon and sun symbols",
+  "funFact": "Nepal's flag is the only national flag that is not a rectangle."
+ },
+ {
+  "n": 123,
+  "iso2": "NL",
+  "name": "Netherlands",
+  "altNames": [
+   "Holland",
+   "The Netherlands"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Amsterdam",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "LU",
+   "FR",
+   "RU"
+  ],
+  "flagHint": "Red, white and blue horizontal stripes",
+  "funFact": "Roughly a quarter of the Netherlands lies below sea level."
+ },
+ {
+  "n": 124,
+  "iso2": "NZ",
+  "name": "New Zealand",
+  "altNames": [
+   "Aotearoa"
+  ],
+  "continent": "Oceania",
+  "subregion": "Australia and New Zealand",
+  "capital": "Wellington",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "AU",
+   "FJ"
+  ],
+  "flagHint": "Dark blue with Union Jack and four red stars with white edges",
+  "funFact": "New Zealand was the first country to give women the right to vote, in 1893."
+ },
+ {
+  "n": 125,
+  "iso2": "NI",
+  "name": "Nicaragua",
+  "altNames": [
+   "Republic of Nicaragua"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Managua",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "SV",
+   "HN"
+  ],
+  "flagHint": "Blue, white, blue horizontal stripes with a triangle emblem",
+  "funFact": "Nicaragua is the largest country in Central America by area."
+ },
+ {
+  "n": 126,
+  "iso2": "NE",
+  "name": "Niger",
+  "altNames": [
+   "Republic of the Niger"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Niamey",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "IN"
+  ],
+  "flagHint": "Orange, white and green horizontal stripes with an orange disc",
+  "funFact": "Niger is the largest country in West Africa by area."
+ },
+ {
+  "n": 127,
+  "iso2": "NG",
+  "name": "Nigeria",
+  "altNames": [
+   "Federal Republic of Nigeria"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Abuja",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green, white, green vertical stripes",
+  "funFact": "Nigeria is the most populous country in Africa."
+ },
+ {
+  "n": 128,
+  "iso2": "KP",
+  "name": "North Korea",
+  "altNames": [
+   "Democratic People's Republic of Korea",
+   "DPRK"
+  ],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Pyongyang",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Blue and white stripes edging a wide red band with a red star",
+  "funFact": "North Korea occupies the northern half of the Korean Peninsula."
+ },
+ {
+  "n": 129,
+  "iso2": "MK",
+  "name": "North Macedonia",
+  "altNames": [
+   "Macedonia",
+   "Republic of North Macedonia"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Skopje",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a yellow sun and eight rays radiating outward",
+  "funFact": "Lake Ohrid, shared with Albania, is among the oldest lakes in Europe."
+ },
+ {
+  "n": 130,
+  "iso2": "NO",
+  "name": "Norway",
+  "altNames": [
+   "Kingdom of Norway"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Oslo",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "IS",
+   "DK"
+  ],
+  "flagHint": "Red field with a blue cross outlined in white",
+  "funFact": "Norway is famous for its deep, narrow coastal fjords."
+ },
+ {
+  "n": 131,
+  "iso2": "OM",
+  "name": "Oman",
+  "altNames": [
+   "Sultanate of Oman"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Muscat",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "White, red and green stripes with a red band and emblem at hoist",
+  "funFact": "Oman is an absolute monarchy ruled by a sultan on the Arabian Peninsula."
+ },
+ {
+  "n": 132,
+  "iso2": "PK",
+  "name": "Pakistan",
+  "altNames": [
+   "Islamic Republic of Pakistan"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Islamabad",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Dark green with a white vertical band, crescent and star",
+  "funFact": "K2, the world's second-highest mountain, lies on Pakistan's border with China."
+ },
+ {
+  "n": 133,
+  "iso2": "PW",
+  "name": "Palau",
+  "altNames": [
+   "Republic of Palau"
+  ],
+  "continent": "Oceania",
+  "subregion": "Micronesia",
+  "capital": "Ngerulmud",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "JP",
+   "BD"
+  ],
+  "flagHint": "Light blue field with an off-center golden circle",
+  "funFact": "Palau created the world's first national shark sanctuary in 2009."
+ },
+ {
+  "n": 134,
+  "iso2": "PS",
+  "name": "Palestine",
+  "altNames": [
+   "State of Palestine"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Ramallah",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "JO",
+   "SD"
+  ],
+  "flagHint": "Black, white and green stripes with a red triangle",
+  "funFact": "Jericho, in the West Bank, is among the oldest continuously inhabited cities in the world."
+ },
+ {
+  "n": 135,
+  "iso2": "PA",
+  "name": "Panama",
+  "altNames": [
+   "Republic of Panama"
+  ],
+  "continent": "North America",
+  "subregion": "Central America",
+  "capital": "Panama City",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Four quarters: white with blue star, red, blue, and white with red star",
+  "funFact": "The Panama Canal connects the Atlantic and Pacific Oceans."
+ },
+ {
+  "n": 136,
+  "iso2": "PG",
+  "name": "Papua New Guinea",
+  "altNames": [
+   "PNG"
+  ],
+  "continent": "Oceania",
+  "subregion": "Melanesia",
+  "capital": "Port Moresby",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red and black diagonal halves with a golden bird and white stars",
+  "funFact": "More than 800 languages are spoken in Papua New Guinea."
+ },
+ {
+  "n": 137,
+  "iso2": "PY",
+  "name": "Paraguay",
+  "altNames": [
+   "Republic of Paraguay"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Asunción",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red, white and blue stripes with different emblems on each side",
+  "funFact": "Paraguay's flag is unusual because its front and back sides are different."
+ },
+ {
+  "n": 138,
+  "iso2": "PE",
+  "name": "Peru",
+  "altNames": [
+   "Republic of Peru"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Lima",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Red, white, red vertical stripes",
+  "funFact": "Machu Picchu, the Inca citadel, is located in the Peruvian Andes."
+ },
+ {
+  "n": 139,
+  "iso2": "PH",
+  "name": "Philippines",
+  "altNames": [
+   "Republic of the Philippines"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Manila",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "CZ"
+  ],
+  "flagHint": "Blue and red stripes with a white triangle holding a sun and stars",
+  "funFact": "The Philippines is made up of more than 7,000 islands."
+ },
+ {
+  "n": 140,
+  "iso2": "PL",
+  "name": "Poland",
+  "altNames": [
+   "Republic of Poland"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Warsaw",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "ID",
+   "MC"
+  ],
+  "flagHint": "White over red horizontal halves",
+  "funFact": "Scientist Marie Curie was born in Warsaw, Poland."
+ },
+ {
+  "n": 141,
+  "iso2": "PT",
+  "name": "Portugal",
+  "altNames": [
+   "Portuguese Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Lisbon",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green and red vertical bands with a coat of arms and armillary sphere",
+  "funFact": "Portugal's borders with Spain are among the oldest in Europe."
+ },
+ {
+  "n": 142,
+  "iso2": "QA",
+  "name": "Qatar",
+  "altNames": [
+   "State of Qatar"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Doha",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "BH"
+  ],
+  "flagHint": "Maroon field with a white band separated by a zigzag edge",
+  "funFact": "Qatar hosted the FIFA World Cup in 2022."
+ },
+ {
+  "n": 143,
+  "iso2": "RO",
+  "name": "Romania",
+  "altNames": [],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Bucharest",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "TD",
+   "AD",
+   "MD"
+  ],
+  "flagHint": "Blue, yellow and red vertical stripes",
+  "funFact": "Bucharest's Palace of the Parliament is among the heaviest buildings in the world."
+ },
+ {
+  "n": 144,
+  "iso2": "RU",
+  "name": "Russia",
+  "altNames": [
+   "Russian Federation"
+  ],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Moscow",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "NL",
+   "FR"
+  ],
+  "flagHint": "White, blue and red horizontal stripes",
+  "funFact": "Russia is the largest country in the world by area and spans eleven time zones."
+ },
+ {
+  "n": 145,
+  "iso2": "RW",
+  "name": "Rwanda",
+  "altNames": [
+   "Republic of Rwanda"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Kigali",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Blue, yellow and green horizontal bands with a golden sun",
+  "funFact": "Rwanda is nicknamed the land of a thousand hills and is a refuge for mountain gorillas."
+ },
+ {
+  "n": 146,
+  "iso2": "KN",
+  "name": "Saint Kitts and Nevis",
+  "altNames": [
+   "St Kitts and Nevis",
+   "St. Kitts"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Basseterre",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Green and red triangles split by a black diagonal band with two white stars",
+  "funFact": "It is the smallest sovereign state in the Americas by both area and population."
+ },
+ {
+  "n": 147,
+  "iso2": "LC",
+  "name": "Saint Lucia",
+  "altNames": [
+   "St Lucia",
+   "St. Lucia"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Castries",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Light blue field with black, white and gold triangles",
+  "funFact": "The Pitons, two volcanic spires on Saint Lucia, are a UNESCO World Heritage Site."
+ },
+ {
+  "n": 148,
+  "iso2": "VC",
+  "name": "Saint Vincent and the Grenadines",
+  "altNames": [
+   "St Vincent",
+   "St. Vincent and the Grenadines"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Kingstown",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue, yellow and green vertical stripes with three green diamonds",
+  "funFact": "The country consists of the main island of Saint Vincent and a chain of smaller Grenadine islands."
+ },
+ {
+  "n": 149,
+  "iso2": "WS",
+  "name": "Samoa",
+  "altNames": [
+   "Independent State of Samoa"
+  ],
+  "continent": "Oceania",
+  "subregion": "Polynesia",
+  "capital": "Apia",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a blue corner square holding five white stars",
+  "funFact": "In 2011, Samoa skipped a day by moving to the other side of the International Date Line."
+ },
+ {
+  "n": 150,
+  "iso2": "SM",
+  "name": "San Marino",
+  "altNames": [
+   "Republic of San Marino"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "San Marino",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "White over light blue halves with a central crest",
+  "funFact": "San Marino is entirely surrounded by Italy and is among the world's oldest republics."
+ },
+ {
+  "n": 151,
+  "iso2": "ST",
+  "name": "Sao Tome and Principe",
+  "altNames": [
+   "São Tomé and Príncipe",
+   "Sao Tome"
+  ],
+  "continent": "Africa",
+  "subregion": "Central Africa",
+  "capital": "São Tomé",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Green, yellow and green stripes with a red triangle and two black stars",
+  "funFact": "It is the second-smallest country in Africa, after Seychelles."
+ },
+ {
+  "n": 152,
+  "iso2": "SA",
+  "name": "Saudi Arabia",
+  "altNames": [
+   "Kingdom of Saudi Arabia",
+   "KSA"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Riyadh",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Green field with white Arabic script above a white sword",
+  "funFact": "Saudi Arabia is home to Mecca and Medina, Islam's two holiest cities."
+ },
+ {
+  "n": 153,
+  "iso2": "SN",
+  "name": "Senegal",
+  "altNames": [
+   "Republic of Senegal"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Dakar",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "ML",
+   "CM"
+  ],
+  "flagHint": "Green, yellow and red vertical stripes with a green star",
+  "funFact": "Dakar sits near the westernmost point of mainland Africa."
+ },
+ {
+  "n": 154,
+  "iso2": "RS",
+  "name": "Serbia",
+  "altNames": [
+   "Republic of Serbia"
+  ],
+  "continent": "Europe",
+  "subregion": "Southeastern Europe",
+  "capital": "Belgrade",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "HR"
+  ],
+  "flagHint": "Red, blue and white stripes with a crest on the hoist side",
+  "funFact": "Belgrade sits where the Sava and Danube rivers meet."
+ },
+ {
+  "n": 155,
+  "iso2": "SC",
+  "name": "Seychelles",
+  "altNames": [
+   "Republic of Seychelles"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Victoria",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Five colored bands fanning out from the lower hoist corner",
+  "funFact": "Seychelles is the smallest country in Africa by land area."
+ },
+ {
+  "n": 156,
+  "iso2": "SL",
+  "name": "Sierra Leone",
+  "altNames": [
+   "Republic of Sierra Leone"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Freetown",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green, white and blue horizontal stripes",
+  "funFact": "Freetown was founded as a settlement for freed slaves."
+ },
+ {
+  "n": 157,
+  "iso2": "SG",
+  "name": "Singapore",
+  "altNames": [
+   "Republic of Singapore"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Singapore",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red over white with a white crescent and five stars",
+  "funFact": "Singapore is both a city and a country, and one of the most densely populated in the world."
+ },
+ {
+  "n": 158,
+  "iso2": "SK",
+  "name": "Slovakia",
+  "altNames": [
+   "Slovak Republic"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Bratislava",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "SI"
+  ],
+  "flagHint": "White, blue and red stripes with a shield on the hoist side",
+  "funFact": "Bratislava is the only national capital that borders two other countries."
+ },
+ {
+  "n": 159,
+  "iso2": "SI",
+  "name": "Slovenia",
+  "altNames": [
+   "Republic of Slovenia"
+  ],
+  "continent": "Europe",
+  "subregion": "Central Europe",
+  "capital": "Ljubljana",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "HR",
+   "SK"
+  ],
+  "flagHint": "White, blue and red stripes with a small mountain shield in the corner",
+  "funFact": "More than half of Slovenia is covered by forest."
+ },
+ {
+  "n": 160,
+  "iso2": "SB",
+  "name": "Solomon Islands",
+  "altNames": [
+   "Solomons"
+  ],
+  "continent": "Oceania",
+  "subregion": "Melanesia",
+  "capital": "Honiara",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Blue and green triangles split by a yellow diagonal, five white stars",
+  "funFact": "Solomon Islands consists of hundreds of islands in the South Pacific."
+ },
+ {
+  "n": 161,
+  "iso2": "SO",
+  "name": "Somalia",
+  "altNames": [
+   "Federal Republic of Somalia"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Mogadishu",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Light blue field with a single large white star",
+  "funFact": "Somalia has the longest coastline on mainland Africa."
+ },
+ {
+  "n": 162,
+  "iso2": "ZA",
+  "name": "South Africa",
+  "altNames": [
+   "Republic of South Africa",
+   "RSA"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Pretoria",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Sideways Y-shape of green with black triangle, red and blue bands",
+  "funFact": "South Africa has three capital cities: Pretoria, Cape Town and Bloemfontein."
+ },
+ {
+  "n": 163,
+  "iso2": "KR",
+  "name": "South Korea",
+  "altNames": [
+   "Republic of Korea",
+   "Korea"
+  ],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Seoul",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "White field with a red-and-blue circle and four black trigrams",
+  "funFact": "K-pop and Korean dramas have become major global cultural exports."
+ },
+ {
+  "n": 164,
+  "iso2": "SS",
+  "name": "South Sudan",
+  "altNames": [
+   "Republic of South Sudan"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Juba",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Black, red and green stripes with a blue triangle and yellow star",
+  "funFact": "South Sudan became the world's newest country when it gained independence in 2011."
+ },
+ {
+  "n": 165,
+  "iso2": "ES",
+  "name": "Spain",
+  "altNames": [
+   "Kingdom of Spain",
+   "España"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Madrid",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "Red, wide yellow, red horizontal bands with a coat of arms",
+  "funFact": "Spanish is the second most spoken native language in the world."
+ },
+ {
+  "n": 166,
+  "iso2": "LK",
+  "name": "Sri Lanka",
+  "altNames": [
+   "Democratic Socialist Republic of Sri Lanka",
+   "Ceylon"
+  ],
+  "continent": "Asia",
+  "subregion": "South Asia",
+  "capital": "Colombo",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [],
+  "flagHint": "Yellow lion holding a sword beside green and orange stripes",
+  "funFact": "Sri Lanka is a major producer of Ceylon tea."
+ },
+ {
+  "n": 167,
+  "iso2": "SD",
+  "name": "Sudan",
+  "altNames": [
+   "Republic of the Sudan"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Khartoum",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "JO",
+   "PS"
+  ],
+  "flagHint": "Red, white and black stripes with a green triangle at the hoist",
+  "funFact": "Sudan has more ancient pyramids than Egypt."
+ },
+ {
+  "n": 168,
+  "iso2": "SR",
+  "name": "Suriname",
+  "altNames": [
+   "Republic of Suriname",
+   "Surinam"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Paramaribo",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green, white and red stripes with a large yellow star",
+  "funFact": "Suriname is the smallest country in South America by area."
+ },
+ {
+  "n": 169,
+  "iso2": "SE",
+  "name": "Sweden",
+  "altNames": [
+   "Kingdom of Sweden"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "Stockholm",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Blue field with a yellow Nordic cross",
+  "funFact": "Alfred Nobel, founder of the Nobel Prizes, was Swedish."
+ },
+ {
+  "n": 170,
+  "iso2": "CH",
+  "name": "Switzerland",
+  "altNames": [
+   "Swiss Confederation"
+  ],
+  "continent": "Europe",
+  "subregion": "Western Europe",
+  "capital": "Bern",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "TO"
+  ],
+  "flagHint": "Red square flag with a white cross in the center",
+  "funFact": "Switzerland has four official languages: German, French, Italian and Romansh."
+ },
+ {
+  "n": 171,
+  "iso2": "SY",
+  "name": "Syria",
+  "altNames": [
+   "Syrian Arab Republic"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Damascus",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "EG",
+   "IQ",
+   "YE"
+  ],
+  "flagHint": "Red, white and black stripes with two green stars",
+  "funFact": "Damascus is often cited as one of the oldest continuously inhabited cities in the world."
+ },
+ {
+  "n": 172,
+  "iso2": "TW",
+  "name": "Taiwan",
+  "altNames": [
+   "Republic of China",
+   "ROC"
+  ],
+  "continent": "Asia",
+  "subregion": "East Asia",
+  "capital": "Taipei",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a blue corner holding a white sun",
+  "funFact": "Taipei 101 was the tallest building in the world from 2004 to 2010."
+ },
+ {
+  "n": 173,
+  "iso2": "TJ",
+  "name": "Tajikistan",
+  "altNames": [
+   "Republic of Tajikistan"
+  ],
+  "continent": "Asia",
+  "subregion": "Central Asia",
+  "capital": "Dushanbe",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [
+   "IR"
+  ],
+  "flagHint": "Red, wide white and green stripes with a golden crown and stars",
+  "funFact": "Most of Tajikistan is mountainous, with the Pamir range covering a large part."
+ },
+ {
+  "n": 174,
+  "iso2": "TZ",
+  "name": "Tanzania",
+  "altNames": [
+   "United Republic of Tanzania"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Dodoma",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green and blue triangles split by a black diagonal with yellow edges",
+  "funFact": "Mount Kilimanjaro, Africa's highest mountain, is in Tanzania."
+ },
+ {
+  "n": 175,
+  "iso2": "TH",
+  "name": "Thailand",
+  "altNames": [
+   "Kingdom of Thailand",
+   "Siam"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Bangkok",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "CR"
+  ],
+  "flagHint": "Five stripes: red, white, wide blue, white, red",
+  "funFact": "Thailand is the only Southeast Asian country never colonized by a European power."
+ },
+ {
+  "n": 176,
+  "iso2": "TL",
+  "name": "Timor-Leste",
+  "altNames": [
+   "East Timor"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Dili",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a yellow triangle, black triangle and white star",
+  "funFact": "Timor-Leste gained independence in 2002 and is one of the youngest countries in Asia."
+ },
+ {
+  "n": 177,
+  "iso2": "TG",
+  "name": "Togo",
+  "altNames": [
+   "Togolese Republic"
+  ],
+  "continent": "Africa",
+  "subregion": "West Africa",
+  "capital": "Lomé",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Green and yellow stripes with a red corner holding a white star",
+  "funFact": "Togo is a narrow West African country with a short Atlantic coastline."
+ },
+ {
+  "n": 178,
+  "iso2": "TO",
+  "name": "Tonga",
+  "altNames": [
+   "Kingdom of Tonga"
+  ],
+  "continent": "Oceania",
+  "subregion": "Polynesia",
+  "capital": "Nuku'alofa",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [
+   "CH"
+  ],
+  "flagHint": "Red field with a white corner holding a red cross",
+  "funFact": "Tonga is a Polynesian kingdom made up of roughly 170 islands."
+ },
+ {
+  "n": 179,
+  "iso2": "TT",
+  "name": "Trinidad and Tobago",
+  "altNames": [
+   "Trinidad"
+  ],
+  "continent": "North America",
+  "subregion": "Caribbean",
+  "capital": "Port of Spain",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 4,
+  "flagLookalikes": [],
+  "flagHint": "Red field with a black diagonal band edged in white",
+  "funFact": "Trinidad and Tobago is the birthplace of calypso music and the steelpan."
+ },
+ {
+  "n": 180,
+  "iso2": "TN",
+  "name": "Tunisia",
+  "altNames": [
+   "Republic of Tunisia"
+  ],
+  "continent": "Africa",
+  "subregion": "North Africa",
+  "capital": "Tunis",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "TR"
+  ],
+  "flagHint": "Red field with a white disc holding a red crescent and star",
+  "funFact": "The ancient city of Carthage, a major rival of Rome, was located in Tunisia."
+ },
+ {
+  "n": 181,
+  "iso2": "TR",
+  "name": "Turkey",
+  "altNames": [
+   "Türkiye",
+   "Republic of Turkey"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Ankara",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "TN"
+  ],
+  "flagHint": "Red field with a white crescent and star",
+  "funFact": "Istanbul, Turkey's largest city, straddles both Europe and Asia."
+ },
+ {
+  "n": 182,
+  "iso2": "TM",
+  "name": "Turkmenistan",
+  "altNames": [],
+  "continent": "Asia",
+  "subregion": "Central Asia",
+  "capital": "Ashgabat",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green field with a vertical red carpet band, crescent and five stars",
+  "funFact": "The Darvaza gas crater has burned for decades and is nicknamed the Door to Hell."
+ },
+ {
+  "n": 183,
+  "iso2": "TV",
+  "name": "Tuvalu",
+  "altNames": [],
+  "continent": "Oceania",
+  "subregion": "Polynesia",
+  "capital": "Funafuti",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Light blue field with a Union Jack corner and nine yellow stars",
+  "funFact": "Tuvalu is one of the smallest countries in the world by land area."
+ },
+ {
+  "n": 184,
+  "iso2": "UG",
+  "name": "Uganda",
+  "altNames": [
+   "Republic of Uganda"
+  ],
+  "continent": "Africa",
+  "subregion": "East Africa",
+  "capital": "Kampala",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Six black, yellow and red stripes with a crowned bird in a white disc",
+  "funFact": "Uganda is home to about half of the world's remaining mountain gorillas."
+ },
+ {
+  "n": 185,
+  "iso2": "UA",
+  "name": "Ukraine",
+  "altNames": [
+   "Ukraina"
+  ],
+  "continent": "Europe",
+  "subregion": "Eastern Europe",
+  "capital": "Kyiv",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Blue over yellow horizontal halves",
+  "funFact": "Ukraine is the largest country located entirely within Europe."
+ },
+ {
+  "n": 186,
+  "iso2": "AE",
+  "name": "United Arab Emirates",
+  "altNames": [
+   "UAE",
+   "Emirates"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Abu Dhabi",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Red vertical band beside green, white and black horizontal stripes",
+  "funFact": "The Burj Khalifa in Dubai is the tallest building in the world."
+ },
+ {
+  "n": 187,
+  "iso2": "GB",
+  "name": "United Kingdom",
+  "altNames": [
+   "UK",
+   "Great Britain",
+   "Britain"
+  ],
+  "continent": "Europe",
+  "subregion": "Northern Europe",
+  "capital": "London",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [],
+  "flagHint": "Overlapping red and white crosses on a dark blue field",
+  "funFact": "The United Kingdom is made up of England, Scotland, Wales and Northern Ireland."
+ },
+ {
+  "n": 188,
+  "iso2": "US",
+  "name": "United States",
+  "altNames": [
+   "United States of America",
+   "USA",
+   "America"
+  ],
+  "continent": "North America",
+  "subregion": "Northern America",
+  "capital": "Washington, D.C.",
+  "flagDifficulty": 1,
+  "shapeDifficulty": 1,
+  "flagLookalikes": [
+   "LR",
+   "MY"
+  ],
+  "flagHint": "Thirteen red and white stripes with fifty white stars on blue",
+  "funFact": "The United States is made up of 50 states."
+ },
+ {
+  "n": 189,
+  "iso2": "UY",
+  "name": "Uruguay",
+  "altNames": [
+   "Oriental Republic of Uruguay"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Montevideo",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "AR"
+  ],
+  "flagHint": "Nine white and blue stripes with a sun in the corner",
+  "funFact": "Uruguay hosted and won the first FIFA World Cup in 1930."
+ },
+ {
+  "n": 190,
+  "iso2": "UZ",
+  "name": "Uzbekistan",
+  "altNames": [
+   "Republic of Uzbekistan"
+  ],
+  "continent": "Asia",
+  "subregion": "Central Asia",
+  "capital": "Tashkent",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Blue, white and green stripes with a crescent and twelve stars",
+  "funFact": "Uzbekistan is one of only two doubly landlocked countries in the world."
+ },
+ {
+  "n": 191,
+  "iso2": "VU",
+  "name": "Vanuatu",
+  "altNames": [
+   "Republic of Vanuatu"
+  ],
+  "continent": "Oceania",
+  "subregion": "Melanesia",
+  "capital": "Port Vila",
+  "flagDifficulty": 5,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Red and green halves with a black triangle and sideways yellow Y",
+  "funFact": "Vanuatu's land-diving ritual is considered the inspiration for modern bungee jumping."
+ },
+ {
+  "n": 192,
+  "iso2": "VA",
+  "name": "Vatican City",
+  "altNames": [
+   "Holy See",
+   "Vatican"
+  ],
+  "continent": "Europe",
+  "subregion": "Southern Europe",
+  "capital": "Vatican City",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 5,
+  "flagLookalikes": [],
+  "flagHint": "Yellow and white vertical halves with crossed keys and a triple crown",
+  "funFact": "Vatican City is the smallest country in the world by both area and population."
+ },
+ {
+  "n": 193,
+  "iso2": "VE",
+  "name": "Venezuela",
+  "altNames": [
+   "Bolivarian Republic of Venezuela"
+  ],
+  "continent": "South America",
+  "subregion": "South America",
+  "capital": "Caracas",
+  "flagDifficulty": 3,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "CO",
+   "EC"
+  ],
+  "flagHint": "Yellow, blue and red stripes with an arc of eight white stars",
+  "funFact": "Angel Falls in Venezuela is the world's tallest uninterrupted waterfall."
+ },
+ {
+  "n": 194,
+  "iso2": "VN",
+  "name": "Vietnam",
+  "altNames": [
+   "Viet Nam",
+   "Socialist Republic of Vietnam"
+  ],
+  "continent": "Asia",
+  "subregion": "Southeast Asia",
+  "capital": "Hanoi",
+  "flagDifficulty": 2,
+  "shapeDifficulty": 2,
+  "flagLookalikes": [
+   "CN"
+  ],
+  "flagHint": "Red field with a large yellow five-pointed star",
+  "funFact": "Vietnam is the world's second-largest coffee producer."
+ },
+ {
+  "n": 195,
+  "iso2": "YE",
+  "name": "Yemen",
+  "altNames": [
+   "Republic of Yemen"
+  ],
+  "continent": "Asia",
+  "subregion": "Middle East",
+  "capital": "Sanaa",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [
+   "EG",
+   "IQ",
+   "SY"
+  ],
+  "flagHint": "Plain red, white and black horizontal stripes",
+  "funFact": "Yemen's Socotra island is famous for unique plants like the dragon's blood tree."
+ },
+ {
+  "n": 196,
+  "iso2": "ZM",
+  "name": "Zambia",
+  "altNames": [
+   "Republic of Zambia"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Lusaka",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Green field with an orange eagle and three vertical stripes at the fly",
+  "funFact": "Victoria Falls lies on the border between Zambia and Zimbabwe."
+ },
+ {
+  "n": 197,
+  "iso2": "ZW",
+  "name": "Zimbabwe",
+  "altNames": [
+   "Republic of Zimbabwe"
+  ],
+  "continent": "Africa",
+  "subregion": "Southern Africa",
+  "capital": "Harare",
+  "flagDifficulty": 4,
+  "shapeDifficulty": 3,
+  "flagLookalikes": [],
+  "flagHint": "Seven stripes with a white triangle holding a red star and bird",
+  "funFact": "Great Zimbabwe, a medieval stone city, gave the country its name."
+ }
+]
