@@ -5,8 +5,8 @@ export function segmentLine(line: string): Segment[] {
   const out: Segment[] = [];
   let last = 0;
   const push = (text: string) => {
-    const t = text.trim();
-    if (t) out.push({ kind: "text", text: t });
+    const t = text.trim().replace(/^[^A-Za-z0-9]+/, "");
+    if (/[A-Za-z0-9]/.test(t)) out.push({ kind: "text", text: t });
   };
   for (const m of line.matchAll(/\{(answer|n|total|score|part|region)\}/g)) {
     push(line.slice(last, m.index));

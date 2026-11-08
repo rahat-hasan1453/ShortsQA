@@ -12,11 +12,17 @@ describe("segmentLine", () => {
     expect(segmentLine("Did you get {answer}? Nice one!")).toEqual([
       { kind: "text", text: "Did you get" },
       { kind: "slot", name: "answer" },
-      { kind: "text", text: "? Nice one!" },
+      { kind: "text", text: "Nice one!" },
     ]);
   });
   test("a line with no placeholder is one text segment", () => {
     expect(segmentLine("Next one!")).toEqual([{ kind: "text", text: "Next one!" }]);
+  });
+  test("drops punctuation-only segments (TTS cannot speak them)", () => {
+    expect(segmentLine("Yes, {answer}!")).toEqual([
+      { kind: "text", text: "Yes," },
+      { kind: "slot", name: "answer" },
+    ]);
   });
   test("drops empty segments when the line starts with a slot", () => {
     expect(segmentLine("{answer} was the answer!")).toEqual([
