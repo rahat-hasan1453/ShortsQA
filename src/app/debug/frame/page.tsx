@@ -8,6 +8,7 @@ import { loadAssets, type Assets } from "@/engine/render/assets";
 import { drawFrame, layoutReveal } from "@/engine/render";
 import { H, SAFE, W } from "@/engine/render/layout";
 import type { Timeline } from "@/engine/types";
+import { loadClips, mixAudio, timelineTexts, voiceWindows } from "@/engine/audio/mixer";
 
 type Prepared = { timeline: Timeline; assets: Assets; theme: (typeof themes)[number] };
 
@@ -74,6 +75,32 @@ export default function DebugFrame() {
         return layoutReveal(ctx, theme, name);
       },
       dataUrl: () => ref.current!.toDataURL(),
+      audioStats: async (themeId: string, seed: string) => {
+        const p = await prepare(themeId, seed);
+        const clips = makeClipIndex(await manifestP!);
+        const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
+        const full = await mixAudio(p.timeline, buffers, p.theme);
+        const noVoice = await mixAudio(p.timeline, buffers, p.theme, { muteVoice: true });
+        const bed = await mixAudio(p.timeline, buffers, p.theme, { muteVoice: true, muteEffects: true });
+        const wins = voiceWindows(p.timeline, buffers);
+        const rms = (b: AudioBuffer, s: number, e: number) => {
+          const d = b.getChannelData(0), i0 = Math.floor(s * b.sampleRate), i1 = Math.min(d.length, Math.floor(e * b.sampleRate));
+          let acc = 0; for (let i = i0; i < i1; i++) acc += d[i] * d[i];
+          return Math.sqrt(acc / Math.max(1, i1 - i0));
+        };
+        let peak = 0, nan = false;
+        for (let ch = 0; ch < 2; ch++) for (const v of full.getChannelData(ch)) { if (Number.isNaN(v)) nan = true; peak = Math.max(peak, Math.abs(v)); }
+        const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
+        // music-only RMS inside voice windows vs in 1 s gaps with no voice
+        const inside = mean(wins.map(([s, e]) => rms(bed, s + 0.1, e)));
+        const gaps: number[] = [];
+        for (let t = 0; t + 1 < p.timeline.duration; t += 1) if (!wins.some(([s, e]) => t < e + 0.4 && t + 1 > s - 0.1)) gaps.push(rms(bed, t, t + 1));
+        return {
+          length: full.length, duration: p.timeline.duration, rate: full.sampleRate, channels: full.numberOfChannels, peak, nan,
+          voiceFull: mean(wins.map(([s, e]) => rms(full, s, e))), voiceMuted: mean(wins.map(([s, e]) => rms(noVoice, s, e))),
+          duckRatio: inside / mean(gaps), gapCount: gaps.length,
+        };
+      },
     };
     const themeId = params.get("theme") ?? "arctic-ice", seed = params.get("seed") ?? "demo", at = params.get("at");
     (async () => {
