@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Controls, { randomSeed, type Settings } from "./components/Controls";
 import ExportPanel from "./components/ExportPanel";
 import Preview from "./components/Preview";
+import { FORMATS } from "./formats";
 import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
 import { mixFor, prepare, type Prepared } from "./prepare";
@@ -44,16 +45,32 @@ export default function Page() {
 
   if (!settings) return null;
   const warnings = prepared?.assets.warnings ?? [];
+  const H2: React.CSSProperties = { margin: "8px 0 0", fontSize: 18 };
   return (
-    <main style={{ maxWidth: 960, margin: "0 auto", padding: 16, display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", fontFamily: "system-ui, sans-serif" }}>
-      <section style={{ display: "grid", gap: 12, alignContent: "start" }}>
-        <h1 style={{ margin: 0 }}>Shorts Quiz Generator</h1>
-        <p style={{ margin: 0 }}>10 Flags Rapid. First flag: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong></p>
-        {support && !support.ok && <p role="alert" style={{ color: "#b00020" }}>{support.reason}</p>}
-        {error && <p role="alert" style={{ color: "#b00020" }}>{error}</p>}
-        {warnings.map((w) => <p key={w} role="alert" style={{ color: "#a15c00" }}>{w}</p>)}
+    <main style={{ maxWidth: 1000, margin: "0 auto", padding: 16, display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", fontFamily: "system-ui, sans-serif" }}>
+      <section style={{ display: "grid", gap: 14, alignContent: "start" }}>
+        <h1 style={{ margin: 0 }}>Shorts Quiz Maker</h1>
+        {support && !support.ok && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{support.reason}</p>}
+        {error && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{error}</p>}
+        {warnings.map((w) => <p key={w} role="alert" style={{ color: "#a15c00", margin: 0 }}>{w}</p>)}
+
+        <h2 style={H2}>1. Choose a quiz type</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
+          {FORMATS.map((f) => (
+            <button key={f.id} type="button" disabled={!f.ready} aria-pressed={f.ready && f.id === "flags"}
+              style={{ textAlign: "left", padding: 10, borderRadius: 10, border: f.id === "flags" ? "2px solid #2563eb" : "1px solid #8884", background: f.id === "flags" ? "#2563eb14" : "transparent", opacity: f.ready ? 1 : 0.55, cursor: f.ready ? "pointer" : "not-allowed" }}>
+              <strong>{f.name}</strong>{!f.ready && <span style={{ fontSize: 12, marginLeft: 6 }}>Coming soon</span>}
+              <div style={{ fontSize: 12, color: "#777" }}>{f.blurb}</div>
+            </button>
+          ))}
+        </div>
+        <p style={{ margin: 0, fontSize: 14 }}>First flag: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span style={{ color: "#777" }}> · template: {prepared.theme.name}</span>}</p>
+
+        <h2 style={H2}>2. Pick a style</h2>
         <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} />
-        {prepared && <div><strong>{prepared.metadata.title}</strong><div style={{ fontSize: 13 }}>{prepared.metadata.hashtags.join(" ")}</div></div>}
+
+        <h2 style={H2}>3. Make the video</h2>
+        {prepared && <div><strong>{prepared.metadata.title}</strong><div style={{ fontSize: 13, color: "#777" }}>{prepared.metadata.hashtags.join(" ")}</div></div>}
         <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
       </section>
       <Preview prepared={view} getAudio={getAudio} />

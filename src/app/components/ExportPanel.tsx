@@ -36,24 +36,29 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
   }
 
   return (
-    <div style={{ display: "grid", gap: 8 }}>
+    <div style={{ display: "grid", gap: 10 }}>
       <div style={{ display: "flex", gap: 8 }}>
-        <button type="button" disabled={!supported || !prepared || busy} onClick={() => run((s) => exportOne(prepared!, s, "Export"))}>Export MP4</button>
+        <button type="button" disabled={!supported || !prepared || busy} onClick={() => run((s) => exportOne(prepared!, s, "Export"))}
+          style={{ flex: 1, padding: "14px 16px", fontSize: 18, fontWeight: 700, borderRadius: 10, border: "none", background: !supported || !prepared || busy ? "#bbb" : "#2563eb", color: "#fff", cursor: "pointer" }}>Export MP4</button>
         {busy && <button type="button" onClick={() => abort.current?.abort()}>Cancel</button>}
       </div>
-      {busy && <progress value={progress} max={1} />}
-      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <label>Batch count <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
-        <button type="button" disabled={!supported || busy} onClick={() => run(async (signal) => {
-          for (let i = 0; i < batch; i++) {
-            const fresh = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
-            const p = { ...fresh, assets: { ...fresh.assets, background } };
-            await exportOne(p, signal, `Video ${i + 1}/${batch}`);
-          }
-        })}>Export batch</button>
-      </div>
-      <small>Batch exports download several files; allow multiple downloads if your browser asks.</small>
+      {busy && <progress value={progress} max={1} style={{ width: "100%" }} />}
       <div role="status">{message}</div>
+      <small style={{ color: "#777" }}>Ekta .mp4 video ar ekta .txt (title, description, hashtag) download hobe.</small>
+      <details>
+        <summary style={{ cursor: "pointer" }}>Make several videos at once</summary>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 8 }}>
+          <label>How many <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
+          <button type="button" disabled={!supported || busy} onClick={() => run(async (signal) => {
+            for (let i = 0; i < batch; i++) {
+              const fresh = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
+              const p = { ...fresh, assets: { ...fresh.assets, background } };
+              await exportOne(p, signal, `Video ${i + 1}/${batch}`);
+            }
+          })}>Export batch</button>
+        </div>
+        <small style={{ color: "#777" }}>Prottek video te notun seed, template ar part number. Browser multiple download er permission chaite pare.</small>
+      </details>
     </div>
   );
 }
