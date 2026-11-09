@@ -41,6 +41,8 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
+export type AnswerStyle = "open" | "options" | "list";
+
 export interface QuizQuestion {
   index: number;
   iso2: string;
@@ -50,6 +52,8 @@ export interface QuizQuestion {
   countdownLineId?: string;
   revealLineId: string;
   transitionLineId?: string;
+  /** Multiple choice (answerStyle "options"): four names, one of them correct. */
+  options?: { names: string[]; correct: number };
 }
 
 export interface QuizSpec {
@@ -58,6 +62,7 @@ export interface QuizSpec {
   seed: string;
   themeId: string;
   part: number;
+  answerStyle: AnswerStyle;
   twistRegion?: string;
   hookLineId: string;
   difficultyUpLineIds: Record<number, string>;

@@ -59,3 +59,16 @@ test("a font that 404s falls back and shows a warning instead of throwing", asyn
   await expect(page.getByTestId("warnings")).toContainText("failed to load");
   await expect(page.locator("canvas")).toBeVisible();
 });
+
+test("safe-zone margins stay empty in the options and list styles", async ({ page }) => {
+  await page.goto(url("theme=arctic-ice&seed=demo"));
+  await waitReady(page);
+  for (const style of ["options", "list"]) {
+    for (const theme of ["quiz-burst", "dark-alert", "game-show", "sticker-pop", "mono-bold", "retro-arcade"]) {
+      for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "outro:1"]) {
+        const diff = await page.evaluate(([t, a, st]) => (window as any).__debug.marginDiff(t, "demo", a, st), [theme, at, style]);
+        expect(diff, `${style} ${theme} ${at}`).toBe(0);
+      }
+    }
+  }
+});

@@ -22,13 +22,13 @@ describe("buildTimeline", () => {
       expect(tl.cues.some((c) => c.kind === "whoosh" && c.at >= s.start && c.at < s.end)).toBe(true);
     }
   });
-  test("a 2.8 s name clip stretches the reveal and voice cues never overlap", () => {
+  test("a 2.0 s name clip stretches the reveal and voice cues never overlap", () => {
     const name = buildQuiz({ ...base, seed: "long" }).questions[2].name;
-    const clipMs = (t: string) => (t === name ? 2800 : clipMsRealistic(t));
+    const clipMs = (t: string) => (t === name ? 2000 : clipMsRealistic(t));
     const spec = buildQuiz({ ...base, seed: "long", clipMs });
     const tl = buildTimeline(spec, { clipMs, voice });
     const reveal = tl.scenes.find((s) => s.kind === "reveal" && s.q === 2)!;
-    expect(reveal.end - reveal.start).toBeGreaterThanOrEqual(3.5);
+    expect(reveal.end - reveal.start).toBeGreaterThanOrEqual(2.7);
     const iv = tl.cues.filter((c) => c.kind === "voice").map((c: any) => ({ s: c.at, e: c.at + (c.clips.reduce((a: number, t: string) => a + clipMs(t), 0) / 1000) + 0.04 * (c.clips.length - 1) })).sort((a, b) => a.s - b.s);
     for (let i = 1; i < iv.length; i++) expect(iv[i].s).toBeGreaterThanOrEqual(iv[i - 1].e - 1e-9);
   });

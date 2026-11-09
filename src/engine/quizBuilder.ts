@@ -1,7 +1,7 @@
 import { createRng } from "./rng";
 import { buildTimeline, DurationError } from "./timeline";
 import { lineDurationMs, slotValues, type Slots } from "./lines";
-import type { Band, Country, QuizQuestion, QuizSpec, Theme, VoiceLines } from "./types";
+import type { AnswerStyle, Band, Country, QuizQuestion, QuizSpec, Theme, VoiceLines } from "./types";
 
 export const bandOf = (d: number): Band => (d <= 2 ? "easy" : d === 3 ? "medium" : d === 4 ? "hard" : "impossible");
 const BAND_COUNTS: [Band, number][] = [["easy", 3], ["medium", 3], ["hard", 3], ["impossible", 1]];
@@ -13,10 +13,27 @@ export interface BuildInput {
   part?: number;
   useRegionTwist?: boolean;
   regionOverride?: string;
+  answerStyle?: AnswerStyle;
   countries: Country[];
   themes: Theme[];
   voice: VoiceLines;
   clipMs: (text: string) => number;
+}
+
+/** Three wrong names: look-alike flags first, then the same continent, then anything. */
+function makeOptions(seed: string, c: Country, countries: Country[]): { names: string[]; correct: number } {
+  const rng = createRng(`${seed}|options|${c.iso2}`);
+  const byIso = new Map(countries.map((x) => [x.iso2, x]));
+  const look = rng.shuffle(c.flagLookalikes.map((i) => byIso.get(i)).filter((x): x is Country => !!x && x.iso2 !== c.iso2));
+  const same = rng.shuffle(countries.filter((x) => x.continent === c.continent && x.iso2 !== c.iso2));
+  const any = rng.shuffle(countries.filter((x) => x.iso2 !== c.iso2));
+  const wrong: string[] = [];
+  for (const x of [...look, ...same, ...any]) {
+    if (wrong.length === 3) break;
+    if (!wrong.includes(x.name) && x.name !== c.name) wrong.push(x.name);
+  }
+  const names = rng.shuffle([c.name, ...wrong]);
+  return { names, correct: names.indexOf(c.name) };
 }
 
 const hasEnough = (pool: Country[]) =>
@@ -72,7 +89,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   };
 
   const draft: QuizSpec = {
-    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion,
+    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: input.answerStyle ?? "open",
     hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
   };
   const gen = slotValues(draft);
@@ -82,6 +99,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
 
   draft.questions = picked.map(({ c, band }, index): QuizQuestion => {
     const q: QuizQuestion = { index, iso2: c.iso2, name: c.name, band, revealLineId: "" };
+    if (draft.answerStyle === "options") q.options = makeOptions(seed, c, countries);
     const slots = slotValues(draft, q);
     q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1 && !/\byes\b/i.test(l));
     if (!DIFF_UP_BEFORE.includes(index)) {

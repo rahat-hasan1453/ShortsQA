@@ -80,3 +80,26 @@ describe("reveal wording", () => {
     }
   });
 });
+
+describe("answer styles", () => {
+  test("options style gives 4 unique names including the right one, lookalikes first, deterministic", () => {
+    const spec = buildQuiz({ ...base, seed: "opt", answerStyle: "options" });
+    expect(spec.answerStyle).toBe("options");
+    for (const q of spec.questions) {
+      expect(q.options!.names).toHaveLength(4);
+      expect(new Set(q.options!.names).size).toBe(4);
+      expect(q.options!.names[q.options!.correct]).toBe(q.name);
+      const c = byIso.get(q.iso2) as any;
+      const lookNames = (c.flagLookalikes as string[]).map((i) => (byIso.get(i) as any)?.name).filter(Boolean);
+      if (lookNames.length >= 3) expect(q.options!.names.filter((n) => lookNames.includes(n)).length).toBeGreaterThanOrEqual(3);
+    }
+    expect(buildQuiz({ ...base, seed: "opt", answerStyle: "options" })).toEqual(spec);
+  });
+  test("other styles carry no options, and the same seed gives the same countries in every style", () => {
+    const open = buildQuiz({ ...base, seed: "same" });
+    const list = buildQuiz({ ...base, seed: "same", answerStyle: "list" });
+    expect(open.answerStyle).toBe("open");
+    expect(open.questions.every((q) => !q.options)).toBe(true);
+    expect(list.questions.map((q) => q.iso2)).toEqual(open.questions.map((q) => q.iso2));
+  });
+});

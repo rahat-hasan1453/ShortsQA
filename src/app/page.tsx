@@ -19,7 +19,7 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    setSettings({ themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme" });
+    setSettings({ themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
     detectSupport().then(setSupport);
   }, []);
 

@@ -8,6 +8,9 @@ export const TIMER_SEC = 3.0;
 export const TIMER_LAST_SEC = 4.0;
 export const REVEAL_MIN = 1.5;
 export const DIFFUP_SEC = 0.8;
+/** The level-up before question 4 also carries the "like if you got the first 3 right" banner, so it stays longer. */
+export const LIKE_BANNER_AT = 3;
+export const LIKE_BANNER_SEC = 1.7;
 export const OUTRO_MIN = 4.0;
 export const MAX_DURATION = 59;
 const PAD = 0.2;
@@ -35,10 +38,11 @@ export function buildTimeline(spec: QuizSpec, deps: { clipMs: (text: string) => 
   for (const q of spec.questions) {
     const diffUp = spec.difficultyUpLineIds[q.index];
     if (diffUp !== undefined && q.index in spec.difficultyUpLineIds) {
-      scenes.push({ kind: "diffUp", start: t, end: t + DIFFUP_SEC, q: q.index });
+      const dur = q.index === LIKE_BANNER_AT ? LIKE_BANNER_SEC : DIFFUP_SEC;
+      scenes.push({ kind: "diffUp", start: t, end: t + dur, q: q.index });
       cues.push({ at: t, kind: "whoosh" });
       speak(diffUp, t + 0.05);
-      t += DIFFUP_SEC;
+      t += dur;
     }
     const last = q.index === spec.questions.length - 1;
     const timerSec = last ? TIMER_LAST_SEC : TIMER_SEC;

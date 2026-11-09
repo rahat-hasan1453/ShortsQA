@@ -4,7 +4,7 @@ import { fontFamilies } from "@/engine/assetPaths";
 
 const FAMILIES = fontFamilies(themes);
 
-export interface Settings { themeId: string; seed: string; part: number; twist: boolean; font: string }
+export interface Settings { themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list" }
 
 export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
@@ -16,6 +16,13 @@ export default function Controls({ value, onChange, disabled, hasBackground, onB
   const set = (p: Partial<Settings>) => onChange({ ...value, ...p });
   return (
     <fieldset disabled={disabled} style={{ display: "grid", gap: 12, border: "none", padding: 0, margin: 0 }}>
+      <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
+        <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
+          <option value="list">List 1-10 (recommended)</option>
+          <option value="options">Options A-D</option>
+          <option value="open">Open (just the name)</option>
+        </select>
+      </label>
       <label style={LABEL}>Template <small style={HINT}>rong, background ar timer er dhoron</small>
         <select value={value.themeId} onChange={(e) => set({ themeId: e.target.value })} style={FIELD}>
           <option value="random">Random (recommended)</option>

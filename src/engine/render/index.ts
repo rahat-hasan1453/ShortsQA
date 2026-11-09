@@ -4,10 +4,11 @@ import { themeFont } from "../theme";
 import type { QuizQuestion, Theme, Timeline } from "../types";
 import type { Assets } from "./assets";
 import { drawBackground, type Ctx } from "./background";
-import { H, LAYOUT, SAFE, W, type Rect } from "./layout";
+import { H, LAYOUT, SAFE, STYLE, W, type Rect } from "./layout";
 import { applyReveal, drawConfetti } from "./reveal";
 import { fitText, layoutText, type TextLayout } from "./text";
 import { drawTimer } from "./timer";
+import { LIKE_BANNER_AT } from "../timeline";
 
 export interface FrameInput {
   timeline: Timeline;
@@ -78,13 +79,13 @@ export function layoutReveal(ctx: Ctx, theme: Theme, name: string): TextLayout {
   return layoutIn(ctx, theme, name, LAYOUT.flagCard, 110, 44);
 }
 
-function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion) {
+function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion, titleOverride?: string) {
   const h = LAYOUT.header, p = theme.palette;
   ctx.textBaseline = "middle"; ctx.textAlign = "left";
   const label = BAND_LABEL[q.band];
   ctx.font = themeFont(theme, "body", 40);
   const bw = ctx.measureText(label).width + 56;
-  const title = `FLAG ${q.index + 1}/10`;
+  const title = titleOverride ?? `FLAG ${q.index + 1}/10`;
   // Shrink the title so wide fonts never run into the difficulty badge.
   const px = fitText((x) => { ctx.font = themeFont(theme, "title", x); return ctx.measureText(title).width; }, h.w - bw - 30, 72, 34);
   ctx.font = themeFont(theme, "title", px);
@@ -106,8 +107,7 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
   }
 }
 
-function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string) {
-  const c = LAYOUT.flagCard;
+function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0) {
   roundRect(ctx, c, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
   if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
     roundRect(ctx, { x: c.x + 6, y: c.y + 6, w: c.w - 12, h: c.h - 12 }, 30);
@@ -116,8 +116,66 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
   if (!showFlag) return;
   const img = f.assets.flags.get(q.iso2);
   if (!img) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
-  ctx.save(); roundRect(ctx, { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 }, 20); ctx.clip();
-  ctx.drawImage(img, c.x + 24, c.y + 24, c.w - 48, c.h - 48);
+  const inner: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
+  ctx.save(); roundRect(ctx, inner, 20); ctx.clip();
+  // Waving flag: thin vertical strips shifted by a travelling sine (pure function of t).
+  const step = 6, n = Math.ceil(inner.w / step);
+  for (let i = 0; i < n; i++) {
+    const dy = Math.sin(t * 3 + i * 0.3) * 4;
+    ctx.drawImage(img, (img.width * i) / n, 0, img.width / n, img.height, inner.x + i * step, inner.y - 6 + dy, step + 0.6, inner.h + 12);
+  }
+  ctx.restore();
+}
+
+function haloText(ctx: Ctx, text: string, x: number, y: number, fill: string, halo = "#000000", width = 8) {
+  ctx.save(); ctx.lineJoin = "round"; ctx.lineWidth = width; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.restore();
+  ctx.fillStyle = fill; ctx.fillText(text, x, y);
+}
+
+function drawThinBar(ctx: Ctx, theme: Theme, r: Rect, progress: number) {
+  const p = theme.palette;
+  roundRect(ctx, r, r.h / 2); ctx.fillStyle = p.card; ctx.fill();
+  const w = Math.max(r.h, r.w * (1 - progress));
+  ctx.save(); roundRect(ctx, r, r.h / 2); ctx.clip();
+  ctx.fillStyle = (1 - progress) * 3 <= 1 ? p.wrong : p.accent; ctx.fillRect(r.x, r.y, w, r.h);
+  ctx.restore();
+}
+
+function drawOptions(ctx: Ctx, theme: Theme, q: QuizQuestion, reveal: boolean) {
+  const { x, y, w, h, gap } = STYLE.options.rows, p = theme.palette, o = q.options!;
+  o.names.forEach((name, i) => {
+    const r: Rect = { x, y: y + i * (h + gap), w, h };
+    const isRight = i === o.correct;
+    ctx.save();
+    if (reveal && !isRight) ctx.globalAlpha = 0.4;
+    roundRect(ctx, r, 30); ctx.fillStyle = reveal && isRight ? p.correct : p.card; ctx.fill();
+    const cr = h / 2 - 14, cx = r.x + 20 + cr + 4, cy = r.y + h / 2;
+    ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.fillStyle = reveal && isRight ? "#FFFFFF" : p.accent; ctx.fill();
+    ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.fillStyle = reveal && isRight ? p.correct : "#FFFFFF";
+    ctx.font = themeFont(theme, "title", 52); ctx.fillText("ABCD"[i], cx, cy + 2);
+    const px = fitText((s) => { ctx.font = themeFont(theme, "body", s); return ctx.measureText(name).width; }, w - 2 * cr - 150, 54, 28);
+    ctx.font = themeFont(theme, "body", px); ctx.textAlign = "left"; ctx.fillStyle = reveal && isRight ? "#FFFFFF" : p.text;
+    ctx.fillText(name, cx + cr + 24, cy + 2);
+    if (reveal && isRight) { ctx.textAlign = "right"; ctx.font = themeFont(theme, "title", 64); ctx.fillText("\u2713", r.x + w - 28, cy + 2); }
+    ctx.restore();
+  });
+}
+
+function drawList(ctx: Ctx, f: FrameInput, q: QuizQuestion, reveal: boolean) {
+  const { x, y, rowH, count } = STYLE.list.list, specQs = f.timeline.spec.questions, theme = f.theme;
+  ctx.save(); ctx.textBaseline = "middle"; ctx.textAlign = "left";
+  for (let i = 0; i < count; i++) {
+    const cy = y + i * rowH + rowH / 2, done = i < q.index || (i === q.index && reveal);
+    if (i === q.index) { roundRect(ctx, { x, y: y + i * rowH + 4, w: 760, h: rowH - 8 }, 20); ctx.fillStyle = theme.palette.accent; ctx.globalAlpha = 0.22; ctx.fill(); ctx.globalAlpha = 1; }
+    ctx.font = themeFont(theme, "numbers", 56);
+    haloText(ctx, String(i + 1), x, cy + 2, "#FFD400");
+    const label = done ? specQs[i].name : i === count - 1 ? "IMPOSSIBLE" : "";
+    if (label) {
+      const px = fitText((s) => { ctx.font = themeFont(theme, "title", s); return ctx.measureText(label).width; }, 640, 52, 28);
+      ctx.font = themeFont(theme, "title", px);
+      haloText(ctx, label, x + 110, cy + 2, done ? "#FFFFFF" : TIER.impossible.bg, "#000000", 8);
+    }
+  }
   ctx.restore();
 }
 
@@ -182,32 +240,59 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   if (scene.kind === "hook") drawHook(ctx, f, 1, 0.85 + 0.15 * Math.min(1, (tt - scene.start) / 0.25));
   else if (scene.kind === "outro") {
     const into = tt - scene.start, len = scene.end - scene.start;
-    drawBigText(ctx, theme, ["Comment your score!"], LAYOUT.hook, 1);
-    ctx.textAlign = "center"; ctx.fillStyle = p.accent; ctx.font = themeFont(theme, "body", 56);
-    ctx.fillText(`Follow for part ${timeline.spec.part + 1}`, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 20);
+    drawBigText(ctx, theme, ["HOW MANY DID YOU GET?"], LAYOUT.hook, 1);
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    const fitLine = (text: string, role: "title" | "body", max: number) =>
+      fitText((x) => { ctx.font = themeFont(theme, role, x); return ctx.measureText(text).width; }, LAYOUT.hook.w - 80, max, 24);
+    const cta = "COMMENT YOUR SCORE!", follow = `Follow for part ${timeline.spec.part + 1}`;
+    ctx.font = themeFont(theme, "title", fitLine(cta, "title", 60)); haloText(ctx, cta, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 20, "#FFD400");
+    ctx.fillStyle = p.accent; ctx.font = themeFont(theme, "body", fitLine(follow, "body", 48));
+    ctx.fillText(follow, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 100);
     const fade = (into - (len - 0.5)) / 0.5; // loop-friendly: fade into the hook frame
     if (fade > 0) drawHook(ctx, f, Math.min(1, fade));
   } else if (q) {
     drawTopline(ctx, theme, timeline.spec.part);
-    drawHeader(ctx, theme, q);
-    if (scene.kind === "diffUp") drawLevelUp(ctx, f, q, (tt - scene.start) / (scene.end - scene.start), tt); else if (scene.kind === "timer") {
-      drawFlagCard(ctx, f, q, true);
-      const dur = scene.end - scene.start;
-      drawTimer(ctx, theme, (tt - scene.start) / dur, dur, tt);
+    const style = timeline.spec.answerStyle;
+    drawHeader(ctx, theme, q, style === "list" ? "GUESS THE FLAG" : undefined);
+    const card = style === "open" ? LAYOUT.flagCard : STYLE[style].flagCard;
+    if (scene.kind === "diffUp") {
+      drawLevelUp(ctx, f, q, (tt - scene.start) / (scene.end - scene.start), tt);
+      if (q.index === LIKE_BANNER_AT) {
+        const box = LAYOUT.reveal;
+        roundRect(ctx, { x: box.x, y: box.y + 10, w: box.w, h: box.h - 20 }, 40); ctx.fillStyle = p.accent; ctx.fill();
+        const lay = layoutIn(ctx, theme, "LIKE if you got the first 3 right!", { ...box, y: box.y + 10, h: box.h - 20 }, 72, 36, true);
+        ctx.font = themeFont(theme, "title", lay.px); ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        const lh = lay.px * 1.15, y0 = box.y + box.h / 2 - ((lay.lines.length - 1) * lh) / 2;
+        lay.lines.forEach((l, i) => haloText(ctx, l, box.x + box.w / 2, y0 + i * lh, "#FFFFFF", "#000000", 8));
+      }
+    } else if (scene.kind === "timer") {
+      drawFlagCard(ctx, f, q, true, undefined, card, tt);
+      const dur = scene.end - scene.start, prog = (tt - scene.start) / dur;
+      if (style === "open") drawTimer(ctx, theme, prog, dur, tt);
+      else {
+        drawThinBar(ctx, theme, STYLE[style].bar, prog);
+        if (style === "options") drawOptions(ctx, theme, q, false); else drawList(ctx, f, q, false);
+      }
     } else {
-      drawFlagCard(ctx, f, q, true, p.correct);
+      drawFlagCard(ctx, f, q, true, p.correct, card, tt);
       const r = tt - scene.start;
-      ctx.save();
-      const box = LAYOUT.reveal;
-      const { alpha, clipFrac } = applyReveal(ctx, theme.reveal.style, r, box.x + box.w / 2, box.y + box.h / 2);
-      ctx.globalAlpha = alpha;
-      if (clipFrac < 1) { ctx.beginPath(); ctx.rect(box.x, box.y, box.w * clipFrac, box.h); ctx.clip(); }
-      const lay = layoutIn(ctx, theme, q.name, box, 120, 40);
-      drawLines(ctx, theme, lay, box, p.correct, { haloColor: p.bgFrom });
-      ctx.restore();
-      drawConfetti(ctx, theme, q.index, r);
+      if (style === "open") {
+        ctx.save();
+        const box = LAYOUT.reveal;
+        const { alpha, clipFrac } = applyReveal(ctx, theme.reveal.style, r, box.x + box.w / 2, box.y + box.h / 2);
+        ctx.globalAlpha = alpha;
+        if (clipFrac < 1) { ctx.beginPath(); ctx.rect(box.x, box.y, box.w * clipFrac, box.h); ctx.clip(); }
+        const lay = layoutIn(ctx, theme, q.name, box, 120, 40);
+        drawLines(ctx, theme, lay, box, p.correct, { haloColor: p.bgFrom });
+        ctx.restore();
+        drawConfetti(ctx, theme, q.index, r);
+      } else {
+        drawThinBar(ctx, theme, STYLE[style].bar, 1);
+        if (style === "options") drawOptions(ctx, theme, q, true); else drawList(ctx, f, q, true);
+        drawConfetti(ctx, theme, q.index, r);
+      }
     }
-    drawDots(ctx, theme, q.index, scene.kind === "reveal");
+    if (style !== "list") drawDots(ctx, theme, q.index, scene.kind === "reveal");
   }
   if (f.safeOverlay) {
     ctx.fillStyle = "rgba(255,0,0,0.25)";

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { H, LAYOUT, SAFE, W } from "../../src/engine/render/layout";
+import { H, LAYOUT, SAFE, STYLE, W } from "../../src/engine/render/layout";
 
 describe("layout", () => {
   test("every rect is inside the safe zone and content starts at y >= 220", () => {
@@ -32,5 +32,21 @@ describe("withFont", () => {
 describe("horizontal centering", () => {
   test("every rect is centered on the canvas (x = 540)", () => {
     for (const [name, r] of Object.entries(LAYOUT)) expect(r.x + r.w / 2, name).toBe(540);
+  });
+});
+
+describe("answer-style rects", () => {
+  test("flag cards and bars are centered 4:3 and everything stays in the safe zone", () => {
+    for (const st of [STYLE.options, STYLE.list]) {
+      expect(st.flagCard.x + st.flagCard.w / 2).toBe(540);
+      expect(st.flagCard.w / st.flagCard.h).toBeCloseTo(4 / 3, 2);
+      expect(st.bar.x + st.bar.w / 2).toBe(540);
+      expect(st.flagCard.y).toBeGreaterThanOrEqual(220);
+    }
+    const o = STYLE.options.rows, l = STYLE.list.list;
+    expect(o.y + o.count * (o.h) + (o.count - 1) * o.gap).toBeLessThanOrEqual(H - SAFE.bottom);
+    expect(l.y + l.count * l.rowH).toBeLessThanOrEqual(H - SAFE.bottom);
+    expect(o.x + o.w).toBeLessThanOrEqual(W - SAFE.right);
+    expect(l.x + l.w).toBeLessThanOrEqual(W - SAFE.right);
   });
 });
