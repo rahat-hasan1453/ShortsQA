@@ -23,8 +23,8 @@ export const STYLE = {
     rows: { x: 160, y: 1000, w: 760, h: 108, gap: 18, count: 4 },
   },
   list: {
-    flagCard: { x: 330, y: 430, w: 420, h: 315 } as Rect,
-    bar: { x: 160, y: 775, w: 760, h: 20 } as Rect,
-    list: { x: 160, y: 820, w: 760, rowH: 76, count: 10 },
+    flagCard: { x: 300, y: 440, w: 480, h: 360 } as Rect,
+    bar: { x: 160, y: 828, w: 760, h: 20 } as Rect,
+    list: { x: 160, y: 868, w: 760, rowH: 79, count: 10 },
   },
 } as const;

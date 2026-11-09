@@ -166,14 +166,21 @@ function drawList(ctx: Ctx, f: FrameInput, q: QuizQuestion, reveal: boolean) {
   ctx.save(); ctx.textBaseline = "middle"; ctx.textAlign = "left";
   for (let i = 0; i < count; i++) {
     const cy = y + i * rowH + rowH / 2, done = i < q.index || (i === q.index && reveal);
-    if (i === q.index) { roundRect(ctx, { x, y: y + i * rowH + 4, w: 760, h: rowH - 8 }, 20); ctx.fillStyle = theme.palette.accent; ctx.globalAlpha = 0.22; ctx.fill(); ctx.globalAlpha = 1; }
-    ctx.font = themeFont(theme, "numbers", 56);
-    haloText(ctx, String(i + 1), x, cy + 2, "#FFD400");
+    const tier = TIER[specQs[i].band];
+    if (i === q.index) { roundRect(ctx, { x, y: y + i * rowH + 3, w: 760, h: rowH - 6 }, 22); ctx.fillStyle = tier.bg; ctx.globalAlpha = 0.28; ctx.fill(); ctx.globalAlpha = 1; }
+    // Tier-colored number badge: viewers see the easy-to-impossible ladder before it happens.
+    const r = rowH / 2 - 8, bx = x + 8 + r;
+    ctx.globalAlpha = done || i === q.index ? 1 : 0.55;
+    ctx.beginPath(); ctx.arc(bx, cy, r, 0, Math.PI * 2); ctx.fillStyle = tier.bg; ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = tier.fg; ctx.textAlign = "center"; ctx.font = themeFont(theme, "numbers", 46);
+    ctx.fillText(String(i + 1), bx, cy + 3);
     const label = done ? specQs[i].name : i === count - 1 ? "IMPOSSIBLE" : "";
     if (label) {
-      const px = fitText((s) => { ctx.font = themeFont(theme, "title", s); return ctx.measureText(label).width; }, 640, 52, 28);
+      ctx.textAlign = "left";
+      const px = fitText((s) => { ctx.font = themeFont(theme, "title", s); return ctx.measureText(label).width; }, 760 - 2 * r - 50, 68, 30);
       ctx.font = themeFont(theme, "title", px);
-      haloText(ctx, label, x + 110, cy + 2, done ? "#FFFFFF" : TIER.impossible.bg, "#000000", 8);
+      haloText(ctx, label, x + 2 * r + 36, cy + 3, done ? "#FFFFFF" : TIER.impossible.bg, "#000000", 9);
     }
   }
   ctx.restore();
