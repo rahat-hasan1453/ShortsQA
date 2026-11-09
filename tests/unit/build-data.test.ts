@@ -4,6 +4,7 @@ import {
   validateWhatIsIt,
   validateVoiceLines,
   validateTitles,
+  validateThemes,
 } from "../../tools/build-data/validators";
 import { applyFixes } from "../../tools/build-data/merge";
 
@@ -101,5 +102,25 @@ describe("applyFixes", () => {
   test("dropRow removes the row", () => {
     const out = applyFixes({ landmarks: [{ n: 1 }, { n: 2 }] }, [{ file: "landmarks", n: 2, op: "dropRow" }]);
     expect(out.landmarks).toEqual([{ n: 1 }]);
+  });
+});
+
+describe("validateThemes", () => {
+  const theme = (over: Record<string, unknown> = {}) => ({
+    id: "t", name: "T", mood: "m",
+    palette: { bgFrom: "#000", bgTo: "#111", card: "#fff", text: "#000", accent: "#f00", accent2: "#0f0", correct: "#0a0", wrong: "#a00" },
+    background: { type: "sunburst" }, fonts: { title: "A", body: "B", numbers: "C" },
+    timer: { style: "pie" }, reveal: { style: "pop" }, music: { mood: "x, 100 bpm" }, bestFor: ["flags"], ...over,
+  });
+  test("accepts a complete theme and flags unknown styles, missing palette keys and duplicate ids", () => {
+    expect(validateThemes([theme()])).toEqual([]);
+    const rules = validateThemes([
+      theme({ timer: { style: "spiral" } }),
+      theme({ id: "u", background: { type: "lava" } }),
+      theme({ id: "v", palette: { bgFrom: "#000" } }),
+      theme({ id: "w", titleStyle: { stroke: "red", strokeWidth: -2 } }),
+      theme(),
+    ]).map((i) => i.rule);
+    for (const r of ["timer-style", "background-type", "palette", "title-style", "duplicate-id"]) expect(rules).toContain(r);
   });
 });

@@ -48,7 +48,7 @@ export default function DebugFrame() {
       cache.set(key, p);
       return p;
     };
-    const render = async (canvas: HTMLCanvasElement | OffscreenCanvas, themeId: string, seed: string, at: string, opts: { backgroundOnly?: boolean; safeOverlay?: boolean } = {}) => {
+    const render = async (canvas: HTMLCanvasElement | OffscreenCanvas, themeId: string, seed: string, at: string, opts: { backgroundOnly?: boolean; contentOnly?: boolean; safeOverlay?: boolean } = {}) => {
       const p = await prepare(themeId, seed);
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       drawFrame(ctx, { ...p, ...opts }, resolveAt(p.timeline, at));
@@ -74,14 +74,14 @@ export default function DebugFrame() {
       names: countries.map((c) => c.name),
       render: (themeId: string, seed: string, at: string) => render(ref.current!, themeId, seed, at).then((p) => p.assets.warnings),
       marginDiff: async (themeId: string, seed: string, at: string) => {
-        const a = new OffscreenCanvas(W, H), b = new OffscreenCanvas(W, H);
-        await render(a, themeId, seed, at); await render(b, themeId, seed, at, { backgroundOnly: true });
-        const da = a.getContext("2d")!.getImageData(0, 0, W, H).data, db = b.getContext("2d")!.getImageData(0, 0, W, H).data;
+        // Draw content only on a transparent canvas: any non-transparent pixel in the margins is content in the safe zone.
+        const a = new OffscreenCanvas(W, H);
+        await render(a, themeId, seed, at, { contentOnly: true });
+        const d = a.getContext("2d")!.getImageData(0, 0, W, H).data;
         let diff = 0, x0 = W, x1 = 0, y0 = H, y1 = 0;
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
           if (y >= SAFE.top && y < H - SAFE.bottom && x < W - SAFE.right) continue;
-          const i = (y * W + x) * 4;
-          if (Math.abs(da[i] - db[i]) > 3 || Math.abs(da[i + 1] - db[i + 1]) > 3 || Math.abs(da[i + 2] - db[i + 2]) > 3) { diff++; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+          if (d[(y * W + x) * 4 + 3] > 8) { diff++; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
         }
         (window as any).__diffBox = { x0, x1, y0, y1 };
         return diff;

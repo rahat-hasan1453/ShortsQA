@@ -18,7 +18,7 @@ const getClips = async () => makeClipIndex(await (manifest ??= fetch("/audio/man
 export async function prepare(s: Settings): Promise<Prepared> {
   const clips = await getClips();
   const themeId = s.themeId === "random"
-    ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.bestFor.includes("flags"))).id
+    ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;
   const spec = buildQuiz({ seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });

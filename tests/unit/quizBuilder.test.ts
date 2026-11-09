@@ -35,6 +35,14 @@ describe("buildQuiz", () => {
       }
     }
   });
+  test("Random theme only picks featured templates (the 6 new ones)", () => {
+    const featured = themes.filter((t: any) => t.featured).map((t: any) => t.id);
+    expect(featured.sort()).toEqual(["clean-white", "dark-alert", "game-show", "mono-bold", "quiz-burst", "sticker-pop"]);
+    const picked = new Set<string>();
+    for (let i = 0; i < 120; i++) picked.add(buildQuiz({ ...base, seed: "rt" + i }).themeId);
+    for (const id of picked) expect(featured, id).toContain(id);
+    expect(picked.size).toBeGreaterThanOrEqual(4);
+  });
   test("odd seeds build without throwing", () => {
     for (const seed of ["", "x".repeat(10000), "🏁🇫🇷"]) expect(buildQuiz({ ...base, seed }).questions).toHaveLength(10);
   });

@@ -17,7 +17,7 @@ Add it to a `countries_master.part*.json` (fields: `iso2 name altNames continent
 
 ## Change a theme
 
-Edit `data/incoming/themes.part*.json`. Supported values: background `pattern | animated-gradient | texture | bokeh | gradient | grid`, timer `bar | ring | pulse | hourglass | numeric | flip`, reveal `wipe | pop | confetti | shake | flip | slide`. New fonts: `npm i -D @fontsource/<font>` then `npm run copy:fonts`.
+Edit `data/incoming/themes.part*.json`. Supported values: background `pattern | animated-gradient | texture | bokeh | gradient | grid | sunburst | spotlight | checker | dots | shapes`, timer `bar | ring | pulse | hourglass | numeric | flip | pie | dial | big-number`, reveal `wipe | pop | confetti | shake | flip | slide`. Optional `titleStyle: { fill, stroke, strokeWidth }` outlines the title text. `featured: true` puts a theme in the "Random" pool (the six newer templates: quiz-burst, clean-white, dark-alert, game-show, sticker-pop, mono-bold). New fonts: `npm i -D @fontsource/<font>` then `npm run copy:fonts`.
 
 ## `data/fixes.json`
 

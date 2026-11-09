@@ -45,7 +45,8 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   const part = Math.min(99, Math.max(1, Math.trunc(input.part ?? 1) || 1));
 
   const flagThemes = themes.filter((t) => t.bestFor.includes("flags"));
-  const theme = themes.find((t) => t.id === input.themeId) ?? rng.pick(flagThemes.length ? flagThemes : themes);
+  const featured = flagThemes.filter((t) => t.featured);
+  const theme = themes.find((t) => t.id === input.themeId) ?? rng.pick(featured.length ? featured : flagThemes.length ? flagThemes : themes);
 
   let twistRegion: string | undefined;
   if (input.useRegionTwist) {

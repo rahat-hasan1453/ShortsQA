@@ -13,6 +13,21 @@ describe("fitText", () => {
   });
 });
 
+describe("layoutText preferBigger", () => {
+  test("wraps to two lines when that allows a clearly larger font", () => {
+    const text = "Can you name all 10 flags?";
+    const one = layoutText(measure, text, 700, 110, 40);
+    const wrapped = layoutText(measure, text, 700, 110, 40, true);
+    expect(one.lines).toHaveLength(1);
+    expect(wrapped.lines).toHaveLength(2);
+    expect(wrapped.px).toBeGreaterThanOrEqual(one.px * 1.25);
+    expect(wrapped.width).toBeLessThanOrEqual(700);
+  });
+  test("keeps one line when wrapping would not help", () => {
+    expect(layoutText(measure, "Hi!", 700, 110, 40, true).lines).toEqual(["Hi!"]);
+  });
+});
+
 describe("layoutText", () => {
   test("short text stays on one line at max size", () => {
     const l = layoutText(measure, "Chad", 840, 120, 48);

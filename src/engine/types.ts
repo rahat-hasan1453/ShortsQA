@@ -35,6 +35,10 @@ export interface Theme {
   reveal: { style: string; correctEffect?: string };
   music: { mood: string };
   bestFor: string[];
+  /** Shown by "Random"; the original 15 themes stay selectable but are not featured. */
+  featured?: boolean;
+  /** Outlined titles: optional fill override plus stroke. */
+  titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
 export interface QuizQuestion {

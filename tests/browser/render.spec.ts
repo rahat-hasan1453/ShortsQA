@@ -5,7 +5,7 @@ const waitReady = async (page: any) => { await page.getByTestId("ready").filter(
 const TIMES = ["hook:1", "timer:0:1.0", "reveal:0:0.8", "timer:9:1.5", "outro:1"];
 
 test.describe("golden frames", () => {
-  for (const theme of ["arctic-ice", "retro-arcade"]) {
+  for (const theme of ["arctic-ice", "retro-arcade", "quiz-burst", "dark-alert", "game-show", "clean-white", "sticker-pop", "mono-bold"]) {
     for (const at of TIMES) {
       test(`${theme} ${at}`, async ({ page }) => {
         await page.goto(url(`theme=${theme}&seed=demo&at=${at}`));
@@ -16,11 +16,11 @@ test.describe("golden frames", () => {
   }
 });
 
-test("safe-zone margins stay empty in all 15 themes", async ({ page }) => {
+test("safe-zone margins stay empty in all 21 themes", async ({ page }) => {
   await page.goto(url("theme=arctic-ice&seed=demo"));
   await waitReady(page);
   const themes: string[] = await page.evaluate(() => (window as any).__debug.themes);
-  expect(themes).toHaveLength(15);
+  expect(themes).toHaveLength(21);
   for (const theme of themes) {
     for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "outro:1"]) {
       const diff = await page.evaluate(([t, a]) => (window as any).__debug.marginDiff(t, "demo", a), [theme, at]);
@@ -39,7 +39,7 @@ test("the longest country names fit the card in every theme", async ({ page }) =
     for (const theme of d.themes) for (const name of names) res.push({ theme, name, width: (await d.revealLayout(theme, name)).width });
     return res;
   });
-  expect(out).toHaveLength(45);
+  expect(out).toHaveLength(63);
   for (const r of out) expect(r.width, `${r.theme} ${r.name}`).toBeLessThanOrEqual(800);
 });
 

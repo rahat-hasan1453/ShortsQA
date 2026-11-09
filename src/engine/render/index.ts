@@ -13,6 +13,8 @@ export interface FrameInput {
   theme: Theme;
   assets: Assets;
   backgroundOnly?: boolean;
+  /** Skip the background so only content pixels (alpha > 0) are drawn; used by the safe-zone test. */
+  contentOnly?: boolean;
   safeOverlay?: boolean;
 }
 
@@ -29,18 +31,33 @@ function roundRect(ctx: Ctx, r: Rect, rad: number) {
 }
 
 /** Fits `text` into `box` (up to two lines) using the theme's title font. */
-export function layoutIn(ctx: Ctx, theme: Theme, text: string, box: Rect, maxPx: number, minPx: number): TextLayout {
+export function layoutIn(ctx: Ctx, theme: Theme, text: string, box: Rect, maxPx: number, minPx: number, preferBigger = false): TextLayout {
   return layoutText(
     (s, px) => { ctx.font = themeFont(theme, "title", px); return ctx.measureText(s).width; },
-    text, box.w - 60, maxPx, minPx, // 30 px inset each side: glyphs overhang their measured width
+    text, box.w - 60, maxPx, minPx, preferBigger, // 30 px inset each side: glyphs overhang their measured width
   );
 }
 
-function drawLines(ctx: Ctx, theme: Theme, lay: TextLayout, box: Rect, color: string) {
+/** Filled text, with the theme's outline (titleStyle) when it has one. */
+function styledText(ctx: Ctx, theme: Theme, text: string, x: number, y: number, color: string, opts: { useFill?: boolean; haloColor?: string } = {}) {
+  const ts = theme.titleStyle;
+  if (ts) {
+    ctx.save();
+    ctx.lineJoin = "round"; ctx.miterLimit = 2;
+    ctx.lineWidth = ts.strokeWidth * 1.5;
+    ctx.strokeStyle = opts.haloColor ?? ts.stroke;
+    ctx.strokeText(text, x, y);
+    ctx.restore();
+  }
+  ctx.fillStyle = ts?.fill && opts.useFill ? ts.fill : color;
+  ctx.fillText(text, x, y);
+}
+
+function drawLines(ctx: Ctx, theme: Theme, lay: TextLayout, box: Rect, color: string, opts: { useFill?: boolean; haloColor?: string } = {}) {
   ctx.font = themeFont(theme, "title", lay.px);
   ctx.fillStyle = color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
   const lh = lay.px * 1.15, y0 = box.y + box.h / 2 - ((lay.lines.length - 1) * lh) / 2;
-  lay.lines.forEach((l, i) => ctx.fillText(l, box.x + box.w / 2, y0 + i * lh));
+  lay.lines.forEach((l, i) => styledText(ctx, theme, l, box.x + box.w / 2, y0 + i * lh, color, opts));
 }
 
 /** Layout of the reveal text for a country name (exported so tests can check it fits the card). */
@@ -57,8 +74,8 @@ function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion) {
   const title = `FLAG ${q.index + 1}/10`;
   // Shrink the title so wide fonts never run into the difficulty badge.
   const px = fitText((x) => { ctx.font = themeFont(theme, "title", x); return ctx.measureText(title).width; }, h.w - bw - 30, 72, 34);
-  ctx.fillStyle = p.text; ctx.font = themeFont(theme, "title", px);
-  ctx.fillText(title, h.x, h.y + h.h / 2);
+  ctx.font = themeFont(theme, "title", px);
+  styledText(ctx, theme, title, h.x, h.y + h.h / 2, p.text, { useFill: true });
   ctx.font = themeFont(theme, "body", 40);
   const badge: Rect = { x: h.x + h.w - bw, y: h.y + 35, w: bw, h: 60 };
   roundRect(ctx, badge, 30); ctx.fillStyle = q.band === "impossible" ? p.wrong : p.accent2; ctx.fill();
@@ -70,8 +87,9 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
   for (let i = 0; i < 10; i++) {
     const cx = d.x + (d.w / 10) * (i + 0.5), cy = d.y + d.h / 2;
     ctx.beginPath(); ctx.arc(cx, cy, i === current ? 16 : 11, 0, Math.PI * 2);
-    ctx.fillStyle = i < current || (i === current && done) ? p.correct : i === current ? p.accent : p.card;
-    ctx.fill();
+    ctx.globalAlpha = i > current ? 0.3 : 1;
+    ctx.fillStyle = i < current || (i === current && done) ? p.correct : i === current ? p.accent : p.text;
+    ctx.fill(); ctx.globalAlpha = 1;
   }
 }
 
@@ -92,8 +110,8 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
 
 function drawBigText(ctx: Ctx, theme: Theme, lines: string[], box: Rect, alpha: number) {
   ctx.save(); ctx.globalAlpha = alpha;
-  const lay = layoutIn(ctx, theme, lines.join(" "), box, 110, 56);
-  drawLines(ctx, theme, lay.lines.length > 1 || lines.length === 1 ? lay : { ...lay, lines }, box, theme.palette.text);
+  const lay = layoutIn(ctx, theme, lines.join(" "), box, 120, 56, true);
+  drawLines(ctx, theme, lay.lines.length > 1 || lines.length === 1 ? lay : { ...lay, lines }, box, theme.palette.text, { useFill: true });
   ctx.restore();
 }
 
@@ -113,7 +131,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   const { timeline, theme } = f;
   ctx.save();
   ctx.clearRect(0, 0, W, H);
-  drawBackground(ctx, theme, t, f.assets.background);
+  if (!f.contentOnly) drawBackground(ctx, theme, t, f.assets.background);
   if (f.backgroundOnly) { ctx.restore(); return; }
   const tt = Math.min(Math.max(t, 0), timeline.duration - 1e-6);
   const scene = timeline.scenes.find((s) => tt >= s.start && tt < s.end) ?? timeline.scenes[timeline.scenes.length - 1];
@@ -145,8 +163,8 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
       const { alpha, clipFrac } = applyReveal(ctx, theme.reveal.style, r, box.x + box.w / 2, box.y + box.h / 2);
       ctx.globalAlpha = alpha;
       if (clipFrac < 1) { ctx.beginPath(); ctx.rect(box.x, box.y, box.w * clipFrac, box.h); ctx.clip(); }
-      const lay = layoutIn(ctx, theme, q.name, box, 96, 40);
-      drawLines(ctx, theme, lay, box, p.correct);
+      const lay = layoutIn(ctx, theme, q.name, box, 120, 40);
+      drawLines(ctx, theme, lay, box, p.correct, { haloColor: p.bgFrom });
       ctx.restore();
       drawConfetti(ctx, theme, q.index, r);
     }

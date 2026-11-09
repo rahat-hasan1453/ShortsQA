@@ -14,9 +14,9 @@ describe("static assets", () => {
     const missing = read("countries.json").map((c: any) => c.iso2).filter((i: string) => !fs.existsSync(path.join(root, "public", flagPath(i))));
     expect(missing).toEqual([]);
   });
-  test("every theme font family has a file (37 families)", () => {
+  test("every theme font family has a file (40 families)", () => {
     const fams = fontFamilies(read("themes.json"));
-    expect(fams.length).toBe(37);
+    expect(fams.length).toBe(40);
     const missing = fams.filter((f) => !fs.existsSync(path.join(root, "public", fontFile(f))));
     expect(missing).toEqual([]);
   });

@@ -703,5 +703,295 @@
    "flags"
   ],
   "contrastNote": "text on bg ≈ 17:1; bright green correct is much lighter than ruby wrong"
+ },
+ {
+  "id": "quiz-burst",
+  "name": "Quiz Burst",
+  "mood": "loud, orange, game-show energy (Question Time style)",
+  "palette": {
+   "bgFrom": "#FF8A00",
+   "bgTo": "#E8290B",
+   "card": "#FFF8E1F2",
+   "text": "#3A0D00",
+   "accent": "#FFD400",
+   "accent2": "#B31200",
+   "correct": "#0B7A2E",
+   "wrong": "#B31200"
+  },
+  "background": {
+   "type": "sunburst",
+   "description": "Orange-to-red background with large alternating light rays radiating from the centre",
+   "motion": "rays rotate slowly"
+  },
+  "fonts": {
+   "title": "Luckiest Guy",
+   "body": "Fredoka",
+   "numbers": "Luckiest Guy"
+  },
+  "timer": {
+   "style": "ring",
+   "tickEffect": "yellow ring drains with a red track"
+  },
+  "reveal": {
+   "style": "pop",
+   "correctEffect": "answer pops in with a green outline"
+  },
+  "music": {
+   "mood": "upbeat quirky brassy cartoon swing, 125 bpm, no vocals",
+   "searchKeywords": [
+    "quirky cartoon swing no copyright",
+    "upbeat quiz show background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "yellow outlined title on orange; dark text on near-white card",
+  "titleStyle": {
+   "fill": "#FFD400",
+   "stroke": "#B31200",
+   "strokeWidth": 10
+  }
+ },
+ {
+  "id": "clean-white",
+  "name": "Clean White",
+  "mood": "clean, friendly, minimal (FlagSwap style)",
+  "palette": {
+   "bgFrom": "#FFFFFF",
+   "bgTo": "#EEF3FA",
+   "card": "#FFFFFF",
+   "text": "#1F2A44",
+   "accent": "#3D7BFF",
+   "accent2": "#FF7A59",
+   "correct": "#0E9F6E",
+   "wrong": "#E5484D"
+  },
+  "background": {
+   "type": "dots",
+   "description": "White background with a soft pastel dot grid",
+   "motion": "dots drift slowly"
+  },
+  "fonts": {
+   "title": "Fredoka",
+   "body": "Nunito",
+   "numbers": "Fredoka"
+  },
+  "timer": {
+   "style": "pie",
+   "tickEffect": "blue pie sweeps away"
+  },
+  "reveal": {
+   "style": "pop",
+   "correctEffect": "green name pops in"
+  },
+  "music": {
+   "mood": "light playful ukulele and pizzicato, 118 bpm, no vocals",
+   "searchKeywords": [
+    "happy ukulele no copyright",
+    "light playful background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "dark navy text on white (about 14:1)"
+ },
+ {
+  "id": "dark-alert",
+  "name": "Dark Alert",
+  "mood": "dark, tense, high-stakes (Flag IQ Daily style)",
+  "palette": {
+   "bgFrom": "#0B1020",
+   "bgTo": "#1A0F1F",
+   "card": "#1B2238F2",
+   "text": "#FFFFFF",
+   "accent": "#FF2D2D",
+   "accent2": "#FFD400",
+   "correct": "#2EE59D",
+   "wrong": "#FF2D2D"
+  },
+  "background": {
+   "type": "spotlight",
+   "description": "Near-black background with a red glow behind the flag",
+   "motion": "glow pulses with the beat"
+  },
+  "fonts": {
+   "title": "Anton",
+   "body": "Inter",
+   "numbers": "Anton"
+  },
+  "timer": {
+   "style": "big-number",
+   "tickEffect": "huge number, pulses red in the last 3 seconds"
+  },
+  "reveal": {
+   "style": "shake",
+   "correctEffect": "name shakes in, green"
+  },
+  "music": {
+   "mood": "dark minimal electronic pulse with a ticking beat, 105 bpm, no vocals",
+   "searchKeywords": [
+    "tense dark electronic no copyright",
+    "suspense ticking background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "white on near-black (about 17:1); green correct vs red wrong differ in brightness",
+  "titleStyle": {
+   "fill": "#FFFFFF",
+   "stroke": "#FF2D2D",
+   "strokeWidth": 7
+  }
+ },
+ {
+  "id": "game-show",
+  "name": "Game Show",
+  "mood": "gold-on-blue studio spotlight (Quizora / trivia style)",
+  "palette": {
+   "bgFrom": "#0A1E6E",
+   "bgTo": "#031042",
+   "card": "#FFFFFF1F",
+   "text": "#FFF3C4",
+   "accent": "#FFC400",
+   "accent2": "#00C2FF",
+   "correct": "#3DFFB0",
+   "wrong": "#FF5C7A"
+  },
+  "background": {
+   "type": "spotlight",
+   "description": "Deep blue studio background with a bright spotlight cone from the top",
+   "motion": "spotlight breathes slowly"
+  },
+  "fonts": {
+   "title": "Bebas Neue",
+   "body": "Montserrat",
+   "numbers": "Bebas Neue"
+  },
+  "timer": {
+   "style": "dial",
+   "tickEffect": "gold clock dial with a sweeping hand"
+  },
+  "reveal": {
+   "style": "flip",
+   "correctEffect": "name flips in, mint green"
+  },
+  "music": {
+   "mood": "cinematic orchestral game-show suspense with timpani, 100 bpm, no vocals",
+   "searchKeywords": [
+    "game show suspense no copyright",
+    "cinematic quiz background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "cream on deep blue (about 11:1)",
+  "titleStyle": {
+   "fill": "#FFC400",
+   "stroke": "#4A3000",
+   "strokeWidth": 6
+  }
+ },
+ {
+  "id": "sticker-pop",
+  "name": "Sticker Pop",
+  "mood": "comic, bold, sticker-like",
+  "palette": {
+   "bgFrom": "#FFE600",
+   "bgTo": "#FFB800",
+   "card": "#FFFFFF",
+   "text": "#111111",
+   "accent": "#FF2E93",
+   "accent2": "#00B7FF",
+   "correct": "#0A8F3C",
+   "wrong": "#E0245E"
+  },
+  "background": {
+   "type": "checker",
+   "description": "Yellow checkerboard that scrolls diagonally",
+   "motion": "checker scrolls"
+  },
+  "fonts": {
+   "title": "Bangers",
+   "body": "Comic Neue",
+   "numbers": "Bangers"
+  },
+  "timer": {
+   "style": "bar",
+   "tickEffect": "pink bar shrinks and bounces"
+  },
+  "reveal": {
+   "style": "shake",
+   "correctEffect": "name shakes in, green"
+  },
+  "music": {
+   "mood": "playful bubbly pop with claps and whistles, 122 bpm, no vocals",
+   "searchKeywords": [
+    "bubbly happy pop no copyright",
+    "comic cartoon background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "black on white card (21:1); white outlined title on yellow",
+  "titleStyle": {
+   "fill": "#FFFFFF",
+   "stroke": "#111111",
+   "strokeWidth": 9
+  }
+ },
+ {
+  "id": "mono-bold",
+  "name": "Mono Bold",
+  "mood": "editorial, bold, poster-like (Quiz Beast style)",
+  "palette": {
+   "bgFrom": "#F2EFE6",
+   "bgTo": "#E6E0D0",
+   "card": "#FFFFFF",
+   "text": "#111111",
+   "accent": "#111111",
+   "accent2": "#FF4D00",
+   "correct": "#0B7A2E",
+   "wrong": "#FF4D00"
+  },
+  "background": {
+   "type": "shapes",
+   "description": "Warm paper background with one big orange circle and a black bar as poster shapes",
+   "motion": "shapes slide slightly"
+  },
+  "fonts": {
+   "title": "Archivo Black",
+   "body": "Inter",
+   "numbers": "Archivo Black"
+  },
+  "timer": {
+   "style": "flip",
+   "tickEffect": "black flip-number box"
+  },
+  "reveal": {
+   "style": "slide",
+   "correctEffect": "name slides up, green"
+  },
+  "music": {
+   "mood": "minimal lo-fi electronic beat with soft keys, 98 bpm, no vocals",
+   "searchKeywords": [
+    "lo-fi minimal beat no copyright",
+    "clean modern background music"
+   ]
+  },
+  "bestFor": [
+   "flags"
+  ],
+  "featured": true,
+  "contrastNote": "black on paper (about 17:1)"
  }
 ]
