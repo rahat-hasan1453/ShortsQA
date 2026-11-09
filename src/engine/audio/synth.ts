@@ -35,7 +35,10 @@ export function heartbeat(ctx: C, d: AudioNode, at: number, until: number) {
 export function chime(ctx: C, d: AudioNode, at: number) {
   [0, 4, 7, 12].forEach((s, i) => tone(ctx, d, "triangle", hz(12 + s), at + i * 0.07, 0.5, 0.2));
 }
-export const whoosh = (ctx: C, d: AudioNode, at: number) => noise(ctx, d, at, 0.5, 0.35, 300, 3000);
+export function whoosh(ctx: C, d: AudioNode, at: number) {
+  noise(ctx, d, at, 0.5, 0.5, 300, 3500);
+  tone(ctx, d, "sine", 58, at + 0.05, 0.5, 0.6); // low impact for level-ups
+}
 
 const PROG = [0, 7, 9, 5].map((r) => [r, r + 4 - (r === 9 ? 1 : 0), r + 7]); // C G Am F (semitones above C3)
 

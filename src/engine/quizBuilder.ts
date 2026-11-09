@@ -83,7 +83,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   draft.questions = picked.map(({ c, band }, index): QuizQuestion => {
     const q: QuizQuestion = { index, iso2: c.iso2, name: c.name, band, revealLineId: "" };
     const slots = slotValues(draft, q);
-    q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1);
+    q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1 && !/\byes\b/i.test(l));
     if (!DIFF_UP_BEFORE.includes(index)) {
       const roll = index === 0 ? 0 : rng.next();
       if (roll < 0.4) q.askLineId = fit("ask", slots, 1600);

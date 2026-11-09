@@ -141,3 +141,26 @@ export function validateTitles(formats: Row[]): Issue[] {
   }
   return out;
 }
+
+export const BACKGROUND_TYPES = ["pattern", "animated-gradient", "texture", "bokeh", "gradient", "grid", "sunburst", "spotlight", "checker", "dots", "shapes"];
+export const TIMER_STYLES = ["bar", "ring", "pulse", "hourglass", "numeric", "flip", "pie", "dial", "big-number"];
+export const REVEAL_STYLES = ["wipe", "pop", "confetti", "shake", "flip", "slide"];
+const PALETTE_KEYS = ["bgFrom", "bgTo", "card", "text", "accent", "accent2", "correct", "wrong"];
+
+export function validateThemes(rows: Row[]): Issue[] {
+  const out: Issue[] = [];
+  const seen = new Set<string>();
+  for (const t of rows) {
+    const push = (rule: string, message: string) => out.push({ file: "themes", rule, message: `${t.id}: ${message}` });
+    if (seen.has(t.id)) push("duplicate-id", t.id);
+    seen.add(t.id);
+    for (const k of PALETTE_KEYS) if (!t.palette?.[k]) push("palette", `missing ${k}`);
+    if (!BACKGROUND_TYPES.includes(t.background?.type)) push("background-type", String(t.background?.type));
+    if (!TIMER_STYLES.includes(t.timer?.style)) push("timer-style", String(t.timer?.style));
+    if (!REVEAL_STYLES.includes(t.reveal?.style)) push("reveal-style", String(t.reveal?.style));
+    for (const r of ["title", "body", "numbers"]) if (!t.fonts?.[r]) push("fonts", `missing ${r}`);
+    if (!/\d+\s*bpm/i.test(t.music?.mood ?? "")) push("music-bpm", String(t.music?.mood));
+    if (t.titleStyle && (typeof t.titleStyle.stroke !== "string" || !(t.titleStyle.strokeWidth > 0 && t.titleStyle.strokeWidth <= 14))) push("title-style", JSON.stringify(t.titleStyle));
+  }
+  return out;
+}

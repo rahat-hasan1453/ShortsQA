@@ -37,7 +37,10 @@ export async function mixAudio(tl: Timeline, clips: Map<string, AudioBuffer>, th
   const ctx = new OfflineAudioContext(2, Math.ceil(tl.duration * SAMPLE_RATE), SAMPLE_RATE);
   const master = ctx.createGain(); master.gain.value = 0.9;
   const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6;
-  master.connect(comp).connect(ctx.destination);
+  const limiter = ctx.createDynamicsCompressor();
+  limiter.threshold.value = -4; limiter.knee.value = 0; limiter.ratio.value = 20; limiter.attack.value = 0.002; limiter.release.value = 0.08;
+  const out = ctx.createGain(); out.gain.value = 0.9;
+  master.connect(comp).connect(limiter).connect(out).connect(ctx.destination);
 
   const musicBus = ctx.createGain();
   musicBus.gain.setValueAtTime(MUSIC_GAIN, 0);
@@ -51,7 +54,7 @@ export async function mixAudio(tl: Timeline, clips: Map<string, AudioBuffer>, th
   musicBed(ctx, musicBus, family, bpm, tl.duration);
 
   const fx = ctx.createGain(); fx.gain.value = opts.muteEffects ? 0 : 1; fx.connect(master);
-  const voice = ctx.createGain(); voice.gain.value = opts.muteVoice ? 0 : 1; voice.connect(master);
+  const voice = ctx.createGain(); voice.gain.value = opts.muteVoice ? 0 : 1.2; voice.connect(master);
   const lastTimer = tl.scenes.filter((s) => s.kind === "timer").at(-1);
   for (const c of tl.cues) {
     if (c.kind === "tick") tick(ctx, fx, c.at);

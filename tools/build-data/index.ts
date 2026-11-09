@@ -3,7 +3,7 @@ import path from "node:path";
 import { applyFixes, mergeParts, type Fix } from "./merge";
 import {
   validateCountries, validateLandmarks, validateMissingLetters,
-  validateTitles, validateVoiceLines, validateWhatIsIt, type Issue,
+  validateThemes, validateTitles, validateVoiceLines, validateWhatIsIt, type Issue,
 } from "./validators";
 
 const root = path.resolve(__dirname, "../..");
@@ -29,9 +29,9 @@ const issues: Issue[] = [
   ...validateWhatIsIt(data.what_is_it),
   ...validateLandmarks(data.landmarks, data.countries),
   ...validateMissingLetters(data.missing_letters),
+  ...validateThemes(data.themes),
 ];
-if (data.themes.length !== 15) issues.push({ file: "themes", rule: "count", message: `${data.themes.length}/15` });
-if (new Set(data.themes.map((t) => t.id)).size !== data.themes.length) issues.push({ file: "themes", rule: "duplicate-id", message: "theme ids" });
+if (data.themes.length !== 21) issues.push({ file: "themes", rule: "count", message: `${data.themes.length}/21` });
 
 const errors = issues.filter((i) => i.severity !== "warn");
 const warns = issues.filter((i) => i.severity === "warn");

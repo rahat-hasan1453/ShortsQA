@@ -68,3 +68,15 @@ describe("buildQuiz", () => {
     expect(lineTexts("It's {answer}!", slotValues(spec, q))).toEqual(["It's", q.name]);
   });
 });
+
+describe("reveal wording", () => {
+  test('no reveal line says "Yes" (it repeats ten times per video)', () => {
+    for (let i = 0; i < 200; i++) {
+      const spec = buildQuiz({ ...base, seed: "yes" + i });
+      for (const q of spec.questions) {
+        const line = voice.revealCorrect[Number(q.revealLineId.split(".").pop())];
+        expect(line, q.revealLineId).not.toMatch(/\byes\b/i);
+      }
+    }
+  });
+});

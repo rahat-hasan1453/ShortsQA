@@ -46,14 +46,15 @@ export default function Preview({ prepared, getAudio }: { prepared: Prepared | n
   }
 
   return (
-    <div style={{ display: "grid", gap: 8, justifyItems: "center" }}>
-      <canvas ref={ref} width={W} height={H} style={{ width: 360, height: 640, background: "#222", borderRadius: 8 }} />
-      <div style={{ display: "flex", gap: 8, alignItems: "center", width: 360 }}>
-        <button type="button" disabled={!prepared} onClick={() => (playing ? stop() : play())}>{playing ? "Pause" : "Play"}</button>
+    <div style={{ position: "sticky", top: 12, alignSelf: "start", display: "grid", gap: 10, justifyItems: "center" }}>
+      <canvas ref={ref} width={W} height={H} style={{ aspectRatio: "9 / 16", height: "min(640px, calc(100vh - 150px))", width: "auto", background: "#222", borderRadius: 8 }} />
+      <div style={{ display: "flex", gap: 12, alignItems: "center", width: "100%", maxWidth: 360 }}>
+        <button type="button" aria-label={playing ? "Pause" : "Play"} disabled={!prepared} onClick={() => (playing ? stop() : play())}
+          style={{ width: 56, height: 56, borderRadius: "50%", border: "none", background: prepared ? "#2563eb" : "#999", color: "#fff", fontSize: 24, cursor: "pointer", flexShrink: 0 }}>{playing ? "⏸" : "▶"}</button>
         <input type="range" aria-label="Position" min={0} max={prepared?.timeline.duration ?? 1} step={0.05} value={t} style={{ flex: 1 }}
           onChange={(e) => { if (playing) stop(); setT(Number(e.target.value)); }} />
-        <label style={{ fontSize: 12 }}><input type="checkbox" checked={safe} onChange={(e) => setSafe(e.target.checked)} /> Safe zone</label>
       </div>
+      <label style={{ fontSize: 12, color: "#777" }}><input type="checkbox" checked={safe} onChange={(e) => setSafe(e.target.checked)} /> Safe zone</label>
     </div>
   );
 }

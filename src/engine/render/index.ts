@@ -1,4 +1,5 @@
 import { AssetError } from "../errors";
+import { createRng } from "../rng";
 import { themeFont } from "../theme";
 import type { QuizQuestion, Theme, Timeline } from "../types";
 import type { Assets } from "./assets";
@@ -17,6 +18,18 @@ export interface FrameInput {
   contentOnly?: boolean;
   safeOverlay?: boolean;
 }
+
+/** Tier colors are the same in every theme so viewers learn them (like the big quiz channels). */
+const TIER = {
+  easy: { bg: "#2ECC71", fg: "#07301a" },
+  medium: { bg: "#F5C518", fg: "#3a2c00" },
+  hard: { bg: "#FF3B30", fg: "#ffffff" },
+  impossible: { bg: "#8E44FF", fg: "#ffffff" },
+} as const;
+
+const HOOKS = ["CAN YOU GET 10/10?", "THE LAST ONE IS IMPOSSIBLE", "DON'T SKIP THE LAST ONE!", "EASY TO IMPOSSIBLE. HOW FAR CAN YOU GO?"];
+export const hookText = (spec: { seed: string; twistRegion?: string }): string =>
+  spec.twistRegion ? `FLAGS OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS);
 
 const BAND_LABEL = { easy: "EASY", medium: "MEDIUM", hard: "HARD", impossible: "IMPOSSIBLE" } as const;
 
@@ -78,8 +91,8 @@ function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion) {
   styledText(ctx, theme, title, h.x, h.y + h.h / 2, p.text, { useFill: true });
   ctx.font = themeFont(theme, "body", 40);
   const badge: Rect = { x: h.x + h.w - bw, y: h.y + 35, w: bw, h: 60 };
-  roundRect(ctx, badge, 30); ctx.fillStyle = q.band === "impossible" ? p.wrong : p.accent2; ctx.fill();
-  ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText(label, badge.x + bw / 2, badge.y + 32);
+  roundRect(ctx, badge, 30); ctx.fillStyle = TIER[q.band].bg; ctx.fill();
+  ctx.fillStyle = TIER[q.band].fg; ctx.textAlign = "center"; ctx.fillText(label, badge.x + bw / 2, badge.y + 32);
 }
 
 function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
@@ -115,12 +128,40 @@ function drawBigText(ctx: Ctx, theme: Theme, lines: string[], box: Rect, alpha: 
   ctx.restore();
 }
 
-function drawHook(ctx: Ctx, f: FrameInput, alpha: number) {
+function drawHook(ctx: Ctx, f: FrameInput, alpha: number, pop = 1) {
   const spec = f.timeline.spec;
-  const title = spec.twistRegion ? `Can you name these ${spec.twistRegion} flags?` : "Can you name all 10 flags?";
-  drawBigText(ctx, f.theme, [title], LAYOUT.hook, alpha);
-  ctx.save(); ctx.globalAlpha = alpha; ctx.textAlign = "center"; ctx.fillStyle = f.theme.palette.accent;
-  ctx.font = themeFont(f.theme, "body", 56); ctx.fillText(`Part ${spec.part}`, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 20);
+  ctx.save(); ctx.globalAlpha = alpha;
+  const box = LAYOUT.hook, cx = box.x + box.w / 2, cy = box.y + box.h / 2;
+  ctx.translate(cx, cy); ctx.scale(pop, pop); ctx.translate(-cx, -cy);
+  const lay = layoutIn(ctx, f.theme, hookText(spec), box, 150, 56, true);
+  drawLines(ctx, f.theme, lay, box, f.theme.palette.text, { useFill: true });
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = f.theme.palette.accent;
+  ctx.font = themeFont(f.theme, "body", 52); ctx.fillText(`10 FLAGS  ·  PART ${spec.part}`, cx, box.y + box.h + 30);
+  ctx.restore();
+}
+
+/** Persistent series line shown above every question (like "ASIA: EASY TO IMPOSSIBLE #38"). */
+function drawTopline(ctx: Ctx, theme: Theme, part: number) {
+  const r = LAYOUT.topline, text = `EASY TO IMPOSSIBLE  ·  PART ${part}`;
+  const px = fitText((x) => { ctx.font = themeFont(theme, "body", x); return ctx.measureText(text).width; }, r.w - 20, 36, 22);
+  ctx.save(); ctx.font = themeFont(theme, "body", px); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = theme.palette.text; ctx.globalAlpha = 0.8;
+  ctx.fillText(text, r.x + r.w / 2, r.y + r.h / 2);
+  ctx.restore();
+}
+
+function drawLevelUp(ctx: Ctx, f: FrameInput, q: QuizQuestion, k: number, tt: number) {
+  const card = LAYOUT.flagCard, tier = TIER[q.band];
+  ctx.save();
+  ctx.translate(0, Math.sin(tt * 70) * 12 * (1 - k)); // vertical shake that settles (horizontal would leave the safe zone)
+  drawFlagCard(ctx, f, q, false);
+  drawBigText(ctx, f.theme, ["LEVEL UP!"], { x: card.x, y: card.y + 40, w: card.w, h: 200 }, 1);
+  const pill: Rect = { x: card.x + 80, y: card.y + 290, w: card.w - 160, h: 150 };
+  roundRect(ctx, pill, 40); ctx.fillStyle = tier.bg; ctx.fill();
+  ctx.fillStyle = tier.fg; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.font = themeFont(f.theme, "title", 96); ctx.fillText(BAND_LABEL[q.band], pill.x + pill.w / 2, pill.y + pill.h / 2 + 4);
+  ctx.save(); roundRect(ctx, card, 36); ctx.clip(); // flash stays inside the card (keeps the safe zone clean)
+  ctx.globalAlpha = Math.max(0, 0.6 - k * 1.2); ctx.fillStyle = "#FFFFFF"; ctx.fillRect(card.x, card.y, card.w, card.h);
+  ctx.restore();
   ctx.restore();
 }
 
@@ -138,7 +179,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   const q = scene.q !== undefined ? timeline.spec.questions[scene.q] : undefined;
   const p = theme.palette;
 
-  if (scene.kind === "hook") drawHook(ctx, f, Math.min(1, (tt - scene.start) / 0.3 + 0.2));
+  if (scene.kind === "hook") drawHook(ctx, f, 1, 0.85 + 0.15 * Math.min(1, (tt - scene.start) / 0.25));
   else if (scene.kind === "outro") {
     const into = tt - scene.start, len = scene.end - scene.start;
     drawBigText(ctx, theme, ["Comment your score!"], LAYOUT.hook, 1);
@@ -147,11 +188,9 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
     const fade = (into - (len - 0.5)) / 0.5; // loop-friendly: fade into the hook frame
     if (fade > 0) drawHook(ctx, f, Math.min(1, fade));
   } else if (q) {
+    drawTopline(ctx, theme, timeline.spec.part);
     drawHeader(ctx, theme, q);
-    if (scene.kind === "diffUp") {
-      drawFlagCard(ctx, f, q, false);
-      drawBigText(ctx, theme, [`${BAND_LABEL[q.band]} LEVEL`], LAYOUT.flagCard, Math.min(1, (tt - scene.start) / 0.2));
-    } else if (scene.kind === "timer") {
+    if (scene.kind === "diffUp") drawLevelUp(ctx, f, q, (tt - scene.start) / (scene.end - scene.start), tt); else if (scene.kind === "timer") {
       drawFlagCard(ctx, f, q, true);
       const dur = scene.end - scene.start;
       drawTimer(ctx, theme, (tt - scene.start) / dur, dur, tt);
