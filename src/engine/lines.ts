@@ -32,7 +32,7 @@ export function slotValues(spec: QuizSpec, q?: QuizQuestion): Slots {
     total: numberWords(10),
     part: numberWords(spec.part),
     region: spec.twistRegion,
-    ...(q ? { n: numberWords(q.index + 1), answer: q.name } : {}),
+    ...(q ? { n: numberWords(q.index + 1), answer: q.spoken ?? q.name } : {}),
   };
 }
 

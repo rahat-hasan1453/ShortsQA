@@ -17,7 +17,9 @@ fs.mkdirSync(tmpDir, { recursive: true });
 const manifestPath = path.join(audioDir, "manifest.json");
 const manifest: ClipManifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, "utf8")) : {};
 const read = (f: string) => JSON.parse(fs.readFileSync(path.join(root, "data", f), "utf8"));
-const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), cfg.voice);
+const wordsPath = path.join(root, "data", "missing_letters.json");
+const words: string[] = fs.existsSync(wordsPath) ? (JSON.parse(fs.readFileSync(wordsPath, "utf8")) as { word: string }[]).map((w) => w.word) : [];
+const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), cfg.voice, words);
 const todo = reqs.filter((r) => !manifest[r.key] || !fs.existsSync(path.join(audioDir, manifest[r.key].file)));
 console.log(`${reqs.length} clips needed, ${todo.length} to generate (voice ${cfg.voice})`);
 

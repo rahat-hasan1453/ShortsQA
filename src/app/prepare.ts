@@ -1,6 +1,6 @@
 import { loadClips, mixAudio, timelineTexts } from "@/engine/audio/mixer";
 import { makeClipIndex, type ClipIndex, type Manifest } from "@/engine/clipIndex";
-import { countries, flagsTitles, flagsVoice, themes } from "@/data";
+import { countries, themes, titlesFor, voiceFor, words } from "@/data";
 import { buildMetadata, type Metadata } from "@/engine/metadata";
 import { buildQuiz } from "@/engine/quizBuilder";
 import { loadAssets, type Assets } from "@/engine/render/assets";
@@ -20,11 +20,12 @@ export async function prepare(s: Settings): Promise<Prepared> {
   const themeId = s.themeId === "random"
     ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;
-  const spec = buildQuiz({ seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist, answerStyle: s.answerStyle, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
-  const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
+  const voice = voiceFor(s.format);
+  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters", words, answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
+  const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
   const theme = withFont(themes.find((t) => t.id === spec.themeId)!, s.font);
-  const assets = await loadAssets(theme, spec.questions.map((q) => q.iso2));
-  return { spec, timeline, theme, assets, metadata: buildMetadata(spec, flagsTitles), clips };
+  const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])));
+  return { spec, timeline, theme, assets, metadata: buildMetadata(spec, titlesFor(s.format)), clips };
 }
 
 export async function mixFor(p: Prepared): Promise<AudioBuffer> {
@@ -32,5 +33,5 @@ export async function mixFor(p: Prepared): Promise<AudioBuffer> {
   return mixAudio(p.timeline, buffers, p.theme);
 }
 
-export const fileBase = (p: Prepared) => `flags-part${p.spec.part}-${p.spec.seed}`;
+export const fileBase = (p: Prepared) => `${p.spec.quiz ?? "flags"}-part${p.spec.part}-${p.spec.seed}`;
 export const metadataText = (m: Metadata) => `${m.title}\n\n${m.description}\n\n${m.hashtags.join(" ")}\n\nPinned comment:\n${m.pinnedComment}\n`;

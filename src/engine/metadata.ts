@@ -25,7 +25,7 @@ export function fillTemplate(template: string, spec: QuizSpec): string {
     n: "10",
     level: "impossible",
     region: spec.twistRegion ?? "the World",
-    category: "flag",
+    category: ({ capitals: "capital", math: "math", "missing-letters": "word" } as Record<string, string>)[spec.quiz ?? ""] ?? "flag",
     part: String(spec.part),
   };
   return template.replace(/\{(\w+)\}/g, (m, k: string, offset: number) => {

@@ -29,8 +29,17 @@ const TIER = {
 } as const;
 
 const HOOKS = ["CAN YOU GET 10/10?", "THE LAST ONE IS IMPOSSIBLE", "DON'T SKIP THE LAST ONE!", "EASY TO IMPOSSIBLE. HOW FAR CAN YOU GO?"];
-export const hookText = (spec: { seed: string; twistRegion?: string }): string =>
-  spec.twistRegion ? `FLAGS OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS);
+const WORDING: Record<string, { one: string; many: string; list: string }> = {
+  flags: { one: "FLAG", many: "FLAGS", list: "GUESS THE FLAG" },
+  capitals: { one: "CAPITAL", many: "CAPITALS", list: "NAME THE CAPITAL" },
+  math: { one: "PROBLEM", many: "PROBLEMS", list: "SOLVE IT!" },
+  "missing-letters": { one: "WORD", many: "WORDS", list: "GUESS THE WORD" },
+  "real-vs-fake-flag": { one: "FLAG", many: "FLAGS", list: "REAL OR FAKE?" },
+};
+const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
+
+export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: string }): string =>
+  spec.twistRegion ? `${wording(spec.quiz).many} OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS);
 
 const BAND_LABEL = { easy: "EASY", medium: "MEDIUM", hard: "HARD", impossible: "IMPOSSIBLE" } as const;
 
@@ -107,6 +116,20 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
   }
 }
 
+/** Capitals quiz: the country name on a dark band along the bottom of the flag card. */
+function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
+  if (!q.prompt) return;
+  const text = q.prompt.toUpperCase(), h = Math.round(c.h * 0.22);
+  const band: Rect = { x: c.x + 24, y: c.y + c.h - 24 - h, w: c.w - 48, h };
+  ctx.save();
+  roundRect(ctx, { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 }, 20); ctx.clip();
+  ctx.fillStyle = "rgba(0,0,0,0.78)"; ctx.fillRect(band.x, band.y, band.w, band.h);
+  const px = fitText((x) => { ctx.font = themeFont(theme, "title", x); return ctx.measureText(text).width; }, band.w - 40, Math.round(h * 0.6), 20);
+  ctx.font = themeFont(theme, "title", px); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#FFFFFF";
+  ctx.fillText(text, band.x + band.w / 2, band.y + band.h / 2 + 2);
+  ctx.restore();
+}
+
 function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0) {
   roundRect(ctx, c, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
   if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
@@ -114,7 +137,15 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
     ctx.lineWidth = 10; ctx.strokeStyle = borderColor; ctx.stroke();
   }
   if (!showFlag) return;
-  const img = f.assets.flags.get(q.iso2);
+  if (q.cardText) { // text-only quizzes: the sum or the masked word instead of a flag
+    const text = borderColor && q.cardReveal ? q.cardReveal : q.cardText;
+    const px = fitText((x) => { ctx.font = themeFont(f.theme, "title", x); return ctx.measureText(text).width; }, c.w - 90, Math.round(c.h * 0.4), 24);
+    ctx.save(); ctx.font = themeFont(f.theme, "title", px); ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    haloText(ctx, text, c.x + c.w / 2, c.y + c.h / 2, borderColor ? "#FFD400" : "#FFFFFF", "#000000", Math.max(6, Math.round(px / 9)));
+    ctx.restore();
+    return;
+  }
+  const img = f.assets.flags.get(q.fakeHue && !borderColor ? `${q.iso2}|fake` : q.iso2 ?? ""); // the reveal (bordered) shows the real flag
   if (!img) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
   const inner: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
   ctx.save(); roundRect(ctx, inner, 20); ctx.clip();
@@ -201,7 +232,7 @@ function drawHook(ctx: Ctx, f: FrameInput, alpha: number, pop = 1) {
   const lay = layoutIn(ctx, f.theme, hookText(spec), box, 150, 56, true);
   drawLines(ctx, f.theme, lay, box, f.theme.palette.text, { useFill: true });
   ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = f.theme.palette.accent;
-  ctx.font = themeFont(f.theme, "body", 52); ctx.fillText(`10 FLAGS  ·  PART ${spec.part}`, cx, box.y + box.h + 30);
+  ctx.font = themeFont(f.theme, "body", 52); ctx.fillText(`10 ${wording(spec.quiz).many}  ·  PART ${spec.part}`, cx, box.y + box.h + 30);
   ctx.restore();
 }
 
@@ -260,7 +291,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   } else if (q) {
     drawTopline(ctx, theme, timeline.spec.part);
     const style = timeline.spec.answerStyle;
-    drawHeader(ctx, theme, q, style === "list" ? "GUESS THE FLAG" : undefined);
+    drawHeader(ctx, theme, q, style === "list" ? wording(timeline.spec.quiz).list : `${wording(timeline.spec.quiz).one} ${q.index + 1}/10`);
     const card = style === "open" ? LAYOUT.flagCard : STYLE[style].flagCard;
     if (scene.kind === "diffUp") {
       drawLevelUp(ctx, f, q, (tt - scene.start) / (scene.end - scene.start), tt);
@@ -274,6 +305,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
       }
     } else if (scene.kind === "timer") {
       drawFlagCard(ctx, f, q, true, undefined, card, tt);
+      drawPrompt(ctx, theme, q, card);
       const dur = scene.end - scene.start, prog = (tt - scene.start) / dur;
       if (style === "open") drawTimer(ctx, theme, prog, dur, tt);
       else {
@@ -282,6 +314,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
       }
     } else {
       drawFlagCard(ctx, f, q, true, p.correct, card, tt);
+      drawPrompt(ctx, theme, q, card);
       const r = tt - scene.start;
       if (style === "open") {
         ctx.save();

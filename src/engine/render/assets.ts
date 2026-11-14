@@ -27,7 +27,18 @@ async function rasterFlag(iso2: string): Promise<ImageBitmap> {
 }
 
 /** Loads the theme's fonts and only the flags this quiz needs (a full set would be ~800 MB of bitmaps). */
-export async function loadAssets(theme: Theme, iso2s: string[]): Promise<Assets> {
+export const fakeKey = (iso2: string) => `${iso2}|fake`;
+
+/** A colour-shifted copy of a flag for the real-or-fake quiz. */
+async function fakeFlag(real: ImageBitmap, hue: number): Promise<ImageBitmap> {
+  const c = new OffscreenCanvas(real.width, real.height);
+  const g = c.getContext("2d")!;
+  g.filter = `hue-rotate(${hue}deg)`;
+  g.drawImage(real, 0, 0);
+  return createImageBitmap(c);
+}
+
+export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = []): Promise<Assets> {
   const warnings: string[] = [];
   let fontsOk = true;
   for (const family of new Set(Object.values(theme.fonts))) {
@@ -46,6 +57,7 @@ export async function loadAssets(theme: Theme, iso2s: string[]): Promise<Assets>
   }
   const flags = new Map<string, ImageBitmap>();
   await Promise.all([...new Set(iso2s)].map(async (i) => flags.set(i, await rasterFlag(i))));
+  for (const f of fakes) { const real = flags.get(f.iso2); if (real) flags.set(fakeKey(f.iso2), await fakeFlag(real, f.hue)); }
   return { flags, fontsOk, warnings };
 }
 

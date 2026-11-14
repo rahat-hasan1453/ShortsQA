@@ -19,7 +19,7 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    setSettings({ themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
+    setSettings({ format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
     detectSupport().then(setSupport);
   }, []);
 
@@ -57,14 +57,15 @@ export default function Page() {
         <h2 style={H2}>1. Choose a quiz type</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
           {FORMATS.map((f) => (
-            <button key={f.id} type="button" disabled={!f.ready} aria-pressed={f.ready && f.id === "flags"}
-              style={{ textAlign: "left", padding: 10, borderRadius: 10, border: f.id === "flags" ? "2px solid #2563eb" : "1px solid #8884", background: f.id === "flags" ? "#2563eb14" : "transparent", opacity: f.ready ? 1 : 0.55, cursor: f.ready ? "pointer" : "not-allowed" }}>
+            <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format}
+              onClick={() => setSettings({ ...settings, format: f.id as Settings["format"] })}
+              style={{ textAlign: "left", padding: 10, borderRadius: 10, border: f.id === settings.format ? "2px solid #2563eb" : "1px solid #8884", background: f.id === settings.format ? "#2563eb14" : "transparent", opacity: f.ready ? 1 : 0.55, cursor: f.ready ? "pointer" : "not-allowed" }}>
               <strong>{f.name}</strong>{!f.ready && <span style={{ fontSize: 12, marginLeft: 6 }}>Coming soon</span>}
               <div style={{ fontSize: 12, color: "#777" }}>{f.blurb}</div>
             </button>
           ))}
         </div>
-        <p style={{ margin: 0, fontSize: 14 }}>First flag: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span style={{ color: "#777" }}> · template: {prepared.theme.name}</span>}</p>
+        <p style={{ margin: 0, fontSize: 14 }}>First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span style={{ color: "#777" }}> · template: {prepared.theme.name}</span>}</p>
 
         <h2 style={H2}>2. Pick a style</h2>
         <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} />

@@ -9,25 +9,34 @@ export const clipKey = (voice: string, text: string): string =>
 import { numberWords } from "../../src/engine/lines";
 export { numberWords };
 
+/** Quiz types that are selectable in the app; their voice lines get clips. */
+const READY_FORMATS = ["flags", "capitals", "math", "missing-letters", "real-vs-fake-flag"];
 const LINE_TYPES = ["intro", "ask", "countdown", "revealCorrect", "transition", "difficultyUp", "outro"];
 
 export function collectClipRequests(
   voiceLines: any[],
-  countries: { name: string; continent: string }[],
+  countries: { name: string; continent: string; capital?: string }[],
   voice: string,
+  extraTexts: string[] = [],
 ): { key: string; text: string }[] {
   const texts = new Set<string>();
-  const flags = voiceLines.find((f) => f.format === "flags");
-  for (const type of LINE_TYPES) {
-    for (const line of flags?.[type] ?? []) {
-      for (const seg of segmentLine(line)) if (seg.kind === "text") texts.add(seg.text);
+  for (const format of READY_FORMATS) {
+    const lines = voiceLines.find((f) => f.format === format);
+    for (const type of LINE_TYPES) {
+      for (const line of lines?.[type] ?? []) {
+        for (const seg of segmentLine(line)) if (seg.kind === "text") texts.add(seg.text);
+      }
     }
   }
   for (const c of countries) {
     texts.add(c.name);
     texts.add(c.continent);
+    if (c.capital) texts.add(c.capital);
   }
   texts.add("the world");
+  texts.add("real");
+  texts.add("fake");
+  for (const t of extraTexts) texts.add(t);
   for (let i = 0; i < 100; i++) texts.add(numberWords(i));
   return [...texts].map((text) => ({ key: clipKey(voice, text), text }));
 }

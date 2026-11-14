@@ -1,7 +1,7 @@
 import { createRng } from "./rng";
 import { buildTimeline, DurationError } from "./timeline";
-import { lineDurationMs, slotValues, type Slots } from "./lines";
-import type { AnswerStyle, Band, Country, QuizQuestion, QuizSpec, Theme, VoiceLines } from "./types";
+import { lineDurationMs, numberWords, slotValues, type Slots } from "./lines";
+import type { AnswerStyle, Band, QuizKind, Country, QuizQuestion, QuizSpec, Theme, VoiceLines, WordItem } from "./types";
 
 export const bandOf = (d: number): Band => (d <= 2 ? "easy" : d === 3 ? "medium" : d === 4 ? "hard" : "impossible");
 const BAND_COUNTS: [Band, number][] = [["easy", 3], ["medium", 3], ["hard", 3], ["impossible", 1]];
@@ -14,6 +14,9 @@ export interface BuildInput {
   useRegionTwist?: boolean;
   regionOverride?: string;
   answerStyle?: AnswerStyle;
+  quiz?: QuizKind;
+  /** Word list for the missing-letters quiz. */
+  words?: WordItem[];
   countries: Country[];
   themes: Theme[];
   voice: VoiceLines;
@@ -21,7 +24,7 @@ export interface BuildInput {
 }
 
 /** Three wrong names: look-alike flags first, then the same continent, then anything. */
-function makeOptions(seed: string, c: Country, countries: Country[]): { names: string[]; correct: number } {
+function makeOptions(seed: string, c: Country, countries: Country[], label: (c: Country) => string = (x) => x.name): { names: string[]; correct: number } {
   const rng = createRng(`${seed}|options|${c.iso2}`);
   const byIso = new Map(countries.map((x) => [x.iso2, x]));
   const look = rng.shuffle(c.flagLookalikes.map((i) => byIso.get(i)).filter((x): x is Country => !!x && x.iso2 !== c.iso2));
@@ -30,10 +33,80 @@ function makeOptions(seed: string, c: Country, countries: Country[]): { names: s
   const wrong: string[] = [];
   for (const x of [...look, ...same, ...any]) {
     if (wrong.length === 3) break;
-    if (!wrong.includes(x.name) && x.name !== c.name) wrong.push(x.name);
+    if (!wrong.includes(label(x)) && label(x) !== label(c)) wrong.push(label(x));
   }
-  const names = rng.shuffle([c.name, ...wrong]);
-  return { names, correct: names.indexOf(c.name) };
+  const names = rng.shuffle([label(c), ...wrong]);
+  return { names, correct: names.indexOf(label(c)) };
+}
+
+type Picked = { band: Band; base: Pick<QuizQuestion, "iso2" | "name" | "prompt" | "spoken" | "cardText" | "cardReveal" | "fakeHue">; options: () => { names: string[]; correct: number } };
+
+function optionsFrom(seed: string, answer: string, wrongCandidates: string[]): { names: string[]; correct: number } {
+  const rng = createRng(`${seed}|options|${answer}`);
+  const wrong = [...new Set(wrongCandidates)].filter((w) => w !== answer).slice(0, 3);
+  const names = rng.shuffle([answer, ...wrong]);
+  return { names, correct: names.indexOf(answer) };
+}
+
+/** Ten sums, harder per band. Every answer is 0-99 so it has a spoken-number clip. */
+function pickMath(seed: string): Picked[] {
+  const rng = createRng(`${seed}|math`);
+  const int = (a: number, b: number) => a + Math.floor(rng.next() * (b - a + 1));
+  const gen: Record<Band, () => [string, number]> = {
+    easy: () => { const a = int(2, 9), b = int(2, 9); return rng.next() < 0.5 ? [`${a} + ${b}`, a + b] : [`${a + b} - ${b}`, a]; },
+    medium: () => {
+      if (rng.next() < 0.5) { const a = int(3, 9), b = int(3, 9); return [`${a} × ${b}`, a * b]; }
+      const a = int(12, 49), b = int(12, 49); return [`${a} + ${b}`, a + b];
+    },
+    hard: () => {
+      if (rng.next() < 0.5) { const b = int(3, 9), r = int(6, 12); return [`${b * r} ÷ ${b}`, r]; }
+      const a = int(11, 16), b = int(3, 6); return [`${a} × ${b}`, a * b];
+    },
+    impossible: () => { const a = int(6, 9), b = int(6, 9), c = int(11, 18); return [`${a} × ${b} + ${c}`, a * b + c]; },
+  };
+  const seen = new Set<string>(), out: Picked[] = [];
+  for (const [band, n] of BAND_COUNTS) {
+    for (let i = 0; i < n; i++) {
+      let expr: string, ans: number;
+      do { [expr, ans] = gen[band](); } while (seen.has(expr));
+      seen.add(expr);
+      const near = createRng(`${seed}|near|${expr}`).shuffle([1, -1, 2, -2, 10, -10, 3, -3]).map((d) => ans + d).filter((v) => v >= 0 && v <= 99).map(String);
+      out.push({ band, base: { name: String(ans), spoken: numberWords(ans), cardText: `${expr} = ?`, cardReveal: `${expr} = ${ans}` }, options: () => optionsFrom(seed, String(ans), near) });
+    }
+  }
+  return out;
+}
+
+const HIDE_RATIO: Record<Band, number> = { easy: 0.3, medium: 0.4, hard: 0.5, impossible: 0.6 };
+
+/** Ten single words (4-9 letters) with letters blanked; more blanks per band. The longest hard word is the "impossible" one. */
+function pickWords(seed: string, words: WordItem[]): Picked[] {
+  const rng = createRng(`${seed}|words`);
+  const ok = rng.shuffle(words.filter((w) => /^[A-Za-z]{4,9}$/.test(w.word)));
+  const hard = ok.filter((w) => w.difficulty >= 3);
+  const last = hard.reduce((a, b) => (b.word.length > a.word.length ? b : a), hard[0]);
+  const pools: Record<Band, WordItem[]> = {
+    easy: ok.filter((w) => w.difficulty <= 1), medium: ok.filter((w) => w.difficulty === 2),
+    hard: hard.filter((w) => w !== last), impossible: last ? [last] : [],
+  };
+  const out: Picked[] = [];
+  for (const [band, n] of BAND_COUNTS) {
+    for (const w of pools[band].slice(0, n)) {
+      const letters = w.word.toUpperCase().split("");
+      const count = Math.min(letters.length - 2, Math.max(1, Math.round(letters.length * HIDE_RATIO[band])));
+      const hidden = new Set(createRng(`${seed}|mask|${w.word}`).shuffle(letters.map((_, i) => i)).slice(0, count));
+      const others = ok.filter((x) => x !== w);
+      const sameLen = others.filter((x) => x.word.length === w.word.length); // same length first, so the blanks alone do not give it away
+      const wrong = [...sameLen.filter((x) => x.category === w.category), ...sameLen, ...others.filter((x) => x.category === w.category), ...others].map((x) => x.word);
+      out.push({
+        band,
+        base: { name: w.word, cardText: letters.map((ch, i) => (hidden.has(i) ? "_" : ch)).join(" "), cardReveal: letters.join(" ") },
+        options: () => optionsFrom(seed, w.word, wrong),
+      });
+    }
+  }
+  if (out.length < 10) throw new Error("not enough words for a missing-letters quiz");
+  return out;
 }
 
 const hasEnough = (pool: Country[]) =>
@@ -57,7 +130,10 @@ export function buildQuiz(input: BuildInput): QuizSpec {
 }
 
 function buildAttempt(input: BuildInput, scale: number): QuizSpec {
-  const { seed, countries, themes, voice, clipMs } = input;
+  const { seed, themes, voice, clipMs } = input;
+  const capitals = input.quiz === "capitals";
+  const countries = capitals ? input.countries.filter((c) => c.capital) : input.countries;
+  const answerOf = (c: Country) => (capitals ? c.capital : c.name);
   const rng = createRng(seed);
   const part = Math.min(99, Math.max(1, Math.trunc(input.part ?? 1) || 1));
 
@@ -72,10 +148,28 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   }
   const pool = twistRegion ? countries.filter((c) => c.continent === twistRegion) : countries;
 
-  const picked: { c: Country; band: Band }[] = [];
-  for (const [band, n] of BAND_COUNTS) {
-    const candidates = rng.shuffle(pool.filter((c) => bandOf(c.flagDifficulty) === band));
-    for (const c of candidates.slice(0, n)) picked.push({ c, band });
+  let picked: Picked[] = [];
+  if (input.quiz === "math") picked = pickMath(seed);
+  else if (input.quiz === "missing-letters") picked = pickWords(seed, input.words ?? []);
+  else {
+    const realFake = input.quiz === "real-vs-fake-flag";
+    const fakes = createRng(`${seed}|fake`).shuffle([true, true, true, true, true, false, false, false, false, false]);
+    const hues = createRng(`${seed}|hue`);
+    for (const [band, n] of BAND_COUNTS) {
+      const candidates = rng.shuffle(pool.filter((c) => bandOf(c.flagDifficulty) === band));
+      for (const c of candidates.slice(0, n)) {
+        if (realFake) {
+          const fake = fakes[picked.length];
+          picked.push({
+            band,
+            base: { iso2: c.iso2, name: fake ? "Fake" : "Real", spoken: fake ? "fake" : "real", prompt: c.name, ...(fake ? { fakeHue: hues.pick([90, 150, 210, 270]) } : {}) },
+            options: () => ({ names: ["Real", "Fake"], correct: fake ? 1 : 0 }),
+          });
+          continue;
+        }
+        picked.push({ band, base: { iso2: c.iso2, name: answerOf(c), ...(capitals ? { prompt: c.name } : {}) }, options: () => makeOptions(seed, c, countries, answerOf) });
+      }
+    }
   }
 
   const ok = (line: string) => !line.includes("{score}") && !line.includes("{category}") && (twistRegion || !line.includes("{region}"));
@@ -89,7 +183,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   };
 
   const draft: QuizSpec = {
-    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: input.answerStyle ?? "open",
+    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: input.answerStyle ?? "open", ...(input.quiz && input.quiz !== "flags" ? { quiz: input.quiz } : {}),
     hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
   };
   const gen = slotValues(draft);
@@ -97,9 +191,9 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   draft.outroLineId = fit("outro", gen, 3500);
   for (const i of DIFF_UP_BEFORE) draft.difficultyUpLineIds[i] = fit("difficultyUp", gen, 1300);
 
-  draft.questions = picked.map(({ c, band }, index): QuizQuestion => {
-    const q: QuizQuestion = { index, iso2: c.iso2, name: c.name, band, revealLineId: "" };
-    if (draft.answerStyle === "options") q.options = makeOptions(seed, c, countries);
+  draft.questions = picked.map(({ base, band, options }, index): QuizQuestion => {
+    const q: QuizQuestion = { index, ...base, band, revealLineId: "" };
+    if (draft.answerStyle === "options") q.options = options();
     const slots = slotValues(draft, q);
     q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1 && !/\byes\b/i.test(l));
     if (!DIFF_UP_BEFORE.includes(index)) {

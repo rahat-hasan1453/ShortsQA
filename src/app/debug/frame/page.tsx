@@ -43,7 +43,7 @@ export default function DebugFrame() {
       const theme = themes.find((t) => t.id === themeId)!;
       const spec = buildQuiz({ seed, themeId, answerStyle: style, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
       const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
-      const assets = await loadAssets(theme, spec.questions.map((q) => q.iso2));
+      const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])));
       const p = { timeline, assets, theme };
       cache.set(key, p);
       return p;

@@ -41,12 +41,27 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
+export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag";
+
+export interface WordItem { word: string; category: string; difficulty: number; hint?: string }
+
 export type AnswerStyle = "open" | "options" | "list";
 
 export interface QuizQuestion {
   index: number;
-  iso2: string;
+  /** Flag to show; absent for text-only quizzes (math, missing letters). */
+  iso2?: string;
+  /** Text shown on the card instead of a flag, and its solved form shown on reveal. */
+  cardText?: string;
+  cardReveal?: string;
+  /** Real-or-fake quiz: the flag is shown colour-shifted by this many degrees until the reveal. */
+  fakeHue?: number;
+  /** How the answer is spoken when it differs from `name` (math: "fifty-six" for "56"). */
+  spoken?: string;
+  /** The answer (country name for flags, capital city for capitals). */
   name: string;
+  /** Shown with the picture while the question is open (capitals: the country name). */
+  prompt?: string;
   band: Band;
   askLineId?: string;
   countdownLineId?: string;
@@ -59,6 +74,8 @@ export interface QuizQuestion {
 export interface QuizSpec {
   version: 1;
   format: "flags-rapid";
+  /** Which quiz this is; absent means flags. */
+  quiz?: QuizKind;
   seed: string;
   themeId: string;
   part: number;

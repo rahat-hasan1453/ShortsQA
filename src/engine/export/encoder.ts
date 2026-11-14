@@ -25,7 +25,7 @@ const tick = () => new Promise<void>((r) => setTimeout(r, 0));
 
 function validate(o: ExportOptions) {
   if (o.timeline.duration > MAX_DURATION) throw new DurationError(`timeline is ${o.timeline.duration.toFixed(1)}s, max ${MAX_DURATION}s`);
-  for (const q of o.timeline.spec.questions) if (!o.assets.flags.has(q.iso2)) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
+  for (const q of o.timeline.spec.questions) if (q.iso2 && !o.assets.flags.has(q.iso2)) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
 }
 
 export async function exportVideo(o: ExportOptions): Promise<Blob> {
