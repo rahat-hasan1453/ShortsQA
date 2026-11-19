@@ -10,7 +10,7 @@ import { numberWords } from "../../src/engine/lines";
 export { numberWords };
 
 /** Quiz types that are selectable in the app; their voice lines get clips. */
-const READY_FORMATS = ["flags", "capitals", "math", "missing-letters", "real-vs-fake-flag"];
+const READY_FORMATS = ["flags", "capitals", "math", "missing-letters", "real-vs-fake-flag", "landmarks"];
 const LINE_TYPES = ["intro", "ask", "countdown", "revealCorrect", "transition", "difficultyUp", "outro"];
 
 export function collectClipRequests(

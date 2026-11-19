@@ -1,5 +1,7 @@
 export const flagPath = (iso2: string): string => `/flags/${iso2.toLowerCase()}.svg`;
 
+export const landmarkPath = (id: string): string => `/landmarks/${id}.jpg`;
+
 export const fontSlug = (family: string): string =>
   family.toLowerCase().replace(/\s+/g, "-");
 

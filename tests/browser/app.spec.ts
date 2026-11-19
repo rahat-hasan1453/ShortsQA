@@ -98,13 +98,16 @@ test("choosing a font changes how the frame is drawn and reports no font warning
   await expect(page.getByText("failed to load")).toHaveCount(0);
 });
 
-test("simple layout: 3 numbered steps, format cards (only Flags ready), advanced options hidden by default", async ({ page }) => {
+test("simple layout: 3 numbered steps, format cards (unfinished ones disabled), advanced options hidden by default", async ({ page }) => {
   await page.goto("/?seed=demo&theme=arctic-ice");
   await expect(page.getByRole("heading", { name: "1. Choose a quiz type" })).toBeVisible({ timeout: 60000 });
   await expect(page.getByRole("heading", { name: "2. Pick a style" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "3. Make the video" })).toBeVisible();
   await expect(page.getByRole("button", { name: /^Flags/ })).toHaveAttribute("aria-pressed", "true");
-  for (const name of ["Capitals", "Landmarks", "What is it?", "Real or Fake flag", "Country shape", "Math", "Missing letters"]) {
+  for (const name of ["Capitals", "Landmarks", "Real or Fake flag", "Math", "Missing letters"]) {
+    await expect(page.getByRole("button", { name: new RegExp(`^${name}`) })).toBeEnabled();
+  }
+  for (const name of ["What is it?", "Country shape"]) {
     const card = page.getByRole("button", { name: new RegExp(`^${name.replace("?", "\\?")}`) });
     await expect(card).toBeDisabled();
     await expect(card).toContainText("Coming soon");

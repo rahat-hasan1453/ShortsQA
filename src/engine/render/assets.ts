@@ -1,9 +1,11 @@
-import { flagPath, fontFile, fontFileBold, fontSlug } from "../assetPaths";
+import { flagPath, landmarkPath, fontFile, fontFileBold, fontSlug } from "../assetPaths";
 import { AssetError } from "../errors";
 import type { Theme } from "../types";
 
 export interface Assets {
   flags: Map<string, ImageBitmap>;
+  /** Landmark photos by landmark id. */
+  images: Map<string, ImageBitmap>;
   /** Optional user background, cover-fitted to 1080x1920. */
   background?: ImageBitmap;
   fontsOk: boolean;
@@ -38,7 +40,7 @@ async function fakeFlag(real: ImageBitmap, hue: number): Promise<ImageBitmap> {
   return createImageBitmap(c);
 }
 
-export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = []): Promise<Assets> {
+export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = [], imageIds: string[] = []): Promise<Assets> {
   const warnings: string[] = [];
   let fontsOk = true;
   for (const family of new Set(Object.values(theme.fonts))) {
@@ -58,7 +60,13 @@ export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: s
   const flags = new Map<string, ImageBitmap>();
   await Promise.all([...new Set(iso2s)].map(async (i) => flags.set(i, await rasterFlag(i))));
   for (const f of fakes) { const real = flags.get(f.iso2); if (real) flags.set(fakeKey(f.iso2), await fakeFlag(real, f.hue)); }
-  return { flags, fontsOk, warnings };
+  const images = new Map<string, ImageBitmap>();
+  await Promise.all([...new Set(imageIds)].map(async (id) => {
+    const res = await fetch(landmarkPath(id));
+    if (!res.ok) throw new AssetError(`landmark photo ${id} failed to load (${res.status})`);
+    images.set(id, await createImageBitmap(await res.blob()));
+  }));
+  return { flags, images, fontsOk, warnings };
 }
 
 /** Decodes an image file and cover-fits it to the 1080x1920 frame. */

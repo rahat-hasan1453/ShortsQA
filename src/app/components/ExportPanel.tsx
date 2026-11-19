@@ -23,7 +23,7 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
     const audio = await mixFor(p);
     const blob = await exportVideo({ timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress: (x) => setProgress(x) });
     download(`${fileBase(p)}.mp4`, blob);
-    download(`${fileBase(p)}.txt`, new Blob([metadataText(p.metadata)], { type: "text/plain" }));
+    download(`${fileBase(p)}.txt`, new Blob([metadataText(p.metadata, p.spec)], { type: "text/plain" }));
     setMessage(`${label} done`);
   }
 

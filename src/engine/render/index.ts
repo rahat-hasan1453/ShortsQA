@@ -34,6 +34,7 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
   capitals: { one: "CAPITAL", many: "CAPITALS", list: "NAME THE CAPITAL" },
   math: { one: "PROBLEM", many: "PROBLEMS", list: "SOLVE IT!" },
   "missing-letters": { one: "WORD", many: "WORDS", list: "GUESS THE WORD" },
+  landmarks: { one: "LANDMARK", many: "LANDMARKS", list: "WHICH COUNTRY?" },
   "real-vs-fake-flag": { one: "FLAG", many: "FLAGS", list: "REAL OR FAKE?" },
 };
 const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
@@ -142,6 +143,17 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
     const px = fitText((x) => { ctx.font = themeFont(f.theme, "title", x); return ctx.measureText(text).width; }, c.w - 90, Math.round(c.h * 0.4), 24);
     ctx.save(); ctx.font = themeFont(f.theme, "title", px); ctx.textAlign = "center"; ctx.textBaseline = "middle";
     haloText(ctx, text, c.x + c.w / 2, c.y + c.h / 2, borderColor ? "#FFD400" : "#FFFFFF", "#000000", Math.max(6, Math.round(px / 9)));
+    ctx.restore();
+    return;
+  }
+  if (q.image) { // landmark photo, cover-fitted with a slow zoom
+    const photo = f.assets.images.get(q.image);
+    if (!photo) throw new AssetError(`landmark photo missing for ${q.image}`);
+    const box: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
+    const k = Math.max(box.w / photo.width, box.h / photo.height) * (1.05 + 0.03 * Math.sin(t * 0.8));
+    const w = photo.width * k, h = photo.height * k;
+    ctx.save(); roundRect(ctx, box, 20); ctx.clip();
+    ctx.drawImage(photo, box.x + (box.w - w) / 2, box.y + (box.h - h) / 2, w, h);
     ctx.restore();
     return;
   }
