@@ -4,7 +4,7 @@ import { fontFamilies } from "@/engine/assetPaths";
 
 const FAMILIES = fontFamilies(themes);
 
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list" }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list" }
 
 export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);

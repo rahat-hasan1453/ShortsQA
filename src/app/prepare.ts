@@ -1,6 +1,6 @@
 import { loadClips, mixAudio, timelineTexts } from "@/engine/audio/mixer";
 import { makeClipIndex, type ClipIndex, type Manifest } from "@/engine/clipIndex";
-import { countries, landmarkCredits, landmarks, themes, titlesFor, voiceFor, words } from "@/data";
+import { countries, landmarkCredits, landmarks, pictureCredits, pictures, themes, titlesFor, voiceFor, words } from "@/data";
 import { buildMetadata, type Metadata } from "@/engine/metadata";
 import { buildQuiz } from "@/engine/quizBuilder";
 import { loadAssets, type Assets } from "@/engine/render/assets";
@@ -21,7 +21,7 @@ export async function prepare(s: Settings): Promise<Prepared> {
     ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;
   const voice = voiceFor(s.format);
-  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks", words, landmarks, answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
+  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it", words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
   const theme = withFont(themes.find((t) => t.id === spec.themeId)!, s.font);
   const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])));
@@ -36,7 +36,7 @@ export async function mixFor(p: Prepared): Promise<AudioBuffer> {
 export const fileBase = (p: Prepared) => `${p.spec.quiz ?? "flags"}-part${p.spec.part}-${p.spec.seed}`;
 /** Photo credits (required by the CC licences) for the landmark photos used in a quiz. */
 export const photoCredits = (spec: QuizSpec): string =>
-  spec.questions.filter((q) => q.image && landmarkCredits[q.image]).map((q) => { const c = landmarkCredits[q.image!]; return `${q.prompt}: ${c.author}, ${c.license} (${c.source})`; }).join("\n");
+  spec.questions.filter((q) => q.image && (landmarkCredits[q.image] ?? pictureCredits[q.image])).map((q) => { const c = (landmarkCredits[q.image!] ?? pictureCredits[q.image!]); return `${q.prompt ?? q.name}: ${c.author}, ${c.license} (${c.source})`; }).join("\n");
 
 export const metadataText = (m: Metadata, spec?: QuizSpec) => {
   const credits = spec ? photoCredits(spec) : "";

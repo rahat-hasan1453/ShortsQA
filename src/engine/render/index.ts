@@ -34,6 +34,7 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
   capitals: { one: "CAPITAL", many: "CAPITALS", list: "NAME THE CAPITAL" },
   math: { one: "PROBLEM", many: "PROBLEMS", list: "SOLVE IT!" },
   "missing-letters": { one: "WORD", many: "WORDS", list: "GUESS THE WORD" },
+  "what-is-it": { one: "PICTURE", many: "PICTURES", list: "WHAT IS IT?" },
   landmarks: { one: "LANDMARK", many: "LANDMARKS", list: "WHICH COUNTRY?" },
   "real-vs-fake-flag": { one: "FLAG", many: "FLAGS", list: "REAL OR FAKE?" },
 };
@@ -131,7 +132,7 @@ function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
   ctx.restore();
 }
 
-function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0) {
+function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0, clarity = 1) {
   roundRect(ctx, c, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
   if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
     roundRect(ctx, { x: c.x + 6, y: c.y + 6, w: c.w - 12, h: c.h - 12 }, 30);
@@ -150,10 +151,29 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
     const photo = f.assets.images.get(q.image);
     if (!photo) throw new AssetError(`landmark photo missing for ${q.image}`);
     const box: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
-    const k = Math.max(box.w / photo.width, box.h / photo.height) * (1.05 + 0.03 * Math.sin(t * 0.8));
-    const w = photo.width * k, h = photo.height * k;
+    const cover = Math.max(box.w / photo.width, box.h / photo.height);
+    const hidden = q.effect && clarity < 1;
     ctx.save(); roundRect(ctx, box, 20); ctx.clip();
-    ctx.drawImage(photo, box.x + (box.w - w) / 2, box.y + (box.h - h) / 2, w, h);
+    if (hidden && q.effect === "zoom") { // start zoomed in on one spot, zoom out over the timer
+      const k = cover * (1 + (1 - clarity) * 7), [fx, fy] = q.focus ?? [0.5, 0.5];
+      const w = photo.width * k, h = photo.height * k;
+      const x = Math.min(box.x, Math.max(box.x + box.w - w, box.x + box.w / 2 - fx * w)), y = Math.min(box.y, Math.max(box.y + box.h - h, box.y + box.h / 2 - fy * h));
+      ctx.drawImage(photo, x, y, w, h);
+    } else if (hidden && q.effect === "pixel") { // coarse pixels that sharpen
+      const n = Math.max(5, Math.round(5 + clarity * clarity * 70)), sw = n, sh = Math.max(1, Math.round((n * box.h) / box.w));
+      const tiny = new OffscreenCanvas(sw, sh), g = tiny.getContext("2d")!;
+      g.drawImage(photo, (photo.width - box.w / cover) / 2, (photo.height - box.h / cover) / 2, box.w / cover, box.h / cover, 0, 0, sw, sh);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(tiny, box.x, box.y, box.w, box.h);
+      ctx.imageSmoothingEnabled = true;
+    } else {
+      const blur = hidden && q.effect === "blur";
+      const k = cover * (blur ? 1.15 : 1.05 + 0.03 * Math.sin(t * 0.8));
+      const w = photo.width * k, h = photo.height * k;
+      if (blur) ctx.filter = `blur(${Math.round((1 - clarity) * 40)}px)`;
+      ctx.drawImage(photo, box.x + (box.w - w) / 2, box.y + (box.h - h) / 2, w, h);
+      ctx.filter = "none";
+    }
     ctx.restore();
     return;
   }
@@ -316,7 +336,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
         lay.lines.forEach((l, i) => haloText(ctx, l, box.x + box.w / 2, y0 + i * lh, "#FFFFFF", "#000000", 8));
       }
     } else if (scene.kind === "timer") {
-      drawFlagCard(ctx, f, q, true, undefined, card, tt);
+      drawFlagCard(ctx, f, q, true, undefined, card, tt, 0.1 + 0.75 * Math.min(1, (tt - scene.start) / (scene.end - scene.start)));
       drawPrompt(ctx, theme, q, card);
       const dur = scene.end - scene.start, prog = (tt - scene.start) / dur;
       if (style === "open") drawTimer(ctx, theme, prog, dur, tt);

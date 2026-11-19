@@ -104,10 +104,10 @@ test("simple layout: 3 numbered steps, format cards (unfinished ones disabled), 
   await expect(page.getByRole("heading", { name: "2. Pick a style" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "3. Make the video" })).toBeVisible();
   await expect(page.getByRole("button", { name: /^Flags/ })).toHaveAttribute("aria-pressed", "true");
-  for (const name of ["Capitals", "Landmarks", "Real or Fake flag", "Math", "Missing letters"]) {
+  for (const name of ["Capitals", "Landmarks", "What is it?", "Real or Fake flag", "Math", "Missing letters"]) {
     await expect(page.getByRole("button", { name: new RegExp(`^${name}`) })).toBeEnabled();
   }
-  for (const name of ["What is it?", "Country shape"]) {
+  for (const name of ["Country shape"]) {
     const card = page.getByRole("button", { name: new RegExp(`^${name.replace("?", "\\?")}`) });
     await expect(card).toBeDisabled();
     await expect(card).toContainText("Coming soon");

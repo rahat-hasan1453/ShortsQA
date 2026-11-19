@@ -1,4 +1,4 @@
-import { flagPath, landmarkPath, fontFile, fontFileBold, fontSlug } from "../assetPaths";
+import { flagPath, photoPath, fontFile, fontFileBold, fontSlug } from "../assetPaths";
 import { AssetError } from "../errors";
 import type { Theme } from "../types";
 
@@ -62,7 +62,7 @@ export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: s
   for (const f of fakes) { const real = flags.get(f.iso2); if (real) flags.set(fakeKey(f.iso2), await fakeFlag(real, f.hue)); }
   const images = new Map<string, ImageBitmap>();
   await Promise.all([...new Set(imageIds)].map(async (id) => {
-    const res = await fetch(landmarkPath(id));
+    const res = await fetch(photoPath(id));
     if (!res.ok) throw new AssetError(`landmark photo ${id} failed to load (${res.status})`);
     images.set(id, await createImageBitmap(await res.blob()));
   }));

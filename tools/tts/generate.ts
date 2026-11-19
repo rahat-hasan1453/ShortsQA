@@ -19,7 +19,11 @@ const manifest: ClipManifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readF
 const read = (f: string) => JSON.parse(fs.readFileSync(path.join(root, "data", f), "utf8"));
 const wordsPath = path.join(root, "data", "missing_letters.json");
 const words: string[] = fs.existsSync(wordsPath) ? (JSON.parse(fs.readFileSync(wordsPath, "utf8")) as { word: string }[]).map((w) => w.word) : [];
-const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), cfg.voice, words);
+// What-is-it answers are spoken on the reveal; only the ones that have a photo.
+const creditsPath = path.join(root, "data", "what_is_it_credits.json");
+const photoIds = fs.existsSync(creditsPath) ? new Set(Object.keys(JSON.parse(fs.readFileSync(creditsPath, "utf8")))) : new Set<string>();
+const pictureAnswers: string[] = read("what_is_it.json").filter((x: { n: number }) => photoIds.has(`wi${String(x.n).padStart(4, "0")}`)).map((x: { answer: string }) => x.answer);
+const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), cfg.voice, [...words, ...pictureAnswers]);
 const todo = reqs.filter((r) => !manifest[r.key] || !fs.existsSync(path.join(audioDir, manifest[r.key].file)));
 console.log(`${reqs.length} clips needed, ${todo.length} to generate (voice ${cfg.voice})`);
 

@@ -41,7 +41,10 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
-export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks";
+export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it";
+
+export type PictureEffect = "zoom" | "blur" | "pixel";
+export interface PictureItem { id: string; name: string; category: string; difficulty: number; effects: PictureEffect[]; wrong: string[] }
 
 export interface LandmarkItem { id: string; name: string; country: string; iso2: string; difficulty: number; distractorIso2: string[] }
 
@@ -53,7 +56,10 @@ export interface QuizQuestion {
   index: number;
   /** Flag to show; absent for text-only quizzes (math, missing letters). */
   iso2?: string;
-  /** Landmarks quiz: id of the photo (public/landmarks/<id>.jpg) shown on the card. */
+  /** What-is-it quiz: how the photo is hidden until the reveal, and the point the zoom aims at (0..1). */
+  effect?: PictureEffect;
+  focus?: [number, number];
+  /** Landmarks / what-is-it: id of the photo (public/landmarks/<id>.jpg) shown on the card. */
   image?: string;
   /** Text shown on the card instead of a flag, and its solved form shown on reveal. */
   cardText?: string;

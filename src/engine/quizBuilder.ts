@@ -1,7 +1,7 @@
 import { createRng } from "./rng";
 import { buildTimeline, DurationError } from "./timeline";
 import { lineDurationMs, numberWords, slotValues, type Slots } from "./lines";
-import type { AnswerStyle, Band, QuizKind, Country, QuizQuestion, QuizSpec, Theme, VoiceLines, WordItem, LandmarkItem } from "./types";
+import type { AnswerStyle, Band, QuizKind, Country, QuizQuestion, QuizSpec, Theme, VoiceLines, WordItem, LandmarkItem, PictureItem } from "./types";
 
 export const bandOf = (d: number): Band => (d <= 2 ? "easy" : d === 3 ? "medium" : d === 4 ? "hard" : "impossible");
 const BAND_COUNTS: [Band, number][] = [["easy", 3], ["medium", 3], ["hard", 3], ["impossible", 1]];
@@ -19,6 +19,8 @@ export interface BuildInput {
   words?: WordItem[];
   /** Landmark list for the landmarks quiz (only ones with a photo). */
   landmarks?: LandmarkItem[];
+  /** Picture list for the what-is-it quiz (only ones with a photo). */
+  pictures?: PictureItem[];
   countries: Country[];
   themes: Theme[];
   voice: VoiceLines;
@@ -41,7 +43,7 @@ function makeOptions(seed: string, c: Country, countries: Country[], label: (c: 
   return { names, correct: names.indexOf(label(c)) };
 }
 
-type Picked = { band: Band; base: Pick<QuizQuestion, "iso2" | "image" | "name" | "prompt" | "spoken" | "cardText" | "cardReveal" | "fakeHue">; options: () => { names: string[]; correct: number } };
+type Picked = { band: Band; base: Pick<QuizQuestion, "iso2" | "image" | "effect" | "focus" | "name" | "prompt" | "spoken" | "cardText" | "cardReveal" | "fakeHue">; options: () => { names: string[]; correct: number } };
 
 function optionsFrom(seed: string, answer: string, wrongCandidates: string[]): { names: string[]; correct: number } {
   const rng = createRng(`${seed}|options|${answer}`);
@@ -136,6 +138,29 @@ function pickLandmarks(seed: string, landmarks: LandmarkItem[], countries: Count
   return out;
 }
 
+/** Ten mystery pictures: difficulty 1 x3, 2 x3, 3 x3 and one more difficulty-3 as the "impossible" one; different categories first. */
+function pickPictures(seed: string, items: PictureItem[]): Picked[] {
+  const rng = createRng(`${seed}|pictures`);
+  const used = new Set<string>(), usedCat = new Map<string, number>(), out: Picked[] = [];
+  const level: Record<Band, number> = { easy: 1, medium: 2, hard: 3, impossible: 3 };
+  for (const [band, n] of BAND_COUNTS) {
+    const pool = rng.shuffle(items.filter((x) => x.difficulty === level[band] && !used.has(x.id)));
+    pool.sort((a, b) => (usedCat.get(a.category) ?? 0) - (usedCat.get(b.category) ?? 0)); // stable: least-used categories first
+    for (const it of pool.slice(0, n)) {
+      used.add(it.id); usedCat.set(it.category, (usedCat.get(it.category) ?? 0) + 1);
+      const fx = createRng(`${seed}|focus|${it.id}`);
+      const effect = it.effects.length ? fx.pick(it.effects) : "zoom";
+      out.push({
+        band,
+        base: { image: it.id, name: it.name, effect, focus: [0.3 + fx.next() * 0.4, 0.3 + fx.next() * 0.4] },
+        options: () => optionsFrom(seed, it.name, rng.shuffle(it.wrong)),
+      });
+    }
+  }
+  if (out.length < 10) throw new Error("not enough pictures for a what-is-it quiz");
+  return out;
+}
+
 const hasEnough = (pool: Country[]) =>
   BAND_COUNTS.every(([b, n]) => pool.filter((c) => bandOf(c.flagDifficulty) === b).length >= n);
 
@@ -178,6 +203,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   let picked: Picked[] = [];
   if (input.quiz === "math") picked = pickMath(seed);
   else if (input.quiz === "missing-letters") picked = pickWords(seed, input.words ?? []);
+  else if (input.quiz === "what-is-it") picked = pickPictures(seed, input.pictures ?? []);
   else if (input.quiz === "landmarks") picked = pickLandmarks(seed, input.landmarks ?? [], input.countries);
   else {
     const realFake = input.quiz === "real-vs-fake-flag";
