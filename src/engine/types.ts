@@ -11,6 +11,7 @@ export interface Country {
   flagDifficulty: 1 | 2 | 3 | 4 | 5;
   /** How recognisable the outline is (country-shape quiz). */
   shapeDifficulty?: number;
+  funFact?: string;
   flagLookalikes: string[];
   flagHint: string;
 }
@@ -58,6 +59,8 @@ export interface QuizQuestion {
   index: number;
   /** Flag to show; absent for text-only quizzes (math, missing letters). */
   iso2?: string;
+  /** A fun fact read out and shown after this question's reveal ("DID YOU KNOW?"). */
+  fact?: string;
   /** Country-shape quiz: draw the outline of `iso2` instead of its flag (the reveal fills it with the flag). */
   shape?: boolean;
   /** What-is-it quiz: how the photo is hidden until the reveal, and the point the zoom aims at (0..1). */
@@ -95,6 +98,8 @@ export interface QuizSpec {
   part: number;
   answerStyle: AnswerStyle;
   twistRegion?: string;
+  /** Set when the video is too long otherwise: the like banner is silent and the normal level-up line is spoken. */
+  noLikeVoice?: boolean;
   hookLineId: string;
   difficultyUpLineIds: Record<number, string>;
   outroLineId: string;
@@ -107,6 +112,8 @@ export type Cue =
 
 export interface Scene {
   kind: "hook" | "diffUp" | "timer" | "reveal" | "outro";
+  /** Reveal scenes with a fun fact: the time at which the fact panel replaces the answer list. */
+  factAt?: number;
   start: number;
   end: number;
   q?: number;

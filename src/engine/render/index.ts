@@ -1,7 +1,7 @@
 import { AssetError } from "../errors";
 import { createRng } from "../rng";
 import { themeFont } from "../theme";
-import type { QuizQuestion, Theme, Timeline } from "../types";
+import type { AnswerStyle, QuizQuestion, Theme, Timeline } from "../types";
 import type { Assets } from "./assets";
 import { drawBackground, type Ctx } from "./background";
 import { H, LAYOUT, SAFE, STYLE, W, type Rect } from "./layout";
@@ -298,6 +298,34 @@ function drawTopline(ctx: Ctx, theme: Theme, part: number) {
   ctx.restore();
 }
 
+/** "DID YOU KNOW?" panel that covers the answer area while the fun fact is read out. */
+function drawFactPanel(ctx: Ctx, f: FrameInput, fact: string, style: AnswerStyle, alpha: number) {
+  const theme = f.theme, p = theme.palette;
+  const panel: Rect = style === "list" ? { x: 160, y: 868, w: 760, h: 792 } : style === "options" ? { x: 160, y: 950, w: 760, h: 486 } : { x: 160, y: 1070, w: 760, h: 430 };
+  ctx.save(); ctx.globalAlpha = alpha;
+  roundRect(ctx, panel, 40); ctx.fillStyle = p.bgFrom; ctx.fill(); // opaque, so the list underneath does not show through
+  ctx.fillStyle = p.card; ctx.fill();
+  roundRect(ctx, { x: panel.x + 4, y: panel.y + 4, w: panel.w - 8, h: panel.h - 8 }, 36); ctx.lineWidth = 8; ctx.strokeStyle = p.accent; ctx.stroke();
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const headPx = Math.min(72, Math.round(panel.h * 0.14));
+  ctx.font = themeFont(theme, "title", headPx);
+  haloText(ctx, "DID YOU KNOW?", panel.x + panel.w / 2, panel.y + 24 + headPx * 0.7, "#FFD400", "#000000", 8);
+  const box: Rect = { x: panel.x + 24, y: panel.y + headPx + 60, w: panel.w - 48, h: panel.h - headPx - 100 };
+  // Greedy word wrap at the largest size that fits the panel (the title layout helper only does two lines).
+  const wrap = (px: number): string[] => {
+    ctx.font = themeFont(theme, "body", px);
+    const lines: string[] = []; let cur = "";
+    for (const w of fact.split(" ")) { const next = cur ? `${cur} ${w}` : w; if (cur && ctx.measureText(next).width > box.w - 40) { lines.push(cur); cur = w; } else cur = next; }
+    return cur ? [...lines, cur] : lines;
+  };
+  let px = 72, lines = wrap(px);
+  while (px > 34 && lines.length * px * 1.25 > box.h) { px -= 4; lines = wrap(px); }
+  ctx.font = themeFont(theme, "body", px);
+  const lh = px * 1.25, y0 = box.y + box.h / 2 - ((lines.length - 1) * lh) / 2;
+  lines.forEach((l, i) => haloText(ctx, l, box.x + box.w / 2, y0 + i * lh, "#FFFFFF", "#000000", Math.max(5, Math.round(px / 10))));
+  ctx.restore();
+}
+
 function drawLevelUp(ctx: Ctx, f: FrameInput, q: QuizQuestion, k: number, tt: number) {
   const card = LAYOUT.flagCard, tier = TIER[q.band];
   ctx.save();
@@ -384,6 +412,7 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
         if (style === "options") drawOptions(ctx, theme, q, true); else drawList(ctx, f, q, true);
         drawConfetti(ctx, theme, q.index, r);
       }
+      if (q.fact && scene.factAt !== undefined && tt >= scene.factAt) drawFactPanel(ctx, f, q.fact, style, Math.min(1, (tt - scene.factAt) / 0.2));
     }
     if (style !== "list") drawDots(ctx, theme, q.index, scene.kind === "reveal");
   }

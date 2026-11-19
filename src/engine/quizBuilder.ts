@@ -168,14 +168,15 @@ function pickPictures(seed: string, items: PictureItem[]): Picked[] {
 const hasEnough = (pool: Country[], diff: (c: Country) => number = (c) => c.flagDifficulty) =>
   BAND_COUNTS.every(([b, n]) => pool.filter((c) => bandOf(diff(c)) === b).length >= n);
 
-/** Target total duration; leaves 1.5 s of headroom below the 59 s hard limit. */
-const TARGET_SEC = 57.5;
-const SCALES = [1, 0.75, 0.5, 0];
+/** Target total duration; leaves 0.6 s of headroom below the 59 s hard limit. */
+const TARGET_SEC = 58.4;
+/** [line-length scale, number of fun facts], tried in order until the video fits. */
+const ATTEMPTS: [number, number, boolean?][] = [[1, 2], [1, 1], [0.75, 2], [0.75, 1], [0.5, 1], [1, 0], [0.75, 0], [0.5, 0], [0, 0], [0, 0, true]];
 
 export function buildQuiz(input: BuildInput): QuizSpec {
   let last!: QuizSpec;
-  for (const scale of SCALES) {
-    last = buildAttempt(input, scale);
+  for (const [scale, nFacts, noLike] of ATTEMPTS) {
+    last = buildAttempt(input, scale, nFacts, noLike);
     try {
       if (buildTimeline(last, { clipMs: input.clipMs, voice: input.voice }).duration <= TARGET_SEC) return last;
     } catch (e) {
@@ -185,7 +186,7 @@ export function buildQuiz(input: BuildInput): QuizSpec {
   return last;
 }
 
-function buildAttempt(input: BuildInput, scale: number): QuizSpec {
+function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = false): QuizSpec {
   const { seed, themes, voice, clipMs } = input;
   const capitals = input.quiz === "capitals";
   const shape = input.quiz === "country-shape";
@@ -244,7 +245,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
 
   const draft: QuizSpec = {
     version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: input.answerStyle ?? "open", ...(input.quiz && input.quiz !== "flags" ? { quiz: input.quiz } : {}),
-    hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
+    ...(noLike ? { noLikeVoice: true } : {}), hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
   };
   const gen = slotValues(draft);
   draft.hookLineId = fit("intro", gen, 2500);
@@ -256,13 +257,25 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
     if (draft.answerStyle === "options") q.options = options();
     const slots = slotValues(draft, q);
     q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1 && !/\byes\b/i.test(l));
-    if (!DIFF_UP_BEFORE.includes(index)) {
+    if (scale > 0 && !DIFF_UP_BEFORE.includes(index)) { // scale 0 = bare-bones attempt without optional lines
       const roll = index === 0 ? 0 : rng.next();
       if (roll < 0.4) q.askLineId = fit("ask", slots, 1600);
       else if (roll < 0.65) q.transitionLineId = fit("transition", slots, 1200);
     }
-    if (rng.next() < 0.3) q.countdownLineId = fit("countdown", slots, 1200);
+    if (scale > 0 && rng.next() < 0.3) q.countdownLineId = fit("countdown", slots, 1200);
     return q;
   });
+  // Fun facts (about the answer's country) on a couple of questions, as long as the clip is short enough.
+  if (nFacts > 0 && ["flags", "capitals", "country-shape", "landmarks", undefined].includes(input.quiz)) {
+    const byKey = new Map(input.countries.flatMap((c) => [[c.iso2, c], [c.name, c]] as const));
+    const order = createRng(`${seed}|facts`).shuffle(draft.questions.map((_, i) => i).filter((i) => i > 0));
+    let given = 0;
+    for (const i of order) {
+      const q = draft.questions[i];
+      const fact = byKey.get(input.quiz === "landmarks" ? q.name : q.iso2 ?? "")?.funFact;
+      if (!fact || clipMs(fact) > 4800 || given === nFacts) continue;
+      q.fact = fact; given++;
+    }
+  }
   return draft;
 }
