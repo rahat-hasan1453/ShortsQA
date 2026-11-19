@@ -9,6 +9,8 @@ export interface Country {
   subregion: string;
   capital: string;
   flagDifficulty: 1 | 2 | 3 | 4 | 5;
+  /** How recognisable the outline is (country-shape quiz). */
+  shapeDifficulty?: number;
   flagLookalikes: string[];
   flagHint: string;
 }
@@ -41,7 +43,7 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
-export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it";
+export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape";
 
 export type PictureEffect = "zoom" | "blur" | "pixel";
 export interface PictureItem { id: string; name: string; category: string; difficulty: number; effects: PictureEffect[]; wrong: string[] }
@@ -56,6 +58,8 @@ export interface QuizQuestion {
   index: number;
   /** Flag to show; absent for text-only quizzes (math, missing letters). */
   iso2?: string;
+  /** Country-shape quiz: draw the outline of `iso2` instead of its flag (the reveal fills it with the flag). */
+  shape?: boolean;
   /** What-is-it quiz: how the photo is hidden until the reveal, and the point the zoom aims at (0..1). */
   effect?: PictureEffect;
   focus?: [number, number];

@@ -21,6 +21,8 @@ export interface BuildInput {
   landmarks?: LandmarkItem[];
   /** Picture list for the what-is-it quiz (only ones with a photo). */
   pictures?: PictureItem[];
+  /** Country-shape quiz: countries that have an outline (public/shapes.json). */
+  shapeIso2?: Set<string>;
   countries: Country[];
   themes: Theme[];
   voice: VoiceLines;
@@ -28,10 +30,12 @@ export interface BuildInput {
 }
 
 /** Three wrong names: look-alike flags first, then the same continent, then anything. */
-function makeOptions(seed: string, c: Country, countries: Country[], label: (c: Country) => string = (x) => x.name): { names: string[]; correct: number } {
+function makeOptions(seed: string, c: Country, countries: Country[], label: (c: Country) => string = (x) => x.name, shape = false): { names: string[]; correct: number } {
   const rng = createRng(`${seed}|options|${c.iso2}`);
   const byIso = new Map(countries.map((x) => [x.iso2, x]));
-  const look = rng.shuffle(c.flagLookalikes.map((i) => byIso.get(i)).filter((x): x is Country => !!x && x.iso2 !== c.iso2));
+  const look = shape // outlines: neighbours in the same sub-region make the best wrong answers
+    ? rng.shuffle(countries.filter((x) => x.subregion === c.subregion && x.iso2 !== c.iso2))
+    : rng.shuffle(c.flagLookalikes.map((i) => byIso.get(i)).filter((x): x is Country => !!x && x.iso2 !== c.iso2));
   const same = rng.shuffle(countries.filter((x) => x.continent === c.continent && x.iso2 !== c.iso2));
   const any = rng.shuffle(countries.filter((x) => x.iso2 !== c.iso2));
   const wrong: string[] = [];
@@ -43,7 +47,7 @@ function makeOptions(seed: string, c: Country, countries: Country[], label: (c: 
   return { names, correct: names.indexOf(label(c)) };
 }
 
-type Picked = { band: Band; base: Pick<QuizQuestion, "iso2" | "image" | "effect" | "focus" | "name" | "prompt" | "spoken" | "cardText" | "cardReveal" | "fakeHue">; options: () => { names: string[]; correct: number } };
+type Picked = { band: Band; base: Pick<QuizQuestion, "iso2" | "shape" | "image" | "effect" | "focus" | "name" | "prompt" | "spoken" | "cardText" | "cardReveal" | "fakeHue">; options: () => { names: string[]; correct: number } };
 
 function optionsFrom(seed: string, answer: string, wrongCandidates: string[]): { names: string[]; correct: number } {
   const rng = createRng(`${seed}|options|${answer}`);
@@ -161,8 +165,8 @@ function pickPictures(seed: string, items: PictureItem[]): Picked[] {
   return out;
 }
 
-const hasEnough = (pool: Country[]) =>
-  BAND_COUNTS.every(([b, n]) => pool.filter((c) => bandOf(c.flagDifficulty) === b).length >= n);
+const hasEnough = (pool: Country[], diff: (c: Country) => number = (c) => c.flagDifficulty) =>
+  BAND_COUNTS.every(([b, n]) => pool.filter((c) => bandOf(diff(c)) === b).length >= n);
 
 /** Target total duration; leaves 1.5 s of headroom below the 59 s hard limit. */
 const TARGET_SEC = 57.5;
@@ -184,7 +188,9 @@ export function buildQuiz(input: BuildInput): QuizSpec {
 function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   const { seed, themes, voice, clipMs } = input;
   const capitals = input.quiz === "capitals";
-  const countries = capitals ? input.countries.filter((c) => c.capital) : input.countries;
+  const shape = input.quiz === "country-shape";
+  const diff = (c: Country) => (shape ? c.shapeDifficulty ?? c.flagDifficulty : c.flagDifficulty);
+  const countries = capitals ? input.countries.filter((c) => c.capital) : shape ? input.countries.filter((c) => input.shapeIso2?.has(c.iso2)) : input.countries;
   const answerOf = (c: Country) => (capitals ? c.capital : c.name);
   const rng = createRng(seed);
   const part = Math.min(99, Math.max(1, Math.trunc(input.part ?? 1) || 1));
@@ -196,7 +202,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
   let twistRegion: string | undefined;
   if (input.useRegionTwist) {
     const regions = input.regionOverride ? [input.regionOverride] : rng.shuffle([...new Set(countries.map((c) => c.continent))]);
-    twistRegion = regions.find((r) => hasEnough(countries.filter((c) => c.continent === r)));
+    twistRegion = regions.find((r) => hasEnough(countries.filter((c) => c.continent === r), diff));
   }
   const pool = twistRegion ? countries.filter((c) => c.continent === twistRegion) : countries;
 
@@ -210,7 +216,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
     const fakes = createRng(`${seed}|fake`).shuffle([true, true, true, true, true, false, false, false, false, false]);
     const hues = createRng(`${seed}|hue`);
     for (const [band, n] of BAND_COUNTS) {
-      const candidates = rng.shuffle(pool.filter((c) => bandOf(c.flagDifficulty) === band));
+      const candidates = rng.shuffle(pool.filter((c) => bandOf(diff(c)) === band));
       for (const c of candidates.slice(0, n)) {
         if (realFake) {
           const fake = fakes[picked.length];
@@ -221,7 +227,7 @@ function buildAttempt(input: BuildInput, scale: number): QuizSpec {
           });
           continue;
         }
-        picked.push({ band, base: { iso2: c.iso2, name: answerOf(c), ...(capitals ? { prompt: c.name } : {}) }, options: () => makeOptions(seed, c, countries, answerOf) });
+        picked.push({ band, base: { iso2: c.iso2, name: answerOf(c), ...(capitals ? { prompt: c.name } : {}), ...(shape ? { shape: true } : {}) }, options: () => makeOptions(seed, c, countries, answerOf, shape) });
       }
     }
   }

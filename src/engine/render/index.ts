@@ -34,6 +34,7 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
   capitals: { one: "CAPITAL", many: "CAPITALS", list: "NAME THE CAPITAL" },
   math: { one: "PROBLEM", many: "PROBLEMS", list: "SOLVE IT!" },
   "missing-letters": { one: "WORD", many: "WORDS", list: "GUESS THE WORD" },
+  "country-shape": { one: "SHAPE", many: "SHAPES", list: "NAME THE COUNTRY" },
   "what-is-it": { one: "PICTURE", many: "PICTURES", list: "WHAT IS IT?" },
   landmarks: { one: "LANDMARK", many: "LANDMARKS", list: "WHICH COUNTRY?" },
   "real-vs-fake-flag": { one: "FLAG", many: "FLAGS", list: "REAL OR FAKE?" },
@@ -144,6 +145,26 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
     const px = fitText((x) => { ctx.font = themeFont(f.theme, "title", x); return ctx.measureText(text).width; }, c.w - 90, Math.round(c.h * 0.4), 24);
     ctx.save(); ctx.font = themeFont(f.theme, "title", px); ctx.textAlign = "center"; ctx.textBaseline = "middle";
     haloText(ctx, text, c.x + c.w / 2, c.y + c.h / 2, borderColor ? "#FFD400" : "#FFFFFF", "#000000", Math.max(6, Math.round(px / 9)));
+    ctx.restore();
+    return;
+  }
+  if (q.shape) { // country outline; the reveal fills it with the flag
+    const sh = f.assets.shapes.get(q.iso2 ?? "");
+    if (!sh) throw new AssetError(`outline missing for ${q.iso2}`);
+    const box: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
+    const k = Math.min((box.w - 70) / sh.w, (box.h - 70) / sh.h);
+    ctx.save(); roundRect(ctx, box, 20); ctx.clip();
+    ctx.translate(box.x + (box.w - sh.w * k) / 2, box.y + (box.h - sh.h * k) / 2); ctx.scale(k, k);
+    ctx.lineJoin = "round";
+    if (borderColor) {
+      const flag = f.assets.flags.get(q.iso2 ?? "");
+      if (!flag) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
+      ctx.save(); ctx.clip(sh.path); ctx.drawImage(flag, 0, 0, sh.w, sh.h); ctx.restore();
+      ctx.lineWidth = 3 / k; ctx.strokeStyle = "#FFFFFF"; ctx.stroke(sh.path);
+    } else {
+      ctx.fillStyle = f.theme.palette.text; ctx.fill(sh.path);
+      ctx.lineWidth = 3 / k; ctx.strokeStyle = f.theme.palette.bgFrom; ctx.stroke(sh.path);
+    }
     ctx.restore();
     return;
   }

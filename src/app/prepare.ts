@@ -15,16 +15,19 @@ export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; as
 let manifest: Promise<Manifest> | null = null;
 const getClips = async () => makeClipIndex(await (manifest ??= fetch("/audio/manifest.json").then((r) => r.json())));
 
+let shapeIds: Promise<Set<string>> | null = null;
+const shapeSet = () => (shapeIds ??= fetch("/shapes.json").then((r) => r.json()).then((o: Record<string, { ok?: boolean }>) => new Set(Object.keys(o).filter((k) => o[k].ok !== false))));
+
 export async function prepare(s: Settings): Promise<Prepared> {
   const clips = await getClips();
   const themeId = s.themeId === "random"
     ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;
   const voice = voiceFor(s.format);
-  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it", words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
+  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it" && s.format !== "country-shape", shapeIso2: s.format === "country-shape" ? await shapeSet() : undefined, words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
   const theme = withFont(themes.find((t) => t.id === spec.themeId)!, s.font);
-  const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])));
+  const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])), spec.questions.flatMap((q) => (q.shape && q.iso2 ? [q.iso2] : [])));
   return { spec, timeline, theme, assets, metadata: buildMetadata(spec, titlesFor(s.format)), clips };
 }
 

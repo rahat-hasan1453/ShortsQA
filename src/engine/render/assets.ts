@@ -4,6 +4,8 @@ import type { Theme } from "../types";
 
 export interface Assets {
   flags: Map<string, ImageBitmap>;
+  /** Country outlines (SVG path in a box whose longer side is 1000 units). */
+  shapes: Map<string, { path: Path2D; w: number; h: number }>;
   /** Landmark photos by landmark id. */
   images: Map<string, ImageBitmap>;
   /** Optional user background, cover-fitted to 1080x1920. */
@@ -40,7 +42,9 @@ async function fakeFlag(real: ImageBitmap, hue: number): Promise<ImageBitmap> {
   return createImageBitmap(c);
 }
 
-export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = [], imageIds: string[] = []): Promise<Assets> {
+let shapeFile: Promise<Record<string, { d: string; w: number; h: number }>> | null = null;
+
+export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = [], imageIds: string[] = [], shapeIso2s: string[] = []): Promise<Assets> {
   const warnings: string[] = [];
   let fontsOk = true;
   for (const family of new Set(Object.values(theme.fonts))) {
@@ -66,7 +70,16 @@ export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: s
     if (!res.ok) throw new AssetError(`landmark photo ${id} failed to load (${res.status})`);
     images.set(id, await createImageBitmap(await res.blob()));
   }));
-  return { flags, images, fontsOk, warnings };
+  const shapes = new Map<string, { path: Path2D; w: number; h: number }>();
+  if (shapeIso2s.length) {
+    const all = await (shapeFile ??= fetch("/shapes.json").then((r) => { if (!r.ok) throw new AssetError(`shapes.json failed to load (${r.status})`); return r.json(); }));
+    for (const i of new Set(shapeIso2s)) {
+      const s = all[i];
+      if (!s) throw new AssetError(`no outline for ${i}`);
+      shapes.set(i, { path: new Path2D(s.d), w: s.w, h: s.h });
+    }
+  }
+  return { flags, images, shapes, fontsOk, warnings };
 }
 
 /** Decodes an image file and cover-fits it to the 1080x1920 frame. */
