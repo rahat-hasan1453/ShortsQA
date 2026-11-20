@@ -7,3 +7,7 @@ tmp/
 test-results/
 playwright-report/
 tools/tts/.venv/
+
+.env.cartesia
+.env*.local
+tools/tts/.venv-kokoro/

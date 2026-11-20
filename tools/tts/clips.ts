@@ -46,3 +46,7 @@ export const clipDurationMs = (manifest: ClipManifest, key: string): number => {
   if (!e) throw new Error(`missing clip ${key}`);
   return e.durationMs;
 };
+
+/** The tag mixed into every clip key: changing the voice (engine or id) regenerates all clips. */
+export const voiceTagOf = (cfg: { voice?: string; kokoroVoice?: string; cartesiaVoice?: string }): string =>
+  cfg.kokoroVoice ? `kokoro:${cfg.kokoroVoice}` : cfg.cartesiaVoice ? `cartesia:${cfg.cartesiaVoice}` : (cfg.voice ?? "");

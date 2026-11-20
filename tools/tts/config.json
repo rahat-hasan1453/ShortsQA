@@ -5,5 +5,8 @@
     "en-US-JennyNeural",
     "en-GB-SoniaNeural"
   ],
-  "edgeTtsBin": "tools/tts/.venv/bin/edge-tts"
+  "edgeTtsBin": "tools/tts/.venv/bin/edge-tts",
+  "cartesiaVoice": "db6b0ed5-d5d3-463d-ae85-518a07d3c2b4",
+  "cartesiaVoiceName": "Skylar - Friendly Guide",
+  "kokoroVoice": "af_heart"
 }
