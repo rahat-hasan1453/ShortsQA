@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parseMusicMood } from "../../src/engine/audio/music";
+import { parseMusicMood, pickTrack, TRACKS } from "../../src/engine/audio/music";
 import { themes } from "./helpers";
 
 describe("parseMusicMood", () => {
@@ -17,5 +17,18 @@ describe("parseMusicMood", () => {
     expect(parseMusicMood("cinematic orchestral, 100 bpm").family).toBe("orchestral");
     expect(parseMusicMood("playful ukulele, 120 bpm").family).toBe("acoustic");
     expect(parseMusicMood("no tempo given").bpm).toBe(100);
+  });
+});
+
+describe("pickTrack", () => {
+  test("is stable per theme and always a bundled track", () => {
+    for (const t of themes) {
+      expect(pickTrack(t.music.mood)).toBe(pickTrack(t.music.mood));
+      expect(TRACKS).toContain(pickTrack(t.music.mood));
+    }
+  });
+  test("bundled files exist", async () => {
+    const fs = await import("node:fs");
+    for (const t of TRACKS) expect(fs.existsSync("public" + t), t).toBe(true);
   });
 });

@@ -14,3 +14,13 @@ export function parseMusicMood(mood: string): { bpm: number; family: MusicFamily
     : "pop";
   return { bpm, family };
 }
+
+/** Bundled royalty-free tracks (CC0 / public domain, see public/music/CREDITS.md). */
+export const TRACKS = ["/music/track1.mp3", "/music/track2.mp3", "/music/track3.mp3", "/music/track4.mp3"];
+
+/** A stable pick per theme so a theme always sounds the same. */
+export function pickTrack(key: string): string {
+  let h = 0;
+  for (const ch of key) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return TRACKS[h % TRACKS.length];
+}

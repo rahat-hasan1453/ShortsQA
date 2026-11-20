@@ -1,7 +1,7 @@
 import type { ClipIndex } from "../clipIndex";
 import { CLIP_GAP_MS } from "../lines";
 import type { Theme, Timeline } from "../types";
-import { parseMusicMood } from "./music";
+import { parseMusicMood, pickTrack } from "./music";
 import { chime, heartbeat, musicBed, tick, whoosh } from "./synth";
 
 export const SAMPLE_RATE = 48000;
@@ -16,6 +16,15 @@ export async function loadClips(texts: string[], index: ClipIndex, ctx: BaseAudi
     out.set(t, await ctx.decodeAudioData(await res.arrayBuffer()));
   }));
   return out;
+}
+
+/** Decodes a bundled music track; null (synth fallback) if it is missing or cannot be decoded. */
+async function loadTrack(url: string, ctx: BaseAudioContext): Promise<AudioBuffer | null> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    return await ctx.decodeAudioData(await res.arrayBuffer());
+  } catch { return null; }
 }
 
 export function timelineTexts(tl: Timeline): string[] {
@@ -51,7 +60,16 @@ export async function mixAudio(tl: Timeline, clips: Map<string, AudioBuffer>, th
   }
   musicBus.connect(master);
   const { bpm, family } = parseMusicMood(theme.music.mood);
-  musicBed(ctx, musicBus, family, bpm, tl.duration);
+  const track = await loadTrack(pickTrack(theme.music.mood), ctx);
+  if (track) {
+    const src = ctx.createBufferSource(); src.buffer = track; src.loop = true;
+    const env = ctx.createGain();
+    env.gain.setValueAtTime(0, 0);
+    env.gain.linearRampToValueAtTime(1, 0.4);
+    env.gain.setValueAtTime(1, Math.max(0.4, tl.duration - 1.6));
+    env.gain.linearRampToValueAtTime(0, tl.duration);
+    src.connect(env).connect(musicBus); src.start(0);
+  } else musicBed(ctx, musicBus, family, bpm, tl.duration);
 
   const fx = ctx.createGain(); fx.gain.value = opts.muteEffects ? 0 : 1; fx.connect(master);
   const voice = ctx.createGain(); voice.gain.value = opts.muteVoice ? 0 : 1.2; voice.connect(master);
