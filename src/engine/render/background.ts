@@ -1,16 +1,17 @@
 import { createRng } from "../rng";
 import type { Theme } from "../types";
-import { H, W } from "./layout";
+import { H as SH, W as SW } from "./layout";
 
 export type Ctx = CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 
 const SPOTS = (() => {
   const r = createRng("bg-spots");
-  return Array.from({ length: 28 }, () => ({ x: r.next() * W, y: r.next() * H, r: 40 + r.next() * 140, ph: r.next() * 6.28 }));
+  return Array.from({ length: 28 }, () => ({ fx: r.next(), fy: r.next(), r: 40 + r.next() * 140, ph: r.next() * 6.28 })); // positions as fractions of the frame
 })();
 
 /** Background is a pure function of (theme, t). */
-export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageBitmap): void {
+/** `W`/`H` default to the Shorts frame; long videos pass 1920x1080. */
+export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageBitmap, W = SW, H = SH): void {
   const p = theme.palette;
   if (image) {
     // User image (already cover-fitted to 1080x1920) with a light scrim so text stays readable.
@@ -71,7 +72,7 @@ export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageB
     ctx.fillStyle = type === "texture" ? p.text : p.accent2;
     for (const s of SPOTS) {
       ctx.globalAlpha = (type === "texture" ? 0.05 : 0.12) + 0.06 * Math.sin(t * 0.8 + s.ph);
-      ctx.beginPath(); ctx.arc(s.x, s.y, type === "texture" ? s.r / 5 : s.r, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(s.fx * W, s.fy * H, type === "texture" ? s.r / 5 : s.r, 0, Math.PI * 2); ctx.fill();
     }
   }
   ctx.restore();

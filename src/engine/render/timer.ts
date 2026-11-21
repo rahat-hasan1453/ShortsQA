@@ -4,8 +4,8 @@ import { LAYOUT } from "./layout";
 import { themeFont } from "../theme";
 
 /** progress: 0 at timer start, 1 at timer end. */
-export function drawTimer(ctx: Ctx, theme: Theme, progress: number, totalSec: number, t: number): void {
-  const r = LAYOUT.timer, p = theme.palette, cx = r.x + r.w / 2, cy = r.y + r.h / 2;
+export function drawTimer(ctx: Ctx, theme: Theme, progress: number, totalSec: number, t: number, box = LAYOUT.timer): void {
+  const r = box, p = theme.palette, cx = r.x + r.w / 2, cy = r.y + r.h / 2;
   const left = Math.max(0, Math.ceil(totalSec * (1 - progress)));
   const style = theme.timer.style;
   ctx.save();
