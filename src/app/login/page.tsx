@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-
-/** Only same-site relative paths are followed after login. */
-const safeNext = (raw: string | null) => (raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : "/");
+import { safeNext } from "@/lib/safeNext";
 
 export default function LoginPage() {
   const [pin, setPin] = useState("");
@@ -14,7 +12,7 @@ export default function LoginPage() {
     setBusy(true); setError("");
     try {
       const res = await fetch("/api/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ pin }) });
-      if (res.ok) { window.location.assign(safeNext(new URLSearchParams(window.location.search).get("next"))); return; }
+      if (res.ok) { window.location.assign(safeNext(new URLSearchParams(window.location.search).get("next"), window.location.origin)); return; }
       setError((await res.json().catch(() => null))?.error ?? "Login failed");
       setPin("");
     } catch {
