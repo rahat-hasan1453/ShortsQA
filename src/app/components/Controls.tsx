@@ -1,6 +1,7 @@
 "use client";
 import { themes } from "@/data";
 import { fontFamilies } from "@/engine/assetPaths";
+import VoicePicker from "./VoicePicker";
 
 const FAMILIES = fontFamilies(themes);
 
@@ -23,6 +24,7 @@ export default function Controls({ value, onChange, disabled, hasBackground, onB
           <option value="open">Open (just the name)</option>
         </select>
       </label>
+      <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
       <label style={LABEL}>Template <small style={HINT}>rong, background ar timer er dhoron</small>
         <select value={value.themeId} onChange={(e) => set({ themeId: e.target.value })} style={FIELD}>
           <option value="random">Random (recommended)</option>

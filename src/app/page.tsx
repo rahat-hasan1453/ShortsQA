@@ -8,6 +8,7 @@ import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
 import { mixFor, prepare, type Prepared } from "./prepare";
 import { DEFAULT_VOICE_ID, voiceById } from "@/engine/voices";
+import { voiceHasClips } from "./components/VoicePicker";
 
 export default function Page() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -16,11 +17,20 @@ export default function Page() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [bg, setBg] = useState<ImageBitmap | null>(null);
+  const [voiceWarning, setVoiceWarning] = useState("");
   const audioCache = useRef<{ p: Prepared; buf: Promise<AudioBuffer> } | null>(null);
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    setSettings({ format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
+    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"]  };
+    const wanted = q.get("voice");
+    // A voice whose clips were not generated yet would fail to prepare: fall back to the default and say so.
+    if (wanted && wanted !== DEFAULT_VOICE_ID) {
+      voiceHasClips(initial.voice).then((ok) => {
+        if (ok && initial.voice === wanted) setSettings(initial);
+        else { setVoiceWarning(`Voice "${wanted}" has no clips yet; using ${voiceById(DEFAULT_VOICE_ID)!.label}.`); setSettings({ ...initial, voice: DEFAULT_VOICE_ID }); }
+      });
+    } else setSettings(initial);
     detectSupport().then(setSupport);
   }, []);
 
@@ -53,6 +63,7 @@ export default function Page() {
         <h1 style={{ margin: 0 }}>Shorts Quiz Maker</h1>
         {support && !support.ok && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{support.reason}</p>}
         {error && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{error}</p>}
+        {voiceWarning && <p role="alert" style={{ color: "#a15c00", margin: 0 }}>{voiceWarning}</p>}
         {warnings.map((w) => <p key={w} role="alert" style={{ color: "#a15c00", margin: 0 }}>{w}</p>)}
 
         <h2 style={H2}>1. Choose a quiz type</h2>
