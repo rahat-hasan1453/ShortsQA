@@ -44,9 +44,10 @@ async function fakeFlag(real: ImageBitmap, hue: number): Promise<ImageBitmap> {
 
 let shapeFile: Promise<Record<string, { d: string; w: number; h: number }>> | null = null;
 
-export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = [], imageIds: string[] = [], shapeIso2s: string[] = []): Promise<Assets> {
+/** Registers a theme's fonts with the document; missing files fall back with a warning. */
+export async function loadThemeFonts(theme: Theme): Promise<{ ok: boolean; warnings: string[] }> {
   const warnings: string[] = [];
-  let fontsOk = true;
+  let ok = true;
   for (const family of new Set(Object.values(theme.fonts))) {
     try {
       for (const [url, weight] of [[fontFile(family), "400"], [fontFileBold(family), "700"]] as const) {
@@ -57,10 +58,15 @@ export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: s
         document.fonts.add(face);
       }
     } catch {
-      fontsOk = false;
+      ok = false;
       warnings.push(`Font "${family}" (${fontSlug(family)}) failed to load; using a fallback font.`);
     }
   }
+  return { ok, warnings };
+}
+
+export async function loadAssets(theme: Theme, iso2s: string[], fakes: { iso2: string; hue: number }[] = [], imageIds: string[] = [], shapeIso2s: string[] = []): Promise<Assets> {
+  const { ok: fontsOk, warnings } = await loadThemeFonts(theme);
   const flags = new Map<string, ImageBitmap>();
   await Promise.all([...new Set(iso2s)].map(async (i) => flags.set(i, await rasterFlag(i))));
   for (const f of fakes) { const real = flags.get(f.iso2); if (real) flags.set(fakeKey(f.iso2), await fakeFlag(real, f.hue)); }

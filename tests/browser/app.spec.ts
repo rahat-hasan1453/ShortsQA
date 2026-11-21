@@ -119,11 +119,11 @@ test("Play controls sit right under the video (no big gap) and stay in view when
   await page.goto("/?seed=demo&theme=arctic-ice");
   await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
   const canvas = await page.locator("canvas").boundingBox();
-  const play = await page.getByRole("button", { name: "Play" }).boundingBox();
+  const play = await page.getByRole("button", { name: "Play", exact: true }).boundingBox();
   expect(play!.y - (canvas!.y + canvas!.height)).toBeLessThan(40);
   await page.mouse.wheel(0, 700);
   await page.waitForTimeout(300);
-  const after = await page.getByRole("button", { name: "Play" }).boundingBox();
+  const after = await page.getByRole("button", { name: "Play", exact: true }).boundingBox();
   expect(after!.y).toBeGreaterThan(0);
   expect(after!.y + after!.height).toBeLessThan(600);
   expect(after!.width).toBeGreaterThanOrEqual(48);

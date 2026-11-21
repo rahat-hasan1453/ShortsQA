@@ -2,6 +2,8 @@
 import { themes } from "@/data";
 import { fontFamilies } from "@/engine/assetPaths";
 import VoicePicker from "./VoicePicker";
+import TemplateGallery from "./TemplateGallery";
+import type { Prepared } from "../prepare";
 
 const FAMILIES = fontFamilies(themes);
 
@@ -11,8 +13,8 @@ export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
 }
 
-export default function Controls({ value, onChange, disabled, hasBackground, onBackground }: {
-  value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void;
+export default function Controls({ value, onChange, disabled, hasBackground, onBackground, prepared }: {
+  value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void; prepared: Prepared | null;
 }) {
   const set = (p: Partial<Settings>) => onChange({ ...value, ...p });
   return (
@@ -25,12 +27,7 @@ export default function Controls({ value, onChange, disabled, hasBackground, onB
         </select>
       </label>
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
-      <label style={LABEL}>Template <small style={HINT}>rong, background ar timer er dhoron</small>
-        <select value={value.themeId} onChange={(e) => set({ themeId: e.target.value })} style={FIELD}>
-          <option value="random">Random (recommended)</option>
-          {themes.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-        </select>
-      </label>
+      <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
       <label style={LABEL}>Font <small style={HINT}>shob text er font</small>
         <select value={value.font} onChange={(e) => set({ font: e.target.value })} style={FIELD}>
           <option value="theme">Template default</option>

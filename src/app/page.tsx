@@ -80,7 +80,7 @@ export default function Page() {
         <p style={{ margin: 0, fontSize: 14 }}>First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span style={{ color: "#777" }}> · template: {prepared.theme.name}</span>}</p>
 
         <h2 style={H2}>2. Pick a style</h2>
-        <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} />
+        <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
 
         <h2 style={H2}>3. Make the video</h2>
         {prepared && <div><strong>{prepared.metadata.title}</strong><div style={{ fontSize: 13, color: "#777" }}>{prepared.metadata.hashtags.join(" ")}</div></div>}

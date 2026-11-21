@@ -18,3 +18,29 @@ test("a voice without clips is disabled, and ?voice= to it falls back with a war
   await expect(page.getByRole("button", { name: /^Chatterbox/ })).toHaveAttribute("aria-disabled", "true");
   await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
 });
+
+test("gallery shows Random + 21 template cards, filters, and picking one changes the template", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  const g = page.getByRole("group", { name: "Template" });
+  await expect(g.locator("[data-theme-card]")).toHaveCount(22);
+  await g.getByRole("button", { name: "Popular", exact: true }).click();
+  await expect(g.locator("[data-theme-card]")).toHaveCount(6);
+  await g.getByRole("button", { name: /Game Show/ }).click();
+  await expect(page.getByText("template: Game Show")).toBeVisible({ timeout: 60000 });
+  await expect(g.getByRole("button", { name: /Game Show/ })).toHaveAttribute("aria-pressed", "true");
+});
+
+test("template thumbnails render", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  const thumb = page.locator('[data-theme-card="arctic-ice"] img');
+  await expect(thumb).toBeVisible({ timeout: 60000 });
+  expect(await thumb.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBe(216);
+});
+
+test("rapid template clicks end on the last choice", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  const g = page.getByRole("group", { name: "Template" });
+  for (const n of [/Neon Night/, /Arctic Ice/, /Mono Bold/]) await g.getByRole("button", { name: n }).click();
+  await expect(page.getByText("template: Mono Bold")).toBeVisible({ timeout: 60000 });
+});
