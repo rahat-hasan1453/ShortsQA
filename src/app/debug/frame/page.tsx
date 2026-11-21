@@ -38,8 +38,8 @@ export default function DebugFrame() {
     const prepare = async (themeId: string, seed: string, style: "open" | "options" | "list" = "open"): Promise<Prepared> => {
       const key = `${themeId}|${seed}|${style}`;
       if (cache.has(key)) return cache.get(key)!;
-      manifestP ??= fetch("/audio/manifest.json").then((r) => r.json());
-      const clips = makeClipIndex(await manifestP);
+      manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json());
+      const clips = makeClipIndex(await manifestP, "af_heart");
       const theme = themes.find((t) => t.id === themeId)!;
       const spec = buildQuiz({ seed, themeId, answerStyle: style, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
       const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
@@ -64,7 +64,7 @@ export default function DebugFrame() {
     };
     const exportOpts = async (themeId: string, seed: string) => {
       const p = await prepare(themeId, seed);
-      const clips = makeClipIndex(await manifestP!);
+      const clips = makeClipIndex(await manifestP!, "af_heart");
       const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
       const audio = await mixAudio(p.timeline, buffers, p.theme);
       return { timeline: p.timeline, theme: p.theme, assets: p.assets, audio };
@@ -122,7 +122,7 @@ export default function DebugFrame() {
       },
       audioStats: async (themeId: string, seed: string) => {
         const p = await prepare(themeId, seed);
-        const clips = makeClipIndex(await manifestP!);
+        const clips = makeClipIndex(await manifestP!, "af_heart");
         const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
         const full = await mixAudio(p.timeline, buffers, p.theme);
         const noVoice = await mixAudio(p.timeline, buffers, p.theme, { muteVoice: true });

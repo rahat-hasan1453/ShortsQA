@@ -8,18 +8,29 @@ import { buildTimeline } from "@/engine/timeline";
 import type { QuizSpec, Theme, Timeline } from "@/engine/types";
 import { createRng } from "@/engine/rng";
 import { withFont } from "@/engine/theme";
+import { audioDir } from "@/engine/voices";
 import type { Settings } from "./components/Controls";
 
 export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; assets: Assets; metadata: Metadata; clips: ClipIndex }
 
-let manifest: Promise<Manifest> | null = null;
-const getClips = async () => makeClipIndex(await (manifest ??= fetch("/audio/manifest.json").then((r) => r.json())));
+const manifests = new Map<string, Promise<Manifest>>();
+/** Clip index of one voice; each voice has its own folder and manifest. */
+export async function getClips(voiceId: string): Promise<ClipIndex> {
+  if (!manifests.has(voiceId)) {
+    manifests.set(voiceId, fetch(`${audioDir(voiceId)}/manifest.json`).then((r) => {
+      if (!r.ok) throw new Error(`Voice "${voiceId}" has no clips yet (run npm run tts -- --voice ${voiceId})`);
+      return r.json();
+    }));
+  }
+  try { return makeClipIndex(await manifests.get(voiceId)!, voiceId); }
+  catch (e) { manifests.delete(voiceId); throw e; }
+}
 
 let shapeIds: Promise<Set<string>> | null = null;
 const shapeSet = () => (shapeIds ??= fetch("/shapes.json").then((r) => r.json()).then((o: Record<string, { ok?: boolean }>) => new Set(Object.keys(o).filter((k) => o[k].ok !== false))));
 
 export async function prepare(s: Settings): Promise<Prepared> {
-  const clips = await getClips();
+  const clips = await getClips(s.voice);
   const themeId = s.themeId === "random"
     ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;

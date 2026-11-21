@@ -7,6 +7,7 @@ import { FORMATS } from "./formats";
 import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
 import { mixFor, prepare, type Prepared } from "./prepare";
+import { DEFAULT_VOICE_ID, voiceById } from "@/engine/voices";
 
 export default function Page() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -19,7 +20,7 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    setSettings({ format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
+    setSettings({ format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"] });
     detectSupport().then(setSupport);
   }, []);
 

@@ -1,0 +1,8 @@
+[
+  { "id": "af_heart", "label": "Heart", "engine": "kokoro", "voice": "af_heart", "gender": "female", "accent": "US", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!", "default": true },
+  { "id": "af_bella", "label": "Bella", "engine": "kokoro", "voice": "af_bella", "gender": "female", "accent": "US", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!" },
+  { "id": "am_michael", "label": "Michael", "engine": "kokoro", "voice": "am_michael", "gender": "male", "accent": "US", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!" },
+  { "id": "am_adam", "label": "Adam", "engine": "kokoro", "voice": "am_adam", "gender": "male", "accent": "US", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!" },
+  { "id": "bf_emma", "label": "Emma", "engine": "kokoro", "voice": "bf_emma", "gender": "female", "accent": "UK", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!" },
+  { "id": "chatterbox", "label": "Chatterbox (expressive)", "engine": "chatterbox", "gender": "female", "accent": "US", "sampleText": "Can you name all ten? Only one in a hundred gets every answer right!" }
+]

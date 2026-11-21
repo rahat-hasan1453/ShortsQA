@@ -2,20 +2,18 @@ import { execFile, spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { promisify } from "node:util";
-import { cartesiaSpeak } from "./cartesia";
-import { collectClipRequests, type ClipManifest } from "./clips";
+import { voiceById, VOICES, voiceTag } from "../../src/engine/voices";
+import { collectClipRequests, pruneStale, voiceArg, type ClipManifest } from "./clips";
 
 const run = promisify(execFile);
-// Edge TTS clips carry leading/trailing silence and loudnorm pads short clips; trim both ends before and after.
+// TTS clips carry leading/trailing silence and loudnorm pads short clips; trim both ends before and after.
 const TRIM = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.06,areverse";
 const root = path.resolve(__dirname, "../..");
-const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "utf8"));
-const useKokoro = Boolean(cfg.kokoroVoice);
-const useCartesia = !useKokoro && Boolean(cfg.cartesiaVoice);
-const voiceTag: string = useKokoro ? `kokoro:${cfg.kokoroVoice}` : useCartesia ? `cartesia:${cfg.cartesiaVoice}` : cfg.voice;
-if (!voiceTag) throw new Error("config.json voice is empty; run audition and choose one");
-const audioDir = path.join(root, "public/audio");
-const tmpDir = path.join(root, "tmp/tts");
+const voice = voiceById(voiceArg(process.argv, VOICES))!;
+const tag = voiceTag(voice);
+// Each voice has its own folder and manifest, so generating one voice never touches another.
+const audioDir = path.join(root, "public/audio", voice.id);
+const tmpDir = path.join(root, "tmp/tts", voice.id);
 fs.mkdirSync(audioDir, { recursive: true });
 fs.mkdirSync(tmpDir, { recursive: true });
 const manifestPath = path.join(audioDir, "manifest.json");
@@ -27,18 +25,14 @@ const words: string[] = fs.existsSync(wordsPath) ? (JSON.parse(fs.readFileSync(w
 const creditsPath = path.join(root, "data", "what_is_it_credits.json");
 const photoIds = fs.existsSync(creditsPath) ? new Set(Object.keys(JSON.parse(fs.readFileSync(creditsPath, "utf8")))) : new Set<string>();
 const pictureAnswers: string[] = read("what_is_it.json").filter((x: { n: number }) => photoIds.has(`wi${String(x.n).padStart(4, "0")}`)).map((x: { answer: string }) => x.answer);
-const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), voiceTag, [...words, ...pictureAnswers, ...read("countries.json").map((c: { funFact?: string }) => c.funFact).filter(Boolean), "Like if you got the first three right!"]);
-// Clips are looked up by text, so entries of a previously used voice must not linger.
-const wanted = new Set(reqs.map((r) => r.key));
-for (const k of Object.keys(manifest)) if (!wanted.has(k)) delete manifest[k];
+const reqs = collectClipRequests(read("voice_lines.json"), read("countries.json"), tag, [...words, ...pictureAnswers, ...read("countries.json").map((c: { funFact?: string }) => c.funFact).filter(Boolean), "Like if you got the first three right!"]);
+pruneStale(manifest, new Set(reqs.map((r) => r.key)));
 const todo = reqs.filter((r) => !manifest[r.key] || !fs.existsSync(path.join(audioDir, manifest[r.key].file)));
-console.log(`${reqs.length} clips needed, ${todo.length} to generate (voice ${voiceTag})`);
+console.log(`${reqs.length} clips needed, ${todo.length} to generate (voice ${voice.id}, ${tag})`);
 
 async function make(r: { key: string; text: string }) {
-  const raw = path.join(tmpDir, `${r.key}.${useKokoro ? "wav" : "mp3"}`);
+  const raw = path.join(tmpDir, `${r.key}.wav`); // rendered in one batch beforehand
   const out = path.join(audioDir, `${r.key}.mp3`);
-  if (useKokoro) { /* rendered in one batch beforehand */ } else if (useCartesia) await cartesiaSpeak(r.text, cfg.cartesiaVoice, raw);
-  else await run(path.join(root, cfg.edgeTtsBin), ["--voice", cfg.voice, "--text", r.text, "--write-media", raw]);
   await run("ffmpeg", ["-y", "-loglevel", "error", "-i", raw, "-af", TRIM + ",loudnorm=I=-16:TP=-1.5:LRA=11," + TRIM, "-ar", "44100", "-ac", "1", out]);
   const { stdout } = await run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out]);
   manifest[r.key] = { file: `${r.key}.mp3`, durationMs: Math.round(parseFloat(stdout) * 1000), text: r.text };
@@ -46,12 +40,12 @@ async function make(r: { key: string; text: string }) {
 }
 
 async function main() {
-  if (useKokoro && todo.length) {
+  if (todo.length) {
     // One Python process renders every missing clip (the model loads once), then ffmpeg trims/normalises each.
     const items = path.join(tmpDir, "kokoro-items.json");
     fs.writeFileSync(items, JSON.stringify(todo.map((r) => ({ key: r.key, text: r.text }))));
     await new Promise<void>((resolve, reject) => {
-      const p = spawn(path.join(root, "tools/tts/.venv-kokoro/bin/python"), [path.join(root, "tools/tts/kokoro/speak.py"), cfg.kokoroVoice, tmpDir, items], { stdio: ["ignore", "ignore", "inherit"] });
+      const p = spawn(path.join(root, "tools/tts/.venv-kokoro/bin/python"), [path.join(root, "tools/tts/kokoro/speak.py"), voice.voice!, tmpDir, items], { stdio: ["ignore", "ignore", "inherit"] });
       p.on("exit", (c) => (c === 0 ? resolve() : reject(new Error(`kokoro exited ${c}`))));
     });
   }
@@ -65,7 +59,7 @@ async function main() {
       if (++done % 25 === 0) { fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1)); console.log(`${done}/${todo.length}`); }
     }
   };
-  await Promise.all(Array.from({ length: useCartesia ? 2 : 4 }, worker));
+  await Promise.all(Array.from({ length: 4 }, worker));
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + "\n");
   console.log("done");
 }

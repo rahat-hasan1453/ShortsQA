@@ -47,7 +47,7 @@ describe("what-is-it quiz", () => {
     }
   });
   test("every credited picture has a file and an author + licence; every answer has a voice clip", () => {
-    const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../public/audio/manifest.json"), "utf8")) as Record<string, { text: string }>;
+    const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../public/audio/af_heart/manifest.json"), "utf8")) as Record<string, { text: string }>;
     const spoken = new Set(Object.values(manifest).map((m) => m.text));
     for (const p of pictures) {
       expect(fs.existsSync(path.resolve(__dirname, `../../public/what-is-it/${p.id}.jpg`))).toBe(true);
