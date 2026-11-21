@@ -1,14 +1,18 @@
 import { execFile, spawn } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 import { voiceById, VOICES, voiceTag } from "../../src/engine/voices";
 import { collectClipRequests, pruneStale, voiceArg, type ClipManifest } from "./clips";
+import { engineCommand } from "./engines";
 
 const run = promisify(execFile);
 // TTS clips carry leading/trailing silence and loudnorm pads short clips; trim both ends before and after.
 const TRIM = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.06,areverse";
 const root = path.resolve(__dirname, "../..");
+const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "utf8")) as { chatterboxPython: string };
+const samplesOnly = process.argv.includes("--samples");
 const voice = voiceById(voiceArg(process.argv, VOICES))!;
 const tag = voiceTag(voice);
 // Each voice has its own folder and manifest, so generating one voice never touches another.
@@ -30,37 +34,59 @@ pruneStale(manifest, new Set(reqs.map((r) => r.key)));
 const todo = reqs.filter((r) => !manifest[r.key] || !fs.existsSync(path.join(audioDir, manifest[r.key].file)));
 console.log(`${reqs.length} clips needed, ${todo.length} to generate (voice ${voice.id}, ${tag})`);
 
+const normalise = (raw: string, out: string) =>
+  run("ffmpeg", ["-y", "-loglevel", "error", "-i", raw, "-af", TRIM + ",loudnorm=I=-16:TP=-1.5:LRA=11," + TRIM, "-ar", "44100", "-ac", "1", out]);
+
 async function make(r: { key: string; text: string }) {
-  const raw = path.join(tmpDir, `${r.key}.wav`); // rendered in one batch beforehand
+  const raw = path.join(tmpDir, `${r.key}.wav`);
   const out = path.join(audioDir, `${r.key}.mp3`);
-  await run("ffmpeg", ["-y", "-loglevel", "error", "-i", raw, "-af", TRIM + ",loudnorm=I=-16:TP=-1.5:LRA=11," + TRIM, "-ar", "44100", "-ac", "1", out]);
+  await normalise(raw, out);
   const { stdout } = await run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out]);
   manifest[r.key] = { file: `${r.key}.mp3`, durationMs: Math.round(parseFloat(stdout) * 1000), text: r.text };
   fs.rmSync(raw);
 }
 
+/** One Python process renders every item (the model loads once); `onClip` runs as each "ok <key>" line arrives. */
+function render(items: { key: string; text: string }[], onClip: (key: string) => void): Promise<void> {
+  const file = path.join(tmpDir, "items.json");
+  fs.writeFileSync(file, JSON.stringify(items));
+  const { cmd, args } = engineCommand(voice, cfg, root, os.homedir(), tmpDir, file);
+  return new Promise<void>((resolve, reject) => {
+    const p = spawn(cmd, args, { stdio: ["ignore", "pipe", "inherit"] });
+    let buf = "";
+    p.stdout.on("data", (d: Buffer) => {
+      buf += d.toString();
+      const lines = buf.split("\n"); buf = lines.pop()!;
+      for (const l of lines) { const m = l.match(/^ok (\S+)/); if (m) onClip(m[1]); }
+    });
+    p.on("exit", (c) => (c === 0 ? resolve() : reject(new Error(`${voice.engine} exited ${c}`))));
+  });
+}
+
+async function samples() {
+  const dir = path.join(root, "public/audio/samples");
+  fs.mkdirSync(dir, { recursive: true });
+  await render([{ key: "sample", text: voice.sampleText }], () => {});
+  await normalise(path.join(tmpDir, "sample.wav"), path.join(dir, `${voice.id}.mp3`));
+  fs.rmSync(path.join(tmpDir, "sample.wav"));
+  console.log(`wrote public/audio/samples/${voice.id}.mp3`);
+}
+
 async function main() {
+  // Each clip is trimmed, normalised and saved as soon as Python reports it, so a long (Chatterbox) run can be stopped and resumed.
+  const byKey = new Map(todo.map((r) => [r.key, r]));
+  const pending: Promise<void>[] = [];
+  let done = 0;
+  const save = () => fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + "\n");
   if (todo.length) {
-    // One Python process renders every missing clip (the model loads once), then ffmpeg trims/normalises each.
-    const items = path.join(tmpDir, "kokoro-items.json");
-    fs.writeFileSync(items, JSON.stringify(todo.map((r) => ({ key: r.key, text: r.text }))));
-    await new Promise<void>((resolve, reject) => {
-      const p = spawn(path.join(root, "tools/tts/.venv-kokoro/bin/python"), [path.join(root, "tools/tts/kokoro/speak.py"), voice.voice!, tmpDir, items], { stdio: ["ignore", "ignore", "inherit"] });
-      p.on("exit", (c) => (c === 0 ? resolve() : reject(new Error(`kokoro exited ${c}`))));
+    await render(todo.map((r) => ({ key: r.key, text: r.text })), (key) => {
+      const r = byKey.get(key);
+      if (!r) return;
+      pending.push(make(r).then(() => { if (++done % 25 === 0) { save(); console.log(`${done}/${todo.length}`); } }));
     });
   }
-  let i = 0, done = 0;
-  const worker = async () => {
-    while (i < todo.length) {
-      const r = todo[i++];
-      for (let attempt = 1; ; attempt++) {
-        try { await make(r); break; } catch (e) { if (attempt >= 3) throw e; await new Promise((res) => setTimeout(res, 1000 * attempt)); }
-      }
-      if (++done % 25 === 0) { fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1)); console.log(`${done}/${todo.length}`); }
-    }
-  };
-  await Promise.all(Array.from({ length: 4 }, worker));
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + "\n");
+  await Promise.all(pending);
+  save();
   console.log("done");
 }
-main().catch((e) => { fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + "\n"); console.error(e); process.exit(1); });
+(samplesOnly ? samples() : main()).catch((e) => { if (!samplesOnly) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1) + "\n"); console.error(e); process.exit(1); });

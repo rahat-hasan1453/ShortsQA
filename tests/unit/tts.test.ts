@@ -55,3 +55,16 @@ describe("collectClipRequests", () => {
     expect(reqs.map((r) => r.text)).toContain("the world");
   });
 });
+
+import { voiceById } from "../../src/engine/voices";
+import { engineCommand } from "../../tools/tts/engines";
+
+test("kokoro command uses the project venv and the voice name", () => {
+  expect(engineCommand(voiceById("am_adam")!, { chatterboxPython: "~/x/python" }, "/r", "/h", "/o", "/i.json"))
+    .toEqual({ cmd: "/r/tools/tts/.venv-kokoro/bin/python", args: ["/r/tools/tts/kokoro/speak.py", "am_adam", "/o", "/i.json"] });
+});
+
+test("chatterbox command expands ~ and defaults the reference", () => {
+  expect(engineCommand(voiceById("chatterbox")!, { chatterboxPython: "~/tts-test/env/bin/python" }, "/r", "/h", "/o", "/i.json"))
+    .toEqual({ cmd: "/h/tts-test/env/bin/python", args: ["/r/tools/tts/chatterbox/speak.py", "default", "/o", "/i.json"] });
+});
