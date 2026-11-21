@@ -13,8 +13,8 @@ function download(name: string, blob: Blob) {
   setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
 }
 
-const post = async (url: string, body?: BodyInit) => {
-  const r = await fetch(url, { method: "POST", body });
+const post = async (url: string, body?: BodyInit, size?: number) => {
+  const r = await fetch(url, { method: "POST", body, ...(size !== undefined ? { headers: { "x-chunk-length": String(size) } } : {}) });
   if (!r.ok) throw new Error(`saving the video failed (${r.status})`);
 };
 
@@ -26,8 +26,8 @@ async function exportLong(p: Prepared, audio: AudioBuffer, signal: AbortSignal, 
     timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress,
     // The first chunk of an attempt clears any old file; every other chunk waits for it so the reset never lands late.
     sink: (data, pos, fresh) => {
-      if (fresh) return (started = post(`${base}?pos=${pos}&reset=1`, data as BodyInit));
-      return started.then(() => post(`${base}?pos=${pos}`, data as BodyInit));
+      if (fresh) return (started = post(`${base}?pos=${pos}&reset=1`, data as BodyInit, data.length));
+      return started.then(() => post(`${base}?pos=${pos}`, data as BodyInit, data.length));
     },
   });
   const { w, h } = frameSize("long"), big = new OffscreenCanvas(w, h), thumb = new OffscreenCanvas(1280, 720);

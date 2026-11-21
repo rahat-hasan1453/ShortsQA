@@ -66,3 +66,8 @@ describe("long builds", () => {
     expect(timeline.scenes.some((s) => s.kind === "score")).toBe(false);
   });
 });
+
+import { STREAM_CHUNK } from "../../src/engine/export/encoder";
+test("streamed chunks stay well under the proxy's 10 MB request limit", () => {
+  expect(STREAM_CHUNK).toBeLessThanOrEqual(4 * 1024 * 1024);
+});

@@ -20,6 +20,8 @@ export interface ExportOptions {
 }
 
 export const FPS = 30;
+/** Bytes per streamed chunk: the Next proxy silently cuts request bodies above 10 MB, so stay far below it. */
+export const STREAM_CHUNK = 4 * 1024 * 1024;
 let busy = false;
 
 const abortError = () => new DOMException("Export aborted", "AbortError");
@@ -64,7 +66,7 @@ async function run(o: ExportOptions, bitrateScale: number): Promise<Blob | null>
   const writes: Promise<void>[] = [];
   let sinkError: unknown = null, fresh = true; // fresh: the first chunk of this attempt (a retry must not append to a failed file)
   const target = o.sink
-    ? new StreamTarget({ chunked: true, onData: (data, position) => { writes.push(o.sink!(data.slice(), position, fresh).catch((e) => { sinkError = e; })); fresh = false; } })
+    ? new StreamTarget({ chunked: true, chunkSize: STREAM_CHUNK, onData: (data, position) => { writes.push(o.sink!(data.slice(), position, fresh).catch((e) => { sinkError = e; })); fresh = false; } })
     : new ArrayBufferTarget();
   const flushWrites = async () => { await Promise.all(writes.splice(0)); if (sinkError) throw sinkError; };
   const muxer = new Muxer({

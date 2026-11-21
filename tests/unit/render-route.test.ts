@@ -41,3 +41,11 @@ test("a fresh start (pos=0&reset=1) drops a stale partial file", async () => {
 test("bad ids are refused", async () => {
   for (const id of ["../x", "A B", "x".repeat(81), ""]) expect((await call("POST", id, "?pos=0", new Uint8Array([1]))).status).toBe(400);
 });
+
+test("a chunk cut short on the way (body smaller than its declared length) is refused, not written", async () => {
+  const mod = await import("../../src/app/api/render/[id]/route");
+  const req = new NextRequest("http://localhost/api/render/long-4?pos=0", { method: "POST", body: Buffer.from([1, 2, 3]), headers: { "x-chunk-length": "5" } });
+  const res = await (mod as any).POST(req, { params: Promise.resolve({ id: "long-4" }) });
+  expect(res.status).toBe(413);
+  expect(fs.existsSync(path.join(dir, "long-4.mp4.part"))).toBe(false);
+});

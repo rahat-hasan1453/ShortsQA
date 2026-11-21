@@ -25,6 +25,9 @@ export async function POST(request: NextRequest, { params }: Ctx) {
     return NextResponse.json({ ok: true, file: `output/${id}.mp4` });
   }
   const body = Buffer.from(await request.arrayBuffer());
+  // The sender states each chunk's size: a body cut short on the way (e.g. by a proxy size limit) must fail loudly, not leave a broken MP4.
+  const declared = request.headers.get("x-chunk-length");
+  if (declared !== null && Number(declared) !== body.length) return NextResponse.json({ error: `chunk arrived with ${body.length} of ${declared} bytes` }, { status: 413 });
   if (q.get("thumb")) { fs.writeFileSync(path.join(dir, `${id}.jpg`), body); return NextResponse.json({ ok: true }); }
   const pos = Number(q.get("pos"));
   if (!Number.isSafeInteger(pos) || pos < 0) return NextResponse.json({ error: "bad pos" }, { status: 400 });
