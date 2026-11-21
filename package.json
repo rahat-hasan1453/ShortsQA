@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run build:data && npm run check:assets && next build",
-    "start": "next start",
+    "start": "next start -p 3111",
     "lint": "eslint",
     "test": "vitest run",
     "test:browser": "playwright test",
