@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { exportVideo } from "@/engine/export/encoder";
+import { drawFrame } from "@/engine/render";
+import { frameSize } from "@/engine/render/layout";
 import { fileBase, metadataText, mixFor, prepare, type Prepared } from "../prepare";
 import { randomSeed, type Settings } from "./Controls";
 
@@ -9,6 +11,31 @@ function download(name: string, blob: Blob) {
   a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+}
+
+const post = async (url: string, body?: BodyInit) => {
+  const r = await fetch(url, { method: "POST", body });
+  if (!r.ok) throw new Error(`saving the video failed (${r.status})`);
+};
+
+/** Long videos: the MP4 streams to output/<id>.mp4 on this machine (too big to hold in memory), with a 1280x720 thumbnail beside it. */
+async function exportLong(p: Prepared, audio: AudioBuffer, signal: AbortSignal, onProgress: (x: number) => void): Promise<string> {
+  const id = fileBase(p), base = `/api/render/${id}`;
+  let started: Promise<void> = Promise.resolve();
+  await exportVideo({
+    timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress,
+    // The first chunk of an attempt clears any old file; every other chunk waits for it so the reset never lands late.
+    sink: (data, pos, fresh) => {
+      if (fresh) return (started = post(`${base}?pos=${pos}&reset=1`, data as BodyInit));
+      return started.then(() => post(`${base}?pos=${pos}`, data as BodyInit));
+    },
+  });
+  const { w, h } = frameSize("long"), big = new OffscreenCanvas(w, h), thumb = new OffscreenCanvas(1280, 720);
+  drawFrame(big.getContext("2d")!, p, Math.min(1.2, p.timeline.duration / 2));
+  thumb.getContext("2d")!.drawImage(big, 0, 0, 1280, 720);
+  await post(`${base}?thumb=1`, await thumb.convertToBlob({ type: "image/jpeg", quality: 0.9 }));
+  await post(`${base}?done=1`);
+  return base;
 }
 
 export default function ExportPanel({ prepared, settings, supported, busy, setBusy, background }: {
@@ -31,8 +58,14 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
 
   async function exportOne(p: Prepared, signal: AbortSignal, label: string) {
     const audio = await mixFor(p);
-    const blob = await exportVideo({ timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress: (x) => setProgress(x) });
-    download(`${fileBase(p)}.mp4`, blob);
+    if (p.spec.profile === "long") {
+      const url = await exportLong(p, audio, signal, (x) => setProgress(x));
+      const a = document.createElement("a"); a.href = url; a.download = `${fileBase(p)}.mp4`;
+      document.body.appendChild(a); a.click(); a.remove();
+    } else {
+      const blob = await exportVideo({ timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress: (x) => setProgress(x) });
+      download(`${fileBase(p)}.mp4`, blob);
+    }
     download(`${fileBase(p)}.txt`, new Blob([metadataText(p.metadata, p.spec)], { type: "text/plain" }));
     setMessage(`${label} done`);
   }

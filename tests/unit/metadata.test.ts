@@ -40,3 +40,26 @@ describe("buildMetadata", () => {
     expect(fillTemplate("a {level} quiz", s)).toBe("a impossible quiz");
   });
 });
+
+import { buildTimeline } from "../../src/engine/timeline";
+
+describe("long-video metadata", () => {
+  const long = buildQuiz({ countries, themes, voice, clipMs: clipMsRealistic, seed: "lv", profile: "long" });
+  const tl = buildTimeline(long, { clipMs: clipMsRealistic, voice });
+  const m = buildMetadata(long, titles, tl);
+  test("no #shorts, the question count in the title, and chapters that start at 0:00", () => {
+    expect(m.hashtags).not.toContain("#shorts");
+    expect(m.hashtags.length).toBeGreaterThan(0);
+    expect(m.title).not.toMatch(/\b10\b/);
+    expect(m.description).toMatch(/\nChapters:\n0:00 Easy\n/);
+    const stamps = [...m.description.matchAll(/^(\d+):(\d\d) (\w+)$/gm)].map((x) => [Number(x[1]) * 60 + Number(x[2]), x[3]] as const);
+    expect(stamps.map(([, l]) => l)).toEqual(["Easy", "Medium", "Hard", "Impossible", "Score"]);
+    for (let i = 1; i < stamps.length; i++) expect(stamps[i][0]).toBeGreaterThan(stamps[i - 1][0] + 9); // YouTube wants chapters >= 10 s apart
+  });
+  test("Shorts metadata is unchanged (keeps #shorts, no chapters)", () => {
+    const s = buildQuiz({ countries, themes, voice, clipMs: clipMsRealistic, seed: "lv" });
+    const sm = buildMetadata(s, titles, buildTimeline(s, { clipMs: clipMsRealistic, voice }));
+    expect(sm.hashtags).toContain("#shorts");
+    expect(sm.description).not.toContain("Chapters:");
+  });
+});

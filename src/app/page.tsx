@@ -24,7 +24,7 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"]  };
+    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"]  };
     const wanted = q.get("voice");
     // A voice whose clips were not generated yet would fail to prepare: fall back to the default and say so.
     if (wanted && wanted !== DEFAULT_VOICE_ID) {
@@ -35,6 +35,13 @@ export default function Page() {
     } else setSettings(initial);
     detectSupport().then(setSupport);
   }, []);
+
+  useEffect(() => { // keep ?shape= in the address so a reload (or a shared link) opens the same shape
+    if (!settings) return;
+    const u = new URL(window.location.href);
+    if (settings.shape === "long") u.searchParams.set("shape", "long"); else u.searchParams.delete("shape");
+    if (u.href !== window.location.href) window.history.replaceState(null, "", u);
+  }, [settings]);
 
   useEffect(() => {
     if (!settings) return;
@@ -89,7 +96,7 @@ export default function Page() {
 
       <main className="studio-stage">
         {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
-        <ShapeSwitch />
+        <ShapeSwitch value={settings.shape} disabled={busy} onChange={(shape) => setSettings({ ...settings, shape })} />
         <Preview prepared={view} getAudio={getAudio} />
         <p className="studio-meta">First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span className="studio-muted"> · template: {prepared.theme.name}</span>}</p>
         {prepared && <p className="studio-meta studio-muted">{prepared.metadata.hashtags.join(" ")}</p>}

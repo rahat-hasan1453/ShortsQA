@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { drawFrame } from "@/engine/render";
-import { H, W } from "@/engine/render/layout";
+import { frameSize } from "@/engine/render/layout";
 import type { Prepared } from "../prepare";
 
 export default function Preview({ prepared, getAudio }: { prepared: Prepared | null; getAudio: () => Promise<AudioBuffer> }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const size = frameSize(prepared?.spec.profile), wide = size.w > size.h;
   const [t, setT] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [safe, setSafe] = useState(false);
@@ -47,7 +48,7 @@ export default function Preview({ prepared, getAudio }: { prepared: Prepared | n
 
   return (
     <div style={{ position: "sticky", top: 12, alignSelf: "start", display: "grid", gap: 10, justifyItems: "center", width: "100%" }}>
-      <canvas ref={ref} width={W} height={H} style={{ aspectRatio: "9 / 16", height: "min(640px, calc(100vh - 150px))", width: "auto", background: "#222", borderRadius: 8 }} />
+      <canvas ref={ref} width={size.w} height={size.h} className={wide ? "is-wide" : undefined} style={{ aspectRatio: wide ? "16 / 9" : "9 / 16", height: "min(640px, calc(100vh - 150px))", width: "auto", background: "#222", borderRadius: 8 }} />
       <div style={{ display: "flex", gap: 12, alignItems: "center", width: "100%", maxWidth: 360 }}>
         <button type="button" aria-label={playing ? "Pause" : "Play"} disabled={!prepared} onClick={() => (playing ? stop() : play())}
           style={{ width: 56, height: 56, borderRadius: "50%", border: "none", background: prepared ? "#2563eb" : "#999", color: "#fff", fontSize: 24, cursor: "pointer", flexShrink: 0 }}>{playing ? "⏸" : "▶"}</button>

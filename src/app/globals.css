@@ -99,6 +99,7 @@ a {
 .studio-stage { grid-area: stage; overflow-y: auto; background: var(--stage); display: grid; align-content: start; justify-items: center; gap: 8px; padding: 20px 16px; min-width: 0; }
 /* Width-driven so the 9:16 preview always fits the column: as tall as the window allows, never wider than the stage. */
 .studio-stage canvas { width: min(100%, calc((100vh - 240px) * 9 / 16), 405px) !important; height: auto !important; }
+.studio-stage canvas.is-wide { width: min(100%, calc((100vh - 240px) * 16 / 9), 1100px) !important; }
 .studio-alerts { width: 100%; max-width: 560px; display: grid; gap: 4px; font-size: 14px; }
 .studio-meta { margin: 0; font-size: 13px; text-align: center; }
 

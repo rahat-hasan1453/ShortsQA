@@ -1,21 +1,25 @@
 "use client";
 
-/** Video shape above the preview. Only vertical Shorts render today; long 16:9 videos are phase 3 of the design. */
-export default function ShapeSwitch() {
-  const opt = (label: string, ratio: string, w: number, h: number, on: boolean, ready: boolean) => (
-    <button type="button" role="radio" aria-checked={on} aria-disabled={!ready} tabIndex={on ? 0 : -1}
-      title={ready ? undefined : "Long videos (6–8 min, 1920×1080) come in the next phase"}
-      className={`studio-shape${on ? " is-on" : ""}`} onClick={(e) => { if (!ready) e.preventDefault(); }}>
-      <span aria-hidden className="studio-shape-icon" style={{ width: w, height: h }} />
-      <span>{label}</span>
-      <span className="studio-muted">{ratio}</span>
-      {!ready && <span className="studio-badge">Soon</span>}
-    </button>
-  );
+type Shape = "short" | "long";
+
+/** Video shape above the preview: vertical Shorts (9:16) or a horizontal long video (16:9). */
+export default function ShapeSwitch({ value, onChange, disabled }: { value: Shape; onChange: (s: Shape) => void; disabled: boolean }) {
+  const opt = (shape: Shape, label: string, ratio: string, w: number, h: number) => {
+    const on = value === shape;
+    return (
+      <button type="button" role="radio" aria-checked={on} tabIndex={on ? 0 : -1} disabled={disabled}
+        className={`studio-shape${on ? " is-on" : ""}`} onClick={() => { if (!on) onChange(shape); }}
+        onKeyDown={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") onChange(shape === "short" ? "long" : "short"); }}>
+        <span aria-hidden className="studio-shape-icon" style={{ width: w, height: h }} />
+        <span>{label}</span>
+        <span className="studio-muted">{ratio}</span>
+      </button>
+    );
+  };
   return (
     <div role="radiogroup" aria-label="Video shape" className="studio-shapes">
-      {opt("Shorts", "9:16", 10, 16, true, true)}
-      {opt("Long", "16:9", 18, 10, false, false)}
+      {opt("short", "Shorts", "9:16", 10, 16)}
+      {opt("long", "Long", "16:9", 18, 10)}
     </div>
   );
 }

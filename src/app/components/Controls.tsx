@@ -4,7 +4,7 @@ import TemplateGallery from "./TemplateGallery";
 import FontPicker from "./FontPicker";
 import type { Prepared } from "../prepare";
 
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long" }
 
 export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
@@ -27,13 +27,15 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
   );
   return (
     <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
-      <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
-        <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
-          <option value="list">List 1-10 (recommended)</option>
-          <option value="options">Options A-D</option>
-          <option value="open">Open (just the name)</option>
-        </select>
-      </label>
+      {value.shape === "long"
+        ? <p style={{ margin: 0, fontSize: 13, color: "#888" }}>Long videos always use A–D options.</p>
+        : <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
+          <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
+            <option value="list">List 1-10 (recommended)</option>
+            <option value="options">Options A-D</option>
+            <option value="open">Open (just the name)</option>
+          </select>
+        </label>}
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
       <details style={{ borderTop: "1px solid #8883", paddingTop: 8 }}>
         <summary style={{ cursor: "pointer" }}>Advanced</summary>
