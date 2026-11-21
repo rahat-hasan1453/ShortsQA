@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Controls, { randomSeed, type Settings } from "./components/Controls";
 import ExportPanel from "./components/ExportPanel";
+import ThemeToggle from "./components/ThemeToggle";
+import ShapeSwitch from "./components/ShapeSwitch";
 import Preview from "./components/Preview";
 import { FORMATS } from "./formats";
 import { detectSupport, type Support } from "@/engine/export/support";
@@ -67,6 +69,7 @@ export default function Page() {
       <header className="studio-top">
         <div className="studio-brand"><span className="studio-logo" aria-hidden>Q</span><strong>Shorts Quiz Studio</strong></div>
         <div className="studio-title" title={prepared?.metadata.title}>{prepared?.metadata.title ?? "Preparing…"}</div>
+        <ThemeToggle />
         <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
       </header>
 
@@ -86,6 +89,7 @@ export default function Page() {
 
       <main className="studio-stage">
         {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
+        <ShapeSwitch />
         <Preview prepared={view} getAudio={getAudio} />
         <p className="studio-meta">First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span className="studio-muted"> · template: {prepared.theme.name}</span>}</p>
         {prepared && <p className="studio-meta studio-muted">{prepared.metadata.hashtags.join(" ")}</p>}

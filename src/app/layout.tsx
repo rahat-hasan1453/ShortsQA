@@ -19,7 +19,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Applies the saved light/dark choice before first paint (no flash); the system setting is used when none is saved. */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("sqa-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}` }} />
+      </head>
       <body>{children}</body>
     </html>
   );
