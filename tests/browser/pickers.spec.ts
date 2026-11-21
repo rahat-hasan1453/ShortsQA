@@ -44,3 +44,27 @@ test("rapid template clicks end on the last choice", async ({ page }) => {
   for (const n of [/Neon Night/, /Arctic Ice/, /Mono Bold/]) await g.getByRole("button", { name: n }).click();
   await expect(page.getByText("template: Mono Bold")).toBeVisible({ timeout: 60000 });
 });
+
+test("font search filters and each row is drawn in its own font", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  await page.getByRole("button", { name: /^Font:/ }).click();
+  const box = page.getByLabel("Search fonts");
+  await expect(box).toBeFocused();
+  await expect(page.getByRole("option", { name: "Template default" })).toBeVisible();
+  await box.fill("bebas");
+  await expect(page.getByRole("listbox").getByRole("option")).toHaveCount(1); // the page also has <select> options
+  const row = page.getByRole("option", { name: "Bebas Neue" });
+  expect(await row.evaluate((e) => getComputedStyle(e).fontFamily)).toContain("Bebas Neue");
+  await row.click();
+  await expect(page.getByRole("listbox")).toBeHidden();
+  await expect(page.getByRole("button", { name: "Font: Bebas Neue" })).toBeVisible();
+});
+
+test("font popover closes on Escape and lists the groups", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  await page.getByRole("button", { name: /^Font:/ }).click();
+  for (const g of ["Display", "Sans", "Serif", "Handwritten", "Mono"]) await expect(page.getByRole("group", { name: g })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("listbox")).toBeHidden();
+});

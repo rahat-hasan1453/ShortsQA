@@ -1,11 +1,8 @@
 "use client";
-import { themes } from "@/data";
-import { fontFamilies } from "@/engine/assetPaths";
 import VoicePicker from "./VoicePicker";
 import TemplateGallery from "./TemplateGallery";
+import FontPicker from "./FontPicker";
 import type { Prepared } from "../prepare";
-
-const FAMILIES = fontFamilies(themes);
 
 export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string }
 
@@ -28,12 +25,7 @@ export default function Controls({ value, onChange, disabled, hasBackground, onB
       </label>
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
       <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
-      <label style={LABEL}>Font <small style={HINT}>shob text er font</small>
-        <select value={value.font} onChange={(e) => set({ font: e.target.value })} style={FIELD}>
-          <option value="theme">Template default</option>
-          {FAMILIES.map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
-      </label>
+      <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
       <label style={LABEL}>Background image <small style={HINT}>nijer pochonder chobi (optional)</small>
         <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
       </label>

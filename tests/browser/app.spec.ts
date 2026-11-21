@@ -93,7 +93,9 @@ test("choosing a font changes how the frame is drawn and reports no font warning
   await page.waitForTimeout(500);
   const url = () => page.evaluate(() => (document.querySelector("canvas") as HTMLCanvasElement).toDataURL());
   const before = await url();
-  await page.getByLabel("Font").selectOption("Press Start 2P");
+  await page.getByRole("button", { name: /^Font:/ }).click();
+  await page.getByLabel("Search fonts").fill("press");
+  await page.getByRole("option", { name: "Press Start 2P" }).click();
   await expect.poll(async () => (await url()) !== before, { timeout: 20000 }).toBe(true);
   await expect(page.getByText("failed to load")).toHaveCount(0);
 });

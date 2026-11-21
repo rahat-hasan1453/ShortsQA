@@ -44,20 +44,36 @@ async function fakeFlag(real: ImageBitmap, hue: number): Promise<ImageBitmap> {
 
 let shapeFile: Promise<Record<string, { d: string; w: number; h: number }>> | null = null;
 
+const fontLoads = new Map<string, Promise<boolean>>();
+
+/** Registers one family's 400 (required) and 700 (optional) faces with the document, once per family; false if the 400 file is missing. */
+export function ensureFont(family: string): Promise<boolean> {
+  if (!fontLoads.has(family)) {
+    fontLoads.set(family, (async () => {
+      try {
+        for (const [url, weight] of [[fontFile(family), "400"], [fontFileBold(family), "700"]] as const) {
+          const res = await fetch(url);
+          if (!res.ok) { if (weight === "400") throw new Error(String(res.status)); continue; }
+          const face = new FontFace(family, await res.arrayBuffer(), { weight });
+          await face.load();
+          document.fonts.add(face);
+        }
+        return true;
+      } catch {
+        fontLoads.delete(family); // a later call may retry
+        return false;
+      }
+    })());
+  }
+  return fontLoads.get(family)!;
+}
+
 /** Registers a theme's fonts with the document; missing files fall back with a warning. */
 export async function loadThemeFonts(theme: Theme): Promise<{ ok: boolean; warnings: string[] }> {
   const warnings: string[] = [];
   let ok = true;
   for (const family of new Set(Object.values(theme.fonts))) {
-    try {
-      for (const [url, weight] of [[fontFile(family), "400"], [fontFileBold(family), "700"]] as const) {
-        const res = await fetch(url);
-        if (!res.ok) { if (weight === "400") throw new Error(String(res.status)); continue; }
-        const face = new FontFace(family, await res.arrayBuffer(), { weight });
-        await face.load();
-        document.fonts.add(face);
-      }
-    } catch {
+    if (!(await ensureFont(family))) {
       ok = false;
       warnings.push(`Font "${family}" (${fontSlug(family)}) failed to load; using a fallback font.`);
     }
