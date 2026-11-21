@@ -10,8 +10,9 @@ tools/tts/.venv/
 
 .env.cartesia
 .env*.local
-tools/tts/.venv-kokoro/
+tools/tts/.venv-kokoro
 
 tests/browser/.auth.json
 studio-data/
 output/
+tsconfig.tsbuildinfo
