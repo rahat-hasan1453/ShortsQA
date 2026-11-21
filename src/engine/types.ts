@@ -44,6 +44,9 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
+/** "short" = vertical 1080x1920 Shorts (10 questions, <= 59 s); "long" = 1920x1080 long-form (about 40 questions, <= 8.5 min). */
+export type Profile = "short" | "long";
+
 export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape";
 
 export type PictureEffect = "zoom" | "blur" | "pixel";
@@ -93,6 +96,8 @@ export interface QuizSpec {
   format: "flags-rapid";
   /** Which quiz this is; absent means flags. */
   quiz?: QuizKind;
+  /** Absent means "short". */
+  profile?: Profile;
   seed: string;
   themeId: string;
   part: number;
@@ -111,7 +116,7 @@ export type Cue =
   | { at: number; kind: "tick" | "heartbeat" | "chime" | "whoosh" };
 
 export interface Scene {
-  kind: "hook" | "diffUp" | "timer" | "reveal" | "outro";
+  kind: "hook" | "diffUp" | "timer" | "reveal" | "score" | "outro";
   /** Reveal scenes with a fun fact: the time at which the fact panel replaces the answer list. */
   factAt?: number;
   start: number;
