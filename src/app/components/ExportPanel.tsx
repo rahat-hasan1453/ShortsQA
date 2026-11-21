@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { exportVideo } from "@/engine/export/encoder";
 import { drawFrame } from "@/engine/render";
 import { frameSize } from "@/engine/render/layout";
-import { fileBase, metadataText, mixFor, prepare, type Prepared } from "../prepare";
+import { fileBase, metadataText, mixFor, prepare, renderId, type Prepared } from "../prepare";
 import { randomSeed, type Settings } from "./Controls";
 
 function download(name: string, blob: Blob) {
@@ -20,7 +20,7 @@ const post = async (url: string, body?: BodyInit, size?: number) => {
 
 /** Long videos: the MP4 streams to output/<id>.mp4 on this machine (too big to hold in memory), with a 1280x720 thumbnail beside it. */
 async function exportLong(p: Prepared, audio: AudioBuffer, signal: AbortSignal, onProgress: (x: number) => void): Promise<string> {
-  const id = fileBase(p), base = `/api/render/${id}`;
+  const id = renderId(p), base = `/api/render/${id}`;
   let started: Promise<void> = Promise.resolve();
   await exportVideo({
     timeline: p.timeline, theme: p.theme, assets: p.assets, audio, signal, onProgress,

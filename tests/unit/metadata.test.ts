@@ -63,3 +63,13 @@ describe("long-video metadata", () => {
     expect(sm.description).not.toContain("Chapters:");
   });
 });
+
+describe("long-video wording", () => {
+  test("200 seeds: no long title, description or pinned comment talks about Shorts or one minute", () => {
+    for (let i = 0; i < 200; i++) {
+      const s = buildQuiz({ countries, themes, voice, clipMs: clipMsRealistic, seed: "w" + i, part: 1 + (i % 5), profile: "long" });
+      const m = buildMetadata(s, titles);
+      for (const f of [m.title, m.description, m.pinnedComment]) expect(f, f).not.toMatch(/shorts|60 seconds|sixty seconds|under a minute|one minute|1 minute/i);
+    }
+  });
+});

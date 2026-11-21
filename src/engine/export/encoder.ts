@@ -19,6 +19,9 @@ export interface ExportOptions {
   sink?: (data: Uint8Array, position: number, fresh: boolean) => Promise<void>;
 }
 
+/** Saving a streamed chunk failed (server refused it, session expired, server gone): retrying the encode cannot help. */
+export class SinkError extends Error { name = "SinkError"; }
+
 export const FPS = 30;
 /** Bytes per streamed chunk: the Next proxy silently cuts request bodies above 10 MB, so stay far below it. */
 export const STREAM_CHUNK = 4 * 1024 * 1024;
@@ -46,6 +49,7 @@ export async function exportVideo(o: ExportOptions): Promise<Blob | null> {
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") throw e;
       if (e instanceof AssetError || e instanceof DurationError) throw e;
+      if (e instanceof SinkError) throw new Error(`saving the video failed (seed ${o.timeline.spec.seed}): ${e.message}`);
       try {
         return await run(o, 0.5);
       } catch (e2) {
@@ -66,7 +70,7 @@ async function run(o: ExportOptions, bitrateScale: number): Promise<Blob | null>
   const writes: Promise<void>[] = [];
   let sinkError: unknown = null, fresh = true; // fresh: the first chunk of this attempt (a retry must not append to a failed file)
   const target = o.sink
-    ? new StreamTarget({ chunked: true, chunkSize: STREAM_CHUNK, onData: (data, position) => { writes.push(o.sink!(data.slice(), position, fresh).catch((e) => { sinkError = e; })); fresh = false; } })
+    ? new StreamTarget({ chunked: true, chunkSize: STREAM_CHUNK, onData: (data, position) => { writes.push(o.sink!(data.slice(), position, fresh).catch((e) => { sinkError ??= new SinkError(e instanceof Error ? e.message : String(e)); })); fresh = false; } })
     : new ArrayBufferTarget();
   const flushWrites = async () => { await Promise.all(writes.splice(0)); if (sinkError) throw sinkError; };
   const muxer = new Muxer({
@@ -114,5 +118,6 @@ async function run(o: ExportOptions, bitrateScale: number): Promise<Blob | null>
   } finally {
     if (venc.state !== "closed") venc.close();
     if (aenc.state !== "closed") aenc.close();
+    await Promise.allSettled(writes.splice(0)); // no save of this attempt may land after it ends (cancel, failure or retry)
   }
 }

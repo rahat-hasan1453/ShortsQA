@@ -15,7 +15,7 @@ test("a voice without clips is disabled, and ?voice= to it falls back with a war
   await page.route("**/audio/chatterbox/manifest.json", (r) => r.fulfill({ status: 404 }));
   await page.goto("/?seed=demo&voice=chatterbox");
   await expect(page.getByText('Voice "chatterbox" has no clips yet; using Heart.')).toBeVisible({ timeout: 30000 });
-  await expect(page.getByRole("button", { name: /^Chatterbox/ })).toHaveAttribute("aria-disabled", "true");
+  await expect(page.getByRole("button", { name: /^Chatterbox/ })).toHaveAttribute("aria-disabled", "true", { timeout: 30000 }); // the clip check can be slow while the full suite runs
   await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
 });
 

@@ -34,3 +34,11 @@ test("cancelling a long export leaves no finished file and Export works again", 
   await expect(page.getByRole("status")).toHaveText("Cancelled");
   expect((await page.request.get("/api/render/long-flags-part1-cancel-long")).status()).toBe(404);
 });
+
+test("a failed save stops the long export at once (no second, half-bitrate encode)", async ({ page }) => {
+  await page.goto("/debug/frame?seed=demo");
+  await expect(page.getByTestId("ready")).toHaveText("ready", { timeout: 60000 });
+  const r = await page.evaluate(() => (window as any).__debug.longSinkFailure());
+  expect(r.attempts, JSON.stringify(r)).toBe(1);
+  expect(r.error).toContain("save failed (413)");
+});

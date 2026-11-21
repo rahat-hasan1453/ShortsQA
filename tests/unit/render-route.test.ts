@@ -49,3 +49,10 @@ test("a chunk cut short on the way (body smaller than its declared length) is re
   expect(res.status).toBe(413);
   expect(fs.existsSync(path.join(dir, "long-4.mp4.part"))).toBe(false);
 });
+
+test("starting a new export of the same id keeps the finished video until the new one is done", async () => {
+  await call("POST", "long-5", "?pos=0", new Uint8Array([1, 1]));
+  await call("POST", "long-5", "?done=1");
+  await call("POST", "long-5", "?pos=0&reset=1", new Uint8Array([2])); // new attempt, then cancelled
+  expect([...fs.readFileSync(path.join(dir, "long-5.mp4"))]).toEqual([1, 1]);
+});

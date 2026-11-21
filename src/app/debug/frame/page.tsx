@@ -153,6 +153,22 @@ export default function DebugFrame() {
         const ac = new AbortController(); ac.abort();
         try { await exportVideo({ ...o, timeline, signal: ac.signal }); return "no error"; } catch (e) { return errName(e); }
       },
+      /** A long export whose save fails must stop with that error, not re-encode the whole video at half bitrate. */
+      longSinkFailure: async () => {
+        const clips = makeClipIndex(await (manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json())), "af_heart");
+        const theme = themes.find((t) => t.id === "game-show")!;
+        const spec = buildQuiz({ seed: "demo", themeId: theme.id, profile: "long", countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
+        const full = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
+        const timeline = { ...full, duration: 3 }; // a few seconds is enough to reach the first save
+        const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 ? [q.iso2] : [])));
+        const audio = new AudioBuffer({ length: 48000 * 3, numberOfChannels: 2, sampleRate: 48000 });
+        const o = { timeline, theme, assets, audio };
+        let attempts = 0;
+        try {
+          await exportVideo({ ...o, timeline, sink: async (_d, _p, fresh) => { if (fresh) attempts++; throw new Error("save failed (413)"); } });
+          return { error: "none", attempts };
+        } catch (e) { return { error: e instanceof Error ? e.message : String(e), attempts }; }
+      },
       audioStats: async (themeId: string, seed: string) => {
         const p = await prepare(themeId, seed);
         const clips = makeClipIndex(await manifestP!, "af_heart");

@@ -47,9 +47,16 @@ export async function mixFor(p: Prepared): Promise<AudioBuffer> {
   return mixAudio(p.timeline, buffers, p.theme);
 }
 
-/** File name (and render id): lowercase letters, digits and dashes only; long videos start with "long-". */
-export const fileBase = (p: Prepared) =>
-  `${p.spec.profile === "long" ? "long-" : ""}${p.spec.quiz ?? "flags"}-part${p.spec.part}-${p.spec.seed}`.toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 80);
+export const fileBase = (p: Prepared) => `${p.spec.profile === "long" ? "long-" : ""}${p.spec.quiz ?? "flags"}-part${p.spec.part}-${p.spec.seed}`;
+
+/** Server-side id of a streamed render: [a-z0-9-] only; a seed that needed changing gets a short hash so "a b" and "a-b" never share a file. */
+export function renderId(p: Pick<Prepared, "spec">): string {
+  const raw = fileBase(p as Prepared), safe = raw.toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 70);
+  if (safe === raw) return safe;
+  let h = 0;
+  for (const ch of raw) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return `${safe}-${h.toString(36)}`;
+}
 /** Photo credits (required by the CC licences) for the landmark photos used in a quiz. */
 export const photoCredits = (spec: QuizSpec): string =>
   spec.questions.filter((q) => q.image && (landmarkCredits[q.image] ?? pictureCredits[q.image])).map((q) => { const c = (landmarkCredits[q.image!] ?? pictureCredits[q.image!]); return `${q.prompt ?? q.name}: ${c.author}, ${c.license} (${c.source})`; }).join("\n");

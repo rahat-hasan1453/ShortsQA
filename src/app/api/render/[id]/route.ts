@@ -31,7 +31,7 @@ export async function POST(request: NextRequest, { params }: Ctx) {
   if (q.get("thumb")) { fs.writeFileSync(path.join(dir, `${id}.jpg`), body); return NextResponse.json({ ok: true }); }
   const pos = Number(q.get("pos"));
   if (!Number.isSafeInteger(pos) || pos < 0) return NextResponse.json({ error: "bad pos" }, { status: 400 });
-  if (q.get("reset")) { fs.rmSync(part, { force: true }); fs.rmSync(path.join(dir, `${id}.mp4`), { force: true }); }
+  if (q.get("reset")) fs.rmSync(part, { force: true }); // a finished <id>.mp4 stays until "done" replaces it, so a cancelled re-export loses nothing
   const fd = fs.openSync(part, fs.existsSync(part) ? "r+" : "w");
   try { fs.writeSync(fd, body, 0, body.length, pos); } finally { fs.closeSync(fd); }
   return NextResponse.json({ ok: true });
