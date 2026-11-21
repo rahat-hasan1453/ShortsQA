@@ -10,12 +10,23 @@ export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
 }
 
-export default function Controls({ value, onChange, disabled, hasBackground, onBackground, prepared }: {
-  value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void; prepared: Prepared | null;
+/** "content" = what the quiz says (left panel); "style" = how it looks (right panel). */
+export default function Controls({ section, value, onChange, disabled, hasBackground, onBackground, prepared }: {
+  section: "content" | "style"; value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void; prepared: Prepared | null;
 }) {
   const set = (p: Partial<Settings>) => onChange({ ...value, ...p });
+  if (section === "style") return (
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
+      <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
+      <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
+      <label style={LABEL}>Background image <small style={HINT}>nijer pochonder chobi (optional)</small>
+        <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
+      </label>
+      {hasBackground && <button type="button" onClick={() => onBackground(null)}>Clear background</button>}
+    </fieldset>
+  );
   return (
-    <fieldset disabled={disabled} style={{ display: "grid", gap: 12, border: "none", padding: 0, margin: 0 }}>
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
       <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
         <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
           <option value="list">List 1-10 (recommended)</option>
@@ -24,12 +35,6 @@ export default function Controls({ value, onChange, disabled, hasBackground, onB
         </select>
       </label>
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
-      <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
-      <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
-      <label style={LABEL}>Background image <small style={HINT}>nijer pochonder chobi (optional)</small>
-        <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
-      </label>
-      {hasBackground && <button type="button" onClick={() => onBackground(null)}>Clear background</button>}
       <details style={{ borderTop: "1px solid #8883", paddingTop: 8 }}>
         <summary style={{ cursor: "pointer" }}>Advanced</summary>
         <div style={{ display: "grid", gap: 10, paddingTop: 10 }}>

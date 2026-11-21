@@ -65,7 +65,7 @@ export default function TemplateGallery({ prepared, value, onChange, disabled }:
             style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid #8886", background: filter === tag ? "#2563eb" : "transparent", color: filter === tag ? "#fff" : "inherit", cursor: "pointer", fontSize: 13 }}>{tag}</button>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8, maxHeight: 520, overflowY: "auto", paddingRight: 4 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8 }}>
         {filter === "All" && (
           <button type="button" data-theme-card="random" aria-pressed={value === "random"} disabled={disabled} onClick={() => onChange("random")} style={card(value === "random")}>
             <div style={{ aspectRatio: "9 / 16", borderRadius: 6, display: "grid", placeItems: "center", fontSize: 32, background: "linear-gradient(135deg,#2563eb33,#db277733)" }}>🎲</div>

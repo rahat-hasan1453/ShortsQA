@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { exportVideo } from "@/engine/export/encoder";
 import { fileBase, metadataText, mixFor, prepare, type Prepared } from "../prepare";
 import { randomSeed, type Settings } from "./Controls";
@@ -17,6 +17,16 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
   const [batch, setBatch] = useState(3);
+  const [menu, setMenu] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!menu) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    const onDown = (e: MouseEvent) => { if (!box.current?.contains(e.target as Node)) setMenu(false); };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onDown);
+    return () => { document.removeEventListener("keydown", onKey); document.removeEventListener("mousedown", onDown); };
+  }, [menu]);
   const abort = useRef<AbortController | null>(null);
 
   async function exportOne(p: Prepared, signal: AbortSignal, label: string) {
@@ -35,30 +45,33 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
     finally { setBusy(false); abort.current = null; }
   }
 
+  const ready = supported && !!prepared && !busy;
   return (
-    <div style={{ display: "grid", gap: 10 }}>
-      <div style={{ display: "flex", gap: 8 }}>
-        <button type="button" disabled={!supported || !prepared || busy} onClick={() => run((s) => exportOne(prepared!, s, "Export"))}
-          style={{ flex: 1, padding: "14px 16px", fontSize: 18, fontWeight: 700, borderRadius: 10, border: "none", background: !supported || !prepared || busy ? "#bbb" : "#2563eb", color: "#fff", cursor: "pointer" }}>Export MP4</button>
-        {busy && <button type="button" onClick={() => abort.current?.abort()}>Cancel</button>}
+    <div className="studio-export" ref={box}>
+      <div role="status" className="studio-status">{message}</div>
+      {busy && <progress value={progress} max={1} className="studio-progress" />}
+      {busy && <button type="button" className="studio-btn" onClick={() => abort.current?.abort()}>Cancel</button>}
+      <div className="studio-split">
+        <button type="button" className="studio-btn studio-primary" disabled={!ready} onClick={() => run((s) => exportOne(prepared!, s, "Export"))}>Export MP4</button>
+        <button type="button" className="studio-btn studio-primary studio-caret" aria-label="More export options" aria-expanded={menu} disabled={busy} onClick={() => setMenu((m) => !m)}>▾</button>
       </div>
-      {busy && <progress value={progress} max={1} style={{ width: "100%" }} />}
-      <div role="status">{message}</div>
-      <small style={{ color: "#777" }}>Ekta .mp4 video ar ekta .txt (title, description, hashtag) download hobe.</small>
-      <details>
-        <summary style={{ cursor: "pointer" }}>Make several videos at once</summary>
-        <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 8 }}>
-          <label>How many <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
-          <button type="button" disabled={!supported || busy} onClick={() => run(async (signal) => {
-            for (let i = 0; i < batch; i++) {
-              const fresh = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
-              const p = { ...fresh, assets: { ...fresh.assets, background } };
-              await exportOne(p, signal, `Video ${i + 1}/${batch}`);
-            }
-          })}>Export batch</button>
+      {menu && (
+        <div className="studio-menu" role="dialog" aria-label="Export options">
+          <small className="studio-muted">Ekta .mp4 video ar ekta .txt (title, description, hashtag) download hobe.</small>
+          <strong style={{ fontSize: 14 }}>Make several videos at once</strong>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <label>How many <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
+            <button type="button" className="studio-btn" disabled={!supported || busy} onClick={() => { setMenu(false); run(async (signal) => {
+              for (let i = 0; i < batch; i++) {
+                const fresh = await prepare({ ...settings, seed: randomSeed(), part: Math.min(99, settings.part + i), themeId: "random" });
+                const p = { ...fresh, assets: { ...fresh.assets, background } };
+                await exportOne(p, signal, `Video ${i + 1}/${batch}`);
+              }
+            }); }}>Export batch</button>
+          </div>
+          <small className="studio-muted">Prottek video te notun seed, template ar part number. Browser multiple download er permission chaite pare.</small>
         </div>
-        <small style={{ color: "#777" }}>Prottek video te notun seed, template ar part number. Browser multiple download er permission chaite pare.</small>
-      </details>
+      )}
     </div>
   );
 }

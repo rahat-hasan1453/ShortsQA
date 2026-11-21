@@ -100,14 +100,23 @@ test("choosing a font changes how the frame is drawn and reports no font warning
   await expect(page.getByText("failed to load")).toHaveCount(0);
 });
 
-test("simple layout: 3 numbered steps, format cards (all eight enabled), advanced options hidden by default", async ({ page }) => {
+test("editor layout: Quiz panel left, preview centre, Style panel right, Export top right; advanced hidden", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/?seed=demo&theme=arctic-ice");
-  await expect(page.getByRole("heading", { name: "1. Choose a quiz type" })).toBeVisible({ timeout: 60000 });
-  await expect(page.getByRole("heading", { name: "2. Pick a style" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "3. Make the video" })).toBeVisible();
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  const left = (await page.getByRole("complementary", { name: "Quiz settings" }).boundingBox())!;
+  const right = (await page.getByRole("complementary", { name: "Style settings" }).boundingBox())!;
+  const canvas = (await page.locator("canvas").boundingBox())!;
+  const exportBtn = (await page.getByRole("button", { name: "Export MP4" }).boundingBox())!;
+  expect(left.x + left.width).toBeLessThanOrEqual(canvas.x);
+  expect(canvas.x + canvas.width).toBeLessThanOrEqual(right.x);
+  expect(exportBtn.y).toBeLessThan(canvas.y);
+  expect(exportBtn.x).toBeGreaterThan(1440 - 260);
+  await expect(page.getByRole("complementary", { name: "Quiz settings" }).getByRole("group", { name: "Voice" })).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Style settings" }).getByRole("group", { name: "Template" })).toBeVisible();
   await expect(page.getByRole("button", { name: /^Flags/ })).toHaveAttribute("aria-pressed", "true");
-  for (const name of ["Capitals", "Landmarks", "What is it?", "Real or Fake flag", "Country shape", "Math", "Missing letters"]) {
-    await expect(page.getByRole("button", { name: new RegExp(`^${name}`) })).toBeEnabled();
+  for (const name of ["Flags", "Capitals", "Landmarks", "What is it?", "Real or Fake flag", "Country shape", "Math", "Missing letters"]) {
+    await expect(page.getByRole("button", { name: new RegExp(`^${name.replace("?", "\\?")}`) })).toBeEnabled();
   }
   const adv = page.locator("details", { hasText: "Advanced" });
   await expect(adv).not.toHaveAttribute("open", "");
@@ -129,4 +138,23 @@ test("Play controls sit right under the video (no big gap) and stay in view when
   expect(after!.y).toBeGreaterThan(0);
   expect(after!.y + after!.height).toBeLessThan(600);
   expect(after!.width).toBeGreaterThanOrEqual(48);
+});
+
+test("export menu opens from the top bar, offers batch export, and closes on Escape", async ({ page }) => {
+  await page.goto("/?seed=demo");
+  await page.getByRole("button", { name: "More export options" }).click();
+  const menu = page.getByRole("dialog", { name: "Export options" });
+  await expect(menu.getByRole("button", { name: "Export batch" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeHidden();
+});
+
+test("narrow screens stack the preview above the settings without sideways scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?seed=demo");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  const canvas = (await page.locator("canvas").boundingBox())!;
+  const left = (await page.getByRole("complementary", { name: "Quiz settings" }).boundingBox())!;
+  expect(canvas.y).toBeLessThan(left.y);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });

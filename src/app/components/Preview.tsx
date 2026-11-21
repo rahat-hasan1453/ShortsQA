@@ -46,7 +46,7 @@ export default function Preview({ prepared, getAudio }: { prepared: Prepared | n
   }
 
   return (
-    <div style={{ position: "sticky", top: 12, alignSelf: "start", display: "grid", gap: 10, justifyItems: "center" }}>
+    <div style={{ position: "sticky", top: 12, alignSelf: "start", display: "grid", gap: 10, justifyItems: "center", width: "100%" }}>
       <canvas ref={ref} width={W} height={H} style={{ aspectRatio: "9 / 16", height: "min(640px, calc(100vh - 150px))", width: "auto", background: "#222", borderRadius: 8 }} />
       <div style={{ display: "flex", gap: 12, alignItems: "center", width: "100%", maxWidth: 360 }}>
         <button type="button" aria-label={playing ? "Pause" : "Play"} disabled={!prepared} onClick={() => (playing ? stop() : play())}

@@ -47,3 +47,73 @@ a {
     color-scheme: dark;
   }
 }
+
+/* ---------- Studio editor shell: top bar, Quiz panel | preview | Style panel ---------- */
+:root {
+  --panel: #f6f7f9;
+  --stage: #eceef2;
+  --line: #0000001a;
+  --muted: #6b7280;
+  --accent: #4f46e5;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --panel: #14161b; --stage: #0b0c10; --line: #ffffff17; --muted: #9aa0aa; --accent: #6d64ff; }
+}
+
+.studio {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: grid;
+  grid-template-columns: clamp(240px, 22vw, 330px) minmax(0, 1fr) clamp(260px, 26vw, 380px);
+  grid-template-rows: 56px minmax(0, 1fr);
+  grid-template-areas: "top top top" "left stage right";
+  height: 100vh;
+}
+.studio-top {
+  grid-area: top;
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  position: relative; z-index: 30;
+}
+.studio-brand { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 15px; }
+.studio-logo { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--accent), #db2777); }
+.studio-title { flex: 1; min-width: 0; text-align: center; font-size: 14px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.studio-panel { overflow-y: auto; padding: 16px; display: grid; align-content: start; gap: 16px; background: var(--panel); min-width: 0; }
+.studio-left { grid-area: left; border-right: 1px solid var(--line); }
+.studio-right { grid-area: right; border-left: 1px solid var(--line); }
+.studio-h { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.studio-muted { color: var(--muted); font-size: 12px; }
+
+.studio-formats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.studio-card { display: grid; gap: 2px; text-align: left; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; font: inherit; font-size: 14px; }
+.studio-card[aria-pressed="true"] { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); padding: 9px; }
+.studio-card:disabled { opacity: .55; cursor: not-allowed; }
+
+.studio-stage { grid-area: stage; overflow-y: auto; background: var(--stage); display: grid; align-content: start; justify-items: center; gap: 8px; padding: 20px 16px; min-width: 0; }
+/* Width-driven so the 9:16 preview always fits the column: as tall as the window allows, never wider than the stage. */
+.studio-stage canvas { width: min(100%, calc((100vh - 190px) * 9 / 16), 405px) !important; height: auto !important; }
+.studio-alerts { width: 100%; max-width: 560px; display: grid; gap: 4px; font-size: 14px; }
+.studio-meta { margin: 0; font-size: 13px; text-align: center; }
+
+.studio-export { display: flex; align-items: center; gap: 8px; position: relative; white-space: nowrap; }
+.studio-status { font-size: 13px; color: var(--muted); max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+.studio-progress { width: 120px; }
+.studio-btn { height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: inherit; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.studio-btn:disabled { opacity: .5; cursor: not-allowed; }
+.studio-primary { background: var(--accent); border-color: transparent; color: #fff; }
+.studio-split { display: flex; }
+.studio-split .studio-primary:first-child { border-radius: 8px 0 0 8px; }
+.studio-caret { border-radius: 0 8px 8px 0 !important; padding: 0 10px; border-left: 1px solid #ffffff40 !important; }
+.studio-menu { position: absolute; top: calc(100% + 8px); right: 0; width: 320px; white-space: normal; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); box-shadow: 0 16px 40px #0003; display: grid; gap: 10px; }
+
+/* Narrow screens: one column, preview first, panels below; the page scrolls. */
+@media (max-width: 900px) {
+  .studio { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "top" "stage" "left" "right"; height: auto; }
+  .studio-top { position: sticky; top: 0; flex-wrap: wrap; padding: 8px 16px; }
+  .studio-title { display: none; }
+  .studio-stage, .studio-panel { overflow: visible; }
+  .studio-left, .studio-right { border: none; border-top: 1px solid var(--line); }
+  .studio-stage canvas { width: min(100%, calc(70vh * 9 / 16), 360px) !important; }
+}

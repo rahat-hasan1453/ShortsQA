@@ -56,37 +56,45 @@ export default function Page() {
 
   if (!settings) return null;
   const warnings = prepared?.assets.warnings ?? [];
-  const H2: React.CSSProperties = { margin: "8px 0 0", fontSize: 18 };
+  const alerts = [
+    ...(support && !support.ok ? [{ text: support.reason, bad: true }] : []),
+    ...(error ? [{ text: error, bad: true }] : []),
+    ...(voiceWarning ? [{ text: voiceWarning, bad: false }] : []),
+    ...warnings.map((w) => ({ text: w, bad: false })),
+  ];
   return (
-    <main style={{ maxWidth: 1000, margin: "0 auto", padding: 16, display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", fontFamily: "system-ui, sans-serif" }}>
-      <section style={{ display: "grid", gap: 14, alignContent: "start" }}>
-        <h1 style={{ margin: 0 }}>Shorts Quiz Maker</h1>
-        {support && !support.ok && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{support.reason}</p>}
-        {error && <p role="alert" style={{ color: "#b00020", margin: 0 }}>{error}</p>}
-        {voiceWarning && <p role="alert" style={{ color: "#a15c00", margin: 0 }}>{voiceWarning}</p>}
-        {warnings.map((w) => <p key={w} role="alert" style={{ color: "#a15c00", margin: 0 }}>{w}</p>)}
+    <div className="studio">
+      <header className="studio-top">
+        <div className="studio-brand"><span className="studio-logo" aria-hidden>Q</span><strong>Shorts Quiz Studio</strong></div>
+        <div className="studio-title" title={prepared?.metadata.title}>{prepared?.metadata.title ?? "Preparing…"}</div>
+        <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
+      </header>
 
-        <h2 style={H2}>1. Choose a quiz type</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
+      <aside className="studio-panel studio-left" aria-label="Quiz settings">
+        <h2 className="studio-h">Quiz</h2>
+        <div role="group" aria-label="Quiz type" className="studio-formats">
           {FORMATS.map((f) => (
-            <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format}
-              onClick={() => setSettings({ ...settings, format: f.id as Settings["format"] })}
-              style={{ textAlign: "left", padding: 10, borderRadius: 10, border: f.id === settings.format ? "2px solid #2563eb" : "1px solid #8884", background: f.id === settings.format ? "#2563eb14" : "transparent", opacity: f.ready ? 1 : 0.55, cursor: f.ready ? "pointer" : "not-allowed" }}>
+            <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format} className="studio-card"
+              onClick={() => setSettings({ ...settings, format: f.id as Settings["format"] })}>
               <strong>{f.name}</strong>{!f.ready && <span style={{ fontSize: 12, marginLeft: 6 }}>Coming soon</span>}
-              <div style={{ fontSize: 12, color: "#777" }}>{f.blurb}</div>
+              <span className="studio-muted">{f.blurb}</span>
             </button>
           ))}
         </div>
-        <p style={{ margin: 0, fontSize: 14 }}>First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span style={{ color: "#777" }}> · template: {prepared.theme.name}</span>}</p>
+        <Controls section="content" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
+      </aside>
 
-        <h2 style={H2}>2. Pick a style</h2>
-        <Controls value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
+      <main className="studio-stage">
+        {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
+        <Preview prepared={view} getAudio={getAudio} />
+        <p className="studio-meta">First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span className="studio-muted"> · template: {prepared.theme.name}</span>}</p>
+        {prepared && <p className="studio-meta studio-muted">{prepared.metadata.hashtags.join(" ")}</p>}
+      </main>
 
-        <h2 style={H2}>3. Make the video</h2>
-        {prepared && <div><strong>{prepared.metadata.title}</strong><div style={{ fontSize: 13, color: "#777" }}>{prepared.metadata.hashtags.join(" ")}</div></div>}
-        <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
-      </section>
-      <Preview prepared={view} getAudio={getAudio} />
-    </main>
+      <aside className="studio-panel studio-right" aria-label="Style settings">
+        <h2 className="studio-h">Style</h2>
+        <Controls section="style" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
+      </aside>
+    </div>
   );
 }
