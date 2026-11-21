@@ -27,32 +27,32 @@ test("frame size follows the profile", () => {
   expect(maxDuration("short")).toBe(59);
   expect(maxDuration("long")).toBe(510);
   expect(bandCounts("short").map(([, n]) => n)).toEqual([3, 3, 3, 1]);
-  expect(bandCounts("long").map(([, n]) => n)).toEqual([13, 11, 10, 6]);
+  expect(bandCounts("long").map(([, n]) => n)).toEqual([10, 8, 7, 5]);
 });
 
 describe("long builds", () => {
-  for (const quiz of KINDS) test(`${quiz}: 24-40 options questions, 3-8.5 min, every spoken text has a clip`, () => {
+  for (const quiz of KINDS) test(`${quiz}: 24-30 options questions, 2.5-8.5 min, every spoken text has a clip`, () => {
     for (const seed of ["a", "b", "c"]) {
       const { spec, timeline } = build(quiz, `${quiz}-${seed}`);
       expect(spec.profile).toBe("long");
       expect(spec.answerStyle).toBe("options");
       expect(spec.questions.length).toBeGreaterThanOrEqual(24);
-      expect(spec.questions.length).toBeLessThanOrEqual(40);
+      expect(spec.questions.length).toBeLessThanOrEqual(30);
       expect(new Set(spec.questions.map((q) => q.name + (q.prompt ?? "") + (q.cardText ?? ""))).size).toBe(spec.questions.length);
-      expect(timeline.duration).toBeGreaterThan(180);
+      expect(timeline.duration).toBeGreaterThan(150);
       expect(timeline.duration).toBeLessThanOrEqual(510);
       for (const c of timeline.cues) if (c.kind === "voice") for (const t of c.clips) expect(clips.has(t), t).toBe(true);
     }
   });
 
-  test("flags: 40 questions, 5-8.5 min, a score scene right before the outro, level-ups at band changes", () => {
+  test("flags: 30 questions, 3.5-8.5 min, a score scene right before the outro, level-ups at band changes", () => {
     const { spec, timeline } = build("flags", "demo");
-    expect(spec.questions).toHaveLength(40);
-    expect(timeline.duration).toBeGreaterThan(300);
+    expect(spec.questions).toHaveLength(30);
+    expect(timeline.duration).toBeGreaterThan(210);
     const kinds = timeline.scenes.map((s) => s.kind);
     expect(kinds.filter((k) => k === "score")).toHaveLength(1);
     expect(kinds.slice(-2)).toEqual(["score", "outro"]);
-    expect(Object.keys(spec.difficultyUpLineIds).map(Number).sort((a, b) => a - b)).toEqual([13, 24, 34]);
+    expect(Object.keys(spec.difficultyUpLineIds).map(Number).sort((a, b) => a - b)).toEqual([10, 18, 25]);
     const timers = timeline.scenes.filter((s) => s.kind === "timer");
     expect(timers[0].end - timers[0].start).toBe(5);
     expect(timers[timers.length - 1].end - timers[timers.length - 1].start).toBe(6);

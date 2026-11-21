@@ -5,9 +5,9 @@ import type { AnswerStyle, Band, Profile, QuizKind, Country, QuizQuestion, QuizS
 
 export const bandOf = (d: number): Band => (d <= 2 ? "easy" : d === 3 ? "medium" : d === 4 ? "hard" : "impossible");
 type Counts = [Band, number][];
-/** Questions per difficulty band: 10 for Shorts, 40 for long videos. */
+/** Questions per difficulty band: 10 for Shorts, 30 for long videos (owner's choice). */
 export const bandCounts = (profile: Profile = "short"): Counts =>
-  profile === "long" ? [["easy", 13], ["medium", 11], ["hard", 10], ["impossible", 6]] : [["easy", 3], ["medium", 3], ["hard", 3], ["impossible", 1]];
+  profile === "long" ? [["easy", 10], ["medium", 8], ["hard", 7], ["impossible", 5]] : [["easy", 3], ["medium", 3], ["hard", 3], ["impossible", 1]];
 /** Fewest questions a quiz may have: Shorts always have 10; a long video takes what its pool allows, down to 24. */
 const minCount = (profile: Profile = "short") => (profile === "long" ? 24 : 10);
 
@@ -19,7 +19,7 @@ export interface BuildInput {
   regionOverride?: string;
   answerStyle?: AnswerStyle;
   quiz?: QuizKind;
-  /** "long" builds about 40 questions (A-D options) for a 16:9 video; default "short". */
+  /** "long" builds about 30 questions (A-D options) for a 16:9 video; default "short". */
   profile?: Profile;
   /** Word list for the missing-letters quiz. */
   words?: WordItem[];

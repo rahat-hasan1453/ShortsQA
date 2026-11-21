@@ -44,7 +44,7 @@ export interface Theme {
   titleStyle?: { fill?: string; stroke: string; strokeWidth: number };
 }
 
-/** "short" = vertical 1080x1920 Shorts (10 questions, <= 59 s); "long" = 1920x1080 long-form (about 40 questions, <= 8.5 min). */
+/** "short" = vertical 1080x1920 Shorts (10 questions, <= 59 s); "long" = 1920x1080 long-form (about 30 questions, <= 8.5 min). */
 export type Profile = "short" | "long";
 
 export type QuizKind = "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape";

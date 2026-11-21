@@ -42,7 +42,7 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
 };
 export const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
 
-/** `n` is the number of questions (10 in Shorts, about 40 in long videos). */
+/** `n` is the number of questions (10 in Shorts, about 30 in long videos). */
 export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: string }, n = 10): string =>
   (spec.twistRegion ? `${wording(spec.quiz).many} OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS)).replace("10/10", `${n}/${n}`);
 

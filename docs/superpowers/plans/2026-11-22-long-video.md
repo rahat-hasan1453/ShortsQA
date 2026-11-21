@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans (owner chose native execution). Steps use checkbox (`- [ ]`) syntax.
 
-**Goal:** The "Long 16:9" switch works. It makes a 1920×1080 quiz video of about 40 questions (5–8 minutes), using the same engine as Shorts, and exports it to disk without holding the whole MP4 in memory.
+**Goal:** The "Long 16:9" switch works. It makes a 1920×1080 quiz video of 30 questions (owner changed from 40 on 2026-11-22), using the same engine as Shorts, and exports it to disk without holding the whole MP4 in memory.
 
 **Architecture:**
 - A `profile` ("short" | "long") on `QuizSpec` drives the question count, the timing, the frame size and the layout.
