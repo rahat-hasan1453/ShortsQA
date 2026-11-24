@@ -49,8 +49,8 @@ import path from "node:path";
 import { makeClipIndex } from "../../src/engine/clipIndex";
 
 describe("with the real voice manifest", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../public/audio/manifest.json"), "utf8"));
-  const clips = makeClipIndex(manifest);
+  const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../public/audio/af_heart/manifest.json"), "utf8"));
+  const clips = makeClipIndex(manifest, "af_heart");
   test("500 seeds build within 59 s and every spoken text has a clip", () => {
     let max = 0;
     for (let i = 0; i < 500; i++) {

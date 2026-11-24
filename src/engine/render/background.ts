@@ -1,20 +1,28 @@
 import { createRng } from "../rng";
 import type { Theme } from "../types";
-import { H, W } from "./layout";
+import { H as SH, W as SW } from "./layout";
 
 export type Ctx = CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 
 const SPOTS = (() => {
   const r = createRng("bg-spots");
-  return Array.from({ length: 28 }, () => ({ x: r.next() * W, y: r.next() * H, r: 40 + r.next() * 140, ph: r.next() * 6.28 }));
+  return Array.from({ length: 28 }, () => ({ fx: r.next(), fy: r.next(), r: 40 + r.next() * 140, ph: r.next() * 6.28 })); // positions as fractions of the frame
 })();
 
+/** Source rectangle that cover-fits a `srcW`x`srcH` image into a `dstW`x`dstH` frame (centred crop, no stretching). */
+export function coverCrop(srcW: number, srcH: number, dstW: number, dstH: number): { sx: number; sy: number; sw: number; sh: number } {
+  const k = Math.max(dstW / srcW, dstH / srcH), sw = dstW / k, sh = dstH / k;
+  return { sx: (srcW - sw) / 2, sy: (srcH - sh) / 2, sw, sh };
+}
+
 /** Background is a pure function of (theme, t). */
-export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageBitmap): void {
+/** `W`/`H` default to the Shorts frame; long videos pass 1920x1080. */
+export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageBitmap, W = SW, H = SH): void {
   const p = theme.palette;
   if (image) {
     // User image (already cover-fitted to 1080x1920) with a light scrim so text stays readable.
-    ctx.drawImage(image, 0, 0, W, H);
+    const c = coverCrop(image.width, image.height, W, H); // the upload is fitted to 9:16; a long video crops its middle instead of stretching it
+    ctx.drawImage(image, c.sx, c.sy, c.sw, c.sh, 0, 0, W, H);
     ctx.save(); ctx.globalAlpha = 0.35; ctx.fillStyle = p.bgFrom; ctx.fillRect(0, 0, W, H); ctx.restore();
     return;
   }
@@ -71,7 +79,7 @@ export function drawBackground(ctx: Ctx, theme: Theme, t: number, image?: ImageB
     ctx.fillStyle = type === "texture" ? p.text : p.accent2;
     for (const s of SPOTS) {
       ctx.globalAlpha = (type === "texture" ? 0.05 : 0.12) + 0.06 * Math.sin(t * 0.8 + s.ph);
-      ctx.beginPath(); ctx.arc(s.x, s.y, type === "texture" ? s.r / 5 : s.r, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(s.fx * W, s.fy * H, type === "texture" ? s.r / 5 : s.r, 0, Math.PI * 2); ctx.fill();
     }
   }
   ctx.restore();

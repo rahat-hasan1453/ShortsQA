@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { countries, flagsVoice, themes } from "@/data";
+import { countries, flagsVoice, landmarks, pictures, themes, voiceFor, words } from "@/data";
+import { LONG_H, LONG_W } from "@/engine/render/layout";
+import type { QuizKind } from "@/engine/types";
 import { makeClipIndex, type Manifest } from "@/engine/clipIndex";
 import { buildQuiz } from "@/engine/quizBuilder";
 import { buildTimeline } from "@/engine/timeline";
@@ -38,8 +40,8 @@ export default function DebugFrame() {
     const prepare = async (themeId: string, seed: string, style: "open" | "options" | "list" = "open"): Promise<Prepared> => {
       const key = `${themeId}|${seed}|${style}`;
       if (cache.has(key)) return cache.get(key)!;
-      manifestP ??= fetch("/audio/manifest.json").then((r) => r.json());
-      const clips = makeClipIndex(await manifestP);
+      manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json());
+      const clips = makeClipIndex(await manifestP, "af_heart");
       const theme = themes.find((t) => t.id === themeId)!;
       const spec = buildQuiz({ seed, themeId, answerStyle: style, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
       const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
@@ -64,7 +66,7 @@ export default function DebugFrame() {
     };
     const exportOpts = async (themeId: string, seed: string) => {
       const p = await prepare(themeId, seed);
-      const clips = makeClipIndex(await manifestP!);
+      const clips = makeClipIndex(await manifestP!, "af_heart");
       const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
       const audio = await mixAudio(p.timeline, buffers, p.theme);
       return { timeline: p.timeline, theme: p.theme, assets: p.assets, audio };
@@ -120,9 +122,56 @@ export default function DebugFrame() {
         try { await exportVideo(bad); } catch (e) { error = errName(e); }
         return { error, framesDrawn: renderStats.frames };
       },
+      /** Long (16:9) quiz: draws every scene kind content-only; returns how many content pixels fall outside the 1920x1080 frame margin and any error. */
+      longScenes: async (quiz: QuizKind, seed: string, themeId = "game-show") => {
+        manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json());
+        const clips = makeClipIndex(await manifestP, "af_heart");
+        const voice = voiceFor(quiz), theme = themes.find((t) => t.id === themeId)!;
+        const spec = buildQuiz({ quiz, seed, themeId, profile: "long", countries, themes, voice, words, landmarks, pictures: pictures.filter((x) => clips.has(x.name)), clipMs: (t) => clips.ms(t) });
+        const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
+        const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])));
+        const out: { kind: string; t: number; outside: number; error?: string }[] = [];
+        const factScene = timeline.scenes.find((x) => x.factAt !== undefined);
+        const picks = [...["hook", "diffUp", "timer", "reveal", "score", "outro"].map((k) => timeline.scenes.find((x) => x.kind === k)!).filter(Boolean).map((x) => ({ kind: x.kind, t: x.start + Math.min(1, (x.end - x.start) / 2) })),
+          ...(factScene ? [{ kind: "fact", t: factScene.factAt! + 0.5 }] : [])];
+        for (const { kind, t } of picks) {
+          const c = new OffscreenCanvas(LONG_W, LONG_H), g = c.getContext("2d")!;
+          try {
+            drawFrame(g, { timeline, theme, assets, contentOnly: true }, t);
+            const d = g.getImageData(0, 0, LONG_W, LONG_H).data;
+            let outside = 0;
+            for (let y = 0; y < LONG_H; y++) for (let x = 0; x < LONG_W; x++) if ((x < 32 || x >= LONG_W - 32 || y < 24 || y >= LONG_H - 24) && d[(y * LONG_W + x) * 4 + 3] > 8) outside++;
+            out.push({ kind, t, outside });
+          } catch (e) { out.push({ kind, t, outside: -1, error: String(e) }); }
+        }
+        return { n: spec.questions.length, duration: timeline.duration, scenes: out };
+      },
+      /** A 7-minute long timeline must not be refused by the Shorts 59 s limit: export starts, then is cancelled. */
+      longNotRejected: async () => {
+        const o = await exportOpts("game-show", "demo");
+        const timeline = { ...o.timeline, duration: 420, spec: { ...o.timeline.spec, profile: "long" as const } };
+        const ac = new AbortController(); ac.abort();
+        try { await exportVideo({ ...o, timeline, signal: ac.signal }); return "no error"; } catch (e) { return errName(e); }
+      },
+      /** A long export whose save fails must stop with that error, not re-encode the whole video at half bitrate. */
+      longSinkFailure: async () => {
+        const clips = makeClipIndex(await (manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json())), "af_heart");
+        const theme = themes.find((t) => t.id === "game-show")!;
+        const spec = buildQuiz({ seed: "demo", themeId: theme.id, profile: "long", countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
+        const full = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
+        const timeline = { ...full, duration: 3 }; // a few seconds is enough to reach the first save
+        const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 ? [q.iso2] : [])));
+        const audio = new AudioBuffer({ length: 48000 * 3, numberOfChannels: 2, sampleRate: 48000 });
+        const o = { timeline, theme, assets, audio };
+        let attempts = 0;
+        try {
+          await exportVideo({ ...o, timeline, sink: async (_d, _p, fresh) => { if (fresh) attempts++; throw new Error("save failed (413)"); } });
+          return { error: "none", attempts };
+        } catch (e) { return { error: e instanceof Error ? e.message : String(e), attempts }; }
+      },
       audioStats: async (themeId: string, seed: string) => {
         const p = await prepare(themeId, seed);
-        const clips = makeClipIndex(await manifestP!);
+        const clips = makeClipIndex(await manifestP!, "af_heart");
         const buffers = await loadClips(timelineTexts(p.timeline), clips, new OfflineAudioContext(1, 48000, 48000));
         const full = await mixAudio(p.timeline, buffers, p.theme);
         const noVoice = await mixAudio(p.timeline, buffers, p.theme, { muteVoice: true });

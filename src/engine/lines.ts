@@ -29,7 +29,7 @@ export function lineDurationMs(line: string, slots: Slots, clipMs: (text: string
 
 export function slotValues(spec: QuizSpec, q?: QuizQuestion): Slots {
   return {
-    total: numberWords(10),
+    total: numberWords(spec.questions.length || 10),
     part: numberWords(spec.part),
     region: spec.twistRegion,
     ...(q ? { n: numberWords(q.index + 1), answer: q.spoken ?? q.name } : {}),

@@ -1,9 +1,9 @@
-import { ArrayBufferTarget, Muxer } from "mp4-muxer";
+import { ArrayBufferTarget, Muxer, StreamTarget } from "mp4-muxer";
 import { AssetError, ExportBusyError } from "../errors";
 import { drawFrame } from "../render";
 import type { Assets } from "../render/assets";
-import { H, W } from "../render/layout";
-import { DurationError, MAX_DURATION } from "../timeline";
+import { frameSize } from "../render/layout";
+import { DurationError, maxDuration } from "../timeline";
 import type { Theme, Timeline } from "../types";
 
 export { AssetError, ExportBusyError };
@@ -15,20 +15,31 @@ export interface ExportOptions {
   audio: AudioBuffer;
   onProgress?: (p: number) => void;
   signal?: AbortSignal;
+  /** Stream the MP4 out as it is made (long videos): called with each chunk and its byte position; nothing is kept in memory. */
+  sink?: (data: Uint8Array, position: number, fresh: boolean) => Promise<void>;
 }
 
+/** Saving a streamed chunk failed (server refused it, session expired, server gone): retrying the encode cannot help. */
+export class SinkError extends Error { name = "SinkError"; }
+
 export const FPS = 30;
+/** Bytes per streamed chunk: the Next proxy silently cuts request bodies above 10 MB, so stay far below it. */
+export const STREAM_CHUNK = 4 * 1024 * 1024;
 let busy = false;
 
 const abortError = () => new DOMException("Export aborted", "AbortError");
 const tick = () => new Promise<void>((r) => setTimeout(r, 0));
 
 function validate(o: ExportOptions) {
-  if (o.timeline.duration > MAX_DURATION) throw new DurationError(`timeline is ${o.timeline.duration.toFixed(1)}s, max ${MAX_DURATION}s`);
+  const max = maxDuration(o.timeline.spec.profile);
+  if (o.timeline.duration > max) throw new DurationError(`timeline is ${o.timeline.duration.toFixed(1)}s, max ${max}s`);
   for (const q of o.timeline.spec.questions) if (q.iso2 && !o.assets.flags.has(q.iso2)) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
 }
 
-export async function exportVideo(o: ExportOptions): Promise<Blob> {
+/** Resolves to the MP4 as a Blob, or to null when `o.sink` received it. */
+export async function exportVideo(o: ExportOptions & { sink: NonNullable<ExportOptions["sink"]> }): Promise<null>;
+export async function exportVideo(o: ExportOptions): Promise<Blob>;
+export async function exportVideo(o: ExportOptions): Promise<Blob | null> {
   if (busy) throw new ExportBusyError("an export is already running");
   validate(o);
   busy = true;
@@ -38,6 +49,7 @@ export async function exportVideo(o: ExportOptions): Promise<Blob> {
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") throw e;
       if (e instanceof AssetError || e instanceof DurationError) throw e;
+      if (e instanceof SinkError) throw new Error(`saving the video failed (seed ${o.timeline.spec.seed}): ${e.message}`);
       try {
         return await run(o, 0.5);
       } catch (e2) {
@@ -50,12 +62,19 @@ export async function exportVideo(o: ExportOptions): Promise<Blob> {
   }
 }
 
-async function run(o: ExportOptions, bitrateScale: number): Promise<Blob> {
+async function run(o: ExportOptions, bitrateScale: number): Promise<Blob | null> {
   const { timeline, theme, assets, audio, signal } = o;
+  const { w: W, h: H } = frameSize(timeline.spec.profile);
   const frames = Math.ceil(timeline.duration * FPS);
-  const target = new ArrayBufferTarget();
+  // Streamed exports write chunks as they come (moov at the end); in-memory ones keep fast start for instant playback.
+  const writes: Promise<void>[] = [];
+  let sinkError: unknown = null, fresh = true; // fresh: the first chunk of this attempt (a retry must not append to a failed file)
+  const target = o.sink
+    ? new StreamTarget({ chunked: true, chunkSize: STREAM_CHUNK, onData: (data, position) => { writes.push(o.sink!(data.slice(), position, fresh).catch((e) => { sinkError ??= new SinkError(e instanceof Error ? e.message : String(e)); })); fresh = false; } })
+    : new ArrayBufferTarget();
+  const flushWrites = async () => { await Promise.all(writes.splice(0)); if (sinkError) throw sinkError; };
   const muxer = new Muxer({
-    target, fastStart: "in-memory",
+    target, fastStart: o.sink ? false : "in-memory",
     video: { codec: "avc", width: W, height: H, frameRate: FPS },
     audio: { codec: "aac", numberOfChannels: 2, sampleRate: audio.sampleRate },
   });
@@ -63,7 +82,7 @@ async function run(o: ExportOptions, bitrateScale: number): Promise<Blob> {
   const venc = new VideoEncoder({ output: (c, m) => muxer.addVideoChunk(c, m), error: (e) => { failure = e; } });
   const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, m), error: (e) => { failure = e; } });
   try {
-    venc.configure({ codec: "avc1.640028", width: W, height: H, bitrate: 6_000_000 * bitrateScale, framerate: FPS, avc: { format: "avc" } });
+    venc.configure({ codec: "avc1.640028", width: W, height: H, bitrate: (timeline.spec.profile === "long" ? 8_000_000 : 6_000_000) * bitrateScale, framerate: FPS, avc: { format: "avc" } });
     aenc.configure({ codec: "mp4a.40.2", sampleRate: audio.sampleRate, numberOfChannels: 2, bitrate: 128000 });
 
     const ch = [audio.getChannelData(0), audio.getChannelData(Math.min(1, audio.numberOfChannels - 1))];
@@ -87,15 +106,18 @@ async function run(o: ExportOptions, bitrateScale: number): Promise<Blob> {
       frame.close();
       while (venc.encodeQueueSize > 6) await tick();
       if (i % 15 === 0) { o.onProgress?.(i / frames); await tick(); }
+      if (o.sink && writes.length > 8) await flushWrites(); // keep at most a few chunks in flight
     }
     await venc.flush();
     await aenc.flush();
     if (failure) throw failure;
     muxer.finalize();
+    if (o.sink) { await flushWrites(); o.onProgress?.(1); return null; }
     o.onProgress?.(1);
-    return new Blob([target.buffer], { type: "video/mp4" });
+    return new Blob([(target as ArrayBufferTarget).buffer], { type: "video/mp4" });
   } finally {
     if (venc.state !== "closed") venc.close();
     if (aenc.state !== "closed") aenc.close();
+    await Promise.allSettled(writes.splice(0)); // no save of this attempt may land after it ends (cancel, failure or retry)
   }
 }

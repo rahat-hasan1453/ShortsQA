@@ -1,44 +1,42 @@
 "use client";
-import { themes } from "@/data";
-import { fontFamilies } from "@/engine/assetPaths";
+import VoicePicker from "./VoicePicker";
+import TemplateGallery from "./TemplateGallery";
+import FontPicker from "./FontPicker";
+import type { Prepared } from "../prepare";
 
-const FAMILIES = fontFamilies(themes);
-
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list" }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long" }
 
 export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
 }
 
-export default function Controls({ value, onChange, disabled, hasBackground, onBackground }: {
-  value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void;
+/** "content" = what the quiz says (left panel); "style" = how it looks (right panel). */
+export default function Controls({ section, value, onChange, disabled, hasBackground, onBackground, prepared }: {
+  section: "content" | "style"; value: Settings; onChange: (s: Settings) => void; disabled: boolean; hasBackground: boolean; onBackground: (f: File | null) => void; prepared: Prepared | null;
 }) {
   const set = (p: Partial<Settings>) => onChange({ ...value, ...p });
-  return (
-    <fieldset disabled={disabled} style={{ display: "grid", gap: 12, border: "none", padding: 0, margin: 0 }}>
-      <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
-        <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
-          <option value="list">List 1-10 (recommended)</option>
-          <option value="options">Options A-D</option>
-          <option value="open">Open (just the name)</option>
-        </select>
-      </label>
-      <label style={LABEL}>Template <small style={HINT}>rong, background ar timer er dhoron</small>
-        <select value={value.themeId} onChange={(e) => set({ themeId: e.target.value })} style={FIELD}>
-          <option value="random">Random (recommended)</option>
-          {themes.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-        </select>
-      </label>
-      <label style={LABEL}>Font <small style={HINT}>shob text er font</small>
-        <select value={value.font} onChange={(e) => set({ font: e.target.value })} style={FIELD}>
-          <option value="theme">Template default</option>
-          {FAMILIES.map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
-      </label>
+  if (section === "style") return (
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
+      <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
+      <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
       <label style={LABEL}>Background image <small style={HINT}>nijer pochonder chobi (optional)</small>
         <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
       </label>
       {hasBackground && <button type="button" onClick={() => onBackground(null)}>Clear background</button>}
+    </fieldset>
+  );
+  return (
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
+      {value.shape === "long"
+        ? <p style={{ margin: 0, fontSize: 13, color: "#888" }}>Long videos always use A–D options.</p>
+        : <label style={LABEL}>Answer style <small style={HINT}>viewer kibhabe uttor dekhbe</small>
+          <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
+            <option value="list">List 1-10 (recommended)</option>
+            <option value="options">Options A-D</option>
+            <option value="open">Open (just the name)</option>
+          </select>
+        </label>}
+      <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
       <details style={{ borderTop: "1px solid #8883", paddingTop: 8 }}>
         <summary style={{ cursor: "pointer" }}>Advanced</summary>
         <div style={{ display: "grid", gap: 10, paddingTop: 10 }}>

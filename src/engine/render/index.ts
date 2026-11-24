@@ -9,6 +9,7 @@ import { applyReveal, drawConfetti } from "./reveal";
 import { fitText, layoutText, type TextLayout } from "./text";
 import { drawTimer } from "./timer";
 import { LIKE_BANNER_AT } from "../timeline";
+import { drawLandscapeFrame } from "./landscape";
 
 export interface FrameInput {
   timeline: Timeline;
@@ -21,7 +22,7 @@ export interface FrameInput {
 }
 
 /** Tier colors are the same in every theme so viewers learn them (like the big quiz channels). */
-const TIER = {
+export const TIER = {
   easy: { bg: "#2ECC71", fg: "#07301a" },
   medium: { bg: "#F5C518", fg: "#3a2c00" },
   hard: { bg: "#FF3B30", fg: "#ffffff" },
@@ -39,14 +40,15 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
   landmarks: { one: "LANDMARK", many: "LANDMARKS", list: "WHICH COUNTRY?" },
   "real-vs-fake-flag": { one: "FLAG", many: "FLAGS", list: "REAL OR FAKE?" },
 };
-const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
+export const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
 
-export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: string }): string =>
-  spec.twistRegion ? `${wording(spec.quiz).many} OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS);
+/** `n` is the number of questions (10 in Shorts, about 30 in long videos). */
+export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: string }, n = 10): string =>
+  (spec.twistRegion ? `${wording(spec.quiz).many} OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS)).replace("10/10", `${n}/${n}`);
 
-const BAND_LABEL = { easy: "EASY", medium: "MEDIUM", hard: "HARD", impossible: "IMPOSSIBLE" } as const;
+export const BAND_LABEL = { easy: "EASY", medium: "MEDIUM", hard: "HARD", impossible: "IMPOSSIBLE" } as const;
 
-function roundRect(ctx: Ctx, r: Rect, rad: number) {
+export function roundRect(ctx: Ctx, r: Rect, rad: number) {
   ctx.beginPath();
   ctx.moveTo(r.x + rad, r.y);
   ctx.arcTo(r.x + r.w, r.y, r.x + r.w, r.y + r.h, rad);
@@ -79,7 +81,7 @@ function styledText(ctx: Ctx, theme: Theme, text: string, x: number, y: number, 
   ctx.fillText(text, x, y);
 }
 
-function drawLines(ctx: Ctx, theme: Theme, lay: TextLayout, box: Rect, color: string, opts: { useFill?: boolean; haloColor?: string } = {}) {
+export function drawLines(ctx: Ctx, theme: Theme, lay: TextLayout, box: Rect, color: string, opts: { useFill?: boolean; haloColor?: string } = {}) {
   ctx.font = themeFont(theme, "title", lay.px);
   ctx.fillStyle = color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
   const lh = lay.px * 1.15, y0 = box.y + box.h / 2 - ((lay.lines.length - 1) * lh) / 2;
@@ -91,8 +93,8 @@ export function layoutReveal(ctx: Ctx, theme: Theme, name: string): TextLayout {
   return layoutIn(ctx, theme, name, LAYOUT.flagCard, 110, 44);
 }
 
-function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion, titleOverride?: string) {
-  const h = LAYOUT.header, p = theme.palette;
+export function drawHeader(ctx: Ctx, theme: Theme, q: QuizQuestion, titleOverride?: string, h: Rect = LAYOUT.header) {
+  const p = theme.palette;
   ctx.textBaseline = "middle"; ctx.textAlign = "left";
   const label = BAND_LABEL[q.band];
   ctx.font = themeFont(theme, "body", 40);
@@ -120,7 +122,7 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
 }
 
 /** Capitals quiz: the country name on a dark band along the bottom of the flag card. */
-function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
+export function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
   if (!q.prompt) return;
   const text = q.prompt.toUpperCase(), h = Math.round(c.h * 0.22);
   const band: Rect = { x: c.x + 24, y: c.y + c.h - 24 - h, w: c.w - 48, h };
@@ -133,7 +135,7 @@ function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
   ctx.restore();
 }
 
-function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0, clarity = 1) {
+export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, c: Rect = LAYOUT.flagCard, t = 0, clarity = 1) {
   roundRect(ctx, c, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
   if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
     roundRect(ctx, { x: c.x + 6, y: c.y + 6, w: c.w - 12, h: c.h - 12 }, 30);
@@ -211,12 +213,12 @@ function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolea
   ctx.restore();
 }
 
-function haloText(ctx: Ctx, text: string, x: number, y: number, fill: string, halo = "#000000", width = 8) {
+export function haloText(ctx: Ctx, text: string, x: number, y: number, fill: string, halo = "#000000", width = 8) {
   ctx.save(); ctx.lineJoin = "round"; ctx.lineWidth = width; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.restore();
   ctx.fillStyle = fill; ctx.fillText(text, x, y);
 }
 
-function drawThinBar(ctx: Ctx, theme: Theme, r: Rect, progress: number) {
+export function drawThinBar(ctx: Ctx, theme: Theme, r: Rect, progress: number) {
   const p = theme.palette;
   roundRect(ctx, r, r.h / 2); ctx.fillStyle = p.card; ctx.fill();
   const w = Math.max(r.h, r.w * (1 - progress));
@@ -225,8 +227,8 @@ function drawThinBar(ctx: Ctx, theme: Theme, r: Rect, progress: number) {
   ctx.restore();
 }
 
-function drawOptions(ctx: Ctx, theme: Theme, q: QuizQuestion, reveal: boolean) {
-  const { x, y, w, h, gap } = STYLE.options.rows, p = theme.palette, o = q.options!;
+export function drawOptions(ctx: Ctx, theme: Theme, q: QuizQuestion, reveal: boolean, rows: { x: number; y: number; w: number; h: number; gap: number } = STYLE.options.rows) {
+  const { x, y, w, h, gap } = rows, p = theme.palette, o = q.options!;
   o.names.forEach((name, i) => {
     const r: Rect = { x, y: y + i * (h + gap), w, h };
     const isRight = i === o.correct;
@@ -270,7 +272,7 @@ function drawList(ctx: Ctx, f: FrameInput, q: QuizQuestion, reveal: boolean) {
   ctx.restore();
 }
 
-function drawBigText(ctx: Ctx, theme: Theme, lines: string[], box: Rect, alpha: number) {
+export function drawBigText(ctx: Ctx, theme: Theme, lines: string[], box: Rect, alpha: number) {
   ctx.save(); ctx.globalAlpha = alpha;
   const lay = layoutIn(ctx, theme, lines.join(" "), box, 120, 56, true);
   drawLines(ctx, theme, lay.lines.length > 1 || lines.length === 1 ? lay : { ...lay, lines }, box, theme.palette.text, { useFill: true });
@@ -299,9 +301,9 @@ function drawTopline(ctx: Ctx, theme: Theme, part: number) {
 }
 
 /** "DID YOU KNOW?" panel that covers the answer area while the fun fact is read out. */
-function drawFactPanel(ctx: Ctx, f: FrameInput, fact: string, style: AnswerStyle, alpha: number) {
+export function drawFactPanel(ctx: Ctx, f: FrameInput, fact: string, style: AnswerStyle, alpha: number, at?: Rect) {
   const theme = f.theme, p = theme.palette;
-  const panel: Rect = style === "list" ? { x: 160, y: 868, w: 760, h: 792 } : style === "options" ? { x: 160, y: 950, w: 760, h: 486 } : { x: 160, y: 1070, w: 760, h: 430 };
+  const panel: Rect = at ?? (style === "list" ? { x: 160, y: 868, w: 760, h: 792 } : style === "options" ? { x: 160, y: 950, w: 760, h: 486 } : { x: 160, y: 1070, w: 760, h: 430 });
   ctx.save(); ctx.globalAlpha = alpha;
   roundRect(ctx, panel, 40); ctx.fillStyle = p.bgFrom; ctx.fill(); // opaque, so the list underneath does not show through
   ctx.fillStyle = p.card; ctx.fill();
@@ -346,6 +348,7 @@ export const renderStats = { frames: 0 };
 
 export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   renderStats.frames++;
+  if (f.timeline.spec.profile === "long") { drawLandscapeFrame(ctx, f, t); return; }
   const { timeline, theme } = f;
   ctx.save();
   ctx.clearRect(0, 0, W, H);

@@ -47,6 +47,15 @@ export const clipDurationMs = (manifest: ClipManifest, key: string): number => {
   return e.durationMs;
 };
 
-/** The tag mixed into every clip key: changing the voice (engine or id) regenerates all clips. */
-export const voiceTagOf = (cfg: { voice?: string; kokoroVoice?: string; cartesiaVoice?: string }): string =>
-  cfg.kokoroVoice ? `kokoro:${cfg.kokoroVoice}` : cfg.cartesiaVoice ? `cartesia:${cfg.cartesiaVoice}` : (cfg.voice ?? "");
+/** Drops entries of this one voice's manifest that are no longer wanted (other voices have their own manifest files). */
+export function pruneStale(manifest: ClipManifest, wanted: Set<string>): void {
+  for (const k of Object.keys(manifest)) if (!wanted.has(k)) delete manifest[k];
+}
+
+/** `--voice <id>` from argv, else the registry default. */
+export function voiceArg(argv: string[], voices: { id: string; default?: boolean }[]): string {
+  const i = argv.indexOf("--voice");
+  const id = i >= 0 ? argv[i + 1] : voices.find((v) => v.default)!.id;
+  if (!voices.some((v) => v.id === id)) throw new Error(`unknown voice "${id}" (see tools/tts/voices.json)`);
+  return id;
+}

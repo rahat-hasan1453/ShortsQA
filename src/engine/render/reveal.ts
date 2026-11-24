@@ -20,14 +20,14 @@ export function applyReveal(ctx: Ctx, style: string, r: number, cx: number, cy: 
   return { alpha, clipFrac };
 }
 
-export function drawConfetti(ctx: Ctx, theme: Theme, q: number, r: number): void {
+/** `box` is the area the confetti stays in (default: the Shorts card and reveal area); `startY` is where it starts falling from. */
+export function drawConfetti(ctx: Ctx, theme: Theme, q: number, r: number, box = { x0: 170, x1: 900, y0: 480, y1: 1260 }, startY = LAYOUT.reveal.y): void {
   if (theme.reveal.style !== "confetti" || r > 1.4) return;
   const rng = createRng(`confetti-${q}`);
-  const box = { x0: 170, x1: 900, y0: 480, y1: 1260 };
   const colors = [theme.palette.accent, theme.palette.accent2, theme.palette.correct];
   ctx.save();
   for (let i = 0; i < 42; i++) {
-    const x = box.x0 + rng.next() * (box.x1 - box.x0), vy = 200 + rng.next() * 300, y0 = LAYOUT.reveal.y + rng.next() * 40;
+    const x = box.x0 + rng.next() * (box.x1 - box.x0), vy = 200 + rng.next() * 300, y0 = startY + rng.next() * 40;
     const y = Math.min(box.y1 - 10, y0 - 120 + vy * r * (0.4 + 0.6 * r));
     ctx.globalAlpha = Math.max(0, 1 - r / 1.4);
     ctx.fillStyle = colors[i % 3];

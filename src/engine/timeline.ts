@@ -15,10 +15,17 @@ export const LIKE_BANNER_SEC = 1.7;
 export const LIKE_VOICE = "Like if you got the first three right!";
 export const OUTRO_MIN = 3.2;
 export const MAX_DURATION = 59;
+/** Long videos: a longer answer window, a score screen before the outro, and up to 8.5 minutes. */
+export const TIMER_SEC_LONG = 5.0;
+export const TIMER_LAST_SEC_LONG = 6.0;
+export const SCORE_SEC = 4.0;
+export const MAX_DURATION_LONG = 510;
+export const maxDuration = (profile?: "short" | "long"): number => (profile === "long" ? MAX_DURATION_LONG : MAX_DURATION);
 const PAD = 0.12;
 
 export function buildTimeline(spec: QuizSpec, deps: { clipMs: (text: string) => number; voice: VoiceLines }): Timeline {
   const { clipMs, voice } = deps;
+  const long = spec.profile === "long";
   const scenes: Scene[] = [];
   const cues: Cue[] = [];
   let voiceFree = 0;
@@ -54,7 +61,7 @@ export function buildTimeline(spec: QuizSpec, deps: { clipMs: (text: string) => 
       t += dur;
     }
     const last = q.index === spec.questions.length - 1;
-    const timerSec = last ? TIMER_LAST_SEC : TIMER_SEC;
+    const timerSec = long ? (last ? TIMER_LAST_SEC_LONG : TIMER_SEC_LONG) : last ? TIMER_LAST_SEC : TIMER_SEC;
     scenes.push({ kind: "timer", start: t, end: t + timerSec, q: q.index });
     if (last) cues.push({ at: t, kind: "heartbeat" });
     for (let k = timerSec - 3; k < timerSec; k++) cues.push({ at: t + k, kind: "tick" });
@@ -76,12 +83,18 @@ export function buildTimeline(spec: QuizSpec, deps: { clipMs: (text: string) => 
     t = end;
   }
 
+  if (long) { // "How many did you get?" with the score tiers, before the outro line
+    scenes.push({ kind: "score", start: t, end: t + SCORE_SEC });
+    cues.push({ at: t, kind: "chime" });
+    t += SCORE_SEC;
+  }
   const outro = speak(spec.outroLineId, t + 0.2);
   const outroEnd = Math.max(t + OUTRO_MIN, outro.end + 0.3);
   scenes.push({ kind: "outro", start: t, end: outroEnd });
 
   const duration = outroEnd;
-  if (duration > MAX_DURATION) throw new DurationError(`timeline is ${duration.toFixed(1)}s, max ${MAX_DURATION}s (seed ${spec.seed})`);
+  const max = maxDuration(spec.profile);
+  if (duration > max) throw new DurationError(`timeline is ${duration.toFixed(1)}s, max ${max}s (seed ${spec.seed})`);
   cues.sort((a, b) => a.at - b.at);
   return { spec, duration, scenes, cues };
 }

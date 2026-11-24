@@ -1,5 +1,10 @@
 export const W = 1080;
 export const H = 1920;
+export const LONG_W = 1920;
+export const LONG_H = 1080;
+
+/** Canvas size of a profile: vertical Shorts or horizontal long-form. */
+export const frameSize = (profile?: "short" | "long"): { w: number; h: number } => (profile === "long" ? { w: LONG_W, h: LONG_H } : { w: W, h: H });
 export const SAFE = { top: 200, bottom: 240, right: 160 } as const;
 
 export interface Rect { x: number; y: number; w: number; h: number }
