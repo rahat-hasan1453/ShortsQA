@@ -48,7 +48,7 @@ export default function FontPicker({ value, onChange, disabled }: { value: strin
 
   return (
     <div ref={root} style={{ position: "relative", display: "grid", gap: 4 }}>
-      <span style={{ fontWeight: 600 }}>Font <small style={{ fontWeight: 400, color: "#777" }}>shob text er font</small></span>
+      <span style={{ fontWeight: 600 }}>Font <small style={{ fontWeight: 400, color: "#777" }}>font for all text</small></span>
       <button type="button" disabled={disabled} aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((o) => !o)}
         style={{ textAlign: "left", padding: "8px 10px", fontSize: 16, borderRadius: 8, border: "1px solid #8886", background: "transparent", color: "inherit", cursor: "pointer" }}>
         Font: <span style={{ fontFamily: current ? fontStack(current) : "inherit" }}>{current ?? "Template default"}</span>

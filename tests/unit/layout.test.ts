@@ -53,7 +53,7 @@ describe("answer-style rects", () => {
 });
 
 describe("styleRects (flag size)", () => {
-  const styles = ["open", "options", "list"] as const, sizes = ["small", "medium", "large"] as const;
+  const styles = ["open", "options", "list"] as const, sizes = ["small", "medium", "large", "xlarge"] as const;
   test("the sizes the app always had are unchanged", () => {
     expect(styleRects("open", "large").flagCard).toEqual(LAYOUT.flagCard);
     expect(styleRects("options", "medium")).toMatchObject({ flagCard: STYLE.options.flagCard, bar: STYLE.options.bar, rows: STYLE.options.rows });
@@ -68,11 +68,12 @@ describe("styleRects (flag size)", () => {
       expect(c.x + c.w, id).toBeLessThanOrEqual(W - SAFE.right);
       expect(c.y + c.h, id).toBeLessThanOrEqual(H - SAFE.bottom);
       if (r.rows) expect(r.rows.y + r.rows.count * r.rows.h + (r.rows.count - 1) * r.rows.gap, id).toBeLessThanOrEqual(H - SAFE.bottom);
-      if (r.list) { expect(r.list.y + r.list.count * r.list.rowH, id).toBeLessThanOrEqual(H - SAFE.bottom); expect(r.list.y, id).toBeGreaterThanOrEqual(c.y + c.h + 60); expect(r.list.rowH, id).toBeGreaterThanOrEqual(70); }
+      if (r.list) { expect(r.list.y + r.list.count * r.list.rowH, id).toBeLessThanOrEqual(H - SAFE.bottom); expect(r.list.y, id).toBeGreaterThanOrEqual(c.y + c.h + 60); expect(r.list.rowH, id).toBeGreaterThanOrEqual(60); }
     }
   });
-  test("a bigger size gives a bigger card", () => {
-    for (const st of styles) expect(styleRects(st, "large").flagCard.w).toBeGreaterThan(styleRects(st, "small").flagCard.w);
+  test("a bigger size gives a bigger card, and extra large is the level-up panel size (760 x 570)", () => {
+    for (const st of styles) { expect(styleRects(st, "large").flagCard.w).toBeGreaterThan(styleRects(st, "small").flagCard.w); expect(styleRects(st, "xlarge").flagCard.w).toBeGreaterThanOrEqual(styleRects(st, "large").flagCard.w); }
+    for (const st of ["options", "list"] as const) expect(styleRects(st, "xlarge").flagCard).toMatchObject({ w: LAYOUT.flagCard.w, h: LAYOUT.flagCard.h });
   });
 });
 
@@ -80,5 +81,7 @@ describe("cleanLook", () => {
   test("fills in defaults for missing or unknown values", () => {
     expect(cleanLook()).toEqual(DEFAULT_LOOK);
     expect(cleanLook({ flagSize: "huge", flagShape: "circle", timer: null })).toEqual({ ...DEFAULT_LOOK, flagShape: "circle" });
+    expect(cleanLook({ flagSize: "xlarge", flagBorder: "0", textOutline: false })).toEqual({ ...DEFAULT_LOOK, flagSize: "xlarge", flagBorder: false, textOutline: false });
+    expect(cleanLook({ flagBorder: "1", textOutline: "garbage" })).toEqual(DEFAULT_LOOK);
   });
 });

@@ -90,7 +90,7 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
       </div>
       {menu && (
         <div className="studio-menu" role="dialog" aria-label="Export options">
-          <small className="studio-muted">Ekta .mp4 video ar ekta .txt (title, description, hashtag) download hobe.</small>
+          <small className="studio-muted">Downloads one .mp4 video and one .txt file (title, description, hashtags).</small>
           <strong style={{ fontSize: 14 }}>Make several videos at once</strong>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <label>How many <input type="number" min={1} max={20} value={batch} onChange={(e) => setBatch(Math.min(20, Math.max(1, Number(e.target.value) || 1)))} style={{ width: 60 }} /></label>
@@ -102,7 +102,7 @@ export default function ExportPanel({ prepared, settings, supported, busy, setBu
               }
             }); }}>Export batch</button>
           </div>
-          <small className="studio-muted">Prottek video te notun seed, template ar part number. Browser multiple download er permission chaite pare.</small>
+          <small className="studio-muted">Each video gets a new seed, template and part number. Your browser may ask to allow multiple downloads.</small>
         </div>
       )}
     </div>

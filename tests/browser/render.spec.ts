@@ -77,7 +77,8 @@ test("safe-zone margins stay empty for every flag size, shape and timer in all a
   await page.goto(url("theme=arctic-ice&seed=demo"));
   await waitReady(page);
   const looks = [];
-  for (const flagSize of ["small", "medium", "large"]) for (const flagShape of ["rounded", "sharp", "circle", "square"]) for (const timer of ["auto", "ring", "bar"]) looks.push({ flagSize, flagShape, timer });
+  for (const flagSize of ["small", "medium", "large", "xlarge"]) for (const flagShape of ["rounded", "sharp", "circle", "square"]) for (const timer of ["auto", "ring", "bar"]) looks.push({ flagSize, flagShape, timer });
+  for (const flagBorder of [true, false]) for (const textOutline of [true, false]) for (const flagShape of ["rounded", "circle"]) looks.push({ flagSize: "xlarge", flagShape, timer: "auto", flagBorder, textOutline });
   for (const style of ["open", "options", "list"]) {
     for (const look of looks) {
       for (const at of ["timer:0:1.0", "timer:9:1.5", "reveal:4:0.8", "diffUp:3:0.3"]) {
@@ -95,6 +96,7 @@ test("the new looks draw: circle and sharp cards differ from the default frame",
     await page.evaluate(([st, lk]) => (window as any).__debug.render("quiz-burst", "demo", "timer:2:1.5", st, lk), [style, look]);
     return page.evaluate(() => (window as any).__debug.dataUrl());
   };
+  const noBorder = await shot({ flagSize: "large", flagShape: "rounded", timer: "auto", flagBorder: false, textOutline: true }), noOutline = await shot({ flagSize: "large", flagShape: "rounded", timer: "auto", flagBorder: true, textOutline: false }), xl = await shot({ flagSize: "xlarge", flagShape: "rounded", timer: "auto" });
   const base = await shot(undefined), circle = await shot({ flagSize: "large", flagShape: "circle", timer: "auto" }), bar = await shot({ flagSize: "large", flagShape: "rounded", timer: "bar" }), small = await shot({ flagSize: "small", flagShape: "rounded", timer: "auto" });
-  expect(new Set([base, circle, bar, small]).size).toBe(4);
+  expect(new Set([base, circle, bar, small, noBorder, noOutline, xl]).size).toBe(7);
 });

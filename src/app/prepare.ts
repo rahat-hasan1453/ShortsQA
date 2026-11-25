@@ -9,7 +9,7 @@ import type { QuizSpec, Theme, Timeline } from "@/engine/types";
 import { createRng } from "@/engine/rng";
 import { withFont, withLook } from "@/engine/theme";
 import { audioDir } from "@/engine/voices";
-import type { Settings } from "./components/Controls";
+import { lookOf, type Settings } from "./components/Controls";
 
 export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; assets: Assets; metadata: Metadata; clips: ClipIndex }
 
@@ -37,7 +37,7 @@ export async function prepare(s: Settings): Promise<Prepared> {
   const voice = voiceFor(s.format);
   const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, profile: s.shape, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it" && s.format !== "country-shape", shapeIso2: s.format === "country-shape" ? await shapeSet() : undefined, words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
-  const theme = withLook(withFont(themes.find((t) => t.id === spec.themeId)!, s.font), { flagSize: s.flagSize, flagShape: s.flagShape, timer: s.timer });
+  const theme = withLook(withFont(themes.find((t) => t.id === spec.themeId)!, s.font), lookOf(s));
   const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])), spec.questions.flatMap((q) => (q.shape && q.iso2 ? [q.iso2] : [])));
   return { spec, timeline, theme, assets, metadata: buildMetadata(spec, titlesFor(s.format), timeline), clips };
 }

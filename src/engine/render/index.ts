@@ -49,7 +49,9 @@ export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: stri
 
 export const BAND_LABEL = { easy: "EASY", medium: "MEDIUM", hard: "HARD", impossible: "IMPOSSIBLE" } as const;
 
-export const lookOf = (theme: Theme): Look => theme.look ?? DEFAULT_LOOK;
+export const lookOf = (theme: Theme): Look => ({ ...DEFAULT_LOOK, ...theme.look });
+/** Whether text gets its dark outline; set from the look at the start of every frame (drawing is synchronous, so frames never mix). */
+let outlineOn = true;
 
 /** The flag card as drawn: circle and square shapes use the largest centered square of the slot. */
 export function cardRect(c: Rect, shape: FlagShape): Rect {
@@ -85,7 +87,7 @@ export function layoutIn(ctx: Ctx, theme: Theme, text: string, box: Rect, maxPx:
 /** Filled text, with the theme's outline (titleStyle) when it has one. */
 function styledText(ctx: Ctx, theme: Theme, text: string, x: number, y: number, color: string, opts: { useFill?: boolean; haloColor?: string } = {}) {
   const ts = theme.titleStyle;
-  if (ts) {
+  if (ts && outlineOn) {
     ctx.save();
     ctx.lineJoin = "round"; ctx.miterLimit = 2;
     ctx.lineWidth = ts.strokeWidth * 1.5;
@@ -140,12 +142,12 @@ function drawDots(ctx: Ctx, theme: Theme, current: number, done: boolean) {
 /** Capitals quiz: the country name on a dark band along the bottom of the flag card. */
 export function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
   if (!q.prompt) return;
-  const shape = lookOf(theme).flagShape;
+  const look = lookOf(theme), shape = look.flagShape, pad = look.flagBorder ? 24 : 0;
   c = cardRect(c, shape);
   const text = q.prompt.toUpperCase(), h = Math.round(c.h * 0.22);
-  const band: Rect = { x: c.x + 24, y: c.y + c.h - 24 - h, w: c.w - 48, h };
+  const band: Rect = { x: c.x + pad, y: c.y + c.h - pad - h, w: c.w - 2 * pad, h };
   ctx.save();
-  shapePath(ctx, inset(c, 24), shape, 20); ctx.clip();
+  shapePath(ctx, inset(c, pad), shape, pad ? 20 : 28); ctx.clip();
   ctx.fillStyle = "rgba(0,0,0,0.78)"; ctx.fillRect(band.x, band.y, band.w, band.h);
   const px = fitText((x) => { ctx.font = themeFont(theme, "title", x); return ctx.measureText(text).width; }, band.w - 40, Math.round(h * 0.6), 20);
   ctx.font = themeFont(theme, "title", px); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#FFFFFF";
@@ -154,10 +156,11 @@ export function drawPrompt(ctx: Ctx, theme: Theme, q: QuizQuestion, c: Rect) {
 }
 
 export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag: boolean, borderColor?: string, slot: Rect = LAYOUT.flagCard, t = 0, clarity = 1) {
-  const shape = lookOf(f.theme).flagShape, c = cardRect(slot, shape), cover = shape === "circle" || shape === "square";
-  shapePath(ctx, c, shape, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill();
+  const look = lookOf(f.theme), shape = look.flagShape, c = cardRect(slot, shape), cover = shape === "circle" || shape === "square";
+  const frame = look.flagBorder || !!q.cardText, pad = frame ? 24 : 0, r2 = frame ? 20 : 28; // text cards always keep their frame; without it the flag fills the whole card
+  if (frame) { shapePath(ctx, c, shape, 36); ctx.fillStyle = f.theme.palette.card; ctx.fill(); }
   if (borderColor) { // inset so the 10 px stroke stays inside the card (and the safe zone)
-    shapePath(ctx, inset(c, 6), shape, 30);
+    shapePath(ctx, inset(c, frame ? 6 : 5), shape, frame ? 30 : 28);
     ctx.lineWidth = 10; ctx.strokeStyle = borderColor; ctx.stroke();
   }
   if (!showFlag) return;
@@ -172,9 +175,9 @@ export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag:
   if (q.shape) { // country outline; the reveal fills it with the flag
     const sh = f.assets.shapes.get(q.iso2 ?? "");
     if (!sh) throw new AssetError(`outline missing for ${q.iso2}`);
-    const box: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
+    const box: Rect = inset(c, pad);
     const k = Math.min((box.w - 70) / sh.w, (box.h - 70) / sh.h);
-    ctx.save(); shapePath(ctx, box, shape, 20); ctx.clip();
+    ctx.save(); shapePath(ctx, box, shape, r2); ctx.clip();
     ctx.translate(box.x + (box.w - sh.w * k) / 2, box.y + (box.h - sh.h * k) / 2); ctx.scale(k, k);
     ctx.lineJoin = "round";
     if (borderColor) {
@@ -192,10 +195,10 @@ export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag:
   if (q.image) { // landmark photo, cover-fitted with a slow zoom
     const photo = f.assets.images.get(q.image);
     if (!photo) throw new AssetError(`landmark photo missing for ${q.image}`);
-    const box: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
+    const box: Rect = inset(c, pad);
     const cover = Math.max(box.w / photo.width, box.h / photo.height);
     const hidden = q.effect && clarity < 1;
-    ctx.save(); shapePath(ctx, box, shape, 20); ctx.clip();
+    ctx.save(); shapePath(ctx, box, shape, r2); ctx.clip();
     if (hidden && q.effect === "zoom") { // start zoomed in on one spot, zoom out over the timer
       const k = cover * (1 + (1 - clarity) * 7), [fx, fy] = q.focus ?? [0.5, 0.5];
       const w = photo.width * k, h = photo.height * k;
@@ -221,8 +224,8 @@ export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag:
   }
   const img = f.assets.flags.get(q.fakeHue && !borderColor ? `${q.iso2}|fake` : q.iso2 ?? ""); // the reveal (bordered) shows the real flag
   if (!img) throw new AssetError(`flag bitmap missing for ${q.iso2}`);
-  const inner: Rect = { x: c.x + 24, y: c.y + 24, w: c.w - 48, h: c.h - 48 };
-  ctx.save(); shapePath(ctx, inner, shape, 20); ctx.clip();
+  const inner: Rect = inset(c, pad);
+  ctx.save(); shapePath(ctx, inner, shape, r2); ctx.clip();
   // Waving flag: thin vertical strips shifted by a travelling sine (pure function of t).
   // Circle and square cards show the middle of the flag (cover) instead of squashing it.
   const srcW = cover ? Math.min(img.width, (img.height * inner.w) / inner.h) : img.width, srcX = (img.width - srcW) / 2;
@@ -235,7 +238,7 @@ export function drawFlagCard(ctx: Ctx, f: FrameInput, q: QuizQuestion, showFlag:
 }
 
 export function haloText(ctx: Ctx, text: string, x: number, y: number, fill: string, halo = "#000000", width = 8) {
-  ctx.save(); ctx.lineJoin = "round"; ctx.lineWidth = width; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.restore();
+  if (outlineOn) { ctx.save(); ctx.lineJoin = "round"; ctx.lineWidth = width; ctx.strokeStyle = halo; ctx.strokeText(text, x, y); ctx.restore(); }
   ctx.fillStyle = fill; ctx.fillText(text, x, y);
 }
 
@@ -280,12 +283,13 @@ function drawList(ctx: Ctx, f: FrameInput, q: QuizQuestion, reveal: boolean) {
     ctx.globalAlpha = done || i === q.index ? 1 : 0.55;
     ctx.beginPath(); ctx.arc(bx, cy, r, 0, Math.PI * 2); ctx.fillStyle = tier.bg; ctx.fill();
     ctx.globalAlpha = 1;
-    ctx.fillStyle = tier.fg; ctx.textAlign = "center"; ctx.font = themeFont(theme, "numbers", 46);
+    const k = rowH / 79; // fonts follow the row height (the extra large card leaves 60 px rows)
+    ctx.fillStyle = tier.fg; ctx.textAlign = "center"; ctx.font = themeFont(theme, "numbers", Math.round(46 * k));
     ctx.fillText(String(i + 1), bx, cy + 3);
     const label = done ? specQs[i].name : i === count - 1 ? "IMPOSSIBLE" : "";
     if (label) {
       ctx.textAlign = "left";
-      const px = fitText((s) => { ctx.font = themeFont(theme, "title", s); return ctx.measureText(label).width; }, 760 - 2 * r - 50, 68, 30);
+      const px = fitText((s) => { ctx.font = themeFont(theme, "title", s); return ctx.measureText(label).width; }, 760 - 2 * r - 50, Math.round(68 * k), 24);
       ctx.font = themeFont(theme, "title", px);
       haloText(ctx, label, x + 2 * r + 36, cy + 3, done ? "#FFFFFF" : TIER.impossible.bg, "#000000", 9);
     }
@@ -354,7 +358,7 @@ function drawLevelUp(ctx: Ctx, f: FrameInput, q: QuizQuestion, k: number, tt: nu
   const card = LAYOUT.flagCard, tier = TIER[q.band];
   ctx.save();
   ctx.translate(0, Math.sin(tt * 70) * 12 * (1 - k)); // vertical shake that settles (horizontal would leave the safe zone)
-  drawFlagCard(ctx, { ...f, theme: { ...f.theme, look: { ...lookOf(f.theme), flagShape: "rounded" } } }, q, false); // the level-up panel is always the rounded card
+  drawFlagCard(ctx, { ...f, theme: { ...f.theme, look: { ...lookOf(f.theme), flagShape: "rounded", flagBorder: true } } }, q, false); // the level-up panel is always the framed rounded card
   drawBigText(ctx, f.theme, ["LEVEL UP!"], { x: card.x, y: card.y + 40, w: card.w, h: 200 }, 1);
   const pill: Rect = { x: card.x + 80, y: card.y + 290, w: card.w - 160, h: 150 };
   roundRect(ctx, pill, 40); ctx.fillStyle = tier.bg; ctx.fill();
@@ -372,6 +376,7 @@ export const renderStats = { frames: 0 };
 
 export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
   renderStats.frames++;
+  outlineOn = lookOf(f.theme).textOutline;
   if (f.timeline.spec.profile === "long") { drawLandscapeFrame(ctx, f, t); return; }
   const { timeline, theme } = f;
   ctx.save();

@@ -22,9 +22,17 @@ function Choice<T extends string>({ label, hint, value, options, onChange }: { l
 export default function LookControls({ value, onChange }: { value: Look; onChange: (l: Look) => void }) {
   return (
     <>
-      <Choice label="Flag size" hint="chobi / flag koto boro" value={value.flagSize} options={FLAG_SIZES} onChange={(flagSize) => onChange({ ...value, flagSize })} />
-      <Choice label="Flag shape" hint="card er shape" value={value.flagShape} options={FLAG_SHAPES} onChange={(flagShape) => onChange({ ...value, flagShape })} />
-      <Choice label="Timer" hint="countdown ki rokom" value={value.timer} options={TIMER_KINDS} onChange={(timer) => onChange({ ...value, timer })} />
+      <Choice label="Flag size" hint="how big the card is" value={value.flagSize} options={FLAG_SIZES} onChange={(flagSize) => onChange({ ...value, flagSize })} />
+      <Choice label="Flag shape" hint="shape of the card" value={value.flagShape} options={FLAG_SHAPES} onChange={(flagShape) => onChange({ ...value, flagShape })} />
+      <Choice label="Timer" hint="countdown style" value={value.timer} options={TIMER_KINDS} onChange={(timer) => onChange({ ...value, timer })} />
+      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <input type="checkbox" checked={value.flagBorder} onChange={(e) => onChange({ ...value, flagBorder: e.target.checked })} />
+        <span>Border around the flag <small style={{ color: "#777" }}>(the frame / card)</small></span>
+      </label>
+      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <input type="checkbox" checked={value.textOutline} onChange={(e) => onChange({ ...value, textOutline: e.target.checked })} />
+        <span>Text outline <small style={{ color: "#777" }}>(dark edge around the letters)</small></span>
+      </label>
     </>
   );
 }

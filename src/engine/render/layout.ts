@@ -40,9 +40,9 @@ export const STYLE = {
 
 /** Flag card size per answer style and size. "large" of the open style and "medium" of options / list are the sizes the app always had. */
 const CARD: Record<AnswerStyle, Record<FlagSize, [number, number]>> = {
-  open: { small: [560, 420], medium: [660, 495], large: [760, 570] },
-  options: { small: [480, 360], medium: [600, 450], large: [700, 525] },
-  list: { small: [420, 315], medium: [480, 360], large: [600, 450] },
+  open: { small: [560, 420], medium: [660, 495], large: [760, 570], xlarge: [760, 570] }, // 760 x 570 is the widest card the safe zone allows (the size of the level-up panel)
+  options: { small: [480, 360], medium: [600, 450], large: [700, 525], xlarge: [760, 570] },
+  list: { small: [420, 315], medium: [480, 360], large: [600, 450], xlarge: [760, 570] },
 };
 
 export interface StyleRects { flagCard: Rect; bar: Rect; rows?: { x: number; y: number; w: number; h: number; gap: number; count: number }; list?: { x: number; y: number; w: number; rowH: number; count: number } }

@@ -5,6 +5,7 @@ import ExportPanel from "./components/ExportPanel";
 import ThemeToggle from "./components/ThemeToggle";
 import ShapeSwitch from "./components/ShapeSwitch";
 import Preview from "./components/Preview";
+import SeedPanel from "./components/SeedPanel";
 import { FORMATS } from "./formats";
 import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
@@ -27,10 +28,11 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    let saved: Record<string, string> = {}; // the look you chose last time (template, font, answer style, flag size / shape, timer); the address wins when it names one
+    let saved: Record<string, unknown> = {}; // the look you chose last time (template, font, answer style, flag size / shape, timer); the address wins when it names one
     try { saved = JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}"); } catch { /* unreadable: use the defaults */ }
-    const style = q.get("style") ?? saved.answerStyle ?? "";
-    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? saved.themeId ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? saved.font ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(style) ? style : "list") as Settings["answerStyle"], ...cleanLook({ flagSize: q.get("flag") ?? saved.flagSize, flagShape: q.get("flagshape") ?? saved.flagShape, timer: q.get("timer") ?? saved.timer }) };
+    const str = (v: unknown) => (typeof v === "string" ? v : undefined);
+    const style = q.get("style") ?? str(saved.answerStyle) ?? "";
+    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? str(saved.themeId) ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? str(saved.font) ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(style) ? style : "list") as Settings["answerStyle"], ...cleanLook({ flagSize: q.get("flag") ?? saved.flagSize, flagShape: q.get("flagshape") ?? saved.flagShape, timer: q.get("timer") ?? saved.timer, flagBorder: q.get("border") ?? saved.flagBorder, textOutline: q.get("outline") ?? saved.textOutline }) };
     const wanted = q.get("voice");
     // A voice whose clips were not generated yet would fail to prepare: fall back to the default and say so.
     if (wanted && wanted !== DEFAULT_VOICE_ID) {
@@ -44,8 +46,8 @@ export default function Page() {
 
   useEffect(() => { // remember the look for next time
     if (!settings) return;
-    const { themeId, font, answerStyle, flagSize, flagShape, timer } = settings;
-    try { localStorage.setItem(PREFS_KEY, JSON.stringify({ themeId, font, answerStyle, flagSize, flagShape, timer })); } catch { /* storage full or blocked: nothing to remember */ }
+    const { themeId, font, answerStyle, flagSize, flagShape, timer, flagBorder, textOutline } = settings;
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify({ themeId, font, answerStyle, flagSize, flagShape, timer, flagBorder, textOutline })); } catch { /* storage full or blocked: nothing to remember */ }
   }, [settings]);
 
   useEffect(() => { // keep ?shape= in the address so a reload (or a shared link) opens the same shape
@@ -109,7 +111,10 @@ export default function Page() {
       <main className="studio-stage">
         {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
         <ShapeSwitch value={settings.shape} disabled={busy} onChange={(shape) => setSettings({ ...settings, shape })} />
-        <Preview prepared={view} getAudio={getAudio} />
+        <div className="studio-stagerow">
+          <div className="studio-previewcol"><Preview prepared={view} getAudio={getAudio} /></div>
+          <SeedPanel value={settings} onChange={setSettings} disabled={busy} />
+        </div>
         <p className="studio-meta">First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span className="studio-muted"> · template: {prepared.theme.name}</span>}</p>
         {prepared && <p className="studio-meta studio-muted">{prepared.metadata.hashtags.join(" ")}</p>}
       </main>

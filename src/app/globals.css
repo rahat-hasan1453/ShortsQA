@@ -130,3 +130,17 @@ a {
   .studio-left, .studio-right { border: none; border-top: 1px solid var(--line); }
   .studio-stage canvas { width: min(100%, calc(70vh * 9 / 16), 360px) !important; }
 }
+
+.studio-seedbar { flex: 0 1 230px; width: 230px; max-width: 100%; display: grid; gap: 10px; padding: 12px; margin: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); min-width: 0; }
+.studio-seedfield { display: grid; gap: 4px; font-size: 13px; }
+.studio-seedfield small { font-weight: 400; }
+.studio-seedfield input[type="number"] { width: 100%; }
+.studio-seedfield input { padding: 6px 8px; font-size: 15px; min-width: 0; box-sizing: border-box; }
+.studio-seedrow { display: flex; gap: 8px; align-items: center; }
+.studio-seedrow input { flex: 1; }
+.studio-seedcheck { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+.studio-round { width: 36px; height: 36px; flex: none; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
+.studio-round:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.studio-round:disabled { opacity: .5; cursor: not-allowed; }
+.studio-stagerow { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; justify-content: center; width: 100%; position: sticky; top: 12px; }
+.studio-previewcol { flex: 0 1 405px; min-width: 0; }

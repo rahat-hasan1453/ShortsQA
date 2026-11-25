@@ -63,7 +63,7 @@ export default function TemplateGallery({ prepared, value, onChange, disabled }:
 
   return (
     <div role="group" aria-label="Template" style={{ display: "grid", gap: 8 }}>
-      <span style={{ fontWeight: 600 }}>Template <small style={{ fontWeight: 400, color: "#777" }}>rong, background ar timer er dhoron</small></span>
+      <span style={{ fontWeight: 600 }}>Template <small style={{ fontWeight: 400, color: "#777" }}>colors, background and timer style</small></span>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {(["All", ...THEME_TAGS] as const).map((tag) => (
           <button key={tag} type="button" aria-pressed={filter === tag} onClick={() => setFilter(tag)}

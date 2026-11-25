@@ -118,11 +118,24 @@ test("editor layout: Quiz panel left, preview centre, Style panel right, Export 
   for (const name of ["Flags", "Capitals", "Landmarks", "What is it?", "Real or Fake flag", "Country shape", "Math", "Missing letters"]) {
     await expect(page.getByRole("button", { name: new RegExp(`^${name.replace("?", "\\?")}`) })).toBeEnabled();
   }
-  const adv = page.locator("details", { hasText: "Advanced" });
-  await expect(adv).not.toHaveAttribute("open", "");
-  await expect(page.getByLabel("Seed")).toBeHidden();
-  await adv.locator("summary").click();
-  await expect(page.getByLabel("Seed")).toBeVisible();
+  // Seed, part number and region twist are always visible under the video (no hidden "Advanced" box).
+  await expect(page.locator("details", { hasText: "Advanced" })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: /^Seed/ })).toBeVisible();
+  await expect(page.getByRole("spinbutton", { name: /^Part number/ })).toBeVisible();
+  await expect(page.getByRole("checkbox", { name: /Region twist/ })).toBeVisible();
+});
+
+test("the round button next to the seed rolls a new seed and a new quiz", async ({ page }) => {
+  await page.goto("/?seed=alpha&theme=arctic-ice");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  const before = await page.getByTestId("first-country").textContent();
+  const seedBefore = await page.getByRole("textbox", { name: /^Seed/ }).inputValue();
+  expect(seedBefore).toBe("alpha");
+  await page.getByRole("button", { name: "New seed" }).click();
+  await expect(page.getByRole("textbox", { name: /^Seed/ })).not.toHaveValue("alpha");
+  await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
+  const seedAfter = await page.getByRole("textbox", { name: /^Seed/ }).inputValue();
+  expect(seedAfter).toMatch(/^[a-z0-9]{3,}$/);
 });
 
 test("Play controls sit right under the video (no big gap) and stay in view when scrolling", async ({ page }) => {
