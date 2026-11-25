@@ -6,6 +6,8 @@ import ThemeToggle from "./components/ThemeToggle";
 import ShapeSwitch from "./components/ShapeSwitch";
 import Preview from "./components/Preview";
 import SeedPanel from "./components/SeedPanel";
+import MetaPanel from "./components/MetaPanel";
+import Collapsible from "./components/Collapsible";
 import { FORMATS } from "./formats";
 import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
@@ -89,39 +91,43 @@ export default function Page() {
     <div className="studio">
       <header className="studio-top">
         <div className="studio-brand"><span className="studio-logo" aria-hidden>Q</span><strong>Shorts Quiz Studio</strong></div>
-        <div className="studio-title" title={prepared?.metadata.title}>{prepared?.metadata.title ?? "Preparing…"}</div>
+        <div className="studio-title">Flag Quiz for Geography Lovers</div>
         <ThemeToggle />
         <ExportPanel prepared={view} settings={settings} supported={support?.ok === true} busy={busy} setBusy={setBusy} background={bg ?? undefined} />
       </header>
 
       <aside className="studio-panel studio-left" aria-label="Quiz settings">
-        <h2 className="studio-h">Quiz</h2>
-        <div role="group" aria-label="Quiz type" className="studio-formats">
-          {FORMATS.map((f) => (
-            <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format} className="studio-card"
-              onClick={() => setSettings({ ...settings, format: f.id as Settings["format"] })}>
-              <strong>{f.name}</strong>{!f.ready && <span style={{ fontSize: 12, marginLeft: 6 }}>Coming soon</span>}
-              <span className="studio-muted">{f.blurb}</span>
-            </button>
-          ))}
-        </div>
+        <Collapsible title="Quiz">
+          <div role="group" aria-label="Quiz type" className="studio-formats">
+            {FORMATS.map((f) => (
+              <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format} className="studio-card"
+                onClick={() => setSettings({ ...settings, format: f.id as Settings["format"] })}>
+                <strong>{f.name}</strong>{!f.ready && <span style={{ fontSize: 12, marginLeft: 6 }}>Coming soon</span>}
+                <span className="studio-muted">{f.blurb}</span>
+              </button>
+            ))}
+          </div>
+        </Collapsible>
         <Controls section="content" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
       </aside>
 
       <main className="studio-stage">
-        {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
-        <ShapeSwitch value={settings.shape} disabled={busy} onChange={(shape) => setSettings({ ...settings, shape })} />
-        <div className="studio-stagerow">
+        <div className="studio-stagecol">
+          {alerts.length > 0 && <div className="studio-alerts">{alerts.map((a) => <p key={a.text} role="alert" style={{ color: a.bad ? "#e5484d" : "#d68a00", margin: 0 }}>{a.text}</p>)}</div>}
+          <ShapeSwitch value={settings.shape} disabled={busy} onChange={(shape) => setSettings({ ...settings, shape })} />
           <div className="studio-previewcol"><Preview prepared={view} getAudio={getAudio} /></div>
-          <SeedPanel value={settings} onChange={setSettings} disabled={busy} />
+          {prepared && <p className="studio-meta studio-muted">Template: {prepared.theme.name}</p>}
         </div>
-        <p className="studio-meta">First answer: <strong data-testid="first-country">{prepared?.spec.questions[0].name ?? ""}</strong>{prepared && <span className="studio-muted"> · template: {prepared.theme.name}</span>}</p>
-        {prepared && <p className="studio-meta studio-muted">{prepared.metadata.hashtags.join(" ")}</p>}
+        <div className="studio-seedcol">
+          <SeedPanel value={settings} onChange={setSettings} disabled={busy} firstAnswer={prepared?.spec.questions[0].name ?? ""} />
+          <MetaPanel metadata={prepared?.metadata ?? null} />
+        </div>
       </main>
 
       <aside className="studio-panel studio-right" aria-label="Style settings">
-        <h2 className="studio-h">Style</h2>
-        <Controls section="style" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
+        <Collapsible title="Style">
+          <Controls section="style" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
+        </Collapsible>
       </aside>
     </div>
   );

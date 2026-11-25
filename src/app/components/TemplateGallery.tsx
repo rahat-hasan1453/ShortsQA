@@ -58,13 +58,13 @@ export default function TemplateGallery({ prepared, value, onChange, disabled }:
   const shown = themes.filter((t) => filter === "All" || themeTags(t).includes(filter));
   const card = (selected: boolean): React.CSSProperties => ({
     display: "grid", gap: 4, padding: 6, borderRadius: 10, textAlign: "left", cursor: disabled ? "not-allowed" : "pointer", color: "inherit",
-    border: selected ? "2px solid #2563eb" : "1px solid #8884", background: selected ? "#2563eb14" : "transparent",
+    border: selected ? "2px solid #2563eb" : "1px solid #8884", background: selected ? "rgba(37,99,235,0.13)" : "transparent",
   });
 
   return (
     <div role="group" aria-label="Template" style={{ display: "grid", gap: 8 }}>
       <span style={{ fontWeight: 600 }}>Template <small style={{ fontWeight: 400, color: "#777" }}>colors, background and timer style</small></span>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "6px 5px" }}>
         {(["All", ...THEME_TAGS] as const).map((tag) => (
           <button key={tag} type="button" aria-pressed={filter === tag} onClick={() => setFilter(tag)}
             style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid #8886", background: filter === tag ? "#2563eb" : "transparent", color: filter === tag ? "#fff" : "inherit", cursor: "pointer", fontSize: 13 }}>{tag}</button>

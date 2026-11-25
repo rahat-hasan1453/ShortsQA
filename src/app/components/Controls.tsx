@@ -35,13 +35,14 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
     <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
       {value.shape === "long"
         ? <p style={{ margin: 0, fontSize: 13, color: "#888" }}>Long videos always use A–D options.</p>
-        : <label style={LABEL}>Answer style <small style={HINT}>how viewers see the answers</small>
-          <select value={value.answerStyle} onChange={(e) => set({ answerStyle: e.target.value as Settings["answerStyle"] })} style={FIELD}>
-            <option value="list">List 1-10 (recommended)</option>
-            <option value="options">Options A-D</option>
-            <option value="open">Open (just the name)</option>
-          </select>
-        </label>}
+        : <div role="group" aria-label="Answer style" className="studio-section">
+          <h2 className="studio-h">Answer style</h2>
+          <div className="studio-answerstyles">
+            {([["list", "List 1-10 (recommended)", true], ["options", "Option A-D", false], ["open", "Open (Just answer)", false]] as const).map(([id, label, big]) => (
+              <button key={id} type="button" aria-pressed={value.answerStyle === id} className={`studio-choice${big ? " is-big" : ""}`} onClick={() => set({ answerStyle: id })}>{label}</button>
+            ))}
+          </div>
+        </div>}
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
     </fieldset>
   );

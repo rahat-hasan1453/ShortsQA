@@ -9,7 +9,7 @@ function Choice<T extends string>({ label, hint, value, options, onChange }: { l
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {options.map((o) => (
           <button key={o.id} type="button" aria-pressed={o.id === value} onClick={() => onChange(o.id)}
-            style={{ padding: "6px 10px", fontSize: 14, borderRadius: 8, border: o.id === value ? "2px solid #2563eb" : "1px solid #8886", background: o.id === value ? "#2563eb22" : "transparent", color: "inherit", cursor: "pointer" }}>
+            style={{ padding: "6px 10px", fontSize: 14, borderRadius: 8, border: o.id === value ? "2px solid #2563eb" : "1px solid #88888866", background: o.id === value ? "rgba(37,99,235,0.13)" : "transparent", color: "inherit", cursor: "pointer" }}>
             {o.label}
           </button>
         ))}

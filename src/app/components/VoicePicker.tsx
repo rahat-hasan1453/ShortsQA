@@ -1,4 +1,5 @@
 "use client";
+import Collapsible from "./Collapsible";
 import { useEffect, useRef, useState } from "react";
 import { audioDir, VOICES } from "@/engine/voices";
 
@@ -28,9 +29,8 @@ export default function VoicePicker({ value, onChange, disabled }: { value: stri
   };
 
   return (
-    <div role="group" aria-label="Voice" style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontWeight: 600 }}>Voice <small style={{ fontWeight: 400, color: "#777" }}>who reads the voice-over</small></span>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8 }}>
+    <Collapsible title="Voice" hint="who reads the voice-over">
+      <div role="group" aria-label="Voice" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
         {VOICES.map((v) => {
           const has = ready[v.id] !== false; // unknown (still checking) counts as available
           const selected = v.id === value;
@@ -48,6 +48,6 @@ export default function VoicePicker({ value, onChange, disabled }: { value: stri
           );
         })}
       </div>
-    </div>
+    </Collapsible>
   );
 }
