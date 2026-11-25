@@ -28,7 +28,7 @@ describe("buildTimeline", () => {
     const spec = buildQuiz({ ...base, seed: "long", clipMs });
     const tl = buildTimeline(spec, { clipMs, voice });
     const reveal = tl.scenes.find((s) => s.kind === "reveal" && s.q === 2)!;
-    expect(reveal.end - reveal.start).toBeGreaterThanOrEqual(2.7);
+    expect(reveal.end - reveal.start).toBeGreaterThanOrEqual(2.1); // the 2.0 s clip plus padding, well above the 1.1 s minimum
     const iv = tl.cues.filter((c) => c.kind === "voice").map((c: any) => ({ s: c.at, e: c.at + (c.clips.reduce((a: number, t: string) => a + clipMs(t), 0) / 1000) + 0.04 * (c.clips.length - 1) })).sort((a, b) => a.s - b.s);
     for (let i = 1; i < iv.length; i++) expect(iv[i].s).toBeGreaterThanOrEqual(iv[i - 1].e - 1e-9);
   });

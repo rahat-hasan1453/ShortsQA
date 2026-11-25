@@ -1,13 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fontFamilies, fontSlug } from "../../src/engine/assetPaths";
+import { EXTRA_FONTS } from "../../src/engine/fontLibrary";
 
 const root = path.resolve(__dirname, "../..");
 const themes = JSON.parse(fs.readFileSync(path.join(root, "data/themes.json"), "utf8"));
 const out = path.join(root, "public/fonts");
 fs.mkdirSync(out, { recursive: true });
 const missing: string[] = [];
-for (const fam of fontFamilies(themes)) {
+for (const fam of fontFamilies(themes, EXTRA_FONTS)) {
   const slug = fontSlug(fam);
   const dir = path.join(root, "node_modules/@fontsource", slug, "files");
   let ok = false;

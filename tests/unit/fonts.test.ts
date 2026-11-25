@@ -18,3 +18,19 @@ test("search matches name or group", () => {
   expect(fontMatches("Inter", "serif")).toBe(false);
   expect(fontMatches("Inter", "")).toBe(true);
 });
+
+import fs from "node:fs";
+import path from "node:path";
+import { EXTRA_FONTS } from "../../src/engine/fontLibrary";
+import { fontSlug } from "../../src/engine/assetPaths";
+
+test("the extra font library is large, grouped, and every font file is bundled", () => {
+  expect(EXTRA_FONTS.length).toBeGreaterThanOrEqual(80);
+  for (const f of EXTRA_FONTS) {
+    expect(FONT_GROUP[f], f).toBeTruthy();
+    expect(fs.existsSync(path.resolve(__dirname, `../../public/fonts/${fontSlug(f)}-400.woff2`)), f).toBe(true);
+  }
+  expect(FONT_GROUP["Lobster"]).toBe("Script");
+  expect(FONT_GROUP["Bungee"]).toBe("Display");
+  expect(fontMatches("Pacifico", "script")).toBe(true);
+});

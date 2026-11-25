@@ -61,7 +61,7 @@ describe("validateVoiceLines", () => {
     format: "flags", intro: Array(10).fill("Hi."), ask: Array(8).fill("Q?"),
     countdown: Array(6).fill("Go."), revealCorrect: Array(10).fill("It's {answer}!"),
     transition: Array(8).fill("Next."), difficultyUp: Array(5).fill("Hard."),
-    outro: Array(10).fill("Bye."),
+    outro: Array(10).fill("Bye."), likeCta: Array(6).fill("Like."), subscribeCta: Array(6).fill("Subscribe."), lastCta: Array(6).fill("Last."),
   };
   test("passes a clean format", () => {
     expect(validateVoiceLines([base])).toEqual([]);

@@ -1,150 +1,198 @@
 [
-  {
-    "format": "math",
-    "intro": [
-      "Ten math problems. How many can you solve?",
-      "Only one in a hundred gets all ten!",
-      "Math time! Let's wake up those brain cells.",
-      "Calculators down, brains on!",
-      "Think you're quick with numbers? Prove it!",
-      "Ready for a speedy mental math challenge?",
-      "Numbers lovers, this one's for you!",
-      "Only the sharpest minds solve these in time.",
-      "Let's see how fast your brain can calculate!",
-      "Quick math quiz coming up. No calculators allowed!"
-    ],
-    "ask": [
-      "What's the answer to this problem?",
-      "Can you solve this one?",
-      "Work it out. What does this equal?",
-      "Do the math. What's the result?",
-      "Solve this calculation in your head!",
-      "Crunch the numbers. What's the answer?",
-      "Quick, what's the solution?",
-      "What do you get with this one?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Crunch those numbers!",
-      "Keep that brain moving!",
-      "Tick tock, almost there!",
-      "Lock in your answer!",
-      "Don't forget to carry the one!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "The answer is {answer}!",
-      "That equals {answer}!",
-      "Yes, {answer}! Did you get it?",
-      "If you said {answer}, you're a genius!",
-      "The correct answer is {answer}!",
-      "Nailed it if you got {answer}!",
-      "Drumroll please — it's {answer}!",
-      "And the result is {answer}!",
-      "{answer} was the magic number!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another?",
-      "Here comes question {n} of {total}!",
-      "Let's keep the numbers rolling!",
-      "Don't relax yet, there's more!",
-      "On to the next problem!",
-      "Stay sharp, here's another!",
-      "Brain still warm? Here's the next one!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Time to turn up the difficulty!",
-      "This one's a real brain buster.",
-      "Only true math whizzes get this.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many did you solve? Tell me in the comments!",
-      "Follow for part {part} of the math challenge!",
-      "Share this with a friend and see who's faster!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more brain teasers? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with a math whiz!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  },
-  {
-    "format": "missing-letters",
-    "intro": [
-      "Ten words with missing letters. Can you fill them in?",
-      "Only one in a hundred gets all ten!",
-      "Word wizards, this quiz is for you!",
-      "Some letters went missing. Can you find them?",
-      "Think you're a spelling champ? Let's see!",
-      "Ready for a letter hunting challenge?",
-      "Only the sharpest eyes spot these words.",
-      "Let's see how well you can spell!",
-      "Quick word puzzle time. Don't blink!",
-      "Fill in the blanks, one word at a time!"
-    ],
-    "ask": [
-      "Can you fill in the missing letters?",
-      "What word is hiding here?",
-      "Which letters are missing?",
-      "Complete this word if you can!",
-      "Figure out the word behind the blanks.",
-      "Look closely. What's the full word?",
-      "Can you crack this word?",
-      "Spell it out. What's the word?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Sound it out!",
-      "Trust your spelling instincts!",
-      "Tick tock, fill those blanks!",
-      "Almost out of time!",
-      "Lock in your word!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "The word is {answer}!",
-      "That spells {answer}!",
-      "Yes, {answer}! Did you get it?",
-      "If you said {answer}, great spelling!",
-      "The full word is {answer}!",
-      "Nailed it if you got {answer}!",
-      "Ta da — it's {answer}!",
-      "{answer} was hiding all along!",
-      "And the missing word is {answer}!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another word?",
-      "Here comes question {n} of {total}!",
-      "Let's keep the letters coming!",
-      "Don't relax yet, there's more!",
-      "On to the next word!",
-      "Stay sharp, here's another puzzle!",
-      "Eyes up, the next one's here!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Time to crank up the challenge!",
-      "This one's a real word twister.",
-      "Only true spelling pros get this.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many words did you crack? Tell me in the comments!",
-      "Follow for part {part} of the word challenge!",
-      "Share this with a friend and see who spells better!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more word puzzles? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with a word lover!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  }
+ {
+  "format": "math",
+  "intro": [
+   "{total} math problems, no calculator. How many can you solve in time?",
+   "Quick mental math. Can you beat the clock?",
+   "Only the sharpest minds solve all {total}.",
+   "Calculators down, brains on. Ready?",
+   "Think you're quick with numbers? Prove it.",
+   "Solve every problem and you're a math genius.",
+   "Let's see how fast your brain can calculate.",
+   "Math time! Wake up those brain cells.",
+   "Numbers lovers, this one is for you!",
+   "Only one in a hundred solves all {total}. Are you that one?"
+  ],
+  "ask": [
+   "What's the answer to this problem?",
+   "Can you solve this one?",
+   "Work it out. What does this equal?",
+   "Do the math. What's the result?",
+   "Solve this calculation in your head!",
+   "Crunch the numbers. What's the answer?",
+   "Quick, what's the solution?",
+   "What do you get with this one?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Crunch those numbers!",
+   "Keep that brain moving!",
+   "Tick tock, almost there!",
+   "Lock in your answer!",
+   "Don't forget to carry the one!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another?",
+   "Here comes question {n} of {total}!",
+   "Let's keep the numbers rolling!",
+   "Don't relax yet, there's more!",
+   "On to the next problem!",
+   "Stay sharp, here's another!",
+   "Brain still warm? Here's the next one!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Time to turn up the difficulty!",
+   "This one's a real brain buster.",
+   "Only true math whizzes get this.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many did you solve? Tell me in the comments!",
+   "Follow for part {part} of the math challenge!",
+   "Share this with a friend and see who's faster!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more brain teasers? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with a math whiz!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ },
+ {
+  "format": "missing-letters",
+  "intro": [
+   "Can you name these {total} words from just their missing letters? No googling.",
+   "Only a true word whiz gets all {total}. Ready?",
+   "{total} words, some letters missing. Can you fill them in?",
+   "Think you can spell? Prove it with {total} puzzles.",
+   "Some letters went missing. Can you find the words?",
+   "Fill in every blank and you're a spelling champ.",
+   "Word wizards, this quiz is for you. Let's go.",
+   "Quick word puzzles. Don't blink!",
+   "Only the sharpest eyes spot every word here.",
+   "Only one in a hundred gets all {total}. Are you that one?"
+  ],
+  "ask": [
+   "Can you fill in the missing letters?",
+   "What word is hiding here?",
+   "Which letters are missing?",
+   "Complete this word if you can!",
+   "Figure out the word behind the blanks.",
+   "Look closely. What's the full word?",
+   "Can you crack this word?",
+   "Spell it out. What's the word?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Sound it out!",
+   "Trust your spelling instincts!",
+   "Tick tock, fill those blanks!",
+   "Almost out of time!",
+   "Lock in your word!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another word?",
+   "Here comes question {n} of {total}!",
+   "Let's keep the letters coming!",
+   "Don't relax yet, there's more!",
+   "On to the next word!",
+   "Stay sharp, here's another puzzle!",
+   "Eyes up, the next one's here!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Time to crank up the challenge!",
+   "This one's a real word twister.",
+   "Only true spelling pros get this.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many words did you crack? Tell me in the comments!",
+   "Follow for part {part} of the word challenge!",
+   "Share this with a friend and see who spells better!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more word puzzles? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with a word lover!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ }
 ]

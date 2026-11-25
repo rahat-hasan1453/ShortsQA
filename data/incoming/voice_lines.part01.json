@@ -1,150 +1,198 @@
 [
-  {
-    "format": "flags",
-    "intro": [
-      "Can you name all {total} flags? Let's find out!",
-      "Only one in a hundred gets every flag right. Are you that one?",
-      "Flag quiz time! Let's see how sharp your eyes are.",
-      "Ready to test your flag knowledge? Here we go!",
-      "Some of these flags look alike. Don't get tricked!",
-      "Let's see how many flags you can spot today.",
-      "Think you know your flags? Prove it!",
-      "Grab a pen. We're about to test your flag skills.",
-      "Only the sharpest eyes get every flag here. Ready?",
-      "Flags from {region}! How many can you name?"
-    ],
-    "ask": [
-      "Which country does this flag belong to?",
-      "Whose flag is this?",
-      "Can you name the country behind this flag?",
-      "Take a look. Which country flies this flag?",
-      "Question {n}. Which country is this?",
-      "What country does this flag represent?",
-      "Look closely. Whose flag do you see here?",
-      "Name the country that waves this flag!"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Tick tock. What's your guess?",
-      "Take your best shot!",
-      "Trust your gut!",
-      "Look at the colors. Look at the pattern.",
-      "Almost out of time!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "That's the flag of {answer}!",
-      "The answer is {answer}.",
-      "Yes! {answer}!",
-      "Did you get {answer}? Nice one!",
-      "This one belongs to {answer}.",
-      "Got it? It's {answer}!",
-      "Say hello to {answer}!",
-      "Flying high — that's {answer}!",
-      "Drumroll, please — it's {answer}!"
-    ],
-    "transition": [
-      "Next one!",
-      "Here comes the next flag.",
-      "Moving on. Ready for another?",
-      "Let's keep going!",
-      "Up next, another flag!",
-      "Ready? Here's another one.",
-      "Let's see if you know this one.",
-      "Keep those eyes sharp. Here we go!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Things are getting tricky!",
-      "Here's a hard one.",
-      "Time to turn up the difficulty.",
-      "Careful — this one is sneaky!"
-    ],
-    "outro": [
-      "You got {score} out of {total}! Comment your score below.",
-      "Follow for part {part} of this series!",
-      "Share this with a friend and see who scores higher.",
-      "How many did you get? Tell me in the comments!",
-      "Think you did well? Send this to someone who loves flags.",
-      "That's a wrap! Follow so you don't miss part {part}.",
-      "Challenge a friend to beat your score of {score}!",
-      "Hit follow for more flag quizzes.",
-      "Drop your score in the comments, and I'll cheer you on!",
-      "Want more? Part {part} is waiting. Follow so you never miss it!"
-    ]
-  },
-  {
-    "format": "landmarks",
-    "intro": [
-      "Can you guess the country from its famous landmark?",
-      "Time for a world tour! How many can you spot?",
-      "Only one in a hundred names every landmark. Ready?",
-      "Landmarks from {region}! Let's see what you know.",
-      "Grab your passport. We're traveling by quiz today!",
-      "Think you're a world traveler? Prove it!",
-      "Some of these are famous. Some are sneaky. Let's go!",
-      "Let's see how well you know the world's landmarks.",
-      "Quick trip around the globe — ready for takeoff?",
-      "Ready to test your landmark knowledge? Here we go!"
-    ],
-    "ask": [
-      "Which country is this landmark in?",
-      "In which country would you find this?",
-      "Can you name the country this landmark calls home?",
-      "Take a good look. Which country is this?",
-      "Home to this famous place — which country is it?",
-      "Name the country where this landmark stands.",
-      "Question {n}. This landmark stands in which country?",
-      "Picture yourself here. Which country are you in?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Where in the world could this be?",
-      "Pack your bags — which country?",
-      "Trust your travel instincts!",
-      "Clock's ticking. Take a guess!",
-      "Almost time. What's your answer?"
-    ],
-    "revealCorrect": [
-      "It's in {answer}!",
-      "Welcome to {answer}!",
-      "This landmark belongs to {answer}.",
-      "The answer is {answer}.",
-      "Yes, that's {answer}!",
-      "Did you say {answer}? Great job!",
-      "Pack your bags, we're headed to {answer}!",
-      "That's {answer}, no doubt about it!",
-      "You'd find this in {answer}.",
-      "Postcard from {answer}!"
-    ],
-    "transition": [
-      "Next stop!",
-      "On to the next destination.",
-      "Let's hop to another country.",
-      "Here comes another landmark.",
-      "Ready for the next one?",
-      "Buckle up. Another landmark's coming!",
-      "Off we go!",
-      "Keep exploring. Here's another one."
-    ],
-    "difficultyUp": [
-      "Now we're getting off the tourist trail.",
-      "This one's a tough one.",
-      "Things just got tricky!",
-      "Here's a harder landmark.",
-      "Time for a real challenge."
-    ],
-    "outro": [
-      "You scored {score} out of {total}! Comment your score below.",
-      "Follow for part {part}, and we'll keep traveling!",
-      "Share this with a friend who loves to travel.",
-      "Which landmark was your favorite? Tell me in the comments!",
-      "That's the end of our trip! Follow for part {part}.",
-      "Challenge a friend to beat your score of {score}!",
-      "Been to any of these places? Share your stories below!",
-      "Hit follow for more trips around the world.",
-      "Think you aced it? Drop your score in the comments.",
-      "Send this to someone who needs a world tour. Part {part} is coming!"
-    ]
-  }
+ {
+  "format": "flags",
+  "intro": [
+   "Can you name all {total} flags? Only true geography fans get every one.",
+   "{total} flags, no help. Can you get every single one?",
+   "These flags look easy, until they're not. Ready?",
+   "Think you know your flags? Prove it. Let's go.",
+   "Only the sharpest eyes get all {total} flags right.",
+   "Flag quiz time. How many can you name?",
+   "Some of these flags look alike. Don't get tricked!",
+   "Name every flag and you're a geography genius.",
+   "Flags from {region}! How many can you name?",
+   "Only one in a hundred gets every flag right. Are you that one?"
+  ],
+  "ask": [
+   "Which country does this flag belong to?",
+   "Whose flag is this?",
+   "Can you name the country behind this flag?",
+   "Take a look. Which country flies this flag?",
+   "Question {n}. Which country is this?",
+   "What country does this flag represent?",
+   "Look closely. Whose flag do you see here?",
+   "Name the country that waves this flag!"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Tick tock. What's your guess?",
+   "Take your best shot!",
+   "Trust your gut!",
+   "Look at the colors. Look at the pattern.",
+   "Almost out of time!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one!",
+   "Here comes the next flag.",
+   "Moving on. Ready for another?",
+   "Let's keep going!",
+   "Up next, another flag!",
+   "Ready? Here's another one.",
+   "Let's see if you know this one.",
+   "Keep those eyes sharp. Here we go!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Things are getting tricky!",
+   "Here's a hard one.",
+   "Time to turn up the difficulty.",
+   "Careful — this one is sneaky!"
+  ],
+  "outro": [
+   "You got {score} out of {total}! Comment your score below.",
+   "Follow for part {part} of this series!",
+   "Share this with a friend and see who scores higher.",
+   "How many did you get? Tell me in the comments!",
+   "Think you did well? Send this to someone who loves flags.",
+   "That's a wrap! Follow so you don't miss part {part}.",
+   "Challenge a friend to beat your score of {score}!",
+   "Hit follow for more flag quizzes.",
+   "Drop your score in the comments, and I'll cheer you on!",
+   "Want more? Part {part} is waiting. Follow so you never miss it!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ },
+ {
+  "format": "landmarks",
+  "intro": [
+   "Can you name the country behind each landmark? Time for a world tour.",
+   "{total} famous places. Can you tell where they are?",
+   "Pack your bags, we're guessing countries by landmark!",
+   "Only a true world traveler gets all {total} landmarks.",
+   "Some of these are famous. Some are sneaky. Ready?",
+   "Think you know the world's landmarks? Prove it.",
+   "Quick trip around the globe. Can you name every country?",
+   "Landmarks from {region}! How many can you place?",
+   "Place every landmark and you're a real traveler.",
+   "Only one in a hundred names every landmark. Are you that one?"
+  ],
+  "ask": [
+   "Which country is this landmark in?",
+   "In which country would you find this?",
+   "Can you name the country this landmark calls home?",
+   "Take a good look. Which country is this?",
+   "Home to this famous place — which country is it?",
+   "Name the country where this landmark stands.",
+   "Question {n}. This landmark stands in which country?",
+   "Picture yourself here. Which country are you in?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Where in the world could this be?",
+   "Pack your bags — which country?",
+   "Trust your travel instincts!",
+   "Clock's ticking. Take a guess!",
+   "Almost time. What's your answer?"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next stop!",
+   "On to the next destination.",
+   "Let's hop to another country.",
+   "Here comes another landmark.",
+   "Ready for the next one?",
+   "Buckle up. Another landmark's coming!",
+   "Off we go!",
+   "Keep exploring. Here's another one."
+  ],
+  "difficultyUp": [
+   "Now we're getting off the tourist trail.",
+   "This one's a tough one.",
+   "Things just got tricky!",
+   "Here's a harder landmark.",
+   "Time for a real challenge."
+  ],
+  "outro": [
+   "You scored {score} out of {total}! Comment your score below.",
+   "Follow for part {part}, and we'll keep traveling!",
+   "Share this with a friend who loves to travel.",
+   "Which landmark was your favorite? Tell me in the comments!",
+   "That's the end of our trip! Follow for part {part}.",
+   "Challenge a friend to beat your score of {score}!",
+   "Been to any of these places? Share your stories below!",
+   "Hit follow for more trips around the world.",
+   "Think you aced it? Drop your score in the comments.",
+   "Send this to someone who needs a world tour. Part {part} is coming!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ }
 ]

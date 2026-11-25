@@ -22,7 +22,7 @@ test("safe-zone margins stay empty in all 21 themes", async ({ page }) => {
   const themes: string[] = await page.evaluate(() => (window as any).__debug.themes);
   expect(themes).toHaveLength(21);
   for (const theme of themes) {
-    for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "outro:1"]) {
+    for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "diffUp:6:0.3", "diffUp:9:0.3", "outro:1"]) {
       const diff = await page.evaluate(([t, a]) => (window as any).__debug.marginDiff(t, "demo", a), [theme, at]);
       expect(diff, `${theme} ${at}`).toBe(0);
     }
@@ -65,10 +65,36 @@ test("safe-zone margins stay empty in the options and list styles", async ({ pag
   await waitReady(page);
   for (const style of ["options", "list"]) {
     for (const theme of ["quiz-burst", "dark-alert", "game-show", "sticker-pop", "mono-bold", "retro-arcade"]) {
-      for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "outro:1"]) {
+      for (const at of ["timer:0:1.0", "reveal:4:0.8", "timer:9:1.5", "diffUp:3:0.3", "diffUp:6:0.3", "diffUp:9:0.3", "outro:1"]) {
         const diff = await page.evaluate(([t, a, st]) => (window as any).__debug.marginDiff(t, "demo", a, st), [theme, at, style]);
         expect(diff, `${style} ${theme} ${at}`).toBe(0);
       }
     }
   }
+});
+
+test("safe-zone margins stay empty for every flag size, shape and timer in all answer styles", async ({ page }) => {
+  await page.goto(url("theme=arctic-ice&seed=demo"));
+  await waitReady(page);
+  const looks = [];
+  for (const flagSize of ["small", "medium", "large"]) for (const flagShape of ["rounded", "sharp", "circle", "square"]) for (const timer of ["auto", "ring", "bar"]) looks.push({ flagSize, flagShape, timer });
+  for (const style of ["open", "options", "list"]) {
+    for (const look of looks) {
+      for (const at of ["timer:0:1.0", "timer:9:1.5", "reveal:4:0.8", "diffUp:3:0.3"]) {
+        const diff = await page.evaluate(([t, a, st, lk]) => (window as any).__debug.marginDiff(t, "demo", a, st, lk), ["quiz-burst", at, style, look]);
+        expect(diff, `${style} ${JSON.stringify(look)} ${at}`).toBe(0);
+      }
+    }
+  }
+});
+
+test("the new looks draw: circle and sharp cards differ from the default frame", async ({ page }) => {
+  await page.goto(url("theme=quiz-burst&seed=demo"));
+  await waitReady(page);
+  const shot = async (look: object | undefined, style = "list") => {
+    await page.evaluate(([st, lk]) => (window as any).__debug.render("quiz-burst", "demo", "timer:2:1.5", st, lk), [style, look]);
+    return page.evaluate(() => (window as any).__debug.dataUrl());
+  };
+  const base = await shot(undefined), circle = await shot({ flagSize: "large", flagShape: "circle", timer: "auto" }), bar = await shot({ flagSize: "large", flagShape: "rounded", timer: "bar" }), small = await shot({ flagSize: "small", flagShape: "rounded", timer: "auto" });
+  expect(new Set([base, circle, bar, small]).size).toBe(4);
 });

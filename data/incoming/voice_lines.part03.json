@@ -1,150 +1,198 @@
 [
-  {
-    "format": "what-is-it",
-    "intro": [
-      "Ten mystery pictures. Can you name them all?",
-      "Only one in a hundred gets all ten!",
-      "What on earth is that? Let's find out!",
-      "Think you know everyday things? Prove it!",
-      "Squint your eyes, mystery pictures incoming!",
-      "Ready to play detective with some pictures?",
-      "Only the sharpest eyes name these correctly.",
-      "Let's see how well you know your stuff!",
-      "Quick guessing game. Don't blink!",
-      "Can you name what you see? Let's play!"
-    ],
-    "ask": [
-      "What is this?",
-      "Can you tell what this is?",
-      "Take a good look. What do you see?",
-      "Name the thing in the picture!",
-      "What are we looking at here?",
-      "Do you know what this is?",
-      "Take a guess. What is it?",
-      "Any idea what this one is?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Look closer!",
-      "Trust your gut!",
-      "Tick tock, keep looking!",
-      "Almost out of time!",
-      "Lock in your guess!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "That one is {answer}!",
-      "The answer is {answer}!",
-      "Yes, {answer}! Did you get it?",
-      "Nailed it if you said {answer}!",
-      "Say hello to {answer}!",
-      "If you guessed {answer}, give yourself a cheer!",
-      "{answer} was the answer!",
-      "Drumroll please — it's {answer}!",
-      "Surprise — it's {answer}!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another?",
-      "Here comes question {n} of {total}!",
-      "Let's keep them coming!",
-      "On to the next mystery!",
-      "Don't get comfy, there's more!",
-      "Another picture coming right up!",
-      "Stay sharp, here's the next one!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Okay, time to turn up the heat!",
-      "This one's a real brain teaser.",
-      "Only true experts get this one.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many did you get? Tell me in the comments!",
-      "Follow for part {part} of the mystery challenge!",
-      "Share this with a friend and see who scores higher!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more mystery pictures? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with someone clever!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  },
-  {
-    "format": "country-shape",
-    "intro": [
-      "Ten country outlines. Can you name them all?",
-      "Only one in a hundred gets all ten!",
-      "Think you know the map? Let's find out!",
-      "Geography fans, this quiz is for you!",
-      "Can you spot a country by its shape?",
-      "No borders, no labels, just silhouettes. Ready?",
-      "Only the sharpest map lovers get these right.",
-      "Let's test your world map skills!",
-      "Ten shadows are coming. Which countries are they?",
-      "Quick geography challenge. Don't blink!"
-    ],
-    "ask": [
-      "Which country has this shape?",
-      "Can you name this country by its outline?",
-      "Look at the silhouette. Which country is it?",
-      "Whose borders are these?",
-      "Which country is hiding in this shadow?",
-      "Do you recognize this shape?",
-      "Name the country behind this outline!",
-      "What country does this map shape show?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Picture the map!",
-      "Trust your gut!",
-      "Tick tock, study that shape!",
-      "Almost out of time!",
-      "Lock in your guess!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "That shape is {answer}!",
-      "The answer is {answer}!",
-      "Yes, {answer}! Did you spot it?",
-      "Nailed it if you said {answer}!",
-      "Say hello to {answer}!",
-      "If you guessed {answer}, you're a map master!",
-      "{answer} was hiding in that outline!",
-      "Drumroll please — it's {answer}!",
-      "And the country is {answer}!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another shape?",
-      "Here comes question {n} of {total}!",
-      "Let's keep exploring the map!",
-      "On to the next outline!",
-      "Don't get comfy, there's more!",
-      "Another country coming right up!",
-      "Stay sharp, here's the next one!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Time to turn up the heat!",
-      "This one's a real map twister.",
-      "Only true geographers get this one.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many did you get? Tell me in the comments!",
-      "Follow for part {part} of the map challenge!",
-      "Share this with a friend and see who knows the map better!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more country shapes? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with a geography fan!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  }
+ {
+  "format": "what-is-it",
+  "intro": [
+   "Can you name these {total} things from a zoomed-in picture?",
+   "Squint your eyes. {total} mystery pictures, and only the sharpest get them all.",
+   "The last one is impossible. How far can you get?",
+   "What on earth is that? Let's find out.",
+   "Think you know everyday things? Prove it.",
+   "{total} mystery pictures. Can you name them all?",
+   "Only the sharpest eyes name every picture here.",
+   "Play detective with {total} mystery pictures. Ready?",
+   "Can you name what you see? Let's play.",
+   "Only one in a hundred gets all {total}. Are you that one?"
+  ],
+  "ask": [
+   "What is this?",
+   "Can you tell what this is?",
+   "Take a good look. What do you see?",
+   "Name the thing in the picture!",
+   "What are we looking at here?",
+   "Do you know what this is?",
+   "Take a guess. What is it?",
+   "Any idea what this one is?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Look closer!",
+   "Trust your gut!",
+   "Tick tock, keep looking!",
+   "Almost out of time!",
+   "Lock in your guess!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another?",
+   "Here comes question {n} of {total}!",
+   "Let's keep them coming!",
+   "On to the next mystery!",
+   "Don't get comfy, there's more!",
+   "Another picture coming right up!",
+   "Stay sharp, here's the next one!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Okay, time to turn up the heat!",
+   "This one's a real brain teaser.",
+   "Only true experts get this one.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many did you get? Tell me in the comments!",
+   "Follow for part {part} of the mystery challenge!",
+   "Share this with a friend and see who scores higher!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more mystery pictures? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with someone clever!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ },
+ {
+  "format": "country-shape",
+  "intro": [
+   "No names, no borders, just a shape. Can you name these {total} countries?",
+   "{total} silhouettes. How many can you spot?",
+   "Only a true map lover gets every shape right.",
+   "Think you know the map? Let's find out.",
+   "Can you spot a country by its shape alone?",
+   "Geography fans, this quiz is for you. Ready?",
+   "Name every outline and you're a map master.",
+   "Quick geography challenge. Don't blink!",
+   "Shapes from {region}! How many can you name?",
+   "Only one in a hundred gets every shape right. Are you that one?"
+  ],
+  "ask": [
+   "Which country has this shape?",
+   "Can you name this country by its outline?",
+   "Look at the silhouette. Which country is it?",
+   "Whose borders are these?",
+   "Which country is hiding in this shadow?",
+   "Do you recognize this shape?",
+   "Name the country behind this outline!",
+   "What country does this map shape show?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Picture the map!",
+   "Trust your gut!",
+   "Tick tock, study that shape!",
+   "Almost out of time!",
+   "Lock in your guess!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another shape?",
+   "Here comes question {n} of {total}!",
+   "Let's keep exploring the map!",
+   "On to the next outline!",
+   "Don't get comfy, there's more!",
+   "Another country coming right up!",
+   "Stay sharp, here's the next one!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Time to turn up the heat!",
+   "This one's a real map twister.",
+   "Only true geographers get this one.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many did you get? Tell me in the comments!",
+   "Follow for part {part} of the map challenge!",
+   "Share this with a friend and see who knows the map better!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more country shapes? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with a geography fan!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ }
 ]

@@ -10,6 +10,6 @@ export const fontSlug = (family: string): string =>
 export const fontFile = (family: string): string => `/fonts/${fontSlug(family)}-400.woff2`;
 export const fontFileBold = (family: string): string => `/fonts/${fontSlug(family)}-700.woff2`;
 
-export function fontFamilies(themes: { fonts: Record<string, string> }[]): string[] {
-  return [...new Set(themes.flatMap((t) => Object.values(t.fonts)))].sort();
+export function fontFamilies(themes: { fonts: Record<string, string> }[], extra: string[] = []): string[] {
+  return [...new Set([...themes.flatMap((t) => Object.values(t.fonts)), ...extra])].sort();
 }

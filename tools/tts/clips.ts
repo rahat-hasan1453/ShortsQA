@@ -11,7 +11,7 @@ export { numberWords };
 
 /** Quiz types that are selectable in the app; their voice lines get clips. */
 const READY_FORMATS = ["flags", "capitals", "math", "missing-letters", "real-vs-fake-flag", "landmarks", "what-is-it", "country-shape"];
-const LINE_TYPES = ["intro", "ask", "countdown", "revealCorrect", "transition", "difficultyUp", "outro"];
+const LINE_TYPES = ["intro", "ask", "countdown", "revealCorrect", "transition", "difficultyUp", "outro", "likeCta", "subscribeCta", "lastCta"];
 
 export function collectClipRequests(
   voiceLines: any[],

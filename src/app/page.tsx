@@ -10,7 +10,10 @@ import { detectSupport, type Support } from "@/engine/export/support";
 import { loadBackground } from "@/engine/render/assets";
 import { mixFor, prepare, type Prepared } from "./prepare";
 import { DEFAULT_VOICE_ID, voiceById } from "@/engine/voices";
+import { cleanLook } from "@/engine/look";
 import { voiceHasClips } from "./components/VoicePicker";
+
+const PREFS_KEY = "shortsqa:style-prefs";
 
 export default function Page() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -24,7 +27,10 @@ export default function Page() {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(q.get("style") ?? "") ? q.get("style") : "list") as Settings["answerStyle"]  };
+    let saved: Record<string, string> = {}; // the look you chose last time (template, font, answer style, flag size / shape, timer); the address wins when it names one
+    try { saved = JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}"); } catch { /* unreadable: use the defaults */ }
+    const style = q.get("style") ?? saved.answerStyle ?? "";
+    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? saved.themeId ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? saved.font ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(style) ? style : "list") as Settings["answerStyle"], ...cleanLook({ flagSize: q.get("flag") ?? saved.flagSize, flagShape: q.get("flagshape") ?? saved.flagShape, timer: q.get("timer") ?? saved.timer }) };
     const wanted = q.get("voice");
     // A voice whose clips were not generated yet would fail to prepare: fall back to the default and say so.
     if (wanted && wanted !== DEFAULT_VOICE_ID) {
@@ -35,6 +41,12 @@ export default function Page() {
     } else setSettings(initial);
     detectSupport().then(setSupport);
   }, []);
+
+  useEffect(() => { // remember the look for next time
+    if (!settings) return;
+    const { themeId, font, answerStyle, flagSize, flagShape, timer } = settings;
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify({ themeId, font, answerStyle, flagSize, flagShape, timer })); } catch { /* storage full or blocked: nothing to remember */ }
+  }, [settings]);
 
   useEffect(() => { // keep ?shape= in the address so a reload (or a shared link) opens the same shape
     if (!settings) return;

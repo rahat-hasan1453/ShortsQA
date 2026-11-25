@@ -177,16 +177,16 @@ const hasEnough = (pool: Country[], diff: (c: Country) => number = (c) => c.flag
 /** Target total duration; Shorts leave 0.6 s of headroom below the 59 s hard limit, long videos stay near 8 minutes. */
 const TARGET_SEC = { short: 58.4, long: 480 } as const;
 /** [line-length scale, number of fun facts], tried in order until the video fits. */
-const ATTEMPTS: Record<Profile, [number, number, boolean?][]> = {
-  short: [[1, 2], [1, 1], [0.75, 2], [0.75, 1], [0.5, 1], [1, 0], [0.75, 0], [0.5, 0], [0, 0], [0, 0, true]],
+const ATTEMPTS: Record<Profile, [number, number, boolean?, number?][]> = {
+  short: [[1, 2], [1, 1], [0.75, 1], [0.5, 1], [1, 1, false, 3500], [0.5, 1, false, 3500], [1, 0], [0.75, 0], [0.5, 0], [0, 0], [0, 0, true]],
   long: [[1, 14], [1, 10], [0.75, 10], [0.75, 6], [0.5, 4], [0.5, 0], [0, 0]],
 };
 
 export function buildQuiz(input: BuildInput): QuizSpec {
   const profile = input.profile ?? "short";
   let last!: QuizSpec;
-  for (const [scale, nFacts, noLike] of ATTEMPTS[profile]) {
-    last = buildAttempt(input, scale, nFacts, noLike);
+  for (const [scale, nFacts, noLike, maxFactMs] of ATTEMPTS[profile]) {
+    last = buildAttempt(input, scale, nFacts, noLike, maxFactMs);
     try {
       if (buildTimeline(last, { clipMs: input.clipMs, voice: input.voice }).duration <= TARGET_SEC[profile]) return last;
     } catch (e) {
@@ -196,7 +196,7 @@ export function buildQuiz(input: BuildInput): QuizSpec {
   return last;
 }
 
-function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = false): QuizSpec {
+function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = false, maxFactMs = 4800): QuizSpec {
   const { seed, themes, voice, clipMs } = input;
   const capitals = input.quiz === "capitals";
   const shape = input.quiz === "country-shape";
@@ -258,26 +258,39 @@ function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = fal
     return all.reduce((a, b) => (b.ms < a.ms ? b : a)).id;
   };
 
+  // Lines glued from several clips ("ten" + "flags, no help") change pitch at the joins and sound robotic; Shorts prefer lines that are one clip.
+  const noSlots = (l: string) => !/\{(total|n|part)\}/.test(l);
+  const shortOnly = profile === "short" ? noSlots : undefined;
   const draft: QuizSpec = {
     version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: profile === "long" ? "options" : input.answerStyle ?? "open", ...(profile === "long" ? { profile } : {}), ...(input.quiz && input.quiz !== "flags" ? { quiz: input.quiz } : {}),
     ...(noLike ? { noLikeVoice: true } : {}), hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
   };
   const gen = { ...slotValues(draft), total: numberWords(picked.length) };
-  draft.hookLineId = fit("intro", gen, 2500);
-  draft.outroLineId = fit("outro", gen, 3500);
+  draft.hookLineId = fit("intro", gen, 3000, shortOnly);
+  draft.outroLineId = fit("outro", gen, 3500, shortOnly);
   for (const i of diffUpBefore) draft.difficultyUpLineIds[i] = fit("difficultyUp", gen, 1300);
+  if (profile === "short" && !noLike) { // the like / subscribe / last-question calls to action (spoken with the banners before questions 4, 7 and 10)
+    const cta: NonNullable<QuizSpec["ctaLineIds"]> = {};
+    if (eligible("likeCta").length) cta.like = fit("likeCta", gen, 1900);
+    if (eligible("subscribeCta").length) cta.subscribe = fit("subscribeCta", gen, 2200);
+    if (eligible("lastCta").length) cta.last = fit("lastCta", gen, 3000);
+    if (Object.keys(cta).length) draft.ctaLineIds = cta;
+  }
 
   draft.questions = picked.map(({ base, band, options }, index): QuizQuestion => {
     const q: QuizQuestion = { index, ...base, band, revealLineId: "" };
     if (draft.answerStyle === "options") q.options = options();
     const slots = slotValues(draft, q);
     q.revealLineId = fit("revealCorrect", slots, 1400, (l) => (l.match(/\{answer\}/g) ?? []).length === 1 && !/\byes\b/i.test(l));
-    if (scale > 0 && !diffUpBefore.includes(index)) { // scale 0 = bare-bones attempt without optional lines
+    if (scale > 0 && profile === "short") { // scale 0 = bare-bones attempt without optional lines
+      // Shorts: the task is said once (question 1), then only the answers are spoken. Counting every question ("Flag two") sounded robotic.
+      if (index === 0) q.askLineId = fit("ask", slots, 1600, noSlots);
+    } else if (scale > 0 && !diffUpBefore.includes(index)) {
       const roll = index === 0 ? 0 : rng.next();
       if (roll < 0.4) q.askLineId = fit("ask", slots, 1600);
       else if (roll < 0.65) q.transitionLineId = fit("transition", slots, 1200);
     }
-    if (scale > 0 && rng.next() < 0.3) q.countdownLineId = fit("countdown", slots, 1200);
+    if (scale > 0 && rng.next() < 0.15) q.countdownLineId = fit("countdown", slots, 1200);
     return q;
   });
   // Fun facts (about the answer's country) on a couple of questions, as long as the clip is short enough.
@@ -288,7 +301,7 @@ function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = fal
     for (const i of order) {
       const q = draft.questions[i];
       const fact = byKey.get(input.quiz === "landmarks" ? q.name : q.iso2 ?? "")?.funFact;
-      if (!fact || clipMs(fact) > 4800 || given === nFacts) continue;
+      if (!fact || clipMs(fact) > maxFactMs || given === nFacts) continue;
       q.fact = fact; given++;
     }
   }

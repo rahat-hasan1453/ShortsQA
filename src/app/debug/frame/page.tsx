@@ -7,6 +7,8 @@ import { makeClipIndex, type Manifest } from "@/engine/clipIndex";
 import { buildQuiz } from "@/engine/quizBuilder";
 import { buildTimeline } from "@/engine/timeline";
 import { loadAssets, type Assets } from "@/engine/render/assets";
+import { withLook } from "@/engine/theme";
+import type { Look } from "@/engine/look";
 import { drawFrame, layoutReveal, renderStats } from "@/engine/render";
 import { exportVideo } from "@/engine/export/encoder";
 import { AssetError, ExportBusyError } from "@/engine/errors";
@@ -37,12 +39,12 @@ export default function DebugFrame() {
     const params = new URLSearchParams(window.location.search);
     let manifestP: Promise<Manifest> | null = null;
     const cache = new Map<string, Prepared>();
-    const prepare = async (themeId: string, seed: string, style: "open" | "options" | "list" = "open"): Promise<Prepared> => {
-      const key = `${themeId}|${seed}|${style}`;
+    const prepare = async (themeId: string, seed: string, style: "open" | "options" | "list" = "open", look?: Look): Promise<Prepared> => {
+      const key = `${themeId}|${seed}|${style}|${JSON.stringify(look ?? null)}`;
       if (cache.has(key)) return cache.get(key)!;
       manifestP ??= fetch("/audio/af_heart/manifest.json").then((r) => r.json());
       const clips = makeClipIndex(await manifestP, "af_heart");
-      const theme = themes.find((t) => t.id === themeId)!;
+      const theme = withLook(themes.find((t) => t.id === themeId)!, look);
       const spec = buildQuiz({ seed, themeId, answerStyle: style, countries, themes, voice: flagsVoice, clipMs: (t) => clips.ms(t) });
       const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice: flagsVoice });
       const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])));
@@ -50,8 +52,8 @@ export default function DebugFrame() {
       cache.set(key, p);
       return p;
     };
-    const render = async (canvas: HTMLCanvasElement | OffscreenCanvas, themeId: string, seed: string, at: string, opts: { backgroundOnly?: boolean; contentOnly?: boolean; safeOverlay?: boolean } = {}, style: "open" | "options" | "list" = "open") => {
-      const p = await prepare(themeId, seed, style);
+    const render = async (canvas: HTMLCanvasElement | OffscreenCanvas, themeId: string, seed: string, at: string, opts: { backgroundOnly?: boolean; contentOnly?: boolean; safeOverlay?: boolean } = {}, style: "open" | "options" | "list" = "open", look?: Look) => {
+      const p = await prepare(themeId, seed, style, look);
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       drawFrame(ctx, { ...p, ...opts }, resolveAt(p.timeline, at));
       return p;
@@ -74,11 +76,11 @@ export default function DebugFrame() {
     (window as any).__debug = {
       themes: themes.map((t) => t.id),
       names: countries.map((c) => c.name),
-      render: (themeId: string, seed: string, at: string, style: "open" | "options" | "list" = "open") => render(ref.current!, themeId, seed, at, {}, style).then((p) => p.assets.warnings),
-      marginDiff: async (themeId: string, seed: string, at: string, style: "open" | "options" | "list" = "open") => {
+      render: (themeId: string, seed: string, at: string, style: "open" | "options" | "list" = "open", look?: Look) => render(ref.current!, themeId, seed, at, {}, style, look).then((p) => p.assets.warnings),
+      marginDiff: async (themeId: string, seed: string, at: string, style: "open" | "options" | "list" = "open", look?: Look) => {
         // Draw content only on a transparent canvas: any non-transparent pixel in the margins is content in the safe zone.
         const a = new OffscreenCanvas(W, H);
-        await render(a, themeId, seed, at, { contentOnly: true }, style);
+        await render(a, themeId, seed, at, { contentOnly: true }, style, look);
         const d = a.getContext("2d")!.getImageData(0, 0, W, H).data;
         let diff = 0, x0 = W, x1 = 0, y0 = H, y1 = 0;
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {

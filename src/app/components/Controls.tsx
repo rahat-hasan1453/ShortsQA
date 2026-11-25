@@ -2,9 +2,11 @@
 import VoicePicker from "./VoicePicker";
 import TemplateGallery from "./TemplateGallery";
 import FontPicker from "./FontPicker";
+import LookControls from "./LookControls";
+import type { FlagShape, FlagSize, TimerKind } from "@/engine/look";
 import type { Prepared } from "../prepare";
 
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long" }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long"; flagSize: FlagSize; flagShape: FlagShape; timer: TimerKind }
 
 export function randomSeed(): string {
   return Math.random().toString(36).slice(2, 8);
@@ -19,6 +21,7 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
     <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
       <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
       <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
+      <LookControls value={{ flagSize: value.flagSize, flagShape: value.flagShape, timer: value.timer }} onChange={(l) => set(l)} />
       <label style={LABEL}>Background image <small style={HINT}>nijer pochonder chobi (optional)</small>
         <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
       </label>

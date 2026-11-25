@@ -25,10 +25,18 @@ export interface VoiceLines {
   transition: string[];
   difficultyUp: string[];
   outro: string[];
+  /** Spoken with the on-screen banners before questions 4 (like), 7 (subscribe) and 10 (last-question tease, save and comment). */
+  likeCta?: string[];
+  subscribeCta?: string[];
+  lastCta?: string[];
 }
+
+import type { Look } from "./look";
 
 export interface Theme {
   id: string;
+  /** Flag size, shape and timer chosen by the user (see look.ts); absent = defaults. */
+  look?: Look;
   name: string;
   mood: string;
   palette: Record<string, string>;
@@ -107,6 +115,8 @@ export interface QuizSpec {
   noLikeVoice?: boolean;
   hookLineId: string;
   difficultyUpLineIds: Record<number, string>;
+  /** Voice lines for the like / subscribe / last-question banners (Shorts only; absent = the classic level-up lines). */
+  ctaLineIds?: { like?: string; subscribe?: string; last?: string };
   outroLineId: string;
   questions: QuizQuestion[];
 }

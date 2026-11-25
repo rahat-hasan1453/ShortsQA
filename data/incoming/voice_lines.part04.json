@@ -1,150 +1,198 @@
 [
-  {
-    "format": "capitals",
-    "intro": [
-      "Ten countries, ten capitals. Can you name them all?",
-      "Only one in a hundred gets all ten!",
-      "Think you know your capitals? Let's find out!",
-      "Geography fans, this quiz is for you!",
-      "Quick! Name the capital before time runs out.",
-      "Pack your bags, we're hopping between capital cities!",
-      "Only the sharpest map lovers get these right.",
-      "Let's test your world capitals knowledge!",
-      "Capital city challenge incoming. Don't blink!",
-      "Can you name the capital of every country?"
-    ],
-    "ask": [
-      "What is the capital of this country?",
-      "Can you name the capital city?",
-      "Which city serves as the capital here?",
-      "Look at this country. What's its capital?",
-      "Name the capital of this nation!",
-      "Do you know this country's capital?",
-      "Take a guess. What's the capital?",
-      "Where would you find this country's capital?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Picture the map!",
-      "Trust your gut!",
-      "Tick tock, you've got this!",
-      "Almost out of time!",
-      "Lock in your answer!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "The capital is {answer}!",
-      "That city is {answer}!",
-      "Yes, {answer}! Did you get it?",
-      "Nailed it if you said {answer}!",
-      "Say hello to {answer}!",
-      "If you guessed {answer}, you're a pro!",
-      "{answer} is the capital!",
-      "Drumroll please — it's {answer}!",
-      "The answer is {answer}!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another?",
-      "Here comes question {n} of {total}!",
-      "Let's keep the cities coming!",
-      "On to the next capital!",
-      "Don't get comfy, there's more!",
-      "Another country coming right up!",
-      "Stay sharp, here's the next one!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Okay, time to turn up the heat!",
-      "This one's a real brain teaser.",
-      "Only true geography pros get this one.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many did you get? Tell me in the comments!",
-      "Follow for part {part} of the capitals challenge!",
-      "Share this with a friend and see who scores higher!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more capitals? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with someone clever!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  },
-  {
-    "format": "real-vs-fake-flag",
-    "intro": [
-      "Real flag or fake? Ten rounds to find out!",
-      "Only one in a hundred gets all ten!",
-      "Can you spot the fake flag? Let's play!",
-      "Some of these flags are impostors!",
-      "Think you can tell real from fake? Prove it!",
-      "Flag detectives, assemble!",
-      "Only the sharpest eyes catch these fakes.",
-      "Ready to sniff out a counterfeit flag?",
-      "Quick quiz. Is it real, or is it fake?",
-      "Let's see if you can be fooled!"
-    ],
-    "ask": [
-      "Is this flag real or fake?",
-      "Real or fake? Take a close look!",
-      "Does this flag actually exist?",
-      "Can you tell if this flag is genuine?",
-      "Spot the difference. Real flag or impostor?",
-      "Is this a real country's flag?",
-      "Would you trust this flag? Real or fake?",
-      "Genuine flag, or a clever fake?"
-    ],
-    "countdown": [
-      "Think fast!",
-      "Look closer!",
-      "Trust your gut!",
-      "Tick tock, you've got this!",
-      "Almost out of time!",
-      "Lock in your answer!"
-    ],
-    "revealCorrect": [
-      "It's {answer}!",
-      "That flag is {answer}!",
-      "The verdict is {answer}!",
-      "Yes, {answer}! Did you spot it?",
-      "Nailed it if you said {answer}!",
-      "Drumroll please — it's {answer}!",
-      "If you guessed {answer}, great eye!",
-      "The answer is {answer}!",
-      "Surprise — it's {answer}!",
-      "And the flag is {answer}!"
-    ],
-    "transition": [
-      "Next one — this gets harder.",
-      "Ready for another?",
-      "Here comes question {n} of {total}!",
-      "Let's keep the flags flying!",
-      "On to the next suspect!",
-      "Don't get comfy, there's more!",
-      "Another flag coming right up!",
-      "Stay sharp, here's the next one!"
-    ],
-    "difficultyUp": [
-      "Now it gets tough.",
-      "Okay, time to turn up the heat!",
-      "This fake is a sneaky one.",
-      "Only true flag experts get this one.",
-      "Things are about to get tricky!"
-    ],
-    "outro": [
-      "Comment your score below, I'm curious!",
-      "How many fakes did you catch? Tell me in the comments!",
-      "Follow for part {part} of the real or fake challenge!",
-      "Share this with a friend and see who spots more fakes!",
-      "You scored {score} out of {total}. Can you beat it next time?",
-      "Want more flag fakes? Follow along for part {part}!",
-      "Challenge a friend and compare your scores!",
-      "Drop your score in the comments, then come back for more!",
-      "Hit follow so you never miss a quiz, and share it with someone clever!",
-      "That's a wrap! Comment your score and follow for part {part}!"
-    ]
-  }
+ {
+  "format": "capitals",
+  "intro": [
+   "{total} countries, {total} capitals. Can you name every one?",
+   "Everyone knows Paris. But do you know these?",
+   "Only a real geography brain gets all {total} capitals.",
+   "Name every capital and you're a geography genius.",
+   "Quick! Name the capital before time runs out.",
+   "Think you know your capitals? Prove it. Let's go.",
+   "Some of these capitals are sneaky. Ready?",
+   "How many world capitals can you name?",
+   "Capitals from {region}! How many can you name?",
+   "Only one in a hundred gets every capital right. Are you that one?"
+  ],
+  "ask": [
+   "What is the capital of this country?",
+   "Can you name the capital city?",
+   "Which city serves as the capital here?",
+   "Look at this country. What's its capital?",
+   "Name the capital of this nation!",
+   "Do you know this country's capital?",
+   "Take a guess. What's the capital?",
+   "Where would you find this country's capital?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Picture the map!",
+   "Trust your gut!",
+   "Tick tock, you've got this!",
+   "Almost out of time!",
+   "Lock in your answer!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another?",
+   "Here comes question {n} of {total}!",
+   "Let's keep the cities coming!",
+   "On to the next capital!",
+   "Don't get comfy, there's more!",
+   "Another country coming right up!",
+   "Stay sharp, here's the next one!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Okay, time to turn up the heat!",
+   "This one's a real brain teaser.",
+   "Only true geography pros get this one.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many did you get? Tell me in the comments!",
+   "Follow for part {part} of the capitals challenge!",
+   "Share this with a friend and see who scores higher!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more capitals? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with someone clever!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ },
+ {
+  "format": "real-vs-fake-flag",
+  "intro": [
+   "Real flag, or fake? The later ones get sneaky.",
+   "Some of these flags are fakes. Can you spot them all?",
+   "{total} flags. Real or fake? Don't get fooled.",
+   "Flag detectives, assemble! Spot every fake.",
+   "Think you can tell real from fake? Prove it.",
+   "Only the sharpest eyes catch every fake flag.",
+   "Is it real, or is it fake? Let's find out.",
+   "Ready to sniff out a counterfeit flag?",
+   "Some of these flags don't exist. Can you tell which?",
+   "Only one in a hundred catches every fake. Are you that one?"
+  ],
+  "ask": [
+   "Is this flag real or fake?",
+   "Real or fake? Take a close look!",
+   "Does this flag actually exist?",
+   "Can you tell if this flag is genuine?",
+   "Spot the difference. Real flag or impostor?",
+   "Is this a real country's flag?",
+   "Would you trust this flag? Real or fake?",
+   "Genuine flag, or a clever fake?"
+  ],
+  "countdown": [
+   "Think fast!",
+   "Look closer!",
+   "Trust your gut!",
+   "Tick tock, you've got this!",
+   "Almost out of time!",
+   "Lock in your answer!"
+  ],
+  "revealCorrect": [
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!",
+   "{answer}.",
+   "{answer}!"
+  ],
+  "transition": [
+   "Next one — this gets harder.",
+   "Ready for another?",
+   "Here comes question {n} of {total}!",
+   "Let's keep the flags flying!",
+   "On to the next suspect!",
+   "Don't get comfy, there's more!",
+   "Another flag coming right up!",
+   "Stay sharp, here's the next one!"
+  ],
+  "difficultyUp": [
+   "Now it gets tough.",
+   "Okay, time to turn up the heat!",
+   "This fake is a sneaky one.",
+   "Only true flag experts get this one.",
+   "Things are about to get tricky!"
+  ],
+  "outro": [
+   "Comment your score below, I'm curious!",
+   "How many fakes did you catch? Tell me in the comments!",
+   "Follow for part {part} of the real or fake challenge!",
+   "Share this with a friend and see who spots more fakes!",
+   "You scored {score} out of {total}. Can you beat it next time?",
+   "Want more flag fakes? Follow along for part {part}!",
+   "Challenge a friend and compare your scores!",
+   "Drop your score in the comments, then come back for more!",
+   "Hit follow so you never miss a quiz, and share it with someone clever!",
+   "That's a wrap! Comment your score and follow for part {part}!"
+  ],
+  "likeCta": [
+   "Got the first three? Smash that like!",
+   "Three in a row? Hit like!",
+   "First three right? Show some love!",
+   "If you got those three, drop a like!",
+   "Nice! Like if you got all three!",
+   "Easy so far? Like if you got all three!"
+  ],
+  "subscribeCta": [
+   "Having fun? Subscribe for more!",
+   "Subscribe, a new quiz drops every day!",
+   "Love these? Hit subscribe!",
+   "Want daily quizzes? Subscribe now!",
+   "Stick around! Subscribe for more quizzes.",
+   "Don't miss tomorrow's quiz. Subscribe!"
+  ],
+  "lastCta": [
+   "Last one! Save this quiz and tell me your score!",
+   "Final question! Save this and comment your score!",
+   "Here it comes, the hardest one! Save this quiz!",
+   "Last question! Save it and drop your score below!",
+   "One more! Save this quiz, then comment your score!",
+   "Final one! Save this quiz and show me your score!"
+  ]
+ }
 ]

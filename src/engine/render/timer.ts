@@ -1,6 +1,6 @@
 import type { Theme } from "../types";
 import type { Ctx } from "./background";
-import { LAYOUT } from "./layout";
+import { LAYOUT, type Rect } from "./layout";
 import { themeFont } from "../theme";
 
 /** progress: 0 at timer start, 1 at timer end. */
@@ -51,5 +51,21 @@ export function drawTimer(ctx: Ctx, theme: Theme, progress: number, totalSec: nu
     ctx.strokeStyle = color; ctx.beginPath(); ctx.arc(cx, cy, rad, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (1 - progress)); ctx.stroke();
     ctx.fillStyle = p.text; ctx.font = themeFont(theme, "numbers", 110); ctx.fillText(String(left), cx, cy + 4);
   }
+  ctx.restore();
+}
+
+/** Circle countdown (3, 2, 1) that sits on the bottom edge of the flag card in the list and options styles. */
+export function drawRingTimer(ctx: Ctx, theme: Theme, card: Rect, progress: number, totalSec: number): void {
+  const p = theme.palette, cx = card.x + card.w / 2, cy = card.y + card.h, r = 46;
+  const secLeft = totalSec * (1 - progress), left = Math.max(0, Math.ceil(secLeft));
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx, cy, r + 10, 0, Math.PI * 2); ctx.fillStyle = p.bgFrom; ctx.fill(); // cut-out so the ring reads on top of the card edge
+  ctx.beginPath(); ctx.arc(cx, cy, r + 4, 0, Math.PI * 2); ctx.fillStyle = p.card; ctx.fill();
+  ctx.lineWidth = 12; ctx.lineCap = "round";
+  ctx.globalAlpha = 0.22; ctx.strokeStyle = p.text; ctx.beginPath(); ctx.arc(cx, cy, r - 6, 0, Math.PI * 2); ctx.stroke();
+  ctx.globalAlpha = 1; ctx.strokeStyle = secLeft <= 1 ? p.wrong : p.accent;
+  ctx.beginPath(); ctx.arc(cx, cy, r - 6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (1 - progress)); ctx.stroke();
+  ctx.fillStyle = p.text; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.font = themeFont(theme, "numbers", 50);
+  ctx.fillText(String(left), cx, cy + 3);
   ctx.restore();
 }

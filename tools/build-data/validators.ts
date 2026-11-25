@@ -112,7 +112,7 @@ export function validateMissingLetters(rows: Row[]): Issue[] {
   return out;
 }
 
-const VOICE_COUNTS: Record<string, number> = { intro: 10, ask: 8, countdown: 6, revealCorrect: 10, transition: 8, difficultyUp: 5, outro: 10 };
+const VOICE_COUNTS: Record<string, number> = { intro: 10, ask: 8, countdown: 6, revealCorrect: 10, transition: 8, difficultyUp: 5, outro: 10, likeCta: 6, subscribeCta: 6, lastCta: 6 };
 
 export function validateVoiceLines(formats: Row[]): Issue[] {
   const out: Issue[] = [];

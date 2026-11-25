@@ -12,7 +12,7 @@ test("mixed audio: right length, no NaN, healthy peak, voice audible, music duck
     expect(s.peak, theme).toBeGreaterThan(0.05);
     expect(s.peak, theme).toBeLessThan(0.98);
     expect(s.voiceFull, theme).toBeGreaterThan(s.voiceMuted * 1.5);
-    expect(s.gapCount, theme).toBeGreaterThan(3);
+    expect(s.gapCount, theme).toBeGreaterThanOrEqual(2); // the voice now speaks "Number N" on every question, so only a few 1 s voice-free windows remain
     expect(s.duckRatio, `${theme} duck ratio`).toBeLessThan(0.7);
   }
 });
