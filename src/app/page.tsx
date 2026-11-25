@@ -34,7 +34,7 @@ export default function Page() {
     try { saved = JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}"); } catch { /* unreadable: use the defaults */ }
     const str = (v: unknown) => (typeof v === "string" ? v : undefined);
     const style = q.get("style") ?? str(saved.answerStyle) ?? "";
-    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? str(saved.themeId) ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, twist: q.get("twist") === "1", font: q.get("font") ?? str(saved.font) ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(style) ? style : "list") as Settings["answerStyle"], ...cleanLook({ flagSize: q.get("flag") ?? saved.flagSize, flagShape: q.get("flagshape") ?? saved.flagShape, timer: q.get("timer") ?? saved.timer, flagBorder: q.get("border") ?? saved.flagBorder, textOutline: q.get("outline") ?? saved.textOutline }) };
+    const initial: Settings = { format: (FORMATS.find((f) => f.ready && f.id === q.get("quiz"))?.id ?? "flags") as Settings["format"], themeId: q.get("theme") ?? str(saved.themeId) ?? "random", seed: q.get("seed") ?? randomSeed(), part: Number(q.get("part")) || 1, partOn: q.get("part") !== "off", twist: q.get("twist") === "1", font: q.get("font") ?? str(saved.font) ?? "theme", voice: voiceById(q.get("voice") ?? "")?.id ?? DEFAULT_VOICE_ID, shape: q.get("shape") === "long" ? "long" : "short", answerStyle: (["open", "options", "list"].includes(style) ? style : "list") as Settings["answerStyle"], ...cleanLook({ flagSize: q.get("flag") ?? saved.flagSize, flagShape: q.get("flagshape") ?? saved.flagShape, timer: q.get("timer") ?? saved.timer, flagBorder: q.get("border") ?? saved.flagBorder, textOutline: q.get("outline") ?? saved.textOutline }) };
     const wanted = q.get("voice");
     // A voice whose clips were not generated yet would fail to prepare: fall back to the default and say so.
     if (wanted && wanted !== DEFAULT_VOICE_ID) {
@@ -97,7 +97,7 @@ export default function Page() {
       </header>
 
       <aside className="studio-panel studio-left" aria-label="Quiz settings">
-        <Collapsible title="Quiz">
+        <Collapsible card title="Quiz">
           <div role="group" aria-label="Quiz type" className="studio-formats">
             {FORMATS.map((f) => (
               <button key={f.id} type="button" disabled={!f.ready || busy} aria-pressed={f.id === settings.format} className="studio-card"
@@ -125,9 +125,7 @@ export default function Page() {
       </main>
 
       <aside className="studio-panel studio-right" aria-label="Style settings">
-        <Collapsible title="Style">
-          <Controls section="style" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
-        </Collapsible>
+        <Controls section="style" value={settings} onChange={setSettings} disabled={busy} hasBackground={!!bg} onBackground={chooseBackground} prepared={prepared} />
       </aside>
     </div>
   );

@@ -47,11 +47,13 @@ export default function FontPicker({ value, onChange, disabled }: { value: strin
   const matches = FAMILIES.filter((f) => fontMatches(f, query));
 
   return (
-    <div ref={root} style={{ position: "relative", display: "grid", gap: 4 }}>
-      <span style={{ fontWeight: 600 }}>Font <small style={{ fontWeight: 400, color: "#777" }}>font for all text</small></span>
+    <div ref={root} className="studio-field2" style={{ position: "relative" }}>
+      <span className="studio-label2">Font <small>font for all text</small></span>
       <button type="button" disabled={disabled} aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((o) => !o)}
-        style={{ textAlign: "left", padding: "8px 10px", fontSize: 16, borderRadius: 8, border: "1px solid #8886", background: "transparent", color: "inherit", cursor: "pointer" }}>
-        Font: <span style={{ fontFamily: current ? fontStack(current) : "inherit" }}>{current ?? "Template default"}</span>
+        className="studio-select">
+        <span>Font: <span style={{ fontFamily: current ? fontStack(current) : "inherit" }}>{current ?? "Template default"}</span></span>
+        {/* eslint-disable-next-line @next/next/no-img-element -- a static design icon */}
+        <img src="/figma/chevron.svg" alt="" width={24} height={24} style={{ flex: "none", transform: open ? "none" : "rotate(180deg)" }} />
       </button>
       {open && (
         <div style={{ position: "absolute", top: "100%", left: 0, right: 0, zIndex: 20, marginTop: 4, padding: 8, borderRadius: 12, border: "1px solid #8886", background: "Canvas", color: "CanvasText", boxShadow: "0 12px 32px #0004", display: "grid", gap: 8 }}>

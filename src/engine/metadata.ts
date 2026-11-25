@@ -62,11 +62,12 @@ export function chapters(tl: Timeline): string {
 export function buildMetadata(spec: QuizSpec, bank: TitleBank, timeline?: Timeline): Metadata {
   const rng = createRng(`${spec.seed}|meta`);
   const fits = spec.profile === "long" ? (t: string) => usable(t) && !SHORT_ONLY.test(t) : usable;
-  const pool = spec.part > 1 ? bank.titlesSeries : bank.titles;
-  const titles = pool.filter(fits).map((t) => fillTemplate(t, spec)).filter((t) => len(t) <= 70);
+  const pool = spec.part > 1 && !spec.noPart ? bank.titlesSeries : bank.titles;
+  const hasPart = (t: string) => !spec.noPart || !/\{part\}|\bpart\b/i.test(t);
+  const titles = pool.filter(fits).filter(hasPart).map((t) => fillTemplate(t, spec)).filter((t) => len(t) <= 70);
   const title = rng.pick(titles);
-  const description = fillTemplate(rng.pick(bank.descriptions.filter(fits)), spec);
-  const pinnedComment = fillTemplate(rng.pick(bank.pinnedComments.filter(fits).filter((p) => len(fillTemplate(p, spec)) <= 120)), spec);
+  const description = fillTemplate(rng.pick(bank.descriptions.filter(fits).filter(hasPart)), spec);
+  const pinnedComment = fillTemplate(rng.pick(bank.pinnedComments.filter(fits).filter(hasPart).filter((p) => len(fillTemplate(p, spec)) <= 120)), spec);
   if (spec.profile !== "long") return { title, description, hashtags: [...rng.pick(bank.hashtagSets)], pinnedComment };
   // Long videos: not a Short, so no #shorts; chapters let viewers jump to a level.
   const hashtags = rng.pick(bank.hashtagSets).filter((h) => h.toLowerCase() !== "#shorts");

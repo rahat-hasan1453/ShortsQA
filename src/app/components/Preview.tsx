@@ -49,13 +49,19 @@ export default function Preview({ prepared, getAudio }: { prepared: Prepared | n
   return (
     <div style={{ alignSelf: "start", display: "grid", gap: 10, justifyItems: "center", width: "100%" }}>
       <canvas ref={ref} width={size.w} height={size.h} className={wide ? "is-wide" : undefined} style={{ aspectRatio: wide ? "16 / 9" : "9 / 16", height: "min(640px, calc(100vh - 150px))", width: "auto", background: "#222", borderRadius: 8 }} />
-      <div style={{ display: "flex", gap: 12, alignItems: "center", width: "100%", maxWidth: 360 }}>
-        <button type="button" aria-label={playing ? "Pause" : "Play"} disabled={!prepared} onClick={() => (playing ? stop() : play())}
-          style={{ width: 56, height: 56, borderRadius: "50%", border: "none", background: prepared ? "#2563eb" : "#999", color: "#fff", fontSize: 24, cursor: "pointer", flexShrink: 0 }}>{playing ? "⏸" : "▶"}</button>
-        <input type="range" aria-label="Position" min={0} max={prepared?.timeline.duration ?? 1} step={0.05} value={t} style={{ flex: 1 }}
-          onChange={(e) => { if (playing) stop(); setT(Number(e.target.value)); }} />
+      <div className="studio-controls">
+        <div className="studio-transport">
+          <button type="button" className="studio-play" aria-label={playing ? "Pause" : "Play"} disabled={!prepared} onClick={() => (playing ? stop() : play())}>
+            {playing ? <span aria-hidden>⏸</span> : (
+              // eslint-disable-next-line @next/next/no-img-element -- a static design icon
+              <img src="/figma/play.svg" alt="" width={28} height={28} />
+            )}
+          </button>
+          <input type="range" className="studio-range" aria-label="Position" min={0} max={prepared?.timeline.duration ?? 1} step={0.05} value={t}
+            onChange={(e) => { if (playing) stop(); setT(Number(e.target.value)); }} />
+        </div>
+        <label className="studio-safe"><input type="checkbox" className="studio-cb studio-cb-sm" checked={safe} onChange={(e) => setSafe(e.target.checked)} /> Safe zone</label>
       </div>
-      <label style={{ fontSize: 12, color: "#777" }}><input type="checkbox" checked={safe} onChange={(e) => setSafe(e.target.checked)} /> Safe zone</label>
     </div>
   );
 }

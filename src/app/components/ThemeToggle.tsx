@@ -22,6 +22,9 @@ export default function ThemeToggle() {
         document.documentElement.dataset.theme = next;
         try { localStorage.setItem(KEY, next); } catch { /* private mode: the choice lasts for this page only */ }
         setMode(next);
-      }}>{mode === "dark" ? "☀" : "☾"}</button>
+      }}>{mode === "dark"
+        // eslint-disable-next-line @next/next/no-img-element -- a static design icon
+        ? <img src="/figma/light-mode.svg" alt="" width={24} height={24} />
+        : "☾"}</button>
   );
 }

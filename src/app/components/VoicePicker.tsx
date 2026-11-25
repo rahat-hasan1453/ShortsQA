@@ -29,7 +29,7 @@ export default function VoicePicker({ value, onChange, disabled }: { value: stri
   };
 
   return (
-    <Collapsible title="Voice" hint="who reads the voice-over">
+    <Collapsible card title="Voice" hint="who reads the voice-over">
       <div role="group" aria-label="Voice" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
         {VOICES.map((v) => {
           const has = ready[v.id] !== false; // unknown (still checking) counts as available

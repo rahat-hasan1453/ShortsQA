@@ -44,6 +44,8 @@ const WORDING: Record<string, { one: string; many: string; list: string }> = {
 export const wording = (quiz?: string) => WORDING[quiz ?? "flags"] ?? WORDING.flags;
 
 /** `n` is the number of questions (10 in Shorts, about 30 in long videos). */
+/** "  ·  PART 3" after a heading, or nothing when the part number is off. */
+export const partTag = (spec: { part: number; noPart?: boolean }): string => (spec.noPart ? "" : `  ·  PART ${spec.part}`);
 export const hookText = (spec: { seed: string; twistRegion?: string; quiz?: string }, n = 10): string =>
   (spec.twistRegion ? `${wording(spec.quiz).many} OF ${spec.twistRegion.toUpperCase()}: CAN YOU GET 10/10?` : createRng(`${spec.seed}|hook`).pick(HOOKS)).replace("10/10", `${n}/${n}`);
 
@@ -312,13 +314,13 @@ function drawHook(ctx: Ctx, f: FrameInput, alpha: number, pop = 1) {
   const lay = layoutIn(ctx, f.theme, hookText(spec), box, 150, 56, true);
   drawLines(ctx, f.theme, lay, box, f.theme.palette.text, { useFill: true });
   ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = f.theme.palette.accent;
-  ctx.font = themeFont(f.theme, "body", 52); ctx.fillText(`10 ${wording(spec.quiz).many}  ·  PART ${spec.part}`, cx, box.y + box.h + 30);
+  ctx.font = themeFont(f.theme, "body", 52); ctx.fillText(`10 ${wording(spec.quiz).many}${partTag(spec)}`, cx, box.y + box.h + 30);
   ctx.restore();
 }
 
 /** Persistent series line shown above every question (like "ASIA: EASY TO IMPOSSIBLE #38"). */
-function drawTopline(ctx: Ctx, theme: Theme, part: number) {
-  const r = LAYOUT.topline, text = `EASY TO IMPOSSIBLE  ·  PART ${part}`;
+function drawTopline(ctx: Ctx, theme: Theme, spec: { part: number; noPart?: boolean }) {
+  const r = LAYOUT.topline, text = `EASY TO IMPOSSIBLE${partTag(spec)}`;
   const px = fitText((x) => { ctx.font = themeFont(theme, "body", x); return ctx.measureText(text).width; }, r.w - 20, 36, 22);
   ctx.save(); ctx.font = themeFont(theme, "body", px); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = theme.palette.text; ctx.globalAlpha = 0.8;
   ctx.fillText(text, r.x + r.w / 2, r.y + r.h / 2);
@@ -395,14 +397,14 @@ export function drawFrame(ctx: Ctx, f: FrameInput, t: number): void {
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     const fitLine = (text: string, role: "title" | "body", max: number) =>
       fitText((x) => { ctx.font = themeFont(theme, role, x); return ctx.measureText(text).width; }, LAYOUT.hook.w - 80, max, 24);
-    const cta = "COMMENT YOUR SCORE!", follow = `Follow for part ${timeline.spec.part + 1}`;
+    const cta = "COMMENT YOUR SCORE!", follow = timeline.spec.noPart ? "Follow for more!" : `Follow for part ${timeline.spec.part + 1}`;
     ctx.font = themeFont(theme, "title", fitLine(cta, "title", 60)); haloText(ctx, cta, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 20, "#FFD400");
     ctx.fillStyle = p.accent; ctx.font = themeFont(theme, "body", fitLine(follow, "body", 48));
     ctx.fillText(follow, LAYOUT.hook.x + LAYOUT.hook.w / 2, LAYOUT.hook.y + LAYOUT.hook.h + 100);
     const fade = (into - (len - 0.5)) / 0.5; // loop-friendly: fade into the hook frame
     if (fade > 0) drawHook(ctx, f, Math.min(1, fade));
   } else if (q) {
-    drawTopline(ctx, theme, timeline.spec.part);
+    drawTopline(ctx, theme, timeline.spec);
     const style = timeline.spec.answerStyle;
     drawHeader(ctx, theme, q, style === "list" ? wording(timeline.spec.quiz).list : `${wording(timeline.spec.quiz).one} ${q.index + 1}/10`);
     const look = lookOf(theme), lay = styleRects(style, look.flagSize), card = lay.flagCard;

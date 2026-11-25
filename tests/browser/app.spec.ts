@@ -9,25 +9,29 @@ test("page loads with a visible canvas and the first flag shows", async ({ page 
   await expect(page.getByTestId("first-country")).not.toBeEmpty({ timeout: 60000 });
 });
 
-test("export downloads flags-part1-demo.mp4 (> 500 KB) and a .txt with #shorts", async ({ page }) => {
+test("export asks first, then downloads 001.mp4 (> 500 KB) and 001.txt with #shorts", async ({ page }) => {
+  await page.addInitScript(() => { delete (window as any).showDirectoryPicker; }); // no folder access: plain downloads named by serial
   await page.goto("/?seed=demo&theme=retro-arcade");
   await expect(page.getByRole("button", { name: "Export MP4" })).toBeEnabled({ timeout: 60000 });
   const downloads: any[] = [];
   page.on("download", (d) => downloads.push(d));
   await page.getByRole("button", { name: "Export MP4" }).click();
+  await page.getByRole("dialog", { name: "Export video" }).getByRole("button", { name: "Export", exact: true }).click();
   await expect.poll(() => downloads.length, { timeout: 240000 }).toBe(2);
   const byName = Object.fromEntries(downloads.map((d) => [d.suggestedFilename(), d]));
-  expect(Object.keys(byName).sort()).toEqual(["flags-part1-demo.mp4", "flags-part1-demo.txt"]);
-  const mp4 = await byName["flags-part1-demo.mp4"].path();
+  expect(Object.keys(byName).sort()).toEqual(["001.mp4", "001.txt"]);
+  const mp4 = await byName["001.mp4"].path();
   expect(fs.statSync(mp4).size).toBeGreaterThan(500_000);
-  expect(fs.readFileSync(await byName["flags-part1-demo.txt"].path(), "utf8")).toContain("#shorts");
+  expect(fs.readFileSync(await byName["001.txt"].path(), "utf8")).toContain("#shorts");
 });
 
 test("Cancel during export leaves Export clickable again", async ({ page }) => {
+  await page.addInitScript(() => { delete (window as any).showDirectoryPicker; });
   await page.goto("/?seed=cancel&theme=arctic-ice");
   const exportBtn = page.getByRole("button", { name: "Export MP4" });
   await expect(exportBtn).toBeEnabled({ timeout: 60000 });
   await exportBtn.click();
+  await page.getByRole("dialog", { name: "Export video" }).getByRole("button", { name: "Export", exact: true }).click();
   const cancel = page.getByRole("button", { name: "Cancel" });
   await expect(cancel).toBeVisible();
   await cancel.click();
@@ -150,14 +154,15 @@ test("Play controls sit right under the video (no big gap) and stay in view when
   const after = await page.getByRole("button", { name: "Play", exact: true }).boundingBox();
   expect(after!.y).toBeGreaterThan(0);
   expect(after!.y + after!.height).toBeLessThan(600);
-  expect(after!.width).toBeGreaterThanOrEqual(48);
+  expect(after!.width).toBeGreaterThanOrEqual(28); // the Figma design draws the play button 28px wide
 });
 
-test("export menu opens from the top bar, offers batch export, and closes on Escape", async ({ page }) => {
+test("export dialog opens from the top bar, offers several videos, and closes on Escape", async ({ page }) => {
   await page.goto("/?seed=demo");
+  await expect(page.getByRole("button", { name: "More export options" })).toBeEnabled({ timeout: 60000 });
   await page.getByRole("button", { name: "More export options" }).click();
-  const menu = page.getByRole("dialog", { name: "Export options" });
-  await expect(menu.getByRole("button", { name: "Export batch" })).toBeVisible();
+  const menu = page.getByRole("dialog", { name: "Export video" });
+  await expect(menu.getByLabel("How many videos")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
 });

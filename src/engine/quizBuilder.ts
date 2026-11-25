@@ -15,6 +15,7 @@ export interface BuildInput {
   seed: string;
   themeId?: string;
   part?: number;
+  noPart?: boolean;
   useRegionTwist?: boolean;
   regionOverride?: string;
   answerStyle?: AnswerStyle;
@@ -248,7 +249,7 @@ function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = fal
   // A level-up line before the first question of each new band ([3, 6, 9] for Shorts).
   const diffUpBefore = picked.map((p, i) => (i > 0 && p.band !== picked[i - 1].band ? i : -1)).filter((i) => i > 0);
 
-  const ok = (line: string) => !line.includes("{score}") && !line.includes("{category}") && (twistRegion || !line.includes("{region}"));
+  const ok = (line: string) => !(input.noPart && line.includes("{part}")) && !line.includes("{score}") && !line.includes("{category}") && (twistRegion || !line.includes("{region}"));
   const eligible = (type: keyof VoiceLines, extra?: (l: string) => boolean) =>
     (voice[type] as string[]).map((line, i) => ({ line, id: `${voice.format}.${type}.${i}` })).filter((x) => ok(x.line) && (!extra || extra(x.line)));
   const fit = (type: keyof VoiceLines, slots: Slots, maxMs: number, extra?: (l: string) => boolean): string => {
@@ -262,7 +263,7 @@ function buildAttempt(input: BuildInput, scale: number, nFacts = 0, noLike = fal
   const noSlots = (l: string) => !/\{(total|n|part)\}/.test(l);
   const shortOnly = profile === "short" ? noSlots : undefined;
   const draft: QuizSpec = {
-    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, answerStyle: profile === "long" ? "options" : input.answerStyle ?? "open", ...(profile === "long" ? { profile } : {}), ...(input.quiz && input.quiz !== "flags" ? { quiz: input.quiz } : {}),
+    version: 1, format: "flags-rapid", seed, themeId: theme.id, part, twistRegion, ...(input.noPart ? { noPart: true } : {}), answerStyle: profile === "long" ? "options" : input.answerStyle ?? "open", ...(profile === "long" ? { profile } : {}), ...(input.quiz && input.quiz !== "flags" ? { quiz: input.quiz } : {}),
     ...(noLike ? { noLikeVoice: true } : {}), hookLineId: "", difficultyUpLineIds: {}, outroLineId: "", questions: [],
   };
   const gen = { ...slotValues(draft), total: numberWords(picked.length) };

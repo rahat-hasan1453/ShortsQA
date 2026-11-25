@@ -35,7 +35,7 @@ export async function prepare(s: Settings): Promise<Prepared> {
     ? createRng(`${s.seed}|theme`).pick(themes.filter((t) => t.featured && t.bestFor.includes("flags"))).id
     : s.themeId;
   const voice = voiceFor(s.format);
-  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, profile: s.shape, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it" && s.format !== "country-shape", shapeIso2: s.format === "country-shape" ? await shapeSet() : undefined, words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
+  const spec = buildQuiz({ quiz: s.format, seed: s.seed, themeId, part: s.part, noPart: !s.partOn, profile: s.shape, useRegionTwist: s.twist && s.format !== "math" && s.format !== "missing-letters" && s.format !== "landmarks" && s.format !== "what-is-it" && s.format !== "country-shape", shapeIso2: s.format === "country-shape" ? await shapeSet() : undefined, words, landmarks, pictures: pictures.filter((p) => clips.has(p.name)), answerStyle: s.answerStyle, countries, themes, voice, clipMs: (t) => clips.ms(t) });
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
   const theme = withLook(withFont(themes.find((t) => t.id === spec.themeId)!, s.font), lookOf(s));
   const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])), spec.questions.flatMap((q) => (q.shape && q.iso2 ? [q.iso2] : [])));
@@ -47,7 +47,7 @@ export async function mixFor(p: Prepared): Promise<AudioBuffer> {
   return mixAudio(p.timeline, buffers, p.theme);
 }
 
-export const fileBase = (p: Prepared) => `${p.spec.profile === "long" ? "long-" : ""}${p.spec.quiz ?? "flags"}-part${p.spec.part}-${p.spec.seed}`;
+export const fileBase = (p: Prepared) => `${p.spec.profile === "long" ? "long-" : ""}${p.spec.quiz ?? "flags"}${p.spec.noPart ? "" : `-part${p.spec.part}`}-${p.spec.seed}`;
 
 /** Server-side id of a streamed render: [a-z0-9-] only; a seed that needed changing gets a short hash so "a b" and "a-b" never share a file. */
 export function renderId(p: Pick<Prepared, "spec">): string {

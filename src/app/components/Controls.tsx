@@ -1,12 +1,13 @@
 "use client";
 import VoicePicker from "./VoicePicker";
+import Collapsible from "./Collapsible";
 import TemplateGallery from "./TemplateGallery";
 import FontPicker from "./FontPicker";
 import LookControls from "./LookControls";
 import type { FlagShape, FlagSize, Look, TimerKind } from "@/engine/look";
 import type { Prepared } from "../prepare";
 
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long"; flagSize: FlagSize; flagShape: FlagShape; timer: TimerKind; flagBorder: boolean; textOutline: boolean }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; partOn: boolean; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long"; flagSize: FlagSize; flagShape: FlagShape; timer: TimerKind; flagBorder: boolean; textOutline: boolean }
 
 /** The look part of the settings. */
 export const lookOf = (s: Settings): Look => ({ flagSize: s.flagSize, flagShape: s.flagShape, timer: s.timer, flagBorder: s.flagBorder, textOutline: s.textOutline });
@@ -21,18 +22,26 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
 }) {
   const set = (p: Partial<Settings>) => onChange({ ...value, ...p });
   if (section === "style") return (
-    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
-      <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 20, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
+      <Collapsible card title="Style">
+        <TemplateGallery prepared={prepared} value={value.themeId} onChange={(themeId) => set({ themeId })} disabled={disabled} />
+      </Collapsible>
       <FontPicker value={value.font} onChange={(font) => set({ font })} disabled={disabled} />
+      <div className="studio-field2">
+        <span className="studio-label2">Background Image <small>your own picture (optional)</small></span>
+        <label className="studio-upload">
+          {/* eslint-disable-next-line @next/next/no-img-element -- a static design icon */}
+          <img src="/figma/upload.svg" alt="" width={21.988} height={20.0153} />
+          <span>{hasBackground ? "Replace image/ Video" : "Upload image/ Video"}</span>
+          <input type="file" accept="image/*" className="studio-sr" aria-label="Background image" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
+        </label>
+        {hasBackground && <button type="button" className="studio-choice2" onClick={() => onBackground(null)}>Clear background</button>}
+      </div>
       <LookControls value={lookOf(value)} onChange={(l) => set(l)} />
-      <label style={LABEL}>Background image <small style={HINT}>your own picture (optional)</small>
-        <input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) onBackground(f); e.target.value = ""; }} />
-      </label>
-      {hasBackground && <button type="button" onClick={() => onBackground(null)}>Clear background</button>}
     </fieldset>
   );
   return (
-    <fieldset disabled={disabled} style={{ display: "grid", gap: 16, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
+    <fieldset disabled={disabled} style={{ display: "grid", gap: 20, border: "none", padding: 0, margin: 0, minWidth: 0 }}>
       {value.shape === "long"
         ? <p style={{ margin: 0, fontSize: 13, color: "#888" }}>Long videos always use A–D options.</p>
         : <div role="group" aria-label="Answer style" className="studio-section">
@@ -47,7 +56,3 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
     </fieldset>
   );
 }
-
-const LABEL: React.CSSProperties = { display: "grid", gap: 4, fontWeight: 600 };
-const FIELD: React.CSSProperties = { padding: "6px 8px", fontSize: 15 };
-const HINT: React.CSSProperties = { fontWeight: 400, color: "#777" };

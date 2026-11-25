@@ -109,6 +109,8 @@ export interface QuizSpec {
   seed: string;
   themeId: string;
   part: number;
+  /** Set when the part number is switched off: no "PART N" on screen, no part in the voice or the title. */
+  noPart?: boolean;
   answerStyle: AnswerStyle;
   twistRegion?: string;
   /** Set when the video is too long otherwise: the like banner is silent and the normal level-up line is spoken. */

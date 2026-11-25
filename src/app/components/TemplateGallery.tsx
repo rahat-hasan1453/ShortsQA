@@ -33,7 +33,7 @@ export default function TemplateGallery({ prepared, value, onChange, disabled }:
   const [filter, setFilter] = useState<ThemeTag | "All">("All");
   const [thumbs, setThumbs] = useState<Record<string, string>>({});
   const sp = prepared?.spec;
-  const quizKey = sp ? [sp.seed, sp.quiz ?? "flags", sp.profile ?? "short", sp.part, sp.answerStyle, sp.twistRegion ?? ""].join("|") : "";
+  const quizKey = sp ? [sp.seed, sp.quiz ?? "flags", sp.profile ?? "short", sp.part, sp.noPart ?? false, sp.answerStyle, sp.twistRegion ?? ""].join("|") : "";
   const wide = !!prepared && frameSize(prepared.spec.profile).w > frameSize(prepared.spec.profile).h;
 
   useEffect(() => {
@@ -58,17 +58,19 @@ export default function TemplateGallery({ prepared, value, onChange, disabled }:
   const shown = themes.filter((t) => filter === "All" || themeTags(t).includes(filter));
   const card = (selected: boolean): React.CSSProperties => ({
     display: "grid", gap: 4, padding: 6, borderRadius: 10, textAlign: "left", cursor: disabled ? "not-allowed" : "pointer", color: "inherit",
-    border: selected ? "2px solid #2563eb" : "1px solid #8884", background: selected ? "rgba(37,99,235,0.13)" : "transparent",
+    border: selected ? "2px solid #2563eb" : "1px solid #88888845", background: selected ? "rgba(37,99,235,0.08)" : "transparent",
   });
 
   return (
-    <div role="group" aria-label="Template" style={{ display: "grid", gap: 8 }}>
-      <span style={{ fontWeight: 600 }}>Template <small style={{ fontWeight: 400, color: "#777" }}>colors, background and timer style</small></span>
+    <div role="group" aria-label="Template" style={{ display: "grid", gap: 16 }}>
+      <div style={{ display: "grid", gap: 12 }}>
+      <span className="studio-label2">Template <small>colors, background and timer style</small></span>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "6px 5px" }}>
         {(["All", ...THEME_TAGS] as const).map((tag) => (
           <button key={tag} type="button" aria-pressed={filter === tag} onClick={() => setFilter(tag)}
             style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid #8886", background: filter === tag ? "#2563eb" : "transparent", color: filter === tag ? "#fff" : "inherit", cursor: "pointer", fontSize: 13 }}>{tag}</button>
         ))}
+      </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, minmax(${wide ? 150 : 100}px, 1fr))`, gap: 8 }}>
         {filter === "All" && (

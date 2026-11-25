@@ -3,7 +3,7 @@ import { themeFont } from "../theme";
 import type { Scene } from "../types";
 import { drawBackground, type Ctx } from "./background";
 import {
-  BAND_LABEL, drawBigText, drawFactPanel, drawFlagCard, drawHeader, drawOptions, drawPrompt, drawThinBar, haloText, hookText, roundRect, TIER, wording, type FrameInput,
+  BAND_LABEL, drawBigText, drawFactPanel, drawFlagCard, drawHeader, drawOptions, drawPrompt, drawThinBar, haloText, hookText, partTag, roundRect, TIER, wording, type FrameInput,
 } from "./index";
 import { LONG_H, LONG_W, type Rect } from "./layout";
 import { drawConfetti } from "./reveal";
@@ -55,7 +55,7 @@ function drawProgress(ctx: Ctx, f: FrameInput, current: number, answered: boolea
 
 function drawTopline(ctx: Ctx, f: FrameInput, q: { index: number }) {
   const r = LANDSCAPE.topline, spec = f.timeline.spec, n = spec.questions.length;
-  const text = `EASY TO IMPOSSIBLE  ·  PART ${spec.part}`;
+  const text = `EASY TO IMPOSSIBLE${partTag(spec)}`;
   ctx.save(); ctx.globalAlpha = 0.85; ctx.fillStyle = f.theme.palette.text; ctx.textBaseline = "middle";
   ctx.font = themeFont(f.theme, "body", 34); ctx.textAlign = "left"; ctx.fillText(text, r.x, r.y + r.h / 2);
   ctx.font = themeFont(f.theme, "numbers", 40); ctx.textAlign = "right"; ctx.fillText(`${q.index + 1} / ${n}`, r.x + r.w, r.y + r.h / 2);
@@ -85,7 +85,7 @@ function drawHookScene(ctx: Ctx, f: FrameInput, alpha: number) {
   ctx.save(); ctx.globalAlpha = alpha;
   drawBigText(ctx, f.theme, [hookText(spec, n)], LANDSCAPE.hook, 1);
   ctx.globalAlpha = alpha;
-  centerLine(ctx, f, `${n} ${wording(spec.quiz).many}  ·  EASY TO IMPOSSIBLE  ·  PART ${spec.part}`, LANDSCAPE.hook.y + LANDSCAPE.hook.h + 70, "body", 52, f.theme.palette.accent);
+  centerLine(ctx, f, `${n} ${wording(spec.quiz).many}  ·  EASY TO IMPOSSIBLE${partTag(spec)}`, LANDSCAPE.hook.y + LANDSCAPE.hook.h + 70, "body", 52, f.theme.palette.accent);
   ctx.restore();
 }
 
@@ -106,7 +106,7 @@ export function drawLandscapeFrame(ctx: Ctx, f: FrameInput, t: number): void {
   else if (scene.kind === "outro") {
     drawBigText(ctx, theme, ["THANKS FOR PLAYING!"], { x: 160, y: 220, w: 1600, h: 300 }, 1);
     centerLine(ctx, f, "COMMENT YOUR SCORE!", 640, "title", 80, "#FFD400", true);
-    centerLine(ctx, f, `Subscribe for part ${timeline.spec.part + 1}`, 760, "body", 56, p.accent);
+    centerLine(ctx, f, timeline.spec.noPart ? "Subscribe for more!" : `Subscribe for part ${timeline.spec.part + 1}`, 760, "body", 56, p.accent);
   } else if (q) {
     const quiz = timeline.spec.quiz, n = timeline.spec.questions.length;
     drawTopline(ctx, f, q);
