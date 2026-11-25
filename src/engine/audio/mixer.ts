@@ -31,7 +31,8 @@ export function timelineTexts(tl: Timeline): string[] {
   return tl.cues.flatMap((c) => (c.kind === "voice" ? c.clips : []));
 }
 
-export interface MixOptions { muteVoice?: boolean; muteEffects?: boolean }
+/** `music`: a track URL, null for no music; absent = the theme's default track. */
+export interface MixOptions { muteVoice?: boolean; muteEffects?: boolean; music?: string | null }
 
 /** Voice windows (seconds) where the music is ducked, derived from the cues and clip lengths. */
 export function voiceWindows(tl: Timeline, clips: Map<string, AudioBuffer>): [number, number][] {
@@ -60,8 +61,10 @@ export async function mixAudio(tl: Timeline, clips: Map<string, AudioBuffer>, th
   }
   musicBus.connect(master);
   const { bpm, family } = parseMusicMood(theme.music.mood);
-  const track = await loadTrack(pickTrack(theme.music.mood), ctx);
-  if (track) {
+  const musicUrl = opts.music === undefined ? pickTrack(theme.music.mood) : opts.music;
+  const track = musicUrl ? await loadTrack(musicUrl, ctx) : null;
+  if (musicUrl === null) { /* music off: voice and effects only */ }
+  else if (track) {
     const src = ctx.createBufferSource(); src.buffer = track; src.loop = true;
     const env = ctx.createGain();
     env.gain.setValueAtTime(0, 0);

@@ -9,9 +9,10 @@ import type { QuizSpec, Theme, Timeline } from "@/engine/types";
 import { createRng } from "@/engine/rng";
 import { withFont, withLook } from "@/engine/theme";
 import { audioDir } from "@/engine/voices";
+import { resolveMusic } from "@/engine/audio/music";
 import { lookOf, type Settings } from "./components/Controls";
 
-export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; assets: Assets; metadata: Metadata; clips: ClipIndex }
+export interface Prepared { spec: QuizSpec; timeline: Timeline; theme: Theme; assets: Assets; metadata: Metadata; clips: ClipIndex; /** Background track URL, null = no music. */ music: string | null }
 
 const manifests = new Map<string, Promise<Manifest>>();
 /** Clip index of one voice; each voice has its own folder and manifest. */
@@ -39,12 +40,12 @@ export async function prepare(s: Settings): Promise<Prepared> {
   const timeline = buildTimeline(spec, { clipMs: (t) => clips.ms(t), voice });
   const theme = withLook(withFont(themes.find((t) => t.id === spec.themeId)!, s.font), lookOf(s));
   const assets = await loadAssets(theme, spec.questions.flatMap((q) => (q.iso2 && !q.image ? [q.iso2] : [])), spec.questions.flatMap((q) => (q.iso2 && q.fakeHue ? [{ iso2: q.iso2, hue: q.fakeHue }] : [])), spec.questions.flatMap((q) => (q.image ? [q.image] : [])), spec.questions.flatMap((q) => (q.shape && q.iso2 ? [q.iso2] : [])));
-  return { spec, timeline, theme, assets, metadata: buildMetadata(spec, titlesFor(s.format), timeline), clips };
+  return { spec, timeline, theme, assets, metadata: buildMetadata(spec, titlesFor(s.format), timeline), clips, music: resolveMusic(s.music, spec.seed) };
 }
 
 export async function mixFor(p: Prepared): Promise<AudioBuffer> {
   const buffers = await loadClips(timelineTexts(p.timeline), p.clips, new OfflineAudioContext(1, 48000, 48000));
-  return mixAudio(p.timeline, buffers, p.theme);
+  return mixAudio(p.timeline, buffers, p.theme, { music: p.music });
 }
 
 export const fileBase = (p: Prepared) => `${p.spec.profile === "long" ? "long-" : ""}${p.spec.quiz ?? "flags"}${p.spec.noPart ? "" : `-part${p.spec.part}`}-${p.spec.seed}`;

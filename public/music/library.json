@@ -1,0 +1,278 @@
+[
+  {
+    "id": "poupi",
+    "title": "Poupi Great Adventures The Arcade Game",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "track1.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_29_-_Poupi_Great_Adventures_The_Arcade_Game.ogg"
+  },
+  {
+    "id": "game-on",
+    "title": "Game On",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "track2.mp3",
+    "mood": [
+      "electronic",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_02_-_Game_On.ogg"
+  },
+  {
+    "id": "shoepop",
+    "title": "Shoepop",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "track3.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_09_-_Shoepop.ogg"
+  },
+  {
+    "id": "4-rndd",
+    "title": "4 RNDD!",
+    "artist": "Drozerix",
+    "license": "CC0",
+    "file": "track4.mp3",
+    "mood": [
+      "synthwave",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Drozerix_-_4_RNDD!.flac"
+  },
+  {
+    "id": "fetch-fever",
+    "title": "Fetch Fever",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "fetch-fever.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_10_-_Fetch_Fever.ogg"
+  },
+  {
+    "id": "battle-theme",
+    "title": "Battle Theme",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "battle-theme.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_13_-_Battle_Theme.ogg"
+  },
+  {
+    "id": "bicycle",
+    "title": "Bicycle",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "bicycle.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_12_-_Bicycle.ogg"
+  },
+  {
+    "id": "space-bicycle",
+    "title": "Space Bicycle",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "space-bicycle.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_25_-_Space_Bicycle.ogg"
+  },
+  {
+    "id": "space-mtv",
+    "title": "Space MTV",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "space-mtv.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_33_-_Space_MTV.ogg"
+  },
+  {
+    "id": "the-challenge",
+    "title": "The Challenge",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "the-challenge.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_62_-_The_Challenge.ogg"
+  },
+  {
+    "id": "this-one-is-tough",
+    "title": "This one is tough",
+    "artist": "Komiku",
+    "license": "CC0",
+    "file": "this-one-is-tough.mp3",
+    "mood": [
+      "chiptune",
+      "upbeat"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Komiku_-_09_-_This_one_is_tough.ogg"
+  },
+  {
+    "id": "hardwave",
+    "title": "Hardwave",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "hardwave.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_03_-_Hardwave.ogg"
+  },
+  {
+    "id": "beach-run",
+    "title": "Beach Run",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "beach-run.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_02_-_Beach_Run.ogg"
+  },
+  {
+    "id": "spag",
+    "title": "Spag",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "spag.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_05_-_Spag.ogg"
+  },
+  {
+    "id": "probably-not",
+    "title": "Probably Not",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "probably-not.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_05_-_Probably_Not.ogg"
+  },
+  {
+    "id": "soda-mozza",
+    "title": "Soda Mozza",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "soda-mozza.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_04_-_Soda_Mozza.ogg"
+  },
+  {
+    "id": "hyper-staying",
+    "title": "Hyper Staying",
+    "artist": "Soft and Furious",
+    "license": "CC0",
+    "file": "hyper-staying.mp3",
+    "mood": [
+      "electronic",
+      "energetic"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Soft_and_Furious_-_08_-_Hyper_Staying.ogg"
+  },
+  {
+    "id": "roller-fever",
+    "title": "Roller Fever",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "roller-fever.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_01_-_Roller_Fever.ogg"
+  },
+  {
+    "id": "monster-parade",
+    "title": "Monster Parade",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "monster-parade.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_01_-_Monster_Parade.ogg"
+  },
+  {
+    "id": "after-party",
+    "title": "After Party",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "after-party.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_03_-_After_Party.ogg"
+  },
+  {
+    "id": "grab-a-partner",
+    "title": "Grab A Partner",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "grab-a-partner.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_05_-_Grab_A_Partner.ogg"
+  },
+  {
+    "id": "go-to-the-picnic",
+    "title": "Go to the Picnic",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "go-to-the-picnic.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_01_-_Go_to_the_Picnic.ogg"
+  },
+  {
+    "id": "static-shoes",
+    "title": "Static Shoes",
+    "artist": "Loyalty Freak Music",
+    "license": "CC0",
+    "file": "static-shoes.mp3",
+    "mood": [
+      "pop",
+      "playful"
+    ],
+    "source": "https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_04_-_Static_Shoes.ogg"
+  }
+]

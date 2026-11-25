@@ -1,5 +1,6 @@
 "use client";
 import VoicePicker from "./VoicePicker";
+import MusicPicker from "./MusicPicker";
 import Collapsible from "./Collapsible";
 import TemplateGallery from "./TemplateGallery";
 import FontPicker from "./FontPicker";
@@ -7,7 +8,7 @@ import LookControls from "./LookControls";
 import type { FlagShape, FlagSize, Look, TimerKind } from "@/engine/look";
 import type { Prepared } from "../prepare";
 
-export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; partOn: boolean; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; shape: "short" | "long"; flagSize: FlagSize; flagShape: FlagShape; timer: TimerKind; flagBorder: boolean; textOutline: boolean }
+export interface Settings { format: "flags" | "capitals" | "math" | "missing-letters" | "real-vs-fake-flag" | "landmarks" | "what-is-it" | "country-shape"; themeId: string; seed: string; part: number; partOn: boolean; twist: boolean; font: string; answerStyle: "open" | "options" | "list"; voice: string; music: string; shape: "short" | "long"; flagSize: FlagSize; flagShape: FlagShape; timer: TimerKind; flagBorder: boolean; textOutline: boolean }
 
 /** The look part of the settings. */
 export const lookOf = (s: Settings): Look => ({ flagSize: s.flagSize, flagShape: s.flagShape, timer: s.timer, flagBorder: s.flagBorder, textOutline: s.textOutline });
@@ -53,6 +54,7 @@ export default function Controls({ section, value, onChange, disabled, hasBackgr
           </div>
         </div>}
       <VoicePicker value={value.voice} onChange={(voice) => set({ voice })} disabled={disabled} />
+      <MusicPicker value={value.music} onChange={(music) => set({ music })} disabled={disabled} />
     </fieldset>
   );
 }
